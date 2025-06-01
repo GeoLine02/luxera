@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CarIcon from "@/public/car.svg";
+import CarIcon from "@/public/Car.svg";
 import { IoTimeOutline } from "react-icons/io5";
 import { GoGift } from "react-icons/go";
 import PiggyBankIcon from "@/public/PiggyBank.svg";
