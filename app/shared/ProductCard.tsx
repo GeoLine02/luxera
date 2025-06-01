@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ image, price, title }: ProductCardProps) => {
   return (
-    <div className="border-2 rounded-md border-ice-blue min-w-[310px] p-2 max-w-[310px] space-y-2 bg-white flex flex-col items-center">
+    <div className="border-2 rounded-md border-ice-blue  max-w-[260px] md:min-w-[310px] p-2 lg:max-w-[310px] space-y-2 bg-white flex flex-col items-center">
       <div className="space-y-6 w-full">
         <div className="flex justify-center">
           <Image src={image} alt="product image" />
@@ -17,7 +17,7 @@ const ProductCard = ({ image, price, title }: ProductCardProps) => {
         <h1 className="font-semibold max-w-[310px] truncate">{title}</h1>
         <h1 className="font-semibold">{price} GEL</h1>
       </div>
-      <button className="border border-black rounded-md py-2 w-full cursor-pointer transition-all duration-200 hover:bg-black hover:text-white text-black">
+      <button className="border border-black rounded-md py-2 w-full cursor-pointer hover-transition hover:bg-black hover:text-white text-black">
         Add to cart
       </button>
     </div>

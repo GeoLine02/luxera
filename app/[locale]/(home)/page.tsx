@@ -2,7 +2,7 @@ import BestSellings from "./components/BestSellings/BestSellings";
 import ProductsList from "./components/featuredProducts/ProductsList";
 import GetInTouch from "./components/GetInTouch/GetInTouch";
 import Hero from "./components/hero/Hero";
-import SearchContainer from "./components/search/SearchContainer";
+import SearchContainer from "../../shared/search/SearchContainer";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
 // import WhyChooseUS from "./components/WhyChooseUs/WhyChooseUs";

@@ -22,6 +22,16 @@
   --font-FRL: "Frank Ruhl Libre", arial;
   --font-Inknut-Antiqua: "Inknut Antiqua", arial;
   --font-Manrope: "Manrope", arial;
+
+  /* grid-temapltes */
+}
+
+.container {
+  @apply mx-auto max-w-[1440px] !px-7;
+}
+
+.hover-transition {
+  @apply transition-all duration-200;
 }
 
 .swiper-button-next::after,
