@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 interface InputProps {
   label?: string;
@@ -13,6 +13,8 @@ interface InputProps {
   bgColor: "lightGray" | "transparent";
   className?: string;
   checked?: boolean;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -27,6 +29,8 @@ const Input: React.FC<InputProps> = ({
   className,
   checked,
   labelColor,
+  value,
+  onChange,
 }) => {
   const inputBackgroundStyles = classNames("input", {
     "bg-light-gray": bgColor === "lightGray",
@@ -38,11 +42,13 @@ const Input: React.FC<InputProps> = ({
   });
 
   return (
-    <div className={`mb-4 ${className}`}>
+    <div className={`${className}`}>
       {type === "checkbox" ? (
         <div className="flex items-center space-x-2">
           <input
+            onChange={onChange}
             type="checkbox"
+            value={value}
             id={name}
             name={name}
             required={required}
