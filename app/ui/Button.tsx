@@ -10,9 +10,9 @@ interface ButtonProps {
   title: string;
   disabled?: boolean;
   rounded: "sm" | "md" | "lg" | "xl" | "full";
-  bgColor: "black" | "lightPink" | "darkPink";
+  bgColor?: "black" | "lightPink" | "darkPink" | "dirtyPink" | "transparent";
   icon?: React.ReactNode;
-  titleColor?: "black" | "white";
+  titleColor?: "black" | "white" | "dirtyPink" | "mediumBrown";
 }
 
 const Button = ({
@@ -21,7 +21,7 @@ const Button = ({
   onClick = () => {},
   title,
   disabled,
-  bgColor,
+  bgColor = "transparent",
   rounded,
   icon,
   titleColor = "black",
@@ -34,9 +34,12 @@ const Button = ({
     "rounded-full": rounded === "full",
     "bg-black": bgColor === "black",
     "bg-light-pink": bgColor === "lightPink",
+    "bg-dirty-pink": bgColor === "dirtyPink",
     "bg-dark-pink": bgColor === "darkPink",
     "text-black": titleColor === "black",
     "text-white": titleColor === "white",
+    "text-dirty-pink": titleColor === "dirtyPink",
+    "text-medium-brown": titleColor === "mediumBrown",
   });
 
   return (

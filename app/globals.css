@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&display=swap");
+
 @import "tailwindcss";
 
 @theme {
@@ -11,4 +13,19 @@
   --color-medium-gray: oklch(0.619 0.044 286);
   --color-dark-brown: oklch(0.35 0.05 25);
   --color-dark-gray: oklch(0.2757 0.0128 285.53);
+  --color-ice-blue: oklch(0.9698 0.0083 236.56);
+  --color-dirty-pink: oklch(0.7242 0.0659 30.82);
+  --color-warm-white: oklch(0.9903 0.0058 59.65);
+  --color-medium-brown: oklch(0.5864 0.1192 51.03);
+  /* fonts */
+
+  --font-FRL: "Frank Ruhl Libre", arial;
+  --font-Inknut-Antiqua: "Inknut Antiqua", arial;
+  --font-Manrope: "Manrope", arial;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none !important;
+  content: none !important;
 }
