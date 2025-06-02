@@ -20,10 +20,10 @@ export default function Home() {
       <div className="mt-[54px]">
         <SellYourProducts />
       </div>
-      <div className="mt-[54px] px-11">
+      <div className="mt-[54px] px-11 container">
         <VIPListing />
       </div>
-      <div className="mt-[100px] px-11">
+      <div className="mt-[100px] px-11 container">
         <BestSellings />
       </div>
       <div className="mt-[100px]">

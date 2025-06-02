@@ -29,12 +29,6 @@ const VIPListing = () => {
           image={ProductImage}
           price={120}
         />
-        <ProductCard
-          title="PANDORA Moments Ring"
-          id={1}
-          image={ProductImage}
-          price={120}
-        />
       </div>
     </div>
   );
