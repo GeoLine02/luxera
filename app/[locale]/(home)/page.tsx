@@ -2,7 +2,6 @@ import BestSellings from "./components/BestSellings/BestSellings";
 import ProductsList from "./components/featuredProducts/ProductsList";
 import GetInTouch from "./components/GetInTouch/GetInTouch";
 import Hero from "./components/hero/Hero";
-import SearchContainer from "../../shared/search/SearchContainer";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
 // import WhyChooseUS from "./components/WhyChooseUs/WhyChooseUs";
@@ -10,7 +9,6 @@ import VIPListing from "./components/VIPLiisting/VIPListing";
 export default function Home() {
   return (
     <div>
-      <SearchContainer />
       <div className="mt-[50px]">
         <Hero />
       </div>
@@ -20,10 +18,10 @@ export default function Home() {
       <div className="mt-[54px]">
         <SellYourProducts />
       </div>
-      <div className="mt-[54px] px-11">
+      <div className="mt-[54px] px-11 container">
         <VIPListing />
       </div>
-      <div className="mt-[100px] px-11">
+      <div className="mt-[100px] px-11 container">
         <BestSellings />
       </div>
       <div className="mt-[100px]">

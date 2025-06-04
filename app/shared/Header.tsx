@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { FiShoppingCart } from "react-icons/fi";
 
 import Button from "../ui/Button";
+import SearchContainer from "./search/SearchContainer";
 
 const Header = () => {
   const pathName = usePathname();
@@ -24,7 +25,9 @@ const Header = () => {
         alt="Luxera logo"
       />
 
-      <div className="flex items-center gap-7">
+      <SearchContainer />
+
+      <div className="flex items-center gap-7 ">
         <div className="cursor-pointer">
           <FaRegHeart size={25} />
         </div>
@@ -39,7 +42,7 @@ const Header = () => {
           rounded="lg"
           title="Sign in"
           type="button"
-          className="w-fit py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
+          className="!w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
           titleColor="black"
         />
       </div>

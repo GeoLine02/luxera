@@ -39,3 +39,17 @@
   display: none !important;
   content: none !important;
 }
+
+@layer components {
+  .dropdown-animation {
+    @apply transition-all duration-300 overflow-hidden;
+  }
+
+  .dropdown-open {
+    @apply max-h-[600px] opacity-100;
+  }
+
+  .dropdown-closed {
+    @apply max-h-0 opacity-0;
+  }
+}

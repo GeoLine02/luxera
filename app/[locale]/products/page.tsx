@@ -1,4 +1,3 @@
-import SearchContainer from "@/app/shared/search/SearchContainer";
 import HeroBannerSlider from "./components/HeroBanner/HeroBannerSlider";
 import Filters from "./components/Filters";
 import RecommendedProducts from "./components/RecommendedProducts";
@@ -7,10 +6,7 @@ import AllProducts from "./components/AllProducts";
 
 const Products = () => {
   return (
-    <div className="">
-      <div className="container">
-        <SearchContainer />
-      </div>
+    <div>
       <div className="mt-20">
         <HeroBannerSlider />
       </div>

@@ -56,6 +56,7 @@ const SwiperSlider = <T,>({
         modules={[Navigation]}
         spaceBetween={30}
         slidesPerView="auto"
+        draggable={true}
         navigation={{
           prevEl: prevRef.current,
           nextEl: nextRef.current,

@@ -11,6 +11,12 @@ const FeaturedProductCard = ({ image, price }: ProductCardProps) => {
     <div className="select-none border-2 rounded-md border-ice-blue p-2 min-w-[310px] max-w-[310px] space-y-2 bg-white flex flex-col items-center">
       <div className="">
         <Image src={image} alt="product image" />
+        <p className="line-clamp-3">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem odit
+          maxime obcaecati fuga odio alias, error placeat dolores unde neque
+          corrupti consequatur blanditiis architecto, ut consectetur officia
+          velit exercitationem nihil.
+        </p>
         <h1 className="font-semibold">{price} GEL</h1>
       </div>
 
