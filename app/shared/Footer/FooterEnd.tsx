@@ -7,7 +7,7 @@ const FooterEnd = () => {
   const router = useRouter();
 
   return (
-    <div className="bg-black py-4 flex flex-col gap-6 items-center justify-between text-warm-white px-11">
+    <div className="bg-black py-4 flex flex-col lg:flex-row gap-6 items-center justify-between text-warm-white px-11">
       <div className="flex gap-3 items-center">
         <FaEarthAmericas size={25} />
         <p>Georgia l English (US)</p>
