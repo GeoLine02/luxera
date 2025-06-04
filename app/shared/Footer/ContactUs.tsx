@@ -21,7 +21,7 @@ const ContactUs = () => {
       </div>
       <div className="space-y-6 flex flex-col justify-center items-center">
         <h1 className="font-semibold">Get the app</h1>
-        <div className="flex items-center gap-8">
+        <div className="flex flex-col md:flex-row items-center gap-8">
           <Image src={AppStoreImage} alt="App store link" />
           <Image src={GooglePlayImage} alt="Google play link" />
         </div>

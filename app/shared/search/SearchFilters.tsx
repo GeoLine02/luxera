@@ -48,7 +48,7 @@ const SearchFilters = ({
 }: SearchFiltersProps) => {
   return (
     <div>
-      <div className="flex items-center gap-10 py-3 px-5">
+      <div className="flex items-center gap-10 py-3 px-5 overflow-auto">
         {sections.map((section) => (
           <Section
             setActiveSearchFilter={setActiveSearchFilter}

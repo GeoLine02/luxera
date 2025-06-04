@@ -1,17 +1,14 @@
-import Image from "next/image";
-import AboutLuxera from "./AboutLuxera";
 import SiteRoutes from "./SiteRoutes";
-import EnvelopeHeartImage from "@/public/EnvelopeHartImage.png";
 import ContactUs from "./ContactUs";
 import FooterEnd from "./FooterEnd";
+import GetInTouch from "@/app/[locale]/(home)/components/GetInTouch/GetInTouch";
 
 const Footer = () => {
   return (
     <footer className="mt-11">
-      <AboutLuxera />
-      <div className="flex justify-between items-center px-11 pt-[52px] pb-[33px] bg-[#EFDDD6] mt-4">
+      <div className="flex flex-col gap-10 lg:flex-row justify-between items-center px-11 pt-[52px] pb-[33px] bg-[#EFDDD6] mt-4">
         <SiteRoutes />
-        <Image src={EnvelopeHeartImage} alt="" />
+        <GetInTouch />
         <ContactUs />
       </div>
       <FooterEnd />

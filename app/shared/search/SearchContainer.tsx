@@ -1,13 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Search from "./Search";
 import { SearchFiltersType } from "@/app/types/search";
 import useOutsideClick from "@/app/hooks/useOutSideClick";
 
-const SearchContainer = () => {
+interface SearchContainerProps {
+  setIsSearchOpen: Dispatch<SetStateAction<boolean>>;
+  isSearchOpen: boolean;
+}
+
+const SearchContainer = ({
+  setIsSearchOpen,
+  isSearchOpen,
+}: SearchContainerProps) => {
   const [searchValue, setSearchValue] = useState("");
-  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+
   const [activeSearchFilter, setActiveSearchFilter] =
     useState<SearchFiltersType>("All");
 

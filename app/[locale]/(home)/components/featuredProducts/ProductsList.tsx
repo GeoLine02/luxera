@@ -9,7 +9,7 @@ import { FeatureProductType } from "@/app/types/product";
 
 const ProductsList = () => {
   return (
-    <div className="px-11">
+    <div>
       <SwiperSlider
         title="Featured products"
         titleFont="FRL"

@@ -21,7 +21,7 @@ const SearchResults = ({
 
   return (
     <div
-      className={`${searchResultsStyles} absolute z-50 w-full min-h-[600px] bg-ice-blue rounded-b-xl border border-t-0 border-dirty-pink`}
+      className={`${searchResultsStyles} top-14 left-0 absolute z-50 w-full min-h-[600px] bg-ice-blue rounded-b-xl border border-t-0 border-dirty-pink`}
     >
       <SearchFilters
         activeSearchFilter={activeSearchFilter}
