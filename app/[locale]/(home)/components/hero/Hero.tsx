@@ -7,22 +7,32 @@ const Hero = () => {
   const cardTitles = ["Birthday", "Anniversary", "Personalized gifts"];
 
   return (
-    <div className="bg-light-pink flex justify-between relative">
-      <div className="ml-32 mt-16 max-w-[438px] space-y-16">
+    <div className="bg-light-pink flex flex-col lg:flex-row justify-between relative">
+      <div className="ml-7 lg:ml-32 mt-16 max-w-[320px] xl:max-w-[438px] space-y-16 pb-7">
         <div className="space-y-6">
-          <h1 className="max-w-sm text-[64px] font-FRL font-medium">
-            Personalized Greetin Cards & Gifts
+          <h1 className="max-w-sm text-[40px] lg:text-[64px] font-FRL font-medium">
+            Personalized Greeting Cards & Gifts
           </h1>
-          <p className="text-2xl">
-            Send love with custom cards , flowers, and more thoughtful gifts
+          <p className="text-xl lg:text-2xl">
+            Send love with custom cards, flowers, and more thoughtful gifts
           </p>
         </div>
 
         <ShopNowButton />
+
+        {/* Mobile & Tablet HeroCards */}
+        {/* <div className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-between md:hidden gap-4 sm:gap-6 pt-6">
+          {cardTitles.map((cardTitle) => (
+            <HeroCard key={cardTitle} title={cardTitle} />
+          ))}
+        </div> */}
       </div>
 
-      <Image src={HeroPoster} alt="Hero poster" />
-      <div className="absolute -bottom-36 flex justify-evenly w-full">
+      {/* Only visible on large screens */}
+      <Image className="hidden lg:block" src={HeroPoster} alt="Hero poster" />
+
+      {/* HeroCards for lg+ only, absolutely positioned */}
+      <div className="hidden md:flex lg:absolute lg:-bottom-36 justify-evenly w-full">
         {cardTitles.map((cardTitle) => (
           <HeroCard key={cardTitle} title={cardTitle} />
         ))}

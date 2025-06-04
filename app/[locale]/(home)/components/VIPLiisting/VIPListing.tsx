@@ -1,35 +1,23 @@
+"use client";
+
 import ProductCard from "@/app/shared/ProductCard";
-import ProductImage from "@/public/ProductImage.png";
+import SwiperSlider from "@/app/shared/SwiperSlider";
+import { productsData } from "@/data/products";
 const VIPListing = () => {
   return (
     <div className="space-y-3">
-      <h1 className="text-[40px] font-bold">VIP Listing</h1>
-      <div className="flex items-center gap-[52px]">
-        <ProductCard
-          title="PANDORA Moments Ring"
-          id={1}
-          image={ProductImage}
-          price={120}
-        />
-        <ProductCard
-          title="PANDORA Moments Ring"
-          id={1}
-          image={ProductImage}
-          price={120}
-        />
-        <ProductCard
-          title="PANDORA Moments Ring"
-          id={1}
-          image={ProductImage}
-          price={120}
-        />
-        <ProductCard
-          title="PANDORA Moments Ring"
-          id={1}
-          image={ProductImage}
-          price={120}
-        />
-      </div>
+      <SwiperSlider
+        data={productsData}
+        title="VIP Listing"
+        renderCard={(product) => (
+          <ProductCard
+            id={product.id}
+            image={product.image}
+            price={product.price}
+            title={product.title}
+          />
+        )}
+      />
     </div>
   );
 };

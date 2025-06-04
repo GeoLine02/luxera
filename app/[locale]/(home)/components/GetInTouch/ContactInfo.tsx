@@ -16,9 +16,8 @@ const ContactInfo = () => {
       <Input
         value={email}
         onChange={onChange}
-        bgColor="transparent"
+        bgColor="lightGray"
         name="email"
-        className="py-2"
         placeholder="Your email"
       />
       <Button

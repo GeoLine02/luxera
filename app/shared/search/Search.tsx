@@ -54,7 +54,7 @@ const Search = ({
   if (!isSearchOpen) {
     return (
       <div
-        className={`flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink cursor-pointer ${searchBarStyles}`}
+        className={`hidden lg:flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink cursor-pointer ${searchBarStyles}`}
         onClick={handleOpenSearch}
       >
         <h1 className="w-full">type something...</h1>
@@ -66,9 +66,9 @@ const Search = ({
   }
 
   return (
-    <div className="relative">
+    <div className="lg:relative">
       <div
-        className={`flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink ${searchBarStyles}`}
+        className={`absolute left-0 top-0 w-full lg:static flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink ${searchBarStyles}`}
       >
         <input
           ref={inputRef}
@@ -82,6 +82,7 @@ const Search = ({
           <IoIosSearch size={25} />
         </div>
       </div>
+
       <SearchResults
         activeSearchFilter={activeSearchFilter}
         setActiveSearchFilters={setActiveSearchFilter}
