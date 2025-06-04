@@ -17,15 +17,15 @@ const SignUpForm = () => {
       </div>
 
       <Form className="space-y-[30px] text-medium-gray" action={signUp}>
-        <Input
-          labelColor="darkGray"
-          bgColor="lightGray"
-          label="Full Name"
-          name="fullName"
-          type="text"
-          placeholder="Enter your name"
-        />
-        <div>
+        <div className="space-y-3">
+          <Input
+            labelColor="darkGray"
+            bgColor="lightGray"
+            label="Full Name"
+            name="fullName"
+            type="text"
+            placeholder="Enter your name"
+          />
           <Input
             labelColor="darkGray"
             bgColor="lightGray"

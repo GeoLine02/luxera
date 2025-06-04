@@ -10,7 +10,13 @@ interface ButtonProps {
   title: string;
   disabled?: boolean;
   rounded: "sm" | "md" | "lg" | "xl" | "full";
-  bgColor?: "black" | "lightPink" | "darkPink" | "dirtyPink" | "transparent";
+  bgColor?:
+    | "black"
+    | "lightPink"
+    | "darkPink"
+    | "dirtyPink"
+    | "iceBlue"
+    | "transparent";
   icon?: React.ReactNode;
   titleColor?: "black" | "white" | "dirtyPink" | "mediumBrown";
 }
@@ -36,6 +42,7 @@ const Button = ({
     "bg-light-pink": bgColor === "lightPink",
     "bg-dirty-pink": bgColor === "dirtyPink",
     "bg-dark-pink": bgColor === "darkPink",
+    "bg-ice-blue": bgColor === "iceBlue",
     "text-black": titleColor === "black",
     "text-white": titleColor === "white",
     "text-dirty-pink": titleColor === "dirtyPink",
