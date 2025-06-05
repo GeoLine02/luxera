@@ -19,7 +19,10 @@ const MobileTiles = () => {
         draggable={true}
       >
         {cardTitles.map((tile) => (
-          <SwiperSlide className="!max-w-[174px] whitespace-nowrap" key={tile}>
+          <SwiperSlide
+            className="!max-w-[174px] whitespace-nowrap pb-5"
+            key={tile}
+          >
             <HeroCard title={tile} />
           </SwiperSlide>
         ))}
