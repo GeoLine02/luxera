@@ -27,7 +27,7 @@ const Header = () => {
   if (pathName === "/signup" || pathName === "/signin") return null;
 
   return (
-    <header className="flex items-center justify-between px-11 py-5">
+    <header className="flex items-center justify-between px-6 lg:px-11  py-4 lg:py-5">
       <div className="lg:hidden cursor-pointer">
         <FaBars size={25} />
       </div>

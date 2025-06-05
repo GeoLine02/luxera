@@ -18,7 +18,8 @@ const BestSellerProducts = () => {
             title={product.title}
           />
         )}
-        titleFont="bold"
+        titleWeight="bold"
+        titleFont="default"
         title="Best Seller"
       />
     </div>

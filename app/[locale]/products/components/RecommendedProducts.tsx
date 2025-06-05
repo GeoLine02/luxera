@@ -17,7 +17,8 @@ const RecommendedProducts = () => {
             title={product.title}
           />
         )}
-        titleFont="bold"
+        titleFont="default"
+        titleWeight="bold"
         title="Recommended"
       />
     </div>

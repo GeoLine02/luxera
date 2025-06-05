@@ -12,8 +12,8 @@ const FooterEnd = () => {
         <FaEarthAmericas size={25} />
         <p>Georgia l English (US)</p>
       </div>
-      <div className="text-center lg:ml-11">
-        Copyright &copy; 2025 LUXERA GIFT , All Rights Reserved.
+      <div className="text-sm sm:text-base text-center lg:ml-11">
+        Copyright &copy; 2025 luxeragift.ge , All Rights Reserved.
       </div>
       <div className="flex items-center gap-3">
         <span className="cursor-pointer" onClick={() => router.push("/terms")}>

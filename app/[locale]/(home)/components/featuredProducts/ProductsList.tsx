@@ -11,6 +11,7 @@ const ProductsList = () => {
   return (
     <div>
       <SwiperSlider
+        titleWeight="bold"
         title="Featured products"
         titleFont="FRL"
         data={featuredProductsData}

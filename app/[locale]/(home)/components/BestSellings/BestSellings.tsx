@@ -8,8 +8,9 @@ const BestSellings = () => {
   return (
     <div className="space-y-4">
       <SwiperSlider
+        titleWeight="bold"
         data={productsData}
-        title="VIP Listing"
+        title="Best Sellings"
         renderCard={(product) => (
           <ProductCard
             id={product.id}

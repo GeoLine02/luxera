@@ -10,7 +10,8 @@ import classNames from "classnames";
 
 interface SwiperSliderProps<T> {
   title: string;
-  titleFont?: "FRL" | "default" | "bold";
+  titleFont?: "FRL" | "default";
+  titleWeight: "normal" | "semibold" | "bold" | "extraBold" | "medium";
   data: T[];
   renderCard: (item: T) => React.ReactNode;
 }
@@ -20,6 +21,7 @@ const SwiperSlider = <T,>({
   titleFont = "default",
   data,
   renderCard,
+  titleWeight,
 }: SwiperSliderProps<T>) => {
   const prevRef = useRef<HTMLDivElement | null>(null);
   const nextRef = useRef<HTMLDivElement | null>(null);
@@ -27,13 +29,21 @@ const SwiperSlider = <T,>({
   const fontStyles = classNames("title", {
     "font-FRL": titleFont === "FRL",
     "": titleFont === "default",
-    "font-bold": titleFont === "bold",
+  });
+
+  const titleWeightStyles = classNames({
+    "font-bold": titleWeight === "bold",
+    "font-extrabold": titleWeight === "extraBold",
+    "font-medium": titleWeight === "medium",
+    "font-normal": titleWeight === "normal",
   });
 
   return (
     <div>
       <div className="flex justify-between items-center w-full mb-4">
-        <h1 className={`text-xl md:text-3xl lg:text-[40px] ${fontStyles}`}>
+        <h1
+          className={`text-xl md:text-3xl lg:text-[40px] ${titleWeightStyles} ${fontStyles}`}
+        >
           {title}
         </h1>
         <div className="flex gap-4 items-center">
@@ -72,7 +82,10 @@ const SwiperSlider = <T,>({
         }}
       >
         {data.map((item, idx) => (
-          <SwiperSlide key={idx} className="!w-[260px] lg:!w-[300px]">
+          <SwiperSlide
+            key={idx}
+            className="!max-w-[165px] md:!min-w-[260px] lg:!min-w-[300px]"
+          >
             {renderCard(item)}
           </SwiperSlide>
         ))}
