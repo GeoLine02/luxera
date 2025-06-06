@@ -10,10 +10,10 @@ const Banner = () => {
         src={ProductsHeroBanner}
         alt="banner"
       />
-      <div className="absolute top-[134px] left-[165px] flex gap-[79px]">
-        <Image src={BannerImage} alt="banner image" />
-        <div className="space-y-[69px] max-w-[414px] ">
-          <h1 className="text-[64px] font-FRL font-semibold">
+      <div className="absolute top-[40px] lg:top-[134px] left-0 right-0 lg:left-[165px] flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-[79px]">
+        <Image className="w-[281px]" src={BannerImage} alt="banner image" />
+        <div className="space-y-10 lg:space-y-[69px] max-w-[414px] flex flex-col items-center lg:justify-center">
+          <h1 className="text-[50px] lg:text-[64px] font-FRL font-semibold px-9">
             Send love with gifts
           </h1>
 
