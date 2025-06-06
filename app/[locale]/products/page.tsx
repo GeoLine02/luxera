@@ -10,16 +10,16 @@ const Products = () => {
       <div className="mt-20">
         <HeroBannerSlider />
       </div>
-      <div className="mt-12">
+      {/* <div className="mt-12">
         <Filters />
-      </div>
-      <div className="container mt-[120px] px-11">
+      </div> */}
+      <div className="container mt-[50px] lg:mt-[120px] px-11">
         <RecommendedProducts />
       </div>
-      <div className="container mt-[120px] px-11">
+      <div className="container  mt-[50px] lg:mt-[120px] px-11">
         <BestSellerProducts />
       </div>
-      <div className="mt-[120px] px-11 container">
+      <div className="mt-[50px] lg:mt-[120px] px-11 container">
         <AllProducts />
       </div>
     </div>
