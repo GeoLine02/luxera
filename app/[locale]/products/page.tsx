@@ -1,5 +1,5 @@
 import HeroBannerSlider from "./components/HeroBanner/HeroBannerSlider";
-import Filters from "./components/Filters";
+// import Filters from "./components/Filters";
 import RecommendedProducts from "./components/RecommendedProducts";
 import BestSellerProducts from "./components/BestSellerProducts";
 import AllProducts from "./components/AllProducts";
