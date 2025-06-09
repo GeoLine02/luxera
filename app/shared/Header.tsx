@@ -24,7 +24,7 @@ const Header = () => {
 
   const router = useRouter();
 
-  if (pathName === "/signup" || pathName === "/signin") return null;
+  if (pathName.includes("/signup") || pathName.includes("/signin")) return null;
 
   return (
     <header className="flex items-center justify-between px-6 lg:px-11  py-4 lg:py-5">
@@ -44,7 +44,7 @@ const Header = () => {
       />
 
       <div className="flex items-center gap-7 ">
-        <div onClick={handleOpenSearch} className="cursor-pointer">
+        <div onClick={handleOpenSearch} className="cursor-pointer md:hidden">
           <IoIosSearch size={30} />
         </div>
 

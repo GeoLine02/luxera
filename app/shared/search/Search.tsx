@@ -54,7 +54,7 @@ const Search = ({
   if (!isSearchOpen) {
     return (
       <div
-        className={`hidden lg:flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink cursor-pointer ${searchBarStyles}`}
+        className={`hidden md:flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink cursor-pointer ${searchBarStyles}`}
         onClick={handleOpenSearch}
       >
         <h1 className="w-full">type something...</h1>

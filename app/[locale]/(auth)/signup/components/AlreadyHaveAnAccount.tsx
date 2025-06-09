@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 
 const AlreadyHaveAnAccount = () => {
@@ -8,7 +10,7 @@ const AlreadyHaveAnAccount = () => {
       <p className="mt-[50px] mx-auto">
         Aldready have an account?{" "}
         <span
-          onClick={() => router.push("/signup")}
+          onClick={() => router.push("/signin")}
           className="cursor-pointer font-bold text-black"
         >
           Sign In
