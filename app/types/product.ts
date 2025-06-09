@@ -12,3 +12,14 @@ export interface FeatureProductType {
   image: StaticImageData;
   price: number;
 }
+
+export type ProductTabsType = "description" | "reviews" | "hotDeal";
+
+export interface ProductReviewType {
+  id: number;
+  senderImage: StaticImageData;
+  senderName: string;
+  reviewRating: number;
+  reviewerComment: string;
+  postTime: string;
+}
