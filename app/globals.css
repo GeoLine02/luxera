@@ -46,19 +46,6 @@
   @apply !mt-11;
 }
 
-@layer components {
-  .dropdown-animation {
-    @apply transition-all duration-300 overflow-hidden;
-  }
-
-  .dropdown-open {
-    @apply max-h-[600px] opacity-100;
-  }
-
-  .dropdown-closed {
-    @apply max-h-0 opacity-0;
-  }
-}
 .swiper-pagination-bullet-active {
   @apply scale-125 !bg-black;
 }
@@ -74,4 +61,18 @@
 .swiper-pagination {
   bottom: -5px !important; /* Increase this value as needed */
   overflow: visible !important;
+}
+
+@layer components {
+  .dropdown-animation {
+    @apply transition-all duration-200;
+  }
+
+  .dropdown-open {
+    @apply scale-y-100 origin-top max-h-fit;
+  }
+
+  .dropdown-closed {
+    @apply scale-y-0 origin-top pointer-events-none max-h-0;
+  }
 }
