@@ -1,4 +1,8 @@
+"use client";
+
 import BestSellings from "./components/BestSellings/BestSellings";
+import Categories from "./components/categories/Categories";
+import CategoriesModal from "./components/categories/CategoriesModal";
 import ProductsList from "./components/featuredProducts/ProductsList";
 import Hero from "./components/hero/Hero";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
@@ -9,8 +13,10 @@ export default function Home() {
     <div>
       <div className="mt-[50px]">
         <Hero />
+        <Categories />
+        <CategoriesModal />
       </div>
-      <div className="mt-[50px] lg:mt-[200px] px-5 lg:px-11">
+      <div className="mt-[50px] px-5 lg:px-11">
         <ProductsList />
       </div>
       <div className=" mt-[54px]">

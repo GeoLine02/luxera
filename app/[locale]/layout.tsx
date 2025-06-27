@@ -5,6 +5,7 @@ import "../globals.css";
 import { Inter } from "next/font/google";
 import Header from "../shared/Header";
 import Footer from "../shared/Footer/Footer";
+import ReduxProvider from "../providers/ReduxProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,11 +28,13 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={`font-${inter}`}>
-        <NextIntlClientProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
+        <ReduxProvider>
+          <NextIntlClientProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </NextIntlClientProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
