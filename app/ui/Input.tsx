@@ -10,7 +10,7 @@ interface InputProps {
   defaultValue?: string;
   required?: boolean;
   error?: string;
-  bgColor: "lightGray" | "transparent";
+  bgColor: "lightGray" | "transparent" | "white";
   className?: string;
   checked?: boolean;
   value?: string;
@@ -35,6 +35,7 @@ const Input: React.FC<InputProps> = ({
   const inputBackgroundStyles = classNames("input", {
     "bg-light-gray": bgColor === "lightGray",
     "bg-transparent": bgColor === "transparent",
+    "bg-white": bgColor === "white",
   });
 
   const LabelStyles = classNames("label", {

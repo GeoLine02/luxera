@@ -11,7 +11,7 @@ const ProductFilter = () => {
     <>
       <Dropdown>
         <Dropdown.Trigger>
-          <div className="flex items-center justify-between w-full bg-light-pink px-4 py-2 md:hidden">
+          <div className="flex items-center justify-between w-ful rounded-lg bg-light-pink px-4 py-2 md:hidden">
             <h1 className="text-xl">Filters</h1>
             <FaArrowDown className="p-1.5 rounded-full box-content border border-black" />
           </div>

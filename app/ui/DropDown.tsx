@@ -47,7 +47,10 @@ export const Dropdown = ({ children }: DropdownProps) => {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        close();
+        // Delay close to let the click propagate
+        setTimeout(() => {
+          close();
+        }, 0);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);

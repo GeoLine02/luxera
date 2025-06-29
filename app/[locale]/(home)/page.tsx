@@ -12,10 +12,12 @@ import VIPListing from "./components/VIPLiisting/VIPListing";
 export default function Home() {
   return (
     <div>
-      <div className="mt-[50px]">
-        <Hero />
+      <div>
         <Categories />
         <CategoriesModal />
+      </div>
+      <div className="mt-[50px]">
+        <Hero />
       </div>
       <div className="mt-[50px]">
         <ProductFilter />
