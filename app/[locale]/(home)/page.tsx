@@ -4,6 +4,7 @@ import BestSellings from "./components/BestSellings/BestSellings";
 import Categories from "./components/categories/Categories";
 import CategoriesModal from "./components/categories/CategoriesModal";
 import ProductsList from "./components/featuredProducts/ProductsList";
+import ProductFilter from "./components/filter/ProductFilter";
 import Hero from "./components/hero/Hero";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
@@ -15,6 +16,9 @@ export default function Home() {
         <Hero />
         <Categories />
         <CategoriesModal />
+      </div>
+      <div className="mt-[50px]">
+        <ProductFilter />
       </div>
       <div className="mt-[50px] px-5 lg:px-11">
         <ProductsList />
