@@ -70,10 +70,7 @@ interface TriggerProps {
 const Trigger = ({ children }: TriggerProps) => {
   const { toggle } = useDropdown();
   return (
-    <button
-      onClick={toggle}
-      className="px-4 py-2 cursor-pointer hover:bg-light-gray rounded-lg"
-    >
+    <button onClick={toggle} className="px-4 py-2 cursor-pointer rounded-lg">
       {children}
     </button>
   );

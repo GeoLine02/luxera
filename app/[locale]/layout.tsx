@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import Header from "../shared/Header";
 import Footer from "../shared/Footer/Footer";
 import ReduxProvider from "../providers/ReduxProvider";
+import MobileTabs from "./(home)/components/mobileTabs/MobileTabs";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -32,6 +33,7 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <Header />
             <main>{children}</main>
+            <MobileTabs />
             <Footer />
           </NextIntlClientProvider>
         </ReduxProvider>
