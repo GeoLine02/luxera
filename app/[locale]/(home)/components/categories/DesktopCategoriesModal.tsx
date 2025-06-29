@@ -8,7 +8,7 @@ interface DesktopCategoriesModalProps {
   handleChooseSubCategory: (category: SubCategoryType) => void;
   handleCloseModal: () => void;
   categories: CategoryType[];
-  selectedCategory: CategoryType;
+  selectedCategory: null | CategoryType;
   selectedSubCategory: string | null;
 }
 
@@ -46,9 +46,10 @@ const DesktopCategoriesModal = ({
               </div>
             ))}
           </section>
+
           <section className="flex-2/3 flex-wrap ">
-            <h1 className="text-xl font-medium">{selectedCategory.label}</h1>
-            {selectedCategory.subCategories.map((category) => (
+            <h1 className="text-xl font-medium">{selectedCategory?.label}</h1>
+            {selectedCategory?.subCategories.map((category) => (
               <div
                 onClick={() => handleChooseSubCategory(category)}
                 key={category.label}

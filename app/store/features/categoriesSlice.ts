@@ -1,11 +1,17 @@
-import { allCategoriesData } from "@/data/categories";
+import { CategoryType } from "@/app/types/categories";
 import { createSlice } from "@reduxjs/toolkit";
+
+interface InitialStateType {
+  isCategoriesModalOpen: boolean;
+  selectedCategory: null | CategoryType;
+  selectedSubCategory: null | string;
+}
 
 export const categoriesSlice = createSlice({
   name: "categories",
-  initialState: {
+  initialState: <InitialStateType>{
     isCategoriesModalOpen: false,
-    selectedCategory: allCategoriesData[0],
+    selectedCategory: null,
     selectedSubCategory: null,
   },
   reducers: {
@@ -16,7 +22,16 @@ export const categoriesSlice = createSlice({
       state.isCategoriesModalOpen = false;
     },
     chooseSelectedCategory: (state, action) => {
-      state.selectedCategory = action.payload;
+      const category: CategoryType = action.payload;
+      console.log("payload", category);
+      if (
+        state.selectedCategory &&
+        state?.selectedCategory.label === category.label
+      ) {
+        state.selectedCategory = null;
+      } else {
+        state.selectedCategory = action.payload;
+      }
     },
     chooseSelectedSubCategory: (state, action) => {
       state.selectedSubCategory = action.payload;

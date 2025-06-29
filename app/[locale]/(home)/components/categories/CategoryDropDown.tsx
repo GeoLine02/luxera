@@ -8,7 +8,7 @@ interface CategoryDropDownProps {
   label: string;
   handleChooseCatogery: (category: CategoryType) => void;
   handleChooseSubCategory: (category: SubCategoryType) => void;
-  selectedCategory: CategoryType;
+  selectedCategory: null | CategoryType;
 }
 
 const CategoryDropDown = ({
@@ -29,8 +29,11 @@ const CategoryDropDown = ({
             <Image width={40} height={40} src={category.image} alt={label} />
             <h1 className="text-xl font-medium">{label}</h1>
           </div>
-          {selectedCategory ? (
-            <IoIosArrowUp className="bg-light-gray rounded-full p-2 box-content stroke-medium-gray" />
+          {selectedCategory?.label === label ? (
+            <IoIosArrowUp
+              size={25}
+              className="bg-light-gray rounded-full p-2 box-content stroke-medium-gray"
+            />
           ) : (
             <IoIosArrowDown
               className="bg-light-gray rounded-full p-2 box-content stroke-medium-gray"
@@ -40,7 +43,7 @@ const CategoryDropDown = ({
         </div>
       </Dropdown.Trigger>
       <Dropdown.Menu expandMode="overlay">
-        {selectedCategory.subCategories.map((subCategory) => (
+        {selectedCategory?.subCategories.map((subCategory) => (
           <Dropdown.Item
             onSelect={() => handleChooseSubCategory(subCategory)}
             key={subCategory.label}

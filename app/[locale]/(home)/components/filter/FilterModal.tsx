@@ -25,15 +25,15 @@ const FilterModal = ({ isModalOpen, setIsFilterOpen }: FilterModalProps) => {
       className={`${modalToggleStyles} bg-light-pink p-5 space-y-5`}
     >
       <h1 className="text-xl">Sort By</h1>
-      <Input bgColor="lightGray" name="sortBy" placeholder="Default" />
-      <div className="flex items-center">
+      <Input bgColor="white" name="sortBy" placeholder="Default" />
+      <div className="flex gap-5 items-center">
         <div>
           <label htmlFor="PriceFrom">Price From</label>
-          <Input bgColor="lightGray" name="priceFrom" placeholder="100" />
+          <Input bgColor="white" name="priceFrom" placeholder="100" />
         </div>
         <div>
           <label htmlFor="PriceFrom">Price To</label>
-          <Input bgColor="lightGray" name="priceTo" placeholder="100" />
+          <Input bgColor="white" name="priceTo" placeholder="100" />
         </div>
       </div>
       <h1>Showing 1-16 of 32 results</h1>

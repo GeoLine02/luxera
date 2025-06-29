@@ -8,7 +8,7 @@ interface MobileCategoriesModalProps {
   handleChooseSubCategory: (category: SubCategoryType) => void;
   handleCloseModal: () => void;
   categories: CategoryType[];
-  selectedCategory: CategoryType;
+  selectedCategory: null | CategoryType;
   selectedSubCategory: string | null;
 }
 
@@ -19,6 +19,8 @@ const MobileCategoriesModal = ({
   handleCloseModal,
   selectedCategory,
 }: MobileCategoriesModalProps) => {
+  console.log("selectedCategory", selectedCategory);
+
   return (
     <Modal>
       <div className="bg-white w-screen h-screen">
