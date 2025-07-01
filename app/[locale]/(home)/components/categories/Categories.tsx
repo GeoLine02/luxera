@@ -1,3 +1,5 @@
+"use client";
+
 import { categoriesData } from "@/data/categories";
 import CategoryCard from "./CategoryCard";
 import { FaBars } from "react-icons/fa";

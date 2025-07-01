@@ -1,3 +1,5 @@
+"use client";
+
 import { Dropdown } from "@/app/ui/DropDown";
 import Input from "@/app/ui/Input";
 import { FaArrowDown } from "react-icons/fa6";

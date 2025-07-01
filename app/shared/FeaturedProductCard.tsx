@@ -8,7 +8,7 @@ interface ProductCardProps {
 
 const FeaturedProductCard = ({ image, price }: ProductCardProps) => {
   return (
-    <div className="select-none border-2 rounded-lg border-ice-blue p-2.5 min-w-[160px] max-w-[165px] md:max-w-[260px] md:min-w-[260px] lg:min-w-[310px] lg:max-w-[310px] space-y-2 bg-white flex flex-col items-center">
+    <div className="select-none border-2 rounded-lg border-ice-blue p-2.5 min-w-[220px] max-w-[220px] space-y-2 bg-white flex flex-col items-center">
       <div className=" flex flex-col items-center space-y-1 md:space-y-2">
         <Image src={image} alt="product image" />
         <p className="line-clamp-1 md:line-clamp-2 ">

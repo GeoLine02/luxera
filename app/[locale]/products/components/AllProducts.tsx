@@ -6,11 +6,11 @@ import { productsData } from "@/data/products";
 const AllProducts = () => {
   return (
     <div className="max-w-screen-2xl mx-auto">
-      <h1 className="text-3xl lg:text-[40px] font-bold mt-16 mb-8 lg:mb-14">
+      <h1 className="text-3xl lg:text-[40px] font-bold mb-8 lg:mb-14">
         All Products
       </h1>
 
-      <div className="grid gap-4 lg:gap-10 grid-cols-[repeat(2,minmax(152px,152px))] md:grid-cols-[repeat(auto-fit,minmax(260px,260px))] lg:grid-cols-[repeat(auto-fit,minmax(310px,310px))] md:justify-center">
+      <div className="grid gap-6 lg:grid-cols-[repeat(auto-fit,minmax(220px,220px))] md:justify-center">
         {productsData.map((product: ProductType) => (
           <ProductCard
             key={product.id}
