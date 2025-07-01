@@ -10,8 +10,8 @@ interface ProductCardProps {
 
 const ProductCard = ({ image, price, title }: ProductCardProps) => {
   return (
-    <div className="border-2 rounded-lg border-ice-blue  max-w-[160px] md:min-w-[260px] md:max-w-[260px]  lg:min-w-[310px] p-2.5 lg:max-w-[310px] space-y-2 bg-white flex flex-col items-center">
-      <div className="space-y-1 md:space-y-6 w-full">
+    <div className="border-2 rounded-lg border-ice-blue max-w-[220px] p-2.5 space-y-1 bg-white flex flex-col items-center">
+      <div className="space-y-1 md:space-y-1 w-full">
         <div className="flex justify-center">
           <Image
             className="h-[120px] md:h-full object-cover"

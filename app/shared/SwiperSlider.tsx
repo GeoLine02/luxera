@@ -82,10 +82,7 @@ const SwiperSlider = <T,>({
         }}
       >
         {data.map((item, idx) => (
-          <SwiperSlide
-            key={idx}
-            className="!max-w-[165px] md:!min-w-[260px] lg:!min-w-[300px]"
-          >
+          <SwiperSlide key={idx} className="!max-w-[220px]">
             {renderCard(item)}
           </SwiperSlide>
         ))}
