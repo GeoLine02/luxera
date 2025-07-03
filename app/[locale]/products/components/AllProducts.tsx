@@ -5,12 +5,12 @@ import { productsData } from "@/data/products";
 
 const AllProducts = () => {
   return (
-    <div className="max-w-screen-2xl mx-auto">
-      <h1 className="text-3xl lg:text-[40px] font-bold mb-8 lg:mb-14">
+    <div>
+      <h1 className="text-xl md:text-3xl lg:text-[40px] font-bold mb-5 lg:mb-14">
         All Products
       </h1>
 
-      <div className="grid gap-6 lg:grid-cols-[repeat(auto-fit,minmax(220px,220px))] md:justify-center">
+      <div className="grid gap-2 md:gap-6 grid-cols-[repeat(auto-fit,minmax(120px,120px))] xs:grid-cols-[repeat(auto-fit,minmax(220px,220px))] justify-center items-center">
         {productsData.map((product: ProductType) => (
           <ProductCard
             key={product.id}

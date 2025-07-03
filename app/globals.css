@@ -29,7 +29,7 @@
 }
 
 .container {
-  @apply mx-auto max-w-[1440px] !px-7;
+  @apply mx-auto max-w-[1440px];
 }
 
 .hover-transition {

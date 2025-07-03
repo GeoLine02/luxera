@@ -8,7 +8,7 @@ interface CategoryCardProps {
 const CategoryCard = ({ image, label }: CategoryCardProps) => {
   return (
     <div
-      className={`bg-light-pink rounded-md  px-2 flex items-center justify-between w-full lg:max-w-[202px] h-[128px] cursor-pointer`}
+      className={`bg-light-pink rounded-md  px-2 flex items-center justify-between w-full lg:max-w-[202px] h-[120px] cursor-pointer`}
     >
       <h1 className="w-min font-medium text-sm lg:text-xl">{label}</h1>
       <div className="size-20">
