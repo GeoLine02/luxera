@@ -1,6 +1,7 @@
 "use client";
 
 import useOutsideClick from "@/app/hooks/useOutSideClick";
+import Button from "@/app/ui/Button";
 import Input from "@/app/ui/Input";
 import classNames from "classnames";
 
@@ -18,6 +19,10 @@ const FilterModal = ({ isModalOpen, setIsFilterOpen }: FilterModalProps) => {
   const filterRef = useOutsideClick<HTMLDivElement>(() =>
     setIsFilterOpen(false)
   );
+
+  const handleFilter = () => {
+    setIsFilterOpen(false);
+  };
 
   return (
     <div
@@ -37,6 +42,15 @@ const FilterModal = ({ isModalOpen, setIsFilterOpen }: FilterModalProps) => {
         </div>
       </div>
       <h1>Showing 1-16 of 32 results</h1>
+      <Button
+        rounded="lg"
+        title="Filter"
+        type="button"
+        bgColor="dirtyPink"
+        titleColor="black"
+        className="py-1 px-4 max-w-[100px]"
+        onClick={handleFilter}
+      />
     </div>
   );
 };
