@@ -12,3 +12,8 @@ export interface FeatureProductType {
   image: StaticImageData;
   price: number;
 }
+
+export interface ProductImageType {
+  source: string;
+  id: number;
+}

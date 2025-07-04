@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
 
 interface ProductCardProps {
@@ -8,9 +9,12 @@ interface ProductCardProps {
   price: number;
 }
 
-const ProductCard = ({ image, price, title }: ProductCardProps) => {
+const ProductCard = ({ image, price, title, id }: ProductCardProps) => {
   return (
-    <div className="border-2 rounded-lg border-ice-blue max-w-[120px] xs:max-w-[220px] p-2.5 space-y-1 bg-white flex flex-col items-center">
+    <Link
+      href={`/${id}`}
+      className="border-2 rounded-lg border-ice-blue max-w-[120px] xs:max-w-[220px] p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer"
+    >
       <div className="space-y-1 md:space-y-1 w-full">
         <div className="flex justify-center">
           <Image
@@ -35,7 +39,7 @@ const ProductCard = ({ image, price, title }: ProductCardProps) => {
       <button className="border border-black rounded-md py-1 md:py-2 w-full cursor-pointer hover-transition hover:bg-black hover:text-white text-black text-sm md:text-base">
         Add to cart
       </button>
-    </div>
+    </Link>
   );
 };
 export default ProductCard;
