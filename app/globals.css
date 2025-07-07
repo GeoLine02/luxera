@@ -28,6 +28,11 @@
   --breakpoint-xs: 30rem;
 }
 
+body {
+  max-width: 1920px;
+  margin-inline: auto;
+}
+
 .container {
   @apply mx-auto max-w-[1440px];
 }
@@ -74,5 +79,24 @@
 
   .dropdown-closed {
     @apply scale-y-0 origin-top pointer-events-none max-h-0;
+  }
+}
+
+@layer utilities {
+  @media (max-width: 768px) {
+    .card-container .card:nth-of-type(n + 7) {
+      display: none;
+    }
+  }
+  @media (min-width: 768px) {
+    .card-container .card:nth-of-type(n + 15) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .card-container .card:nth-of-type(n + 15) {
+      display: none;
+    }
   }
 }

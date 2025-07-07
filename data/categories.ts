@@ -23,6 +23,66 @@ export const categoriesData = [
     label: "Home Decorations",
     image: BirthDayCard,
   },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Gift Boxes",
+    image: BirthDayCard,
+  },
+  {
+    label: "Greeting Cards",
+    image: GiftBoxImage,
+  },
+  {
+    label: "Gifts for Couples",
+    image: LampImage,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
+  {
+    label: "Home Decorations",
+    image: BirthDayCard,
+  },
 ];
 
 export const allCategoriesData = [
