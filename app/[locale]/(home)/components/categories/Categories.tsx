@@ -15,7 +15,7 @@ const Categories = () => {
   };
 
   return (
-    <div className="container mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+    <div className="container mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4">
       <div
         onClick={handleOpenCategoriesModal}
         className="bg-black text-white rounded-md w-full cursor-pointer flex items-center justify-center gap-2 mx-auto"

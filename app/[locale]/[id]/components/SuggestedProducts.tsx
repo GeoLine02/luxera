@@ -10,7 +10,7 @@ interface SuggestedProductsProps {
 
 const SuggestedProducts = ({ suggestedProducts }: SuggestedProductsProps) => {
   return (
-    <div className="mt-16">
+    <div className="mt-16 container">
       <SwiperSlider
         titleWeight="medium"
         title="You may also like"

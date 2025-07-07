@@ -23,7 +23,7 @@ interface ProductImagesProps {
 
 const ProductImages = ({ images, handleSelectImage }: ProductImagesProps) => {
   return (
-    <div className="flex flex-col gap-2 max-h-[400px] overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col gap-2 max-h-full overflow-y-auto overflow-x-hidden">
       {images.map((image) => (
         <div onClick={() => handleSelectImage(image)} key={image.id}>
           <ProductImage source={image.source} id={image.id} />

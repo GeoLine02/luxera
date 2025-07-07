@@ -19,7 +19,7 @@ const ProductPreview = ({ productImages }: ProductPreviewProps) => {
   };
 
   return (
-    <div className="items-center gap-4 hidden md:flex">
+    <div className="gap-4 hidden md:flex">
       <ProductImages
         images={productImages}
         handleSelectImage={handleSelectImage}

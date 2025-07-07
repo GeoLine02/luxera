@@ -10,15 +10,18 @@ const AllProducts = () => {
         All Products
       </h1>
 
-      <div className="grid gap-2 md:gap-6 grid-cols-[repeat(auto-fit,minmax(120px,120px))] xs:grid-cols-[repeat(auto-fit,minmax(220px,220px))] justify-center items-center">
+      <div className="grid grid-cols-2 gap-6 items-center xs:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
+        {/* <div className="flex items-center gap-3 flex-wrap w-full justify-center pr-5"> */}
         {productsData.map((product: ProductType) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            image={product.image}
-            price={product.price}
-            title={product.title}
-          />
+          <div className="max-w-[calc(50%-10x)]" key={product.id}>
+            <ProductCard
+              // key={product.id}
+              id={product.id}
+              image={product.image}
+              price={product.price}
+              title={product.title}
+            />
+          </div>
         ))}
       </div>
 

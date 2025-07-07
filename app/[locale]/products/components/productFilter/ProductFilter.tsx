@@ -11,22 +11,24 @@ const ProductFilter = () => {
 
   return (
     <>
-      <Dropdown>
-        <Dropdown.Trigger>
-          <div className="flex items-center justify-between w-ful rounded-lg bg-light-pink px-4 py-2 md:hidden">
-            <h1 className="text-xl">Filters</h1>
-            <FaArrowDown className="p-1.5 rounded-full box-content border border-black" />
-          </div>
-        </Dropdown.Trigger>
-        <Dropdown.Menu expandMode="absolute">
-          <FilterModal
-            setIsFilterOpen={setIsFilterOpen}
-            isModalOpen={isFilterOpen}
-          />
-        </Dropdown.Menu>
-      </Dropdown>
+      <div className="md:hidden">
+        <Dropdown>
+          <Dropdown.Trigger>
+            <div className="flex items-center justify-between w-ful rounded-lg bg-light-pink px-4 py-2">
+              <h1 className="text-xl">Filters</h1>
+              <FaArrowDown className="p-1.5 rounded-full box-content border border-black" />
+            </div>
+          </Dropdown.Trigger>
+          <Dropdown.Menu expandMode="overlay">
+            <FilterModal
+              setIsFilterOpen={setIsFilterOpen}
+              isModalOpen={isFilterOpen}
+            />
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
 
-      <div className="bg-light-pink w-full px-11 py-2 hidden items-center justify-between md:flex">
+      <div className="bg-light-pink w-full px-11 py-2 hidden items-center justify-between md:flex container">
         <h1>Showing 1-18 of 32 results</h1>
         <div className="flex items-center gap-11">
           <div className="flex items-center gap-3">
