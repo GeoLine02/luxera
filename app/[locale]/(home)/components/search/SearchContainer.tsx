@@ -7,7 +7,7 @@ const SearchContainer = () => {
   const [searchValue, setSearchValue] = useState("");
 
   return (
-    <div className="px-11">
+    <div className="px-4 lg:px-11">
       <Search searchValue={searchValue} setSearchValue={setSearchValue} />
     </div>
   );

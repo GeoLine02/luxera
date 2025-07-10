@@ -8,18 +8,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { FiShoppingCart } from "react-icons/fi";
 
 import Button from "../ui/Button";
-import SearchContainer from "./search/SearchContainer";
-import { IoIosSearch } from "react-icons/io";
-import { useState } from "react";
 import { FaBars } from "react-icons/fa6";
 
 const Header = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-
-  const handleOpenSearch = () => {
-    setIsSearchOpen(true);
-  };
-
   const pathName = usePathname();
 
   const router = useRouter();
@@ -38,16 +29,7 @@ const Header = () => {
         alt="Luxera logo"
       />
 
-      <SearchContainer
-        isSearchOpen={isSearchOpen}
-        setIsSearchOpen={setIsSearchOpen}
-      />
-
       <div className="flex items-center gap-7 ">
-        <div onClick={handleOpenSearch} className="cursor-pointer md:hidden">
-          <IoIosSearch size={30} />
-        </div>
-
         <div className="hidden lg:block cursor-pointer">
           <FaRegHeart size={25} />
         </div>
