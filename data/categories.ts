@@ -8,79 +8,79 @@ import SelfCareGiftsImage from "@/public/SelfCareGiftsImage.png";
 
 export const categoriesData = [
   {
-    label: "Gift Boxes",
+    label: "Gift Boxes1",
     image: BirthDayCard,
   },
   {
-    label: "Greeting Cards",
+    label: "Greeting Cards2",
     image: GiftBoxImage,
   },
   {
-    label: "Gifts for Couples",
+    label: "Gifts for Couples3",
     image: LampImage,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations4",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations5",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations6",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations7",
     image: BirthDayCard,
   },
   {
-    label: "Gift Boxes",
+    label: "Gift Boxes8",
     image: BirthDayCard,
   },
   {
-    label: "Greeting Cards",
+    label: "Greeting Cards9",
     image: GiftBoxImage,
   },
   {
-    label: "Gifts for Couples",
+    label: "Gifts for Couples0",
     image: LampImage,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations11",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations12",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations13",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations14",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations15",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations16",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations17",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations18",
     image: BirthDayCard,
   },
   {
-    label: "Home Decorations",
+    label: "Home Decorations19",
     image: BirthDayCard,
   },
 ];
