@@ -5,12 +5,12 @@ const SideMenu = () => {
     <div className="bg-light-pink">
       <section className="p-4 space-y-6">
         <div>
-          <h1 className="text-5xl font-FRL">Luxera AI</h1>
+          <h1 className="text-5xl font-FRL font-medium">Luxera AI</h1>
         </div>
 
-        <button>
+        <button className="cursor-pointer">
           {/* AI icon */}
-          <span className="font-bold">New Chat</span>
+          <span className="font-bold">All Chats</span>
         </button>
       </section>
       <AllChats />
