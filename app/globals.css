@@ -33,6 +33,10 @@ body {
   margin-inline: auto;
 }
 
+input {
+  @apply outline-none border-none;
+}
+
 .container {
   @apply mx-auto max-w-[1440px];
 }

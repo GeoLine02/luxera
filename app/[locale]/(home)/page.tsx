@@ -4,10 +4,10 @@ import Categories from "./components/categories/Categories";
 import CategoriesModal from "./components/categories/CategoriesModal";
 import ProductsList from "./components/featuredProducts/ProductsList";
 import Hero from "./components/hero/Hero";
-// import SearchContainer from "./components/search/SearchContainer";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
 import Disclaimer from "./components/Disclaimer";
+import LuxeraAI from "@/app/shared/luxeraAI/LuxeraAI";
 
 export default function Home() {
   return (
@@ -18,6 +18,7 @@ export default function Home() {
       <div>
         <div>
           <SearchContainer />
+          <LuxeraAI />
         </div>
         <div>
           <Categories />
