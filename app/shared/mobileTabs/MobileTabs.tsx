@@ -1,3 +1,5 @@
+"use client";
+
 import { GoHome } from "react-icons/go";
 import { LuLayoutGrid } from "react-icons/lu";
 import { RiApps2AiLine } from "react-icons/ri";
@@ -5,6 +7,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
 import { IconType } from "react-icons/lib";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const tabs = [
   {
@@ -55,6 +58,10 @@ const Tab = ({ Icon, label, path }: TabProps) => {
 };
 
 const MobileTabs = () => {
+  const pathName = usePathname();
+
+  if (pathName.includes("/luxera-ai")) return null;
+
   return (
     <div className="bg-white p-4 flex justify-around items-center gap-4 fixed bottom-0 left-0 z-50 w-full xs:hidden">
       {tabs.map((tab) => (

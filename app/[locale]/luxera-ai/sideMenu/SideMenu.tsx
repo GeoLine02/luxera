@@ -36,7 +36,10 @@ const SideMenu = () => {
           <h1 className="text-2xl md:text-5xl font-FRL font-medium">
             Luxera AI
           </h1>
-          <div onClick={handleCloseAllChat} className="cursor-pointer">
+          <div
+            onClick={handleCloseAllChat}
+            className="cursor-pointer md:hidden"
+          >
             <IoClose size={30} color="black" />
           </div>
         </div>
