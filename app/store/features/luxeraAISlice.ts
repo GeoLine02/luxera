@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialStateType {
-  isChatOpen: boolean;
+  isAllChatOpen: boolean;
 }
 
 export const luxeraAISlice = createSlice({
   name: "luxeraAI",
   initialState: <InitialStateType>{
-    isChatOpen: false,
+    isAllChatOpen: false,
   },
   reducers: {
-    toggleAiChat: (state) => {
-      if (state.isChatOpen) {
-        state.isChatOpen = false;
+    toggleAllChat: (state) => {
+      if (state.isAllChatOpen) {
+        state.isAllChatOpen = false;
       } else {
-        state.isChatOpen = true;
+        state.isAllChatOpen = true;
       }
     },
   },
 });
 
-export const { toggleAiChat } = luxeraAISlice.actions;
+export const { toggleAllChat } = luxeraAISlice.actions;
 export default luxeraAISlice.reducer;

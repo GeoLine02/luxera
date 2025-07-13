@@ -1,5 +1,3 @@
-"use client";
-
 import classNames from "classnames";
 import {
   ChangeEvent,
@@ -13,9 +11,7 @@ import SearchResults from "./SearchResults";
 import { SearchFiltersType } from "@/app/types/search";
 import Button from "@/app/ui/Button";
 import { FaBars } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/app/store/store";
-import { toggleAiChat } from "@/app/store/features/luxeraAISlice";
+import Link from "next/link";
 
 interface SearchProps {
   searchValue: string;
@@ -53,13 +49,6 @@ const Search = ({
     "rounded-bl-none rounded-br-none rounded-xl": isSearchOpen,
   });
 
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleToggleAIChat = () => {
-    console.log("clicked");
-    dispatch(toggleAiChat());
-  };
-
   if (!isSearchOpen) {
     return (
       <div className="flex gap-6 items-center">
@@ -82,15 +71,16 @@ const Search = ({
               className="py-2  !w-full font-medium"
               titleColor="white"
             />
-            <Button
-              onClick={handleToggleAIChat}
-              bgColor="darkPink"
-              rounded="lg"
-              title="Find gift with Luxera AI"
-              type="button"
-              className="!w-full p-2 font-medium"
-              titleColor="white"
-            />
+            <Link href={"/luxera-ai"}>
+              <Button
+                bgColor="darkPink"
+                rounded="lg"
+                title="Find gift with Luxera AI"
+                type="button"
+                className="!w-full p-2 font-medium"
+                titleColor="white"
+              />
+            </Link>
           </div>
           <button className="bg-dirty-pink rounded-xl p-3 md:hidden cursor-pointer">
             <FaBars size={25} color="white" />
@@ -127,18 +117,19 @@ const Search = ({
             rounded="lg"
             title="Search"
             type="button"
-            className="py-2  !w-full font-medium"
+            className="py-2 !w-full font-medium"
             titleColor="white"
           />
-          <Button
-            onClick={() => console.log("clicked")}
-            bgColor="darkPink"
-            rounded="lg"
-            title="Find gift with Luxera AI"
-            type="button"
-            className="!w-full p-2 font-medium"
-            titleColor="white"
-          />
+          <Link href={"/luxera-ai"}>
+            <Button
+              bgColor="darkPink"
+              rounded="lg"
+              title="Find gift with Luxera AI"
+              type="button"
+              className="!w-full p-2 font-medium"
+              titleColor="white"
+            />
+          </Link>
         </div>
 
         <button className="bg-dirty-pink rounded-xl p-3 md:hidden cursor-pointer">

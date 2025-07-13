@@ -23,7 +23,7 @@ const tabs = [
     accessorKey: "luxeraAI",
     label: "Luxera AI",
     icon: RiApps2AiLine,
-    path: "/luxera-AI",
+    path: "/luxera-ai",
   },
   {
     accessorKey: "cart",

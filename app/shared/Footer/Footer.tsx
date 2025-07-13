@@ -9,7 +9,12 @@ import { usePathname } from "next/navigation";
 const Footer = () => {
   const pathName = usePathname();
 
-  if (pathName.includes("/signin") || pathName.includes("/signup")) return null;
+  if (
+    pathName.includes("/signin") ||
+    pathName.includes("/signup") ||
+    pathName.includes("/luxera-ai")
+  )
+    return null;
 
   return (
     <footer className="mt-11 mb-[80px] xs:mb-0">

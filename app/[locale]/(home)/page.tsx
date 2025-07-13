@@ -7,7 +7,6 @@ import Hero from "./components/hero/Hero";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
 import Disclaimer from "./components/Disclaimer";
-import LuxeraAI from "@/app/shared/luxeraAI/LuxeraAI";
 
 export default function Home() {
   return (
@@ -18,7 +17,6 @@ export default function Home() {
       <div>
         <div>
           <SearchContainer />
-          <LuxeraAI />
         </div>
         <div>
           <Categories />
