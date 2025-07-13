@@ -15,7 +15,7 @@ const AllChatToggleButton = () => {
   return (
     <div
       onClick={handleToggleAllChat}
-      className="bg-dirty-pink rounded-md p-2 cursor-pointer"
+      className="bg-black rounded-md p-2 cursor-pointer"
     >
       <FaBars size={25} color="white" />
     </div>
