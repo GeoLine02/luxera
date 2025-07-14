@@ -54,12 +54,12 @@ const Search = ({
       <div className="flex gap-6 items-center">
         <div
           onClick={handleOpenSearch}
-          className="flex items-center gap-2 border-4 py-6 px-2 border-light-gray rounded-xl flex-1 bg-ice-blue md:px-4 cursor-pointer"
+          className="flex items-center gap-2 border-4 p-2 border-light-gray rounded-xl flex-1 bg-ice-blue md:px-4 md:py-6 cursor-pointer"
         >
           <div>
             <IoIosSearch className="text-2xl md:text-4xl" />
           </div>
-          <h1>Search Something...</h1>
+          <h1 className="text-xs md:text-base">Search Something...</h1>
         </div>
         <div>
           <div className="hidden md:flex gap-2 flex-col items-center">
@@ -82,7 +82,7 @@ const Search = ({
               />
             </Link>
           </div>
-          <button className="bg-dirty-pink rounded-xl p-3 md:hidden cursor-pointer">
+          <button className="bg-light-pink rounded-xl p-3 md:hidden cursor-pointer">
             <FaBars size={25} color="white" />
           </button>
         </div>
@@ -98,6 +98,7 @@ const Search = ({
             <IoIosSearch className="text-2xl md:text-4xl" />
           </div>
           <input
+            ref={inputRef}
             onChange={onChange}
             value={searchValue}
             type="text"
