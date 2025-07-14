@@ -1,6 +1,6 @@
 const AllChats = () => {
   return (
-    <div className="space-y-0.5">
+    <div className="space-y-0.5 h-full">
       <h1 className="border-b border-black w-full px-6 py-2 cursor-pointer">
         Chat 1
       </h1>
