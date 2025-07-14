@@ -29,7 +29,7 @@ const SideMenu = () => {
 
   return (
     <div
-      className={`${chatToggleAnimation} bg-light-pink w-full max-w-[240px] h-[calc(100%-80px)] md:h-full`}
+      className={`${chatToggleAnimation} bg-light-pink w-full max-w-[240px] h-full`}
     >
       <section className="p-4 space-y-6">
         <div className="flex items-center justify-between">
