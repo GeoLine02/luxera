@@ -25,7 +25,7 @@ const Disclaimere = () => {
               <p className="text-xl max-w-xl">
                 The Reason why I put this project in my resume is that even if
                 its not finished and missing most of its functionaility. it
-                explains that am writting clean and reusable code wiht help of
+                explains that am writting clean and reusable code with help of
                 SOLID and OOP principals
               </p>
             </div>
