@@ -23,7 +23,6 @@ export const categoriesSlice = createSlice({
     },
     chooseSelectedCategory: (state, action) => {
       const category: CategoryType = action.payload;
-      console.log("payload", category);
       if (
         state.selectedCategory &&
         state?.selectedCategory.label === category.label
