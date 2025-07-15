@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import SearchFilters from "./SearchFilters";
+// import SearchFilters from "./SearchFilters";
 import { SearchFiltersType } from "@/app/types/search";
 import { Dispatch, SetStateAction } from "react";
 
@@ -11,9 +11,9 @@ interface SearchResultsProps {
 
 const SearchResults = ({
   isSearchOpen,
-  activeSearchFilter,
-  setActiveSearchFilters,
-}: SearchResultsProps) => {
+}: // activeSearchFilter,
+// setActiveSearchFilters,
+SearchResultsProps) => {
   const searchResultsStyles = classNames("dropdown-animation", {
     "dropdown-open": isSearchOpen,
     "dropdown-closed": !isSearchOpen,
