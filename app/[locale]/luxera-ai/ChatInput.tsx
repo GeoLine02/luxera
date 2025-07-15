@@ -2,14 +2,19 @@ import { IoMdSend } from "react-icons/io";
 
 const ChatInput = () => {
   return (
-    <div className="border bg-white border-medium-gray rounded-xl flex items-center p-2.5 px-4">
+    <div className="rounded-xl flex items-center px-4 py-2 gap-2 w-full max-w-3xl mx-auto shadow-sm">
       <input
-        placeholder="describe person so i can help you find best gift"
+        placeholder="Describe the person so I can help you find the best gift"
         name="aiChat"
-        className="flex-1 text-sm md:text-base"
+        className="flex-1 text-sm md:text-base focus:outline-none"
         type="text"
       />
-      <IoMdSend size={25} />
+      <button>
+        <IoMdSend
+          size={24}
+          className="text-primary hover:scale-105 transition"
+        />
+      </button>
     </div>
   );
 };

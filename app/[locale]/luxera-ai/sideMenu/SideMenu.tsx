@@ -14,9 +14,8 @@ const SideMenu = () => {
 
   const dispatch = useDispatch();
 
-  console.log(isAllChatOpen);
   const chatToggleAnimation = classNames(
-    "absolute duration-300 transition-all top-0 md:static",
+    "absolute duration-300 transition-all z-50 top-0 md:static",
     {
       "-left-[100%]": !isAllChatOpen,
       "left-0": isAllChatOpen,
@@ -29,7 +28,7 @@ const SideMenu = () => {
 
   return (
     <div
-      className={`${chatToggleAnimation} bg-light-pink w-full max-w-[240px] h-full`}
+      className={`${chatToggleAnimation} bg-light-pink w-full max-w-[240px] h-screen`}
     >
       <section className="p-4 space-y-6">
         <div className="flex items-center justify-between">
