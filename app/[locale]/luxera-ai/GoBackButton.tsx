@@ -7,8 +7,11 @@ const GoBackButton = () => {
   const router = useRouter();
 
   return (
-    <div className="cursor-pointer" onClickCapture={() => router.back()}>
-      <IoCloseCircle size={40} />
+    <div
+      className="cursor-pointer text-white"
+      onClickCapture={() => router.back()}
+    >
+      <IoCloseCircle size={35} />
     </div>
   );
 };
