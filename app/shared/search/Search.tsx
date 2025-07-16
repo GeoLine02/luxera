@@ -10,7 +10,6 @@ import { IoIosSearch } from "react-icons/io";
 import SearchResults from "./SearchResults";
 import { SearchFiltersType } from "@/app/types/search";
 import Button from "@/app/ui/Button";
-import { FaBars } from "react-icons/fa";
 import Link from "next/link";
 
 interface SearchProps {
@@ -61,10 +60,10 @@ const Search = ({
           </div>
           <h1 className="text-xs md:text-base">Search Something...</h1>
         </div>
-        <div>
-          <div className="hidden md:flex gap-2 flex-col items-center">
+        <div className="hidden md:block">
+          <div className="flex gap-2 flex-col items-center">
             <Button
-              bgColor="dirtyPink"
+              bgColor="black"
               rounded="lg"
               title="Search"
               type="button"
@@ -73,18 +72,15 @@ const Search = ({
             />
             <Link href={"/luxera-ai"}>
               <Button
-                bgColor="darkPink"
+                bgColor="lightPink"
                 rounded="lg"
-                title="Find gift with Luxera AI"
+                title="Luxera AI"
                 type="button"
-                className="!w-full p-2 font-medium"
-                titleColor="white"
+                className="!w-full py-2 px-14 font-medium"
+                titleColor="black"
               />
             </Link>
           </div>
-          <button className="bg-light-pink rounded-xl p-3 md:hidden cursor-pointer">
-            <FaBars size={25} color="white" />
-          </button>
         </div>
       </div>
     );
@@ -132,10 +128,6 @@ const Search = ({
             />
           </Link>
         </div>
-
-        <button className="bg-dirty-pink rounded-xl p-3 md:hidden cursor-pointer">
-          <FaBars size={25} color="white" />
-        </button>
       </div>
     </div>
   );

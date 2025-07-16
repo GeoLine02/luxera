@@ -8,12 +8,11 @@ interface CategoryCardProps {
 const CategoryCard = ({ image, label }: CategoryCardProps) => {
   return (
     <div
-      className={`bg-light-pink rounded-md card px-2 flex items-center justify-around w-full lg:max-w-full h-[120px] cursor-pointer`}
+      className={`bg-light-pink rounded-md card px-2 flex items-center justify-around w-full  box-border lg:max-w-full h-[90px] cursor-pointer`}
     >
-      <h1 className="w-min font-medium text-sm lg:text-xl">{label}</h1>
-      <div className="size-20">
-        <Image src={image} alt={label + "image"} />
-      </div>
+      <h1 className="w-min font-medium">{label}</h1>
+
+      <Image height={50} src={image} alt={label + "image"} />
     </div>
   );
 };

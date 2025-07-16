@@ -17,6 +17,11 @@
   --color-dirty-pink: oklch(0.7242 0.0659 30.82);
   --color-warm-white: oklch(0.9903 0.0058 59.65);
   --color-medium-brown: oklch(0.5864 0.1192 51.03);
+  --color-deep-gray: #212121;
+  --color-secondary-bg-gray: #303030;
+  --color-luxera-menu-bg: #181818;
+  --color-luxera-menu-bg-hover: #ffffff1a;
+
   /* fonts */
 
   --font-FRL: "Frank Ruhl Libre", arial;

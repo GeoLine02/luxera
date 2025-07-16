@@ -6,14 +6,12 @@ import ProductsList from "./components/featuredProducts/ProductsList";
 import Hero from "./components/hero/Hero";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
-import Disclaimer from "./components/Disclaimer";
+// import Disclaimer from "./components/Disclaimer";
 
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col items-center">
-        <Disclaimer />
-      </div>
+      <div className="flex flex-col items-center">{/* <Disclaimer /> */}</div>
       <div>
         <div>
           <SearchContainer />
