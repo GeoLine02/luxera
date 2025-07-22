@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
 
 interface ProductCardProps {
@@ -8,10 +9,13 @@ interface ProductCardProps {
   price: number;
 }
 
-const ProductCard = ({ image, price, title }: ProductCardProps) => {
+const ProductCard = ({ image, price, title, id }: ProductCardProps) => {
   return (
-    <div className="border-2 rounded-lg border-ice-blue  max-w-[160px] md:min-w-[260px] md:max-w-[260px]  lg:min-w-[310px] p-2.5 lg:max-w-[310px] space-y-2 bg-white flex flex-col items-center">
-      <div className="space-y-1 md:space-y-6 w-full">
+    <Link
+      href={`/${id}`}
+      className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer"
+    >
+      <div className="space-y-1 md:space-y-1 w-full max-w-[190px]">
         <div className="flex justify-center">
           <Image
             className="h-[120px] md:h-full object-cover"
@@ -19,8 +23,8 @@ const ProductCard = ({ image, price, title }: ProductCardProps) => {
             alt="product image"
           />
         </div>
-        <h1 className="font-semibold max-w-[310px] truncate">{title}</h1>
-        <h1 className="font-semibold">{price} GEL</h1>
+        <h1 className="font-semibold text-xs lg:text-base truncate">{title}</h1>
+        <h1 className="font-semibold text-xs lg:text-base">{price} GEL</h1>
       </div>
       <div className="flex items-center gap-1 w-full">
         <IoIosStar />
@@ -30,10 +34,10 @@ const ProductCard = ({ image, price, title }: ProductCardProps) => {
         <IoIosStar />
         (120)
       </div>
-      <button className="border border-black rounded-md py-1.5 md:py-2 w-full cursor-pointer hover-transition hover:bg-black hover:text-white text-black">
+      <button className="border border-black rounded-md py-1 md:py-2 w-full cursor-pointer hover-transition hover:bg-black hover:text-white text-black text-sm md:text-base">
         Add to cart
       </button>
-    </div>
+    </Link>
   );
 };
 export default ProductCard;

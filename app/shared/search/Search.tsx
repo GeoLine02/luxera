@@ -9,6 +9,8 @@ import {
 import { IoIosSearch } from "react-icons/io";
 import SearchResults from "./SearchResults";
 import { SearchFiltersType } from "@/app/types/search";
+import Button from "@/app/ui/Button";
+import Link from "next/link";
 
 interface SearchProps {
   searchValue: string;
@@ -42,52 +44,91 @@ const Search = ({
     setIsSearchOpen(true);
   };
 
-  const searchBarStyles = classNames("searchBar", {
+  const searchBarStyles = classNames({
     "rounded-bl-none rounded-br-none rounded-xl": isSearchOpen,
-  });
-
-  const searchInputStyles = classNames("searchInput", {
-    block: isSearchOpen,
-    hidden: !isSearchOpen,
   });
 
   if (!isSearchOpen) {
     return (
-      <div
-        className={`hidden md:flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink cursor-pointer ${searchBarStyles}`}
-        onClick={handleOpenSearch}
-      >
-        <h1 className="w-full">type something...</h1>
-        <div>
-          <IoIosSearch size={25} />
+      <div className="flex gap-6 items-center">
+        <div
+          onClick={handleOpenSearch}
+          className="flex items-center gap-2 border-4 p-2 border-light-gray rounded-xl flex-1 bg-ice-blue md:px-4 md:py-6 cursor-pointer"
+        >
+          <div>
+            <IoIosSearch className="text-2xl md:text-4xl" />
+          </div>
+          <h1 className="text-xs md:text-base">Search Something...</h1>
+        </div>
+        <div className="hidden md:block">
+          <div className="flex gap-2 flex-col items-center">
+            <Button
+              bgColor="black"
+              rounded="lg"
+              title="Search"
+              type="button"
+              className="py-2  !w-full font-medium"
+              titleColor="white"
+            />
+            <Link href={"/luxera-ai"}>
+              <Button
+                bgColor="lightPink"
+                rounded="lg"
+                title="Luxera AI"
+                type="button"
+                className="!w-full py-2 px-14 font-medium"
+                titleColor="black"
+              />
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="lg:relative">
-      <div
-        className={`absolute left-0 top-0 w-full lg:static flex items-center px-5 py-4 rounded-full bg-ice-blue border border-dirty-pink ${searchBarStyles}`}
-      >
-        <input
-          ref={inputRef}
-          onChange={onChange}
-          value={searchValue}
-          type="text"
-          placeholder="type something..."
-          className={`${searchInputStyles} w-full font-semibold border-none outline-none focus:border-none`}
-        />
-        <div>
-          <IoIosSearch size={25} />
+    <div>
+      <div className={searchBarStyles + " flex gap-6 items-center"}>
+        <div className="flex items-center gap-2 border-4 px-2 border-light-gray rounded-xl flex-1 bg-ice-blue md:px-4 lg:relative">
+          <div>
+            <IoIosSearch className="text-2xl md:text-4xl" />
+          </div>
+          <input
+            ref={inputRef}
+            onChange={onChange}
+            value={searchValue}
+            type="text"
+            className="w-full outline-none border-none focus:border-none py-2 md:py-7 font-medium "
+            placeholder="Type something"
+          />
+
+          <SearchResults
+            activeSearchFilter={activeSearchFilter}
+            setActiveSearchFilters={setActiveSearchFilter}
+            isSearchOpen={isSearchOpen}
+          />
+        </div>
+        <div className="hidden md:flex gap-2 flex-col items-center">
+          <Button
+            bgColor="dirtyPink"
+            rounded="lg"
+            title="Search"
+            type="button"
+            className="py-2 !w-full font-medium"
+            titleColor="white"
+          />
+          <Link href={"/luxera-ai"}>
+            <Button
+              bgColor="darkPink"
+              rounded="lg"
+              title="Find gift with Luxera AI"
+              type="button"
+              className="!w-full p-2 font-medium"
+              titleColor="white"
+            />
+          </Link>
         </div>
       </div>
-
-      <SearchResults
-        activeSearchFilter={activeSearchFilter}
-        setActiveSearchFilters={setActiveSearchFilter}
-        isSearchOpen={isSearchOpen}
-      />
     </div>
   );
 };

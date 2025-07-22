@@ -26,7 +26,7 @@ const Button = ({
   type,
   onClick = () => {},
   title,
-  disabled,
+  disabled = false,
   bgColor = "transparent",
   rounded,
   icon,

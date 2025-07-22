@@ -17,6 +17,11 @@
   --color-dirty-pink: oklch(0.7242 0.0659 30.82);
   --color-warm-white: oklch(0.9903 0.0058 59.65);
   --color-medium-brown: oklch(0.5864 0.1192 51.03);
+  --color-deep-gray: #212121;
+  --color-secondary-bg-gray: #303030;
+  --color-luxera-menu-bg: #181818;
+  --color-luxera-menu-bg-hover: #ffffff1a;
+
   /* fonts */
 
   --font-FRL: "Frank Ruhl Libre", arial;
@@ -28,8 +33,17 @@
   --breakpoint-xs: 30rem;
 }
 
+body {
+  max-width: 1920px;
+  margin-inline: auto;
+}
+
+input {
+  @apply outline-none border-none;
+}
+
 .container {
-  @apply mx-auto max-w-[1440px] !px-7;
+  @apply mx-auto max-w-[1440px];
 }
 
 .hover-transition {
@@ -46,19 +60,6 @@
   @apply !mt-11;
 }
 
-@layer components {
-  .dropdown-animation {
-    @apply transition-all duration-300 overflow-hidden;
-  }
-
-  .dropdown-open {
-    @apply max-h-[600px] opacity-100;
-  }
-
-  .dropdown-closed {
-    @apply max-h-0 opacity-0;
-  }
-}
 .swiper-pagination-bullet-active {
   @apply scale-125 !bg-black;
 }
@@ -74,4 +75,37 @@
 .swiper-pagination {
   bottom: -5px !important; /* Increase this value as needed */
   overflow: visible !important;
+}
+
+@layer components {
+  .dropdown-animation {
+    @apply transition-all duration-200;
+  }
+
+  .dropdown-open {
+    @apply scale-y-100 origin-top max-h-fit;
+  }
+
+  .dropdown-closed {
+    @apply scale-y-0 origin-top pointer-events-none max-h-0;
+  }
+}
+
+@layer utilities {
+  @media (max-width: 768px) {
+    .card-container .card:nth-of-type(n + 7) {
+      display: none;
+    }
+  }
+  @media (min-width: 768px) {
+    .card-container .card:nth-of-type(n + 15) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .card-container .card:nth-of-type(n + 15) {
+      display: none;
+    }
+  }
 }

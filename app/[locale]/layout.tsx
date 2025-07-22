@@ -5,6 +5,8 @@ import "../globals.css";
 import { Inter } from "next/font/google";
 import Header from "../shared/Header";
 import Footer from "../shared/Footer/Footer";
+import ReduxProvider from "../providers/ReduxProvider";
+import MobileTabs from "../shared/mobileTabs/MobileTabs";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,12 +28,21 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no"
+        />
+      </head>
       <body className={`font-${inter}`}>
-        <NextIntlClientProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
+        <ReduxProvider>
+          <NextIntlClientProvider>
+            <Header />
+            <main>{children}</main>
+            <MobileTabs />
+            <Footer />
+          </NextIntlClientProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
