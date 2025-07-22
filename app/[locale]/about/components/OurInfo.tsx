@@ -1,15 +1,22 @@
 import Image from "next/image";
 import OurStoryImage from "@/public/OurStoryImage.png";
 import OurMissionImage from "@/public/OurMissionImage.png";
+import OurStoryBgImage from "@/public/OurStoryBgImage.png";
+import OurMissionBgImage from "@/public/OurMissionBgImage.png";
 
 const OurInfo = () => {
   return (
-    <div className="mt-[56px]">
-      <section className="flex items-center gap-[32px] 2xl:gap-[64px]">
-        <div className="bg-[url(/OurStoryBgImage.png)] bg-center bg-cover w-full max-w-[704px] 2xl:max-w-[50%] h-[600px] flex justify-center items-center">
-          <Image src={OurStoryImage} alt="" />
+    <div className="mt-[56px] space-y-14">
+      <section className="flex flex-col md:flex-row items-center gap-[32px] 2xl:gap-[64px]">
+        <div className="relative">
+          <Image className="w-auto md:w-[50vw]" src={OurStoryBgImage} alt="" />
+          <Image
+            className="max-w-[200px] md:max-w-full absolute top-1/2 left-1/2 -translate-1/2"
+            src={OurStoryImage}
+            alt=""
+          />
         </div>
-        <div className="space-y-[42px]">
+        <div className="space-y-[42px] px-4">
           <h1 className="text-[32px] font-bold">Our Story</h1>
 
           <p className="max-w-[559px] 2xl:max-w-[650px]">
@@ -25,8 +32,8 @@ const OurInfo = () => {
           </p>
         </div>
       </section>
-      <section className="flex justify-end items-center gap-[32px] 2xl:gap-[64px]">
-        <div className="space-y-[42px]">
+      <section className="flex flex-col-reverse md:flex-row justify-end items-center gap-[32px] 2xl:gap-[64px]">
+        <div className="space-y-[42px] px-4">
           <h1 className="text-[32px] font-bold">Our Mission</h1>
 
           <p className="max-w-[559px] 2xl:max-w-[650px]">
@@ -41,8 +48,18 @@ const OurInfo = () => {
             time. 🎁
           </p>
         </div>
-        <div className="bg-[url(/OurMissionBgImage.png)] bg-center bg-cover w-full max-w-[704px] h-[600px] 2xl:max-w-[50%] flex justify-center items-center">
-          <Image src={OurMissionImage} alt="" />
+        <div className="relative">
+          <Image
+            className="w-auto md:w-[calc(50vw-100px)]"
+            src={OurMissionBgImage}
+            alt=""
+          />
+
+          <Image
+            className="max-w-[200px] md:max-w-full absolute top-1/2 left-1/2 -translate-1/2"
+            src={OurMissionImage}
+            alt=""
+          />
         </div>
       </section>
     </div>
