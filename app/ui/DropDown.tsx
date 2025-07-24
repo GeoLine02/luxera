@@ -82,11 +82,12 @@ const Trigger = ({ children }: TriggerProps) => {
 interface MenuProps {
   children: ReactNode;
   expandMode: ExpandModeType;
+  className?: string;
 }
 
 type ExpandModeType = "overlay" | "absolute";
 
-const Menu = ({ children, expandMode }: MenuProps) => {
+const Menu = ({ children, expandMode, className }: MenuProps) => {
   const { isOpen } = useDropdown();
 
   const dropDownMenuTransition = classNames("dropdown-animation", {
@@ -98,7 +99,7 @@ const Menu = ({ children, expandMode }: MenuProps) => {
 
   return (
     <div
-      className={`${dropDownMenuTransition} bg-white left-0 w-full top-[75px] rounded shadow-lg z-10`}
+      className={`${dropDownMenuTransition} ${className} bg-white left-0 w-full top-[75px] rounded shadow-lg z-10`}
     >
       {children}
     </div>
