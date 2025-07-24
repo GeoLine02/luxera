@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegEnvelope } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
+import { IoCartOutline } from "react-icons/io5";
 
 import Button from "../ui/Button";
 import { FaBars } from "react-icons/fa6";
@@ -31,6 +32,9 @@ const Header = () => {
       />
 
       <div className="flex items-center gap-7 ">
+        <div className="hidden lg:block cursor-pointer">
+          <IoCartOutline onClick={() => router.push("/cart")} size={30} />
+        </div>
         <div className="hidden lg:block cursor-pointer">
           <FaRegHeart size={25} />
         </div>

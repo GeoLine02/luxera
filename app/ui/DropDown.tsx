@@ -68,12 +68,16 @@ export const Dropdown = ({ children }: DropdownProps) => {
 
 interface TriggerProps {
   children: ReactNode;
+  className?: string;
 }
 
-const Trigger = ({ children }: TriggerProps) => {
+const Trigger = ({ children, className }: TriggerProps) => {
   const { toggle } = useDropdown();
   return (
-    <button onClick={toggle} className="px-4 py-2 cursor-pointer rounded-lg">
+    <button
+      onClick={toggle}
+      className={`${className} cursor-pointer rounded-lg`}
+    >
       {children}
     </button>
   );
@@ -82,11 +86,12 @@ const Trigger = ({ children }: TriggerProps) => {
 interface MenuProps {
   children: ReactNode;
   expandMode: ExpandModeType;
+  className?: string;
 }
 
 type ExpandModeType = "overlay" | "absolute";
 
-const Menu = ({ children, expandMode }: MenuProps) => {
+const Menu = ({ children, expandMode, className }: MenuProps) => {
   const { isOpen } = useDropdown();
 
   const dropDownMenuTransition = classNames("dropdown-animation", {
@@ -98,7 +103,7 @@ const Menu = ({ children, expandMode }: MenuProps) => {
 
   return (
     <div
-      className={`${dropDownMenuTransition} bg-white left-0 w-full top-[75px] rounded shadow-lg z-10`}
+      className={`${dropDownMenuTransition} ${className} bg-white left-0 w-full top-[75px] rounded shadow-lg z-10`}
     >
       {children}
     </div>
@@ -107,10 +112,11 @@ const Menu = ({ children, expandMode }: MenuProps) => {
 
 interface ItemProps {
   children: ReactNode;
+  className?: string;
   onSelect?: () => void;
 }
 
-const Item = ({ children, onSelect }: ItemProps) => {
+const Item = ({ children, onSelect, className }: ItemProps) => {
   const { close } = useDropdown();
 
   const handleClick = () => {
@@ -119,7 +125,10 @@ const Item = ({ children, onSelect }: ItemProps) => {
   };
 
   return (
-    <div onClick={handleClick} className="p-4 hover:bg-gray-100 cursor-pointer">
+    <div
+      onClick={handleClick}
+      className={`p-4 ${className} hover:bg-gray-100 cursor-pointer`}
+    >
       {children}
     </div>
   );
