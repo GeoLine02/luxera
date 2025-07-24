@@ -12,7 +12,8 @@ const Footer = () => {
   if (
     pathName.includes("/signin") ||
     pathName.includes("/signup") ||
-    pathName.includes("/luxera-ai")
+    pathName.includes("/luxera-ai") ||
+    pathName.includes("/cart")
   )
     return null;
 

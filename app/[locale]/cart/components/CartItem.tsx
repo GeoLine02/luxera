@@ -24,25 +24,22 @@ const CartItem = ({ description, price, qunatity, title }: CartItemProps) => {
       </div>
       <div className="flex gap-4 w-full">
         <div>
-          <Image src={CartItemImage} alt={title} />
+          <Image className="" src={CartItemImage} alt={title} />
         </div>
         <div className="w-full">
           <div className="flex justify-between pr-4">
-            <h1 className="text-xl">{title}</h1>
+            <h1 className="text-base md:text-xl">{title}</h1>
             <div>
-              <FaTrash
-                size={20}
-                className="text-medium-gray hover:text-red-500 transition-all duration-300 cursor-pointer"
-              />
+              <FaTrash className="text-medium-gray hover:text-red-500 transition-all duration-300 cursor-pointer md:text-xl" />
             </div>
           </div>
-          <p>{description}</p>
+          <p className="text-xs">{description}</p>
 
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-medium">{price} GEL</h1>
+            <h1 className="text-sm md:text-xl font-medium">{price} GEL</h1>
             <Dropdown>
               <Dropdown.Trigger>
-                <div className="flex items-center border border-medium-gray p-1 px-3 rounded-xl justify-between w-fit gap-2 ">
+                <div className="flex items-center border border-medium-gray p-1 px-3 rounded-xl justify-between w-fit gap-2 text-sm md:text-base">
                   <span>Qty {qunatity}</span>
                   <IoIosArrowDown />
                 </div>
