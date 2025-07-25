@@ -50,7 +50,7 @@ const Testemonials = () => {
         <h1 className="text-4xl text-center font-semibold">Testemonials</h1>
 
         <Swiper
-          className="[&_.swiper-pagination]:!bottom-[20px] !z-50 !overflow-visible"
+          className="[&_.swiper-pagination]:!bottom-[20px] !z-50"
           pagination={true}
           modules={[Pagination]}
         >

@@ -37,7 +37,7 @@ const SideMenu = () => {
 
   return (
     <div
-      className={`${menuTransitionStyles} w-full h-screen fixed z-50 bg-white space-y-4 px-4 md:hidden`}
+      className={`${menuTransitionStyles} w-full h-screen fixed z-50 bg-emerald-600 space-y-4 px-4 md:hidden`}
     >
       <div className="flex justify-end mr-4 mt-4">
         <IoIosCloseCircle
@@ -50,6 +50,7 @@ const SideMenu = () => {
       <ul className="mt-2 *:w-full *:py-2 *:px-4 *:cursor-pointer flex flex-col">
         {menuItems.map(({ label, path }) => (
           <Link
+            onClick={handleCloseMenu}
             key={label}
             href={path}
             className={classNames("rounded transition w-full", {
