@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import categoriesReducer from "./features/categoriesSlice";
 import luxeraAIReducer from "./features/luxeraAISlice";
 import profileReducer from "./features/profileSlice";
+import sideMenuReducer from "./features/sideMenuSlice";
 
 export const store = () => {
   return configureStore({
@@ -9,6 +10,7 @@ export const store = () => {
       categoriesReducer: categoriesReducer,
       luxeraAIReducer: luxeraAIReducer,
       profileReducer: profileReducer,
+      sideMenuReducer: sideMenuReducer,
     },
   });
 };

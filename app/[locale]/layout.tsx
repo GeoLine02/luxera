@@ -3,10 +3,11 @@ import { NextIntlClientProvider } from "next-intl";
 
 import "../globals.css";
 import { Inter } from "next/font/google";
-import Header from "../shared/Header";
+import Header from "../shared/header/Header";
 import Footer from "../shared/Footer/Footer";
 import ReduxProvider from "../providers/ReduxProvider";
 import MobileTabs from "../shared/mobileTabs/MobileTabs";
+import SideMenu from "../shared/header/SideMenu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -37,7 +38,10 @@ export default async function RootLayout({
       <body className={`font-${inter}`}>
         <ReduxProvider>
           <NextIntlClientProvider>
-            <Header />
+            <div className="relative">
+              <Header />
+              <SideMenu />
+            </div>
             <main>{children}</main>
             <MobileTabs />
             <Footer />

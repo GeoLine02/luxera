@@ -7,13 +7,21 @@ import { FaRegEnvelope } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { IoCartOutline } from "react-icons/io5";
 
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 import { FaBars } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { openMenu } from "../../store/features/sideMenuSlice";
 
 const Header = () => {
   const pathName = usePathname();
 
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleOpenMenu = () => {
+    dispatch(openMenu());
+  };
 
   if (
     pathName.includes("/signup") ||
@@ -41,8 +49,8 @@ const Header = () => {
         <div className="hidden lg:block cursor-pointer">
           <FaRegEnvelope size={25} />
         </div>
-        <div className="md:hidden">
-          <FaBars size={25} />
+        <div className="md:hidden cursor-pointer">
+          <FaBars onClick={handleOpenMenu} size={25} />
         </div>
         <Button
           bgColor="lightPink"
