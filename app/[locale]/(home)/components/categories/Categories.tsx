@@ -21,9 +21,7 @@ const Categories = () => {
         className="bg-black text-white rounded-md w-full cursor-pointer flex items-center justify-center gap-2 mx-auto"
       >
         <FaBars size={24} />
-        <h1 className="font-medium text-sm sm:text-base lg:text-xl text-center">
-          All Categories
-        </h1>
+        <h1 className="font-medium text-center">All Categories</h1>
       </div>
       {categoriesData.map((category) => (
         <CategoryCard
