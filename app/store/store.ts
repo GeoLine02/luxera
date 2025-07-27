@@ -3,6 +3,7 @@ import categoriesReducer from "./features/categoriesSlice";
 import luxeraAIReducer from "./features/luxeraAISlice";
 import profileReducer from "./features/profileSlice";
 import sideMenuReducer from "./features/sideMenuSlice";
+import ordersReducer from "./features/ordersSlice";
 
 export const store = () => {
   return configureStore({
@@ -11,6 +12,7 @@ export const store = () => {
       luxeraAIReducer: luxeraAIReducer,
       profileReducer: profileReducer,
       sideMenuReducer: sideMenuReducer,
+      ordersReducer: ordersReducer,
     },
   });
 };
