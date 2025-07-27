@@ -1,22 +1,22 @@
 export const profileSectionsData = [
   {
-    accessorKey: "personalInfo",
-    label: "Personal Info",
+    accessorKey: "profile",
+    label: "Profile",
     IconName: "CiUser",
   },
   {
-    accessorKey: "loginAndSecurity",
-    label: "Login And Security",
-    IconName: "CiLock",
-  },
-  {
-    accessorKey: "myPayments",
-    label: "My Payments",
-    IconName: "CiCreditCard1",
-  },
-  {
-    accessorKey: "myOrders",
-    label: "My Orders",
+    accessorKey: "orderHistory",
+    label: "Order History",
     IconName: "CiBellOn",
+  },
+  {
+    accessorKey: "whishlist",
+    label: "Whishlist",
+    IconName: "FaHeart",
+  },
+  {
+    accessorKey: "logOut",
+    label: "Log Out",
+    IconName: "IoLogOutOutline",
   },
 ];
