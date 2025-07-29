@@ -9,9 +9,10 @@ import SearchContainer from "@/app/shared/search/SearchContainer";
 const Products = () => {
   return (
     <div>
-      <div>
+      <div className="md:hidden">
         <SearchContainer />
       </div>
+
       <div>
         <Categories />
         <CategoriesModal />

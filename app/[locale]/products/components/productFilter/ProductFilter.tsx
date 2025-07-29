@@ -11,7 +11,7 @@ const ProductFilter = () => {
 
   return (
     <>
-      <div className="md:hidden">
+      <div className="px-4 md:hidden">
         <Dropdown>
           <Dropdown.Trigger>
             <div className="flex items-center justify-between w-ful rounded-lg bg-light-pink px-4 py-2">

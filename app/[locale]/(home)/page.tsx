@@ -12,9 +12,10 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      <div>
+      <div className="w-full md:hidden">
         <SearchContainer />
       </div>
+
       <div>
         <Categories />
         <CategoriesModal />
