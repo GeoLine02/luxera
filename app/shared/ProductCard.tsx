@@ -15,7 +15,7 @@ const ProductCard = ({ image, price, title, id }: ProductCardProps) => {
       href={`/${id}`}
       className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer"
     >
-      <div className="space-y-1 md:space-y-1 w-full max-w-[190px]">
+      <div className="space-y-1 md:space-y-1 w-full">
         <div className="flex justify-center">
           <Image
             className="h-[120px] md:h-full object-cover"
