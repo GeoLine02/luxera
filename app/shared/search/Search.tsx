@@ -67,7 +67,7 @@ const Search = ({
               rounded="lg"
               title="Search"
               type="button"
-              className="py-2  !w-full font-medium"
+              className="py-2 !w-full font-medium"
               titleColor="white"
             />
             <Link href={"/luxera-ai"}>
@@ -114,7 +114,7 @@ const Search = ({
             rounded="lg"
             title="Search"
             type="button"
-            className="py-2  !w-full font-medium"
+            className="py-2 !w-full font-medium"
             titleColor="white"
           />
           <Link href={"/luxera-ai"}>
