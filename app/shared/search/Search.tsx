@@ -98,7 +98,7 @@ const Search = ({
             onChange={onChange}
             value={searchValue}
             type="text"
-            className="w-full outline-none border-none focus:border-none py-2 md:py-6 font-medium "
+            className="w-full outline-none border-none focus:border-none py-2 md:py-7 font-medium "
             placeholder="Type something"
           />
 
