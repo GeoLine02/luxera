@@ -5,7 +5,7 @@ import WhishListCard from "./WhishListCard";
 const WhishListSection = () => {
   return (
     <section className="rounded-xl bg-white p-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pb-4">
         <h1 className="text-xl md:text-2xl text-dark-gray font-bold">
           My Whishlist
         </h1>
@@ -20,7 +20,7 @@ const WhishListSection = () => {
         />
       </div>
 
-      <div className="space-y-4 max-h-[500px] overflow-y-auto">
+      <div className="space-y-4 max-h-[500px] overflow-y-auto scrollbar-hidden">
         <WhishListCard
           id={1}
           title="Teady Bear"
