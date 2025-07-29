@@ -110,7 +110,7 @@ const Search = ({
         </div>
         <div className="hidden md:flex gap-2 flex-col items-center">
           <Button
-            bgColor="dirtyPink"
+            bgColor="black"
             rounded="lg"
             title="Search"
             type="button"
@@ -119,12 +119,12 @@ const Search = ({
           />
           <Link href={"/luxera-ai"}>
             <Button
-              bgColor="darkPink"
+              bgColor="lightPink"
               rounded="lg"
               title="Find gift with Luxera AI"
               type="button"
               className="!w-full p-2 font-medium"
-              titleColor="white"
+              titleColor="black"
             />
           </Link>
         </div>
