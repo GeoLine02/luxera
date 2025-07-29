@@ -30,36 +30,44 @@ const DesktopCategoriesModal = ({
             size={35}
           />
         </div>
-        <div className="flex gap-4">
-          <section className="max-w-1/2 lg:min-w-1/5 max-h-full overflow-y-auto space-y-1 border-r border-light-gray">
-            <h1 className="text-xl font-medium ml-3">Categoires</h1>
 
-            {categories.map((category) => (
-              <div
-                onClick={() => handleChooseCatogery(category)}
-                key={category.label}
-              >
-                <CategoryModalCard
-                  image={category.image}
-                  label={category.label}
-                />
-              </div>
-            ))}
+        <div className="flex gap-4">
+          {/* Left: Main Categories */}
+          <section className="max-w-1/2 lg:min-w-1/5 max-h-full overflow-y-auto border-r border-light-gray">
+            <h1 className="text-xl font-medium ml-3 mb-2">Categories</h1>
+            <div className="space-y-1 px-2">
+              {categories.map((category) => (
+                <div
+                  onClick={() => handleChooseCatogery(category)}
+                  key={category.label}
+                >
+                  <CategoryModalCard
+                    image={category.image}
+                    label={category.label}
+                  />
+                </div>
+              ))}
+            </div>
           </section>
 
-          <section className="flex-2/3 flex-wrap ">
-            <h1 className="text-xl font-medium">{selectedCategory?.label}</h1>
-            {selectedCategory?.subCategories.map((category) => (
-              <div
-                onClick={() => handleChooseSubCategory(category)}
-                key={category.label}
-              >
-                <CategoryModalCard
-                  label={category.label}
-                  image={category.image}
-                />
-              </div>
-            ))}
+          {/* Right: Subcategories in two columns */}
+          <section className="flex-2/3 flex-wrap w-full px-4">
+            <h1 className="text-xl font-medium mb-2">
+              {selectedCategory?.label}
+            </h1>
+            <div className="grid grid-cols-2 gap-3">
+              {selectedCategory?.subCategories.map((category) => (
+                <div
+                  onClick={() => handleChooseSubCategory(category)}
+                  key={category.label}
+                >
+                  <CategoryModalCard
+                    label={category.label}
+                    image={category.image}
+                  />
+                </div>
+              ))}
+            </div>
           </section>
         </div>
       </div>

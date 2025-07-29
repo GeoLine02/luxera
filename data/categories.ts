@@ -110,6 +110,18 @@ export const allCategoriesData = [
         label: "For teacher",
         image: BirthDayCard,
       },
+      {
+        label: "For teacher1",
+        image: BirthDayCard,
+      },
+      {
+        label: "For teacher2",
+        image: BirthDayCard,
+      },
+      {
+        label: "For teacher3",
+        image: BirthDayCard,
+      },
     ],
   },
   {

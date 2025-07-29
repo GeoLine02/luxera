@@ -6,7 +6,8 @@ import ProductsList from "./components/featuredProducts/ProductsList";
 import Hero from "./components/hero/Hero";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
-import LoadMoreButton from "./components/LoadMoreButton";
+import Button from "@/app/ui/Button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -33,7 +34,16 @@ export default function Home() {
       <div className="mt-[100px] px-5 lg:px-11">
         <BestSellings />
       </div>
-      <LoadMoreButton />
+      <div className="flex items-center justify-center mt-11">
+        <Link className="max-[322px]" href={"/products"}>
+          <Button
+            rounded="full"
+            title="Load more 100+"
+            type="button"
+            className="py-2 px-24 max-w-[322px] w-full border border-black transition-all duration-300 hover:bg-black hover:text-white"
+          />
+        </Link>
+      </div>
     </div>
   );
 }

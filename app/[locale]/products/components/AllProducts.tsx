@@ -1,6 +1,5 @@
 import ProductCard from "@/app/shared/ProductCard";
 import { ProductType } from "@/app/types/product";
-import Button from "@/app/ui/Button";
 import { productsData } from "@/data/products";
 
 const AllProducts = () => {
@@ -23,17 +22,6 @@ const AllProducts = () => {
             />
           </div>
         ))}
-      </div>
-
-      <div className="flex justify-center mt-20 mb-12">
-        <Button
-          rounded="full"
-          title="Load more 100+"
-          type="button"
-          bgColor="transparent"
-          className="py-2 px-8 border border-black max-w-[322px] hover-transition hover:bg-black hover:text-white"
-          titleColor="black"
-        />
       </div>
     </div>
   );

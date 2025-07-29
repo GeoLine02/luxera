@@ -98,7 +98,7 @@ const Search = ({
             onChange={onChange}
             value={searchValue}
             type="text"
-            className="w-full outline-none border-none focus:border-none py-2 md:py-7 font-medium "
+            className="w-full outline-none border-none focus:border-none py-2 md:py-6 font-medium "
             placeholder="Type something"
           />
 
@@ -108,22 +108,22 @@ const Search = ({
             isSearchOpen={isSearchOpen}
           />
         </div>
-        <div className="hidden md:flex gap-2 flex-col items-center">
+        <div className="flex gap-2 flex-col items-center">
           <Button
             bgColor="black"
             rounded="lg"
             title="Search"
             type="button"
-            className="py-2 !w-full font-medium"
+            className="py-2  !w-full font-medium"
             titleColor="white"
           />
           <Link href={"/luxera-ai"}>
             <Button
               bgColor="lightPink"
               rounded="lg"
-              title="Find gift with Luxera AI"
+              title="Luxera AI"
               type="button"
-              className="!w-full p-2 font-medium"
+              className="!w-full py-2 px-14 font-medium"
               titleColor="black"
             />
           </Link>
