@@ -3,6 +3,7 @@ import ProductPreview from "./components/ProductPreview";
 import ProductStats from "./components/ProductsStats/ProductStats";
 import SuggestedProducts from "./components/SuggestedProducts";
 import MobileProductPreview from "./components/MobileProductPreview";
+import Seller from "./components/seller/Seller";
 
 const page = () => {
   // TODO: Fetch productById data here
@@ -59,7 +60,9 @@ const page = () => {
           productVariants={productData.productVariants}
         />
       </div>
-
+      <div className="px-4 md:px-0 container">
+        <Seller />
+      </div>
       <SuggestedProducts suggestedProducts={productsData} />
     </div>
   );
