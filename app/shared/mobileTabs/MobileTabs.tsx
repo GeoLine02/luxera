@@ -5,73 +5,47 @@ import { LuLayoutGrid } from "react-icons/lu";
 import { RiApps2AiLine } from "react-icons/ri";
 import { LuShoppingCart } from "react-icons/lu";
 import { CgProfile } from "react-icons/cg";
-import { IconType } from "react-icons/lib";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const tabs = [
-  {
-    accessorKey: "home",
-    label: "Home",
-    icon: GoHome,
-    path: "/",
-  },
-  {
-    accessorKey: "category",
-    label: "Category",
-    icon: LuLayoutGrid,
-    path: "/category",
-  },
-  {
-    accessorKey: "luxeraAI",
-    label: "Luxera AI",
-    icon: RiApps2AiLine,
-    path: "/luxera-ai",
-  },
-  {
-    accessorKey: "cart",
-    label: "Cart",
-    icon: LuShoppingCart,
-    path: "/cart",
-  },
-  {
-    accessorKey: "profile",
-    label: "Profile",
-    icon: CgProfile,
-    path: "/profile",
-  },
-];
-
-interface TabProps {
-  Icon: IconType;
-  label: string;
-  path: string;
-}
-
-const Tab = ({ Icon, label, path }: TabProps) => {
-  return (
-    <Link href={path} className="flex flex-col items-center">
-      <Icon size={25} />
-      <h1 className="text-xs">{label}</h1>
-    </Link>
-  );
-};
+import { openCategoiresModal } from "@/app/store/features/categoriesSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store/store";
 
 const MobileTabs = () => {
   const pathName = usePathname();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleOpenCategories = () => {
+    dispatch(openCategoiresModal());
+  };
 
   if (pathName.includes("/luxera-ai")) return null;
 
   return (
     <div className="bg-white p-4 flex justify-around items-center gap-4 fixed bottom-0 left-0 z-50 w-full xs:hidden">
-      {tabs.map((tab) => (
-        <Tab
-          key={tab.accessorKey}
-          Icon={tab.icon}
-          label={tab.label}
-          path={tab.path}
-        />
-      ))}
+      <Link href={"/"} className="flex flex-col items-center">
+        <GoHome size={25} />
+        <h1 className="text-xs">Home</h1>
+      </Link>
+      <div
+        onClick={handleOpenCategories}
+        className="flex flex-col items-center"
+      >
+        <LuLayoutGrid size={25} />
+        <h1 className="text-xs">Catgory</h1>
+      </div>
+      <Link href={"/luxera-ai"} className="flex flex-col items-center">
+        <RiApps2AiLine size={25} />
+        <h1 className="text-xs">Luxera AI</h1>
+      </Link>
+      <Link href={"/cart"} className="flex flex-col items-center">
+        <LuShoppingCart size={25} />
+        <h1 className="text-xs">Cart</h1>
+      </Link>
+      <Link href={"/profile"} className="flex flex-col items-center">
+        <CgProfile size={25} />
+        <h1 className="text-xs">Cart</h1>
+      </Link>
     </div>
   );
 };

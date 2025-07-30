@@ -12,6 +12,7 @@ import { useState } from "react";
 import { CategoryType, SubCategoryType } from "@/app/types/categories";
 import DesktopCategoriesModal from "./DesktopCategoriesModal";
 import MobileCategoriesModal from "./MobileCategoriesModal";
+import classNames from "classnames";
 
 const CategoriesModal = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +33,15 @@ const CategoriesModal = () => {
 
   const { selectedCategory, selectedSubCategory, isCategoriesModalOpen } =
     useSelector((state: RootState) => state.categoriesReducer);
+
+  const mobileCategoriesStyles = classNames(
+    "fixed left-0 w-full z-50 transition-all duration-300 ease-in-out", // fixed positioning
+    {
+      "top-full opacity-0 pointer-events-none": !isCategoriesModalOpen, // off-screen (hidden)
+      "top-0 opacity-100 pointer-events-auto": isCategoriesModalOpen, // visible
+    }
+  );
+
   return (
     <>
       {isCategoriesModalOpen ? (
@@ -46,18 +56,19 @@ const CategoriesModal = () => {
               selectedSubCategory={selectedSubCategory}
             />
           </div>
-          <div className="xs:hidden">
-            <MobileCategoriesModal
-              categories={categories}
-              handleChooseCatogery={handleChooseCatogery}
-              handleChooseSubCategory={handleChooseSubCategory}
-              handleCloseModal={handleCloseModal}
-              selectedCategory={selectedCategory}
-              selectedSubCategory={selectedSubCategory}
-            />
-          </div>
         </>
       ) : null}
+
+      <div className={`xs:hidden ${mobileCategoriesStyles}`}>
+        <MobileCategoriesModal
+          categories={categories}
+          handleChooseCatogery={handleChooseCatogery}
+          handleChooseSubCategory={handleChooseSubCategory}
+          handleCloseModal={handleCloseModal}
+          selectedCategory={selectedCategory}
+          selectedSubCategory={selectedSubCategory}
+        />
+      </div>
     </>
   );
 };

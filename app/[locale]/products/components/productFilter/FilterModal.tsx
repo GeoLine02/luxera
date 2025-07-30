@@ -46,8 +46,8 @@ const FilterModal = ({ isModalOpen, setIsFilterOpen }: FilterModalProps) => {
         rounded="lg"
         title="Filter"
         type="button"
-        bgColor="dirtyPink"
-        titleColor="black"
+        bgColor="black"
+        titleColor="white"
         className="py-1 px-4 max-w-[100px]"
         onClick={handleFilter}
       />
