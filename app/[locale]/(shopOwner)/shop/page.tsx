@@ -4,9 +4,9 @@ import SectionSelector from "./components/sections/SectionSelector";
 
 const Shop = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <Header />
-      <div className="px-4 flex">
+      <div className="px-4 flex h-full">
         <SectionSelector />
         <Sections />
       </div>

@@ -47,7 +47,7 @@ const SectionSelector = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const mobileSectionStyles = classNames(
-    "transition-all fixed duration-300 z-50 top-0 h-full",
+    "transition-all fixed duration-300 z-50 top-0 h-full max-w-[300px]",
     {
       "left-0": isSectionsOpen,
       "-left-[100%]": !isSectionsOpen,
@@ -60,7 +60,7 @@ const SectionSelector = () => {
 
   return (
     <div
-      className={`${mobileSectionStyles} bg-white p-4 max-w-[300px] border-r-2 border-light-gray`}
+      className={`${mobileSectionStyles} md:static bg-white p-4  border-r-2 md:max-w-[400px] border-light-gray`}
     >
       <section className="flex justify-between items-center md:block">
         <div>

@@ -8,7 +8,7 @@ const Sections = () => {
   const { activeSection } = useSelector((state: RootState) => state.shopSLice);
 
   return (
-    <div className="p-4 bg-ice-blue w-full">
+    <div className="p-4 bg-ice-blue w-full h-full">
       {activeSection === "main" && <MainSection />}
     </div>
   );
