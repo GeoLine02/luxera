@@ -4,6 +4,7 @@ import { RootState } from "@/app/store/store";
 import { useSelector } from "react-redux";
 import MainSection from "./mainSection/MainSection";
 import NewProductSection from "./newProductSection/NewProductSection";
+import MyProductsSection from "./myProductsSection/MyProductsSection";
 
 const Sections = () => {
   const { activeSection } = useSelector((state: RootState) => state.shopSLice);
@@ -12,6 +13,7 @@ const Sections = () => {
     <div className="p-4 bg-ice-blue w-full h-full">
       {activeSection === "main" && <MainSection />}
       {activeSection === "addProduct" && <NewProductSection />}
+      {activeSection === "myProducts" && <MyProductsSection />}
     </div>
   );
 };
