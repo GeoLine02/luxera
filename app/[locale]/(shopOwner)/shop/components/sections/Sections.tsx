@@ -6,16 +6,18 @@ import MainSection from "./mainSection/MainSection";
 import NewProductSection from "./newProductSection/NewProductSection";
 import MyProductsSection from "./myProductsSection/MyProductsSection";
 import FinancesSection from "./financesSection/FinancesSection";
+import AdvertismentSection from "./advertisment/AdvertismentSection";
 
 const Sections = () => {
   const { activeSection } = useSelector((state: RootState) => state.shopSLice);
   console.log(activeSection);
   return (
-    <div className="p-4 bg-ice-blue w-full h-[calc(100vh-80px)] md:h-screen">
+    <div className=" bg-ice-blue w-full min-h-[calc(100vh-80px)] md:min-h-screen h-full p-4">
       {activeSection === "main" && <MainSection />}
       {activeSection === "addProduct" && <NewProductSection />}
       {activeSection === "myProducts" && <MyProductsSection />}
       {activeSection === "finances" && <FinancesSection />}
+      {activeSection === "advertisment" && <AdvertismentSection />}
     </div>
   );
 };
