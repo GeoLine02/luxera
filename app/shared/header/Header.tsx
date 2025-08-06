@@ -27,7 +27,8 @@ const Header = () => {
   if (
     pathName.includes("/signup") ||
     pathName.includes("/signin") ||
-    pathName.includes("/luxera-ai")
+    pathName.includes("/luxera-ai") ||
+    pathName.includes("/shop")
   )
     return null;
 

@@ -13,7 +13,8 @@ const Footer = () => {
     pathName.includes("/signin") ||
     pathName.includes("/signup") ||
     pathName.includes("/luxera-ai") ||
-    pathName.includes("/cart")
+    pathName.includes("/cart") ||
+    pathName.includes("/shop")
   )
     return null;
 

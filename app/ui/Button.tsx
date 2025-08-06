@@ -18,7 +18,8 @@ interface ButtonProps {
     | "iceBlue"
     | "darkGray"
     | "white"
-    | "transparent";
+    | "transparent"
+    | "lightGray";
   icon?: React.ReactNode;
   titleColor?: "black" | "white" | "dirtyPink" | "mediumBrown";
 }
@@ -45,6 +46,7 @@ const Button = ({
     "bg-dirty-pink": bgColor === "dirtyPink",
     "bg-dark-pink": bgColor === "darkPink",
     "bg-ice-blue": bgColor === "iceBlue",
+    "bg-light-gray": bgColor === "lightGray",
     "bg-white": bgColor === "white",
     "bg-dark-gray": bgColor === "darkGray",
     "text-black": titleColor === "black",
