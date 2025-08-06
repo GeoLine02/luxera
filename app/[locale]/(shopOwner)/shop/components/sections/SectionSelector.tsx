@@ -21,6 +21,7 @@ const Section = ({ accessorKey, label, Icon, isActive }: SectionProps) => {
 
   const handleChangeSection = () => {
     dispatch(changeSection(accessorKey));
+    dispatch(closeSection());
   };
 
   const activeSection = classNames({
