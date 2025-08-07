@@ -19,7 +19,8 @@ const MobileTabs = () => {
     dispatch(openCategoiresModal());
   };
 
-  if (pathName.includes("/luxera-ai")) return null;
+  if (pathName.includes("/luxera-ai") || pathName.includes("/shop"))
+    return null;
 
   return (
     <div className="bg-white p-4 flex justify-around items-center gap-4 fixed bottom-0 left-0 z-50 w-full xs:hidden">
