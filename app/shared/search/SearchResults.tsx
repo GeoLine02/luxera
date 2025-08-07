@@ -21,7 +21,7 @@ SearchResultsProps) => {
 
   return (
     <div
-      className={`${searchResultsStyles} top-12 md:top-12 left-0 absolute z-50  w-[calc(100%-32px)] ml-4 md:w-full min-h-[400px] bg-ice-blue rounded-b-xl border border-t-0 border-medium-gray`}
+      className={`${searchResultsStyles} top-12 md:top-12 left-0 absolute z-50  w-[calc(100%-32px)] ml-4 md:w-full min-h-[400px] bg-ice-blue rounded-b-xl border border-t-0 border-medium-gray md:ml-0`}
     >
       {/* <SearchFilters
         activeSearchFilter={activeSearchFilter}
