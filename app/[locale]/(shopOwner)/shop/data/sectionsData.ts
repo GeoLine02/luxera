@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaShoppingBag, FaWallet } from "react-icons/fa";
+import { FaBoxOpen, FaWallet } from "react-icons/fa";
 import {
   IoIosAddCircle,
   IoIosSpeedometer,
@@ -21,11 +21,6 @@ export const sectionsData = [
     accessorKey: "myProducts",
     label: "My Products",
     Icon: FaBoxOpen,
-  },
-  {
-    accessorKey: "orders",
-    label: "Orders",
-    Icon: FaShoppingBag,
   },
   {
     accessorKey: "finances",
