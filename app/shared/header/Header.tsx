@@ -3,7 +3,6 @@
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa";
-import { FaRegEnvelope } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { IoCartOutline } from "react-icons/io5";
 
@@ -59,9 +58,6 @@ const Header = () => {
         </div>
         <div className="hidden lg:block cursor-pointer">
           <FaRegHeart size={25} />
-        </div>
-        <div className="hidden lg:block cursor-pointer">
-          <FaRegEnvelope size={25} />
         </div>
         <div className="md:hidden cursor-pointer">
           <FaBars onClick={handleOpenMenu} size={25} />

@@ -113,7 +113,8 @@ const Menu = ({ children, expandMode, className }: MenuProps) => {
 interface ItemProps {
   children: ReactNode;
   className?: string;
-  onSelect?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSelect?: any;
 }
 
 const Item = ({ children, onSelect, className }: ItemProps) => {

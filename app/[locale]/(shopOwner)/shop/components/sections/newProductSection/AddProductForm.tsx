@@ -14,7 +14,6 @@ const AddProductForm = () => {
               Title
             </label>
             <Input
-              className="max-w-[250px]"
               name="title"
               bgColor="white"
               border="border border-light-gray rounded-lg"
@@ -62,6 +61,18 @@ const AddProductForm = () => {
             </label>
             <Input
               name="quantity"
+              bgColor="white"
+              border="border border-light-gray rounded-lg"
+              aria-labelledby="product quantity input"
+              placeholder="0"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium" htmlFor="quantity">
+              Discount
+            </label>
+            <Input
+              name="discount"
               bgColor="white"
               border="border border-light-gray rounded-lg"
               aria-labelledby="product quantity input"

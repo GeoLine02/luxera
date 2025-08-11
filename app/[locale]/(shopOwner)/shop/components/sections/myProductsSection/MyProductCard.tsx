@@ -1,13 +1,21 @@
 "use client";
 
+import { SellerProductStatusType } from "@/app/types/product";
 import Button from "@/app/ui/Button";
+import { Dropdown } from "@/app/ui/DropDown";
+import classNames from "classnames";
+import { IoIosArrowDown } from "react-icons/io";
 
 interface MyProductCardProps {
   title: string;
   id: string;
   views: string;
   sales: string;
-  status: "active" | "vip";
+  status: "active" | "inactive" | "outOfStock";
+  handleChangeStatus: (
+    productId: string,
+    status: SellerProductStatusType
+  ) => void;
 }
 
 const MyProductCard = ({
@@ -16,7 +24,26 @@ const MyProductCard = ({
   views,
   sales,
   status,
+  handleChangeStatus,
 }: MyProductCardProps) => {
+  const statusColorStyles = classNames({
+    "text-green-600 bg-green-200": status === "active",
+    "text-medium-gray bg-light-gray": status === "inactive",
+    "text-red-500 bg-red-200": status === "outOfStock",
+  });
+
+  const getStatusTitle = () => {
+    if (status === "active") {
+      return "Active";
+    }
+    if (status === "inactive") {
+      return "Inactive";
+    }
+    if (status === "outOfStock") {
+      return "Out of Stock";
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2 bg-white p-2 rounded-xl md:flex-row md:items-center">
       <div className="flex items-center gap-4 border-b border-medium-gray pb-4 md:pb-0 md:border-none">
@@ -41,19 +68,49 @@ const MyProductCard = ({
           <h1 className="font-medium">{sales}</h1>
         </div>
         <div className="flex-col items-center hidden md:flex">
-          <h1 className="text-medium-gray">status</h1>
-          <span className="text-green-600 bg-green-200 rounded-md px-4  ">
-            {status}
-          </span>
+          <h1 className="text-medium-gray text-sm">status</h1>
+          <Dropdown>
+            <Dropdown.Trigger>
+              <span
+                className={`${statusColorStyles} rounded-md px-4 flex items-center gap-2`}
+              >
+                {getStatusTitle()}
+                <IoIosArrowDown size={20} />
+              </span>
+            </Dropdown.Trigger>
+            <Dropdown.Menu
+              expandMode="absolute"
+              className="!top-9 min-w-[130px] rounded-lg"
+            >
+              <Dropdown.Item
+                onSelect={() => handleChangeStatus(id, "active")}
+                className="py-2"
+              >
+                Active
+              </Dropdown.Item>
+              <Dropdown.Item
+                onSelect={() => handleChangeStatus(id, "inactive")}
+                className="py-2"
+              >
+                Inactive
+              </Dropdown.Item>
+              <Dropdown.Item
+                onSelect={() => handleChangeStatus(id, "outOfStock")}
+                className="py-2"
+              >
+                Out of stock
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
       <div>
         <Button
           rounded="lg"
-          title="Analytics"
+          title="Edit"
           type="button"
           bgColor="lightGray"
-          className="py-2 px-4 font-medium"
+          className="py-2 px-9 font-medium"
         />
       </div>
     </div>
