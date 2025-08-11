@@ -32,7 +32,7 @@ const SideMenu = () => {
     { label: "მთავარი", path: `/${locale}` },
     { label: "ჩვენ შესახებ", path: `/${locale}/about` },
     { label: "კონტაქტი", path: `/${locale}/contact` },
-    { label: "გახსენი მაღაზია", path: `/${locale}/open-store` },
+    { label: "გახსენი მაღაზია", path: `/${locale}/shop/register` },
   ];
 
   return (

@@ -5,6 +5,7 @@ import {
   IoMdMegaphone,
   IoMdSettings,
 } from "react-icons/io";
+import { GiReceiveMoney } from "react-icons/gi";
 
 export const sectionsData = [
   {
@@ -26,6 +27,11 @@ export const sectionsData = [
     accessorKey: "finances",
     label: "Finances",
     Icon: FaWallet,
+  },
+  {
+    accessorKey: "referal",
+    label: "Referal",
+    Icon: GiReceiveMoney,
   },
   {
     accessorKey: "advertisment",

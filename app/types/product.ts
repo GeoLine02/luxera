@@ -17,3 +17,13 @@ export interface ProductImageType {
   source: string;
   id: number;
 }
+
+export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
+
+export interface SellersProductType {
+  title: string;
+  id: string;
+  views: string;
+  sales: string;
+  status: SellerProductStatusType;
+}
