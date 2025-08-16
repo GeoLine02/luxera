@@ -53,39 +53,41 @@ const MyProductCard = ({
         <div className="md:max-w-[200px]">
           <h1 className="font-medium text-dark-gray truncate">{title}</h1>
           <h1 className="text-medium-gray">ID: #{id}</h1>
-          <Dropdown>
-            <Dropdown.Trigger>
-              <span
-                className={`${statusColorStyles} rounded-md px-4 flex items-center gap-2 w-fit`}
+          <div className="md:hidden">
+            <Dropdown>
+              <Dropdown.Trigger>
+                <span
+                  className={`${statusColorStyles} rounded-md px-4 flex items-center gap-2 w-fit`}
+                >
+                  {getStatusTitle()}
+                  <IoIosArrowDown size={20} />
+                </span>
+              </Dropdown.Trigger>
+              <Dropdown.Menu
+                expandMode="absolute"
+                className="!top-9 min-w-[130px] rounded-lg"
               >
-                {getStatusTitle()}
-                <IoIosArrowDown size={20} />
-              </span>
-            </Dropdown.Trigger>
-            <Dropdown.Menu
-              expandMode="absolute"
-              className="!top-9 min-w-[130px] rounded-lg"
-            >
-              <Dropdown.Item
-                onSelect={() => handleChangeStatus(id, "active")}
-                className="py-2"
-              >
-                Active
-              </Dropdown.Item>
-              <Dropdown.Item
-                onSelect={() => handleChangeStatus(id, "inactive")}
-                className="py-2"
-              >
-                Inactive
-              </Dropdown.Item>
-              <Dropdown.Item
-                onSelect={() => handleChangeStatus(id, "outOfStock")}
-                className="py-2"
-              >
-                Out of stock
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                <Dropdown.Item
+                  onSelect={() => handleChangeStatus(id, "active")}
+                  className="py-2"
+                >
+                  Active
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onSelect={() => handleChangeStatus(id, "inactive")}
+                  className="py-2"
+                >
+                  Inactive
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onSelect={() => handleChangeStatus(id, "outOfStock")}
+                  className="py-2"
+                >
+                  Out of stock
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-around border-b border-medium-gray md:border-none w-full pb-2 md:pb-0">
