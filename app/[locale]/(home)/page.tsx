@@ -26,7 +26,7 @@ export default function Home() {
       <div className="mt-[50px] px-5 lg:px-11">
         <ProductsList />
       </div>
-      <div className=" mt-[54px]">
+      <div className="mt-[54px]">
         <SellYourProducts />
       </div>
       <div className="mt-[30px] lg:mt-[54px] px-5 lg:px-11">
