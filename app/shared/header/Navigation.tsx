@@ -26,7 +26,7 @@ const Navigation = () => {
   });
 
   return (
-    <nav className="w-full flex items-center justify-between px-8 py-3 border-b border-gray-200">
+    <nav className="w-full items-center justify-between px-8 py-3 border-b border-gray-200 hidden md:flex">
       {/* LEFT SECTION */}
       <div>
         {!isHome && !isProducts && (
