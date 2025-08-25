@@ -34,7 +34,7 @@ const PricingCard = ({
 
   return (
     <div
-      className={`relative ${borderStyles} flex flex-col gap-6 items-center p-6 w-full max-w-[450px] min-h-[400px]`}
+      className={`relative ${borderStyles} flex flex-col gap-6 items-center p-6 w-full max-w-[450px] min-h-auto md:min-h-[400px]`}
     >
       {isPopular && <div className={`${popularBadgeStyles}`}>პოპულარული</div>}
       <div className="flex flex-col items-center gap-4 flex-1">

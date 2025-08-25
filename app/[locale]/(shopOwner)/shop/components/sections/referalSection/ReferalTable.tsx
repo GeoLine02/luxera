@@ -39,7 +39,7 @@ const statusColors: Record<Referral["status"], string> = {
 
 const ReferralTable = () => {
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
+    <div className="border border-gray-200 rounded-lg overflow-y-auto bg-white">
       <table className="w-full text-sm">
         <thead className="bg-gray-50">
           <tr className="text-left text-gray-600 font-medium">

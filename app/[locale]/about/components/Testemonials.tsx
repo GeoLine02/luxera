@@ -1,10 +1,9 @@
 "use client";
 import { FaUser } from "react-icons/fa";
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import "swiper/css";
 import "swiper/css/pagination";
+import SwiperSlider from "@/app/shared/SwiperSlider";
 
 interface TestemonialCardProps {
   //   image: StaticImageData;
@@ -28,6 +27,26 @@ const testemonialData = [
     rating: 4,
     text: "I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal.",
   },
+  {
+    id: 4,
+    rating: 4,
+    text: "I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal.",
+  },
+  {
+    id: 5,
+    rating: 4,
+    text: "I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal.",
+  },
+  {
+    id: 6,
+    rating: 4,
+    text: "I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal.",
+  },
+  {
+    id: 7,
+    rating: 4,
+    text: "I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal.",
+  },
 ];
 
 const Testemonialcard = ({ rating, text }: TestemonialCardProps) => {
@@ -44,43 +63,17 @@ const Testemonialcard = ({ rating, text }: TestemonialCardProps) => {
 
 const Testemonials = () => {
   return (
-    <>
-      {/* Mobile */}
-      <div className="md:hidden px-4 mt-[90px] space-y-11">
-        <h1 className="text-4xl text-center font-semibold">Testemonials</h1>
-
-        <Swiper
-          className="[&_.swiper-pagination]:!bottom-[20px] !z-50"
-          pagination={true}
-          modules={[Pagination]}
-        >
-          {testemonialData.map((card) => (
-            <SwiperSlide className="px-3 mb-14" key={card.id}>
-              <Testemonialcard rating={card.rating} text={card.text} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-
-      {/* Desktop */}
-      <div className="hidden space-y-[50px] mt-[90px] md:flex flex-col items-center px-4">
-        <h1 className="text-[36px] font-bold">Testemonials</h1>
-        <div className="flex gap-5 items-center">
-          <Testemonialcard
-            rating={4}
-            text="I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal."
-          />
-          <Testemonialcard
-            rating={4}
-            text="I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal."
-          />
-          <Testemonialcard
-            rating={4}
-            text="I honestly didn’t expect something so beautiful. The packaging was perfect, and the handwritten note made it feel so personal."
-          />
-        </div>
-      </div>
-    </>
+    <div className="px-4 mt-[90px] space-y-11 max-w-[1000px] mx-auto">
+      <SwiperSlider
+        data={testemonialData}
+        renderCard={(data) => (
+          <Testemonialcard rating={data.rating} text={data.text} />
+        )}
+        title="Testemonials"
+        titleWeight="medium"
+        titleFont="default"
+      />
+    </div>
   );
 };
 

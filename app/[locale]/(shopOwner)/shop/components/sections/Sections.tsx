@@ -12,7 +12,6 @@ import ReferalSection from "./referalSection/ReferalSection";
 
 const Sections = () => {
   const { activeSection } = useSelector((state: RootState) => state.shopSLice);
-  console.log(activeSection);
   return (
     <div className=" bg-ice-blue w-full min-h-[calc(100vh-80px)] md:min-h-screen h-full p-4">
       {activeSection === "main" && <MainSection />}

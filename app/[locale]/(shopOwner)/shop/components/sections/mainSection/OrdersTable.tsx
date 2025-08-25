@@ -1,55 +1,69 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import classNames from "classnames";
+import { Dropdown } from "@/app/ui/DropDown";
 
 interface Order {
   id: string;
   customerName: string;
   date: string;
   total: string;
-  status: "Completed" | "Pending" | "Cancelled";
+  status: "completed" | "pending" | "canceled";
 }
 
-const orders: Order[] = [
+const ordersData: Order[] = [
   {
     id: "#001",
     customerName: "John Doe",
     date: "2025-08-06",
     total: "150 GEL",
-    status: "Completed",
+    status: "completed",
   },
   {
     id: "#002",
     customerName: "Jane Smith",
     date: "2025-08-05",
     total: "200 GEL",
-    status: "Pending",
+    status: "pending",
   },
   {
     id: "#003",
     customerName: "Mike Johnson",
     date: "2025-08-04",
     total: "100 GEL",
-    status: "Cancelled",
+    status: "canceled",
   },
 ];
 
 const statusStyles: Record<Order["status"], string> = {
-  Completed: "bg-green-100 text-green-800",
-  Pending: "bg-yellow-100 text-yellow-800",
-  Cancelled: "bg-red-100 text-red-800",
+  completed: "bg-green-100 text-green-800",
+  pending: "bg-yellow-100 text-yellow-800",
+  canceled: "bg-red-100 text-red-800",
 };
 
 const OrdersTable = () => {
+  const [orders, setOrders] = useState(ordersData);
+
+  const handleChangeStatus = (
+    status: "completed" | "canceled" | "pending",
+    orderId: string
+  ) => {
+    const updatedOrders = orders.map((order) =>
+      order.id === orderId ? { ...order, status } : order
+    );
+
+    setOrders(updatedOrders);
+  };
+
   return (
-    <div className="flex-1 max-h-full h-full">
+    <div className="flex-1 h-full">
       <div className="p-4 pb-0">
         <h2 className="text-2xl text-dark-gray font-semibold">Orders</h2>
       </div>
       <div className="mt-6 bg-white rounded-lg">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-visible">
           <table className="min-w-full text-sm text-left">
             <thead className="border-b border-light-gray">
               <tr>
@@ -72,21 +86,52 @@ const OrdersTable = () => {
                 >
                   <td className="px-6 py-4">{order.id}</td>
                   <td className="px-6 py-4">
-                    <Link href="#" className="text-blue-600 hover:underline">
-                      {order.customerName}
-                    </Link>
+                    <Link href="#">{order.customerName}</Link>
                   </td>
                   <td className="px-6 py-4">{order.date}</td>
                   <td className="px-6 py-4">{order.total}</td>
                   <td className="px-6 py-4">
-                    <span
-                      className={classNames(
-                        "px-3 py-1 rounded-full text-xs font-semibold",
-                        statusStyles[order.status]
-                      )}
-                    >
-                      {order.status}
-                    </span>
+                    <Dropdown>
+                      <Dropdown.Trigger className="text-left">
+                        <span
+                          className={classNames(
+                            "px-3 py-1 rounded-full text-xs font-semibold",
+                            statusStyles[order.status]
+                          )}
+                        >
+                          {order.status}
+                        </span>
+                      </Dropdown.Trigger>
+                      <Dropdown.Menu
+                        expandMode="absolute"
+                        className="overflow-visible text-left !top-7 !w-fit z-50"
+                      >
+                        <Dropdown.Item
+                          onSelect={() =>
+                            handleChangeStatus("completed", order.id)
+                          }
+                          className="py-1.5"
+                        >
+                          Completed
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() =>
+                            handleChangeStatus("pending", order.id)
+                          }
+                          className="py-1.5"
+                        >
+                          Pending
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onSelect={() =>
+                            handleChangeStatus("canceled", order.id)
+                          }
+                          className="py-1.5"
+                        >
+                          Canceled
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </td>
                 </tr>
               ))}

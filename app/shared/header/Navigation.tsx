@@ -12,6 +12,7 @@ const Navigation = () => {
   const pathName = usePathname();
   const locale = useLocale();
   const [isCategoriesOpened, setIsCategoriesOpened] = useState(false);
+  const [currentLang, setCurrentLang] = useState(locale);
 
   const isHome = pathName === `/${locale}`;
   const isProducts = pathName.startsWith(`/${locale}/products`);
@@ -24,7 +25,11 @@ const Navigation = () => {
     "scale-100": isCategoriesOpened,
     "scale-0": !isCategoriesOpened,
   });
+  console.log(locale);
 
+  const onToggleLang = () => {
+    setCurrentLang(`${currentLang === "ka" ? "en" : "ka"}`);
+  };
   return (
     <nav className="w-full items-center justify-between px-8 py-3 border-b border-gray-200 hidden md:flex">
       {/* LEFT SECTION */}
@@ -57,9 +62,8 @@ const Navigation = () => {
 
       {/* RIGHT SECTION */}
       <div className="flex items-center gap-2">
-        <span>ENG</span>
-        <Toggle />
-        <span>GE</span>
+        <Toggle onClick={onToggleLang} />
+        <span>{currentLang === "en" ? "GEO" : "ENG"}</span>
       </div>
     </nav>
   );

@@ -1,6 +1,6 @@
 const SellerHero = () => {
   return (
-    <div className="bg-light-pink rounded-xl p-6 flex flex-col md:flex-row items-center gap-4">
+    <div className="bg-light-pink rounded-xl p-6 flex flex-col md:flex-row items-center gap-4 justify-center">
       <div className="bg-dark-pink border-4 border-white rounded-full w-28 aspect-square flex items-center justify-center">
         <span className="text-xl font-semibold"></span>
       </div>
