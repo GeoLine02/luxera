@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store/store";
 import { openCategoiresModal } from "@/app/store/features/categoriesSlice";
 import { Link, usePathname } from "@/i18n/navigation";
+import Button from "@/app/ui/Button";
 
 const Navigation = () => {
   const locale = useLocale();
@@ -32,8 +33,7 @@ const Navigation = () => {
     setCurrentLang(`${currentLang === "ka" ? "en" : "ka"}`);
   };
   return (
-    <nav className="w-full items-center justify-between px-4 py-3 border-b border-gray-200 hidden md:flex">
-      {/* LEFT SECTION */}
+    <nav className="w-full items-center justify-between px-12 py-3 border-b border-gray-200 hidden md:flex">
       <div>
         <>
           <button
@@ -51,24 +51,35 @@ const Navigation = () => {
         </>
       </div>
 
-      {/* CENTER SECTION */}
       <ul className="flex items-center gap-10 text-lg font-medium">
         <Link href={`/`}>Home</Link>
         <Link href={`/about`}>About</Link>
-        <Link href={`/shop`}>Shop</Link>
+        {/* <Link href={`/shop`}>Shop</Link> */}
         <Link href={`/contact`}>Contact</Link>
       </ul>
 
-      {/* RIGHT SECTION */}
-
-      <Link
-        href={pathName}
-        locale={`${currentLang === "en" ? "ka" : "en"}`}
-        className="flex items-center gap-2"
-      >
-        <Toggle onClick={onToggleLang} />
-        <span>{currentLang === "en" ? "GEO" : "ENG"}</span>
-      </Link>
+      <div className="flex items-center gap-6">
+        <Link href={"/shop/register"}>
+          <Button
+            rounded="lg"
+            title="Open Shop"
+            type="button"
+            bgColor="lightPink"
+            className="py-2 px-4 font-medium"
+            titleColor="black"
+          />
+        </Link>
+        <Link
+          href={pathName}
+          locale={`${currentLang === "en" ? "ka" : "en"}`}
+          className="flex items-center gap-2"
+        >
+          <span className="font-medium">
+            {currentLang === "en" ? "GEO" : "ENG"}
+          </span>
+          <Toggle onClick={onToggleLang} />
+        </Link>
+      </div>
     </nav>
   );
 };

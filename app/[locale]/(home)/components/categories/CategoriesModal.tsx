@@ -10,7 +10,6 @@ import {
 } from "@/app/store/features/categoriesSlice";
 import { useState } from "react";
 import { CategoryType, SubCategoryType } from "@/app/types/categories";
-import DesktopCategoriesModal from "./DesktopCategoriesModal";
 import MobileCategoriesModal from "./MobileCategoriesModal";
 import classNames from "classnames";
 
@@ -43,33 +42,16 @@ const CategoriesModal = () => {
   );
 
   return (
-    <>
-      {isCategoriesModalOpen ? (
-        <>
-          <div className="hidden xs:block">
-            <DesktopCategoriesModal
-              categories={categories}
-              handleChooseCatogery={handleChooseCatogery}
-              handleChooseSubCategory={handleChooseSubCategory}
-              handleCloseModal={handleCloseModal}
-              selectedCategory={selectedCategory}
-              selectedSubCategory={selectedSubCategory}
-            />
-          </div>
-        </>
-      ) : null}
-
-      <div className={`xs:hidden ${mobileCategoriesStyles}`}>
-        <MobileCategoriesModal
-          categories={categories}
-          handleChooseCatogery={handleChooseCatogery}
-          handleChooseSubCategory={handleChooseSubCategory}
-          handleCloseModal={handleCloseModal}
-          selectedCategory={selectedCategory}
-          selectedSubCategory={selectedSubCategory}
-        />
-      </div>
-    </>
+    <div className={`xs:hidden ${mobileCategoriesStyles}`}>
+      <MobileCategoriesModal
+        categories={categories}
+        handleChooseCatogery={handleChooseCatogery}
+        handleChooseSubCategory={handleChooseSubCategory}
+        handleCloseModal={handleCloseModal}
+        selectedCategory={selectedCategory}
+        selectedSubCategory={selectedSubCategory}
+      />
+    </div>
   );
 };
 

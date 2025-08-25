@@ -7,12 +7,21 @@ import { IoCartOutline } from "react-icons/io5";
 
 import Button from "../../ui/Button";
 import { FaBars } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
 import { openMenu } from "../../store/features/sideMenuSlice";
 import SearchContainer from "../search/SearchContainer";
 import Navigation from "./Navigation";
 import Link from "next/link";
+import DesktopCategoriesModal from "@/app/[locale]/(home)/components/categories/DesktopCategoriesModal";
+import {
+  chooseSelectedCategory,
+  chooseSelectedSubCategory,
+  closeCategoriesModal,
+} from "@/app/store/features/categoriesSlice";
+import { allCategoriesData } from "@/data/categories";
+import { CategoryType, SubCategoryType } from "@/app/types/categories";
+import { useState } from "react";
 
 const Header = () => {
   const pathName = usePathname();
@@ -23,6 +32,23 @@ const Header = () => {
   const handleOpenMenu = () => {
     dispatch(openMenu());
   };
+
+  const handleCloseModal = () => {
+    dispatch(closeCategoriesModal());
+  };
+
+  const [categories] = useState(allCategoriesData);
+
+  const handleChooseCatogery = (category: CategoryType) => {
+    dispatch(chooseSelectedCategory(category));
+  };
+
+  const handleChooseSubCategory = (subCategory: SubCategoryType) => {
+    dispatch(chooseSelectedSubCategory(subCategory.label));
+  };
+
+  const { selectedCategory, selectedSubCategory, isCategoriesModalOpen } =
+    useSelector((state: RootState) => state.categoriesReducer);
 
   if (
     pathName.includes("/signup") ||
@@ -76,6 +102,16 @@ const Header = () => {
       </header>
 
       <Navigation />
+      {isCategoriesModalOpen && (
+        <DesktopCategoriesModal
+          handleChooseCatogery={handleChooseCatogery}
+          categories={categories}
+          handleChooseSubCategory={handleChooseSubCategory}
+          selectedSubCategory={selectedSubCategory}
+          handleCloseModal={handleCloseModal}
+          selectedCategory={selectedCategory}
+        />
+      )}
     </>
   );
 };

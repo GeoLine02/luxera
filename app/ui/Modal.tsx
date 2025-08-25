@@ -8,9 +8,9 @@ interface ModalProps {
 const Modal = ({ children, className }: ModalProps) => {
   return (
     <div
-      className={`${className} flex items-center fixed left-0 top-0 justify-center h-screen w-screen z-50 bg-black/70`}
+      className={`${className} flex items-center fixed left-0 top-0 justify-center h-screen w-screen z-[999999] bg-black/70`}
     >
-      <div>{children}</div>
+      {children}
     </div>
   );
 };

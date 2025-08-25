@@ -28,13 +28,13 @@ const ProductFilter = () => {
         </Dropdown>
       </div>
 
-      <div className="bg-light-pink w-full px-11 py-2 hidden items-center justify-between md:flex container">
+      <div className="bg-light-pink w-full px-11 py-2 hidden items-center justify-between md:flex">
         <h1>Showing 1-18 of 32 results</h1>
         <div className="flex items-center gap-11">
           <div className="flex items-center gap-3">
             <label htmlFor="priceFrom">Price From</label>
             <Input
-              bgColor="lightGray"
+              bgColor="white"
               name="priceFrom"
               type="text"
               placeholder="0"
@@ -44,7 +44,7 @@ const ProductFilter = () => {
           <div className="flex items-center gap-3">
             <label htmlFor="priceTo">Price To</label>
             <Input
-              bgColor="lightGray"
+              bgColor="white"
               name="priceTo"
               type="text"
               placeholder="100"
@@ -55,7 +55,7 @@ const ProductFilter = () => {
         <div className="flex items-center gap-3">
           <label htmlFor="sortBy">Sort By</label>
           <Input
-            bgColor="lightGray"
+            bgColor="white"
             name="sortBy"
             type="text"
             placeholder="Default"
