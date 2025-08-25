@@ -32,7 +32,7 @@ const Footer = () => {
   return (
     <footer className="mt-11 mb-[80px] xs:mb-0">
       {/* Top Section */}
-      <div className="flex flex-col lg:flex-row justify-between gap-12 px-11 pt-[52px] pb-[33px] bg-[#EFDDD6] mt-4">
+      <div className="flex flex-col lg:flex-row justify-between gap-12 px-11 pt-[52px] pb-[33px] bg-light-pink mt-4">
         {/* Earn & Company */}
         <div className="flex gap-20 font-semibold">
           <div className="space-y-4">

@@ -20,13 +20,13 @@ const Products = () => {
       <div className="mt-12">
         <ProductFilter />
       </div>
-      <div className="container mt-[50px]  px-5">
+      <div className="mt-[50px]  px-5">
         <RecommendedProducts />
       </div>
-      <div className="container mt-[50px] px-5">
+      <div className="mt-[50px] px-5">
         <BestSellerProducts />
       </div>
-      <div className="mt-[50px] px-5 container">
+      <div className="mt-[50px] px-5">
         <AllProducts />
       </div>
     </div>

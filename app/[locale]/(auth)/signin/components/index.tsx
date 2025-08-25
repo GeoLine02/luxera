@@ -13,10 +13,14 @@ const SignInContainer = () => {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Left side */}
-      <div className="bg-light-pink w-full lg:w-1/2 flex justify-center items-center pb-32">
+      <div className="md:bg-light-pink w-full lg:w-1/2 flex md:justify-center items-center p-4 md:pb-32">
         <div className="flex flex-col gap-20">
           <Image src={LuxeraLogo} alt="luxera logo" />
-          <Image src={AuthPoster} alt="auth banner" />
+          <Image
+            className="hidden md:block"
+            src={AuthPoster}
+            alt="auth banner"
+          />
         </div>
       </div>
 

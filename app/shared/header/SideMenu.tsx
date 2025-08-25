@@ -6,9 +6,9 @@ import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosCloseCircle } from "react-icons/io";
 import Button from "@/app/ui/Button";
-import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 import Link from "next/link";
+import { Link as LangLink, usePathname } from "@/i18n/navigation";
 
 const SideMenu = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,7 +39,7 @@ const SideMenu = () => {
     <div
       className={`${menuTransitionStyles} w-full h-screen fixed z-50 bg-white space-y-4 px-4 md:hidden`}
     >
-      <div className="flex justify-end mr-4 mt-4">
+      <div className="flex justify-end mt-4">
         <IoIosCloseCircle
           onClick={handleCloseMenu}
           className="cursor-pointer"
@@ -63,25 +63,27 @@ const SideMenu = () => {
         ))}
       </ul>
 
-      <div className="flex items-center gap-4 mt-14">
-        <Button
-          rounded="full"
-          title="ქართული"
-          type="button"
-          bgColor="lightPink"
-          className="py-2 px-4 w-fit"
-          titleColor="black"
-          onClick={() => console.log("switched to GEO")}
-        />
-        <Button
-          rounded="full"
-          title="English"
-          type="button"
-          bgColor="lightPink"
-          className="py-2 px-4 w-fit"
-          titleColor="black"
-          onClick={() => console.log("switched to ENG")}
-        />
+      <div className="flex items-center justify-evenly gap-4 mt-14">
+        <LangLink href={pathName} locale="ka">
+          <Button
+            rounded="full"
+            title="ქართული"
+            type="button"
+            bgColor="lightPink"
+            className="py-2 px-4 w-fit"
+            titleColor="black"
+          />
+        </LangLink>
+        <LangLink className="w-full max-w-[130px]" href={pathName} locale="en">
+          <Button
+            rounded="full"
+            title="English"
+            type="button"
+            bgColor="lightPink"
+            className="py-2 px-4"
+            titleColor="black"
+          />
+        </LangLink>
       </div>
     </div>
   );

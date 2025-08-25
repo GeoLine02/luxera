@@ -33,7 +33,7 @@ const MobileTabs = () => {
         className="flex flex-col items-center"
       >
         <LuLayoutGrid size={25} />
-        <h1 className="text-xs">Catgory</h1>
+        <h1 className="text-xs">Category</h1>
       </div>
       <Link href={"/luxera-ai"} className="flex flex-col items-center">
         <RiApps2AiLine size={25} />
@@ -45,7 +45,7 @@ const MobileTabs = () => {
       </Link>
       <Link href={"/profile"} className="flex flex-col items-center">
         <CgProfile size={25} />
-        <h1 className="text-xs">Cart</h1>
+        <h1 className="text-xs">Profile</h1>
       </Link>
     </div>
   );

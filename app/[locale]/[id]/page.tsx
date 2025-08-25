@@ -49,7 +49,7 @@ const page = () => {
   };
 
   return (
-    <div>
+    <div className="mt-6">
       <div className="flex flex-col md:flex-row lg:justify-evenly">
         <ProductPreview productImages={productData.images} />
         <MobileProductPreview productImages={productData.images} />

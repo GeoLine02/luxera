@@ -9,7 +9,7 @@ import TermsAndPolicies from "./TermsAndPolicies";
 const SignUpForm = () => {
   return (
     <div className="max-w-[424px] w-full space-y-[57px]">
-      <div className="space-y-[12px] mb-[54px]">
+      <div className="space-y-[12px] mb-6 md:mb-[54px]">
         <h1 className="text-3xl font-semibold text-dark-gray">
           Create your account
         </h1>
@@ -57,7 +57,7 @@ const SignUpForm = () => {
           type="submit"
           bgColor="black"
           rounded="full"
-          title="Sign In"
+          title="Sign Up"
           titleColor="white"
         />
         <div className="flex items-center gap-4 text-medium-gray mt-7">

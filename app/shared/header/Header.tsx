@@ -2,7 +2,6 @@
 
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
 import Image from "next/image";
-import { FaRegHeart } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { IoCartOutline } from "react-icons/io5";
 
@@ -13,6 +12,7 @@ import { AppDispatch } from "../../store/store";
 import { openMenu } from "../../store/features/sideMenuSlice";
 import SearchContainer from "../search/SearchContainer";
 import Navigation from "./Navigation";
+import Link from "next/link";
 
 const Header = () => {
   const pathName = usePathname();
@@ -45,7 +45,7 @@ const Header = () => {
           <SearchContainer />
         </div>
 
-        <div className="flex items-center gap-7">
+        <div className="flex items-center gap-6">
           <Button
             rounded="full"
             title="Luxera AI"
@@ -58,25 +58,24 @@ const Header = () => {
           <div className="hidden lg:block cursor-pointer">
             <IoCartOutline onClick={() => router.push("/cart")} size={30} />
           </div>
-          <div className="hidden lg:block cursor-pointer">
-            <FaRegHeart size={25} />
-          </div>
+
           <div className="md:hidden cursor-pointer">
             <FaBars onClick={handleOpenMenu} size={25} />
           </div>
-          <Button
-            bgColor="lightPink"
-            rounded="lg"
-            title="Sign in"
-            type="button"
-            className="hidden md:block !w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
-            titleColor="black"
-          />
+          <Link href={"/signin"}>
+            <Button
+              bgColor="lightPink"
+              rounded="lg"
+              title="Sign in"
+              type="button"
+              className="hidden md:block !w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
+              titleColor="black"
+            />
+          </Link>
         </div>
       </header>
-      <div className={""}>
-        <Navigation />
-      </div>
+
+      <Navigation />
     </>
   );
 };

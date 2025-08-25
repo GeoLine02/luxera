@@ -3,8 +3,8 @@ import Form from "next/form";
 import Button from "@/app/ui/Button";
 import ForgetPasswordButton from "./ForgetPasswordButton";
 import OtherAccounts from "../../shared/OtherAccounts";
-import DontHaveAccount from "./DontHaveAccount";
 import { SignInState } from "../services/signIn";
+import Link from "next/link";
 
 interface SignInFormProps {
   state: SignInState | null;
@@ -56,8 +56,17 @@ const SignInForm = ({ formAction, state }: SignInFormProps) => {
         </div>
 
         <OtherAccounts />
-
-        <DontHaveAccount />
+        <div className="flex items-center justify-center">
+          <p className="md:mt-[50px] mx-auto">
+            Don’t have an account?{" "}
+            <Link
+              href={"/signup"}
+              className="cursor-pointer font-bold text-black"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </Form>
     </div>
   );
