@@ -23,7 +23,7 @@ const MobileTabs = () => {
     return null;
 
   return (
-    <div className="bg-white p-4 flex justify-around items-center gap-4 fixed bottom-0 left-0 z-50 w-full xs:hidden">
+    <div className="bg-white p-4 flex justify-around items-center gap-4 fixed bottom-0 left-0 z-50 w-full md:hidden">
       <Link href={"/"} className="flex flex-col items-center">
         <GoHome size={25} />
         <h1 className="text-xs">Home</h1>

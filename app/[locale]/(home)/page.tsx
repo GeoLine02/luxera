@@ -1,7 +1,6 @@
 import SearchContainer from "@/app/shared/search/SearchContainer";
 import BestSellings from "./components/BestSellings/BestSellings";
 import Categories from "./components/categories/Categories";
-import CategoriesModal from "./components/categories/CategoriesModal";
 import ProductsList from "./components/featuredProducts/ProductsList";
 import Hero from "./components/hero/Hero";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
@@ -16,10 +15,8 @@ export default function Home() {
         <SearchContainer />
       </div>
 
-      <div>
-        <Categories />
-        <CategoriesModal />
-      </div>
+      <Categories />
+
       <div className="mt-[50px]">
         <Hero />
       </div>

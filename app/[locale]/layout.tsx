@@ -8,6 +8,7 @@ import Footer from "../shared/Footer/Footer";
 import ReduxProvider from "../providers/ReduxProvider";
 import MobileTabs from "../shared/mobileTabs/MobileTabs";
 import SideMenu from "../shared/header/SideMenu";
+import CategoriesModal from "./(home)/components/categories/CategoriesModal";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -45,6 +46,7 @@ export default async function RootLayout({
             <main>{children}</main>
             <MobileTabs />
             <Footer />
+            <CategoriesModal />
           </NextIntlClientProvider>
         </ReduxProvider>
       </body>

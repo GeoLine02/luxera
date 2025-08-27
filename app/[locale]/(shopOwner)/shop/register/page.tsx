@@ -7,7 +7,7 @@ const ShopRegister = () => {
       <div className="hidden bg-light-pink h-screen justify-center items-center w-1/2 md:flex">
         <Image src={CreateShopImage} alt="" />
       </div>
-      <div className="flex h-screen md:justify-center p-4 md:items-center md:w-1/2">
+      <div className="flex h-screen w-full justify-center p-4 md:items-center md:w-1/2">
         <RegisterForm />
       </div>
     </div>

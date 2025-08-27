@@ -12,6 +12,7 @@ import { useState } from "react";
 import { CategoryType, SubCategoryType } from "@/app/types/categories";
 import MobileCategoriesModal from "./MobileCategoriesModal";
 import classNames from "classnames";
+import DesktopCategoriesModal from "./DesktopCategoriesModal";
 
 const CategoriesModal = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,24 +35,36 @@ const CategoriesModal = () => {
     useSelector((state: RootState) => state.categoriesReducer);
 
   const mobileCategoriesStyles = classNames(
-    "fixed left-0 w-full z-50 transition-all duration-300 ease-in-out", // fixed positioning
+    "fixed left-0 w-full z-50 transition-all duration-300 ease-in-out",
     {
-      "top-full opacity-0 pointer-events-none": !isCategoriesModalOpen, // off-screen (hidden)
-      "top-0 opacity-100 pointer-events-auto": isCategoriesModalOpen, // visible
+      "top-full opacity-0 pointer-events-none": !isCategoriesModalOpen,
+      "top-0 opacity-100 pointer-events-auto": isCategoriesModalOpen,
     }
   );
 
   return (
-    <div className={`xs:hidden ${mobileCategoriesStyles}`}>
-      <MobileCategoriesModal
-        categories={categories}
-        handleChooseCatogery={handleChooseCatogery}
-        handleChooseSubCategory={handleChooseSubCategory}
-        handleCloseModal={handleCloseModal}
-        selectedCategory={selectedCategory}
-        selectedSubCategory={selectedSubCategory}
-      />
-    </div>
+    <>
+      <div className={`md:hidden ${mobileCategoriesStyles}`}>
+        <MobileCategoriesModal
+          categories={categories}
+          handleChooseCatogery={handleChooseCatogery}
+          handleChooseSubCategory={handleChooseSubCategory}
+          handleCloseModal={handleCloseModal}
+          selectedCategory={selectedCategory}
+          selectedSubCategory={selectedSubCategory}
+        />
+      </div>
+      <div className={`hidden md:block ${mobileCategoriesStyles}`}>
+        <DesktopCategoriesModal
+          handleChooseCatogery={handleChooseCatogery}
+          categories={categories}
+          handleChooseSubCategory={handleChooseSubCategory}
+          selectedSubCategory={selectedSubCategory}
+          handleCloseModal={handleCloseModal}
+          selectedCategory={selectedCategory}
+        />
+      </div>
+    </>
   );
 };
 

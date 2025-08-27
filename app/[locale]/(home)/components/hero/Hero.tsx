@@ -4,8 +4,8 @@ import HeroPoster from "@/public/HeroPoster.png";
 
 const Hero = () => {
   return (
-    <div className="bg-light-pink flex flex-col items-center lg:flex-row justify-between relative">
-      <div className="ml-7 lg:ml-14 mt-16 xs:max-w-[600px] max-w-[320px] mx-auto space-y-16 pb-7">
+    <div className="bg-light-pink flex flex-col md:items-center lg:flex-row justify-between relative">
+      <div className="ml-5 lg:ml-14 mt-16 xs:max-w-[600px] max-w-[320px] md:mx-auto space-y-16 pb-7">
         <div className="space-y-6">
           <h1 className=" text-[40px] lg:text-6xl font-FRL font-medium">
             Personalized Greeting Cards & Gifts
