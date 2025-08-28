@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@/app/ui/Button";
 import Input from "@/app/ui/Input";
 
@@ -13,13 +15,19 @@ const RegisterForm = () => {
           <label className="text-sm text-medium-gray" htmlFor="fullName">
             Full Name
           </label>
-          <Input name="fullName" bgColor="lightGray" className="rounded-xl" />
+          <Input
+            onChange={() => {}}
+            name="fullName"
+            bgColor="lightGray"
+            className="rounded-xl"
+          />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm text-medium-gray" htmlFor="fullName">
             Your Gmail
           </label>
           <Input
+            onChange={() => {}}
             name="gmail"
             bgColor="lightGray"
             className="rounded-xl"
@@ -43,6 +51,7 @@ const RegisterForm = () => {
             Repeat Password
           </label>
           <Input
+            onChange={() => {}}
             name="repeatPassword"
             bgColor="lightGray"
             className="rounded-xl"
@@ -51,6 +60,7 @@ const RegisterForm = () => {
 
         <div className="flex gap-2">
           <Input
+            onChange={() => {}}
             type="checkbox"
             name="privacyAndPolicy"
             checked={false}
