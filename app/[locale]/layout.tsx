@@ -36,7 +36,7 @@ export default async function RootLayout({
           content="width=device-width, initial-scale=1.0, user-scalable=no"
         />
       </head>
-      <body className={`font-${inter}`}>
+      <body className={`font-${inter.style.fontFamily}`}>
         <ReduxProvider>
           <NextIntlClientProvider>
             <div className="relative">
