@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const LoginForm = () => {
   return (
-    <form className="flex flex-col space-y-9 w-full">
+    <form className="flex flex-col space-y-9 w-full max-w-[424px]">
       <div className="space-y-4">
         <div>
           <h1 className="text-3xl font-medium">Log In To Your Store</h1>
