@@ -31,8 +31,6 @@ const Upload = () => {
       } else {
         setError(null);
         setFileName(file.name);
-        // Proceed with upload logic
-        console.log("Selected file:", file.name);
       }
     }
   };

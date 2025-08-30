@@ -9,11 +9,6 @@ import TermsAndPolicies from "./TermsAndPolicies";
 import { useActionState } from "react";
 import { registerService } from "../../services/register";
 
-// interface SignUpFormProps {
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   signUp: (_prevState: unknown, formData: FormData) => Promise<any>;
-// }
-
 const SignUpForm = () => {
   const [state, action, pending] = useActionState(registerService, undefined);
 

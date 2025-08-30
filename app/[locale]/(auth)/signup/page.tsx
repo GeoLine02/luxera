@@ -1,40 +1,11 @@
 "use server";
+
 import Image from "next/image";
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
 import AuthPoster from "@/public/AuthPoster.png";
 import SignUpForm from "./components/SignUpForm";
-// import { registerValidationSchema } from "../validation/signUp";
 
 const SignUp = () => {
-  // async function signUp(
-  //   _prevState: unknown,
-  //   formData: FormData
-  // ): Promise<unknown> {
-
-  //   const rawData = {
-  //     fullName: formData.get("fullName"),
-  //     email: formData.get("email"),
-  //     password: formData.get("password"),
-  //     confirmPassword: formData.get("confirmPassword"),
-  //   };
-
-  //   // Validate with zod
-  //   const parsed = registerValidationSchema.safeParse(rawData);
-
-  //   if (!parsed.success) {
-  //     return {
-  //       success: false,
-  //       errors: parsed.error.flatten().fieldErrors,
-  //     };
-  //   }
-
-  //   try {
-  //     await registerService(parsed.data);
-  //   } catch {
-  //     return { success: false, message: "Something went wrong" };
-  //   }
-  // }
-
   return (
     <div>
       <div className="flex flex-col lg:flex-row min-h-screen">
