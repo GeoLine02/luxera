@@ -25,9 +25,19 @@ const Input: React.FC<InputProps> = ({
     "bg-white": bgColor === "white",
   });
 
-  const LabelStyles = classNames("label", {
+  const labelStyles = classNames("label", {
     "text-medium-gray": labelColor === "darkGray",
   });
+
+  const inputBorderStyles = classNames(
+    "w-full px-3 py-2 rounded-md focus:outline-none",
+    inputBackgroundStyles,
+    border,
+    {
+      "border border-red-500 focus:ring-1 focus:ring-red-500": !!error, // highlight when error exists
+      "border border-gray-300 focus:ring-1 focus:ring-black": !error, // default border
+    }
+  );
 
   return (
     <div className={className}>
@@ -36,10 +46,13 @@ const Input: React.FC<InputProps> = ({
           <input
             type="checkbox"
             id={rest.id ?? rest.name}
-            {...rest} // includes name, checked, value, onChange, etc.
+            {...rest}
             className={classNames(
               "h-4 w-4 text-green-600 rounded focus:outline-none",
-              border
+              border,
+              {
+                "border border-red-500": !!error,
+              }
             )}
             aria-invalid={!!error}
             aria-describedby={error ? `${rest.name}-error` : undefined}
@@ -47,7 +60,7 @@ const Input: React.FC<InputProps> = ({
           {label && (
             <label
               htmlFor={rest.id ?? rest.name}
-              className={`${LabelStyles} text-sm`}
+              className={`${labelStyles} text-sm`}
             >
               {label}
             </label>
@@ -63,16 +76,12 @@ const Input: React.FC<InputProps> = ({
               {label}
             </label>
           )}
-          <div className={`${border} w-full`}>
+          <div className="w-full">
             <input
               type={type}
               id={rest.id ?? rest.name}
-              {...rest} // includes name, value, onChange, placeholder, required, etc.
-              className={classNames(
-                "w-full px-3 py-2 rounded-md focus:outline-none",
-                inputBackgroundStyles,
-                border
-              )}
+              {...rest}
+              className={inputBorderStyles}
               aria-invalid={!!error}
               aria-describedby={error ? `${rest.name}-error` : undefined}
             />
