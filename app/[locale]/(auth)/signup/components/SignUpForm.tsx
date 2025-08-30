@@ -1,12 +1,17 @@
+"use client";
+
 import Input from "@/app/ui/Input";
 import Form from "next/form";
 import Button from "@/app/ui/Button";
 import OtherAccounts from "../../shared/OtherAccounts";
-import { signUp } from "../services/signUp";
 import AlreadyHaveAnAccount from "./AlreadyHaveAnAccount";
 import TermsAndPolicies from "./TermsAndPolicies";
+import { useActionState } from "react";
+import { registerService } from "../../services/register";
 
 const SignUpForm = () => {
+  const [state, action, pending] = useActionState(registerService, undefined);
+
   return (
     <div className="max-w-[424px] w-full space-y-[57px]">
       <div className="space-y-[12px] mb-6 md:mb-[54px]">
@@ -16,7 +21,7 @@ const SignUpForm = () => {
         <p className="text-dark-gray">It’s free and easy</p>
       </div>
 
-      <Form className="space-y-[30px] text-medium-gray" action={signUp}>
+      <Form className="space-y-[30px] text-medium-gray" action={action}>
         <div className="space-y-3">
           <Input
             labelColor="darkGray"
@@ -25,6 +30,7 @@ const SignUpForm = () => {
             name="fullName"
             type="text"
             placeholder="Enter your name"
+            error={state?.errors?.fullName?.[0]}
           />
           <Input
             labelColor="darkGray"
@@ -33,6 +39,7 @@ const SignUpForm = () => {
             name="email"
             type="email"
             placeholder="Type your e-mail or phone number"
+            error={state?.errors?.email?.[0]}
           />
           <Input
             labelColor="darkGray"
@@ -41,17 +48,23 @@ const SignUpForm = () => {
             name="password"
             type="password"
             placeholder="Type your password"
+            error={state?.errors?.password?.[0]}
+          />
+          <Input
+            labelColor="darkGray"
+            bgColor="lightGray"
+            label="Confirm password"
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm your password"
+            error={state?.errors?.confirmPassword?.[0]}
           />
         </div>
         <div className="flex items-center gap-2">
-          <Input
-            bgColor="transparent"
-            name="terms"
-            checked={false}
-            type="checkbox"
-          />
+          <Input bgColor="transparent" name="terms" required type="checkbox" />
           <TermsAndPolicies />
         </div>
+        {pending && <span>Loading...</span>}
         <Button
           className="py-4 flex items-center justify-center font-bold"
           type="submit"

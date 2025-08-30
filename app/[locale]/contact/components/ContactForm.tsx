@@ -27,7 +27,6 @@ const ContactForm = () => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     // TODO: make API request here;
     e.preventDefault();
-    console.log(contactFields);
   };
 
   return (

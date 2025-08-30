@@ -27,7 +27,6 @@ const RegisterForm = () => {
             Your Gmail
           </label>
           <Input
-            onChange={() => {}}
             name="gmail"
             bgColor="lightGray"
             className="rounded-xl"
@@ -51,7 +50,6 @@ const RegisterForm = () => {
             Repeat Password
           </label>
           <Input
-            onChange={() => {}}
             name="repeatPassword"
             bgColor="lightGray"
             className="rounded-xl"
@@ -59,13 +57,7 @@ const RegisterForm = () => {
         </div>
 
         <div className="flex gap-2">
-          <Input
-            onChange={() => {}}
-            type="checkbox"
-            name="privacyAndPolicy"
-            checked={false}
-            required
-          />
+          <Input type="checkbox" name="privacyAndPolicy" required />
           <p className="text-sm">
             By creating an account means you agree to the{" "}
             <span className="font-semibold">Terms and Conditions</span>, and our{" "}
