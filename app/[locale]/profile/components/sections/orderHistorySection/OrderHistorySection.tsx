@@ -16,7 +16,6 @@ const OrderHistorySection = () => {
     status: "Delivered",
   };
 
-  console.log(selectedOrder);
   if (selectedOrder) {
     return <OrderDetails order={selectedOrder} />;
   } else {

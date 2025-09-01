@@ -8,6 +8,7 @@ import AlreadyHaveAnAccount from "./AlreadyHaveAnAccount";
 import TermsAndPolicies from "./TermsAndPolicies";
 import { useActionState } from "react";
 import { registerService } from "../../services/register";
+import { ClipLoader } from "react-spinners";
 
 const SignUpForm = () => {
   const [state, action, pending] = useActionState(registerService, undefined);
@@ -64,14 +65,14 @@ const SignUpForm = () => {
           <Input bgColor="transparent" name="terms" required type="checkbox" />
           <TermsAndPolicies />
         </div>
-        {pending && <span>Loading...</span>}
         <Button
           className="py-4 flex items-center justify-center font-bold"
           type="submit"
           bgColor="black"
           rounded="full"
-          title="Sign Up"
+          title={`${pending ? "" : "Sign Up"}`}
           titleColor="white"
+          loader={pending && <ClipLoader size={25} color="white" />}
         />
         <div className="flex items-center gap-4 text-medium-gray mt-7">
           <hr className="flex-1 border-t border-medium-gray" />
