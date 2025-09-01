@@ -10,6 +10,8 @@ interface ButtonProps {
   title: string;
   disabled?: boolean;
   rounded: "sm" | "md" | "lg" | "xl" | "full";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  loader?: any;
   bgColor?:
     | "black"
     | "lightPink"
@@ -36,6 +38,7 @@ const Button = ({
   rounded,
   icon,
   titleColor = "black",
+  loader,
 }: ButtonProps) => {
   const buttonStyles = classNames("btn", {
     "rounded-sm": rounded === "sm",
@@ -67,6 +70,7 @@ const Button = ({
       type={type}
     >
       <div>{icon}</div>
+      <div>{loader}</div>
       <span>{title}</span>
     </button>
   );
