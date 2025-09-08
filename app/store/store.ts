@@ -5,6 +5,7 @@ import profileReducer from "./features/profileSlice";
 import sideMenuReducer from "./features/sideMenuSlice";
 import ordersReducer from "./features/ordersSlice";
 import shopSLice from "./features/shopSlice";
+import cardEditorSlice from "./features/cardEditorSlice";
 
 export const store = () => {
   return configureStore({
@@ -15,6 +16,7 @@ export const store = () => {
       sideMenuReducer: sideMenuReducer,
       ordersReducer: ordersReducer,
       shopSLice: shopSLice,
+      cardEditorSlice: cardEditorSlice,
     },
   });
 };
