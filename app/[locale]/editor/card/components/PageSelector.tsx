@@ -19,7 +19,7 @@ const Page = ({ page, isActive }: PageProps) => {
 
   return (
     <div
-      className={`w-20 h-32 bg-light-pink rounded cursor-pointer ${
+      className={`w-16 h-24 bg-light-pink rounded cursor-pointer ${
         isActive && "border-2 border-medium-pink"
       }`}
       onClick={() => handleChoosePage(page)}

@@ -49,7 +49,6 @@ const EditorFooter = () => {
   const { activeSetting, activePage } = useSelector(
     (state: RootState) => state.cardEditorSlice
   );
-  console.log(activeSetting);
   const handleChooseSetting = (settingLabel: EditorActiveSettingType) => {
     if (activeSetting === settingLabel) {
       console.log("enter");

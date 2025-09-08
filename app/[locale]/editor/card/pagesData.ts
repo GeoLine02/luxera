@@ -9,6 +9,8 @@ export const pagesData: EditorCardType = {
     pagePreview: "",
     userTextCordinates: "",
     userText: "",
+    userImageAngle: 0,
+    userImageZoom: 100,
   },
   secondPage: {
     id: 2,

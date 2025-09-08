@@ -4,6 +4,8 @@ export interface EditorCardType {
     coverImage: string;
     userImage: string | null;
     userImageCordinates: string;
+    userImageAngle: number;
+    userImageZoom: number;
     userText: string;
     userTextCordinates: string;
     pagePreview: string;

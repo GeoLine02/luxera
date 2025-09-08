@@ -11,6 +11,7 @@ interface IinitialStateType {
   activePage: ActivePageType;
   activeSetting: EditorActiveSettingType;
   allImages: string[];
+  firstPage: EditorCardType["firstPage"];
 }
 
 const cardEditorSlice = createSlice({
@@ -19,6 +20,17 @@ const cardEditorSlice = createSlice({
     activePage: pagesData.firstPage,
     activeSetting: null,
     allImages: [],
+    firstPage: {
+      coverImage: "",
+      id: 1,
+      pagePreview: "",
+      userImageAngle: 0,
+      userImageZoom: 100,
+      userImage: null,
+      userImageCordinates: "",
+      userText: "",
+      userTextCordinates: "",
+    },
   },
   name: "cardEditorSlice",
   reducers: {
@@ -34,30 +46,27 @@ const cardEditorSlice = createSlice({
       state.activeSetting = activeSetting;
     },
 
-    setFirstPageImage: (state, action) => {
-      const uploadedFile: string = action.payload;
+    manageFirstPage: (state, action) => {
+      const { userImage, userText }: Partial<EditorCardType["firstPage"]> =
+        action.payload;
 
-      if (uploadedFile) {
-        state.pages = {
-          firstPage: { ...state.pages.firstPage, userImage: uploadedFile },
-          secondPage: { ...state.pages.secondPage },
-          thirdPage: { ...state.pages.thirdPage },
-          fourthPage: { ...state.pages.fourthPage },
+      if (userImage) {
+        state.firstPage = {
+          ...state.firstPage,
+          userImage,
         };
+      }
 
-        if (state.activePage.id === 1) {
-          state.activePage = {
-            ...state.activePage,
-            userImage: uploadedFile,
-          };
-        }
-
-        state.allImages = [...state.allImages, uploadedFile];
+      if (userText) {
+        state.firstPage = {
+          ...state.firstPage,
+          userText,
+        };
       }
     },
   },
 });
 
-export const { setActivePage, setActiveSetting, setFirstPageImage } =
+export const { setActivePage, setActiveSetting, manageFirstPage } =
   cardEditorSlice.actions;
 export default cardEditorSlice.reducer;

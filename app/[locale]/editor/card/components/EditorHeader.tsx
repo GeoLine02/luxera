@@ -20,49 +20,64 @@ const ActionButton = ({
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-2 hover:underline cursor-pointer"
+      className="flex items-center gap-1 sm:gap-2 hover:underline cursor-pointer"
     >
       <Icon size={iconSize} />
-      <span className="font-medium text-lg">{label}</span>
+      <span className="font-medium text-sm sm:text-base md:text-lg">
+        {label}
+      </span>
     </button>
   );
 };
 
 const EditorHeader = () => {
   return (
-    <header className="flex items-center justify-between px-11 py-4 bg-light-pink border-b-2 border-medium-gray w-full">
-      <ActionButton
-        Icon={IoClose}
-        iconSize={40}
-        label="Exit"
-        onClick={() => {}}
-      />
+    <header className="flex items-center justify-between px-3 md:px-11 py-3 sm:py-4 bg-light-pink border-b-2 border-medium-gray w-full">
+      {/* Exit button goes left on desktop, stays inline on mobile */}
+      <div className="hidden sm:block">
+        <ActionButton
+          Icon={IoClose}
+          iconSize={30}
+          label="Exit"
+          onClick={() => {}}
+        />
+      </div>
 
-      <section className="flex gap-6 items-center">
+      <section className="flex flex-wrap justify-between sm:justify-end gap-3 sm:gap-6 items-center md:w-full">
+        {/* Mobile exit button (inline with actions) */}
+        <div className="sm:hidden">
+          <ActionButton
+            Icon={IoClose}
+            iconSize={30}
+            label="Exit"
+            onClick={() => {}}
+          />
+        </div>
+
         <ActionButton
           Icon={LuUndo2}
-          iconSize={30}
+          iconSize={24}
           label="Undo"
           onClick={() => {}}
         />
         <ActionButton
           Icon={LuRedo2}
-          iconSize={30}
+          iconSize={24}
           label="Redo"
           onClick={() => {}}
         />
         <ActionButton
           Icon={LuSave}
-          iconSize={30}
+          iconSize={24}
           label="Save"
           onClick={() => {}}
         />
         <Button
           rounded="md"
-          title="Preview Design"
+          title="Preview"
           type="button"
           bgColor="darkPink"
-          className="px-6 py-2 w-fit text-xl"
+          className="px-3 sm:px-6 py-2 w-fit text-sm sm:text-base md:text-xl md:w-auto"
           onClick={() => {}}
           titleColor="white"
         />
