@@ -1,15 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import SignInForm from "./SignInForm";
 import AuthPoster from "@/public/AuthPoster.png";
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
-import { useActionState } from "react";
-import { signIn } from "../services/signIn";
 
 const SignInContainer = () => {
-  const [state, formAction] = useActionState(signIn, null);
-
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Left side */}
@@ -26,7 +20,7 @@ const SignInContainer = () => {
 
       {/* Right side */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
-        <SignInForm formAction={formAction} state={state} />
+        <SignInForm />
       </div>
     </div>
   );

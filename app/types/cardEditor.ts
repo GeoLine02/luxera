@@ -3,7 +3,24 @@ export interface EditorCardType {
     id: 1;
     coverImage: string;
     userImage: string | null;
+    userImageCordinates: {
+      top?: number;
+      left?: number;
+      bottom?: number;
+      right?: number;
+    };
+    imagePlaceholderAngle: number;
+    userImageAngle: number;
+    userImageZoom: number;
     userText: string;
+    userTextCordinates: {
+      top?: number;
+      left?: number;
+      bottom?: number;
+      right?: number;
+    };
+    textAngle: number;
+    pagePreview: string;
   };
   secondPage: {
     id: 2;

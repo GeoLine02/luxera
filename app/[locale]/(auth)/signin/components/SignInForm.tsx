@@ -1,17 +1,18 @@
+"use client";
+
 import Input from "@/app/ui/Input";
 import Form from "next/form";
 import Button from "@/app/ui/Button";
 import ForgetPasswordButton from "./ForgetPasswordButton";
 import OtherAccounts from "../../shared/OtherAccounts";
-import { SignInState } from "../services/signIn";
 import Link from "next/link";
+import { useActionState } from "react";
+import { loginService } from "../../services/login";
+import { ClipLoader } from "react-spinners";
 
-interface SignInFormProps {
-  state: SignInState | null;
-  formAction: (payload: FormData) => void;
-}
+const SignInForm = () => {
+  const [state, action, pending] = useActionState(loginService, undefined);
 
-const SignInForm = ({ formAction, state }: SignInFormProps) => {
   return (
     <div className="max-w-[424px] w-full space-y-[57px]">
       <div className="space-y-[12px] mb-[54px]">
@@ -19,7 +20,7 @@ const SignInForm = ({ formAction, state }: SignInFormProps) => {
         <p>Meet the good taste today</p>
       </div>
 
-      <Form className="space-y-[30px]" action={formAction}>
+      <Form className="space-y-[30px]" action={action}>
         <div>
           <Input
             bgColor="lightGray"
@@ -27,27 +28,28 @@ const SignInForm = ({ formAction, state }: SignInFormProps) => {
             name="email"
             type="text"
             placeholder="Type your e-mail or phone number"
-            error={state?.errors?.email}
+            error={state?.errors?.email?.[0]}
           />
         </div>
         <div>
           <Input
             bgColor="lightGray"
             label="Password"
-            name="Password"
+            name="password"
             type="password"
             placeholder="Type your password"
-            error={state?.errors?.password}
+            error={state?.errors?.password?.[0]}
           />
           <ForgetPasswordButton />
         </div>
         <Button
-          className="py-4 flex items-center justify-center font-bold"
+          className="py-4  gap-2 flex items-center justify-center font-bold"
           type="submit"
           bgColor="black"
           rounded="full"
           title="Sign In"
           titleColor="white"
+          loader={pending && <ClipLoader size={25} color="white" />}
         />
         <div className="flex items-center gap-4 text-medium-gray mt-7">
           <hr className="flex-1 border-t border-medium-gray" />
