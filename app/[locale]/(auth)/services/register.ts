@@ -22,7 +22,7 @@ export const registerService = async (
     };
   }
 
-  const res = await fetch("https://api.luxeragift.com/en/register", {
+  const res = await fetch(`${process.env.API_BASE_URL}/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
