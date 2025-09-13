@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { handleGoogleCallback } from '../services/googleAuth';
+import { handleAuthCallback } from '../services/googleAuth';
 
 export default function GoogleCallbackPage() {
   const router = useRouter();
@@ -13,43 +13,29 @@ export default function GoogleCallbackPage() {
   useEffect(() => {
     const processCallback = async () => {
       try {
-        const code = searchParams.get('code');
-        const error = searchParams.get('error');
-
-        if (error) {
-          setStatus('error');
-          setMessage('Google authentication was cancelled or failed.');
-          setTimeout(() => router.push('/signin'), 3000);
-          return;
-        }
-
-        if (!code) {
-          setStatus('error');
-          setMessage('No authorization code received from Google.');
-          setTimeout(() => router.push('/signin'), 3000);
-          return;
-        }
-
-        // Handle the callback
-        const result = await handleGoogleCallback(code);
+        // Handle the auth callback
+        const result = await handleAuthCallback();
         
-        if (result.token) {
+        if (result) {
           setStatus('success');
-          setMessage('Successfully logged in with Google! Redirecting...');
+          setMessage('Authentication successful! Redirecting...');
           
-          // Trigger auth change event for header to update
-          window.dispatchEvent(new Event('auth-change'));
-          
-          // Redirect to profile or dashboard
-          setTimeout(() => router.push('/profile'), 1500);
+          // Redirect to the home page after a short delay
+          setTimeout(() => {
+            router.push('/');
+          }, 2000);
         } else {
-          throw new Error('No token received');
+          throw new Error('Authentication failed');
         }
-      } catch (error) {
-        console.error('Google callback error:', error);
+      } catch (err) {
+        console.error('Google callback error:', err);
         setStatus('error');
-        setMessage('Authentication failed. Please try again.');
-        setTimeout(() => router.push('/signin'), 3000);
+        setMessage('An error occurred during authentication. Please try again.');
+        
+        // Redirect to login page after showing error
+        setTimeout(() => {
+          router.push('/signin?error=auth_failed');
+        }, 3000);
       }
     };
 
