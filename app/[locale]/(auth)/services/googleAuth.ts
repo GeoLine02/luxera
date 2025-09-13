@@ -1,13 +1,17 @@
 "use client";
 
 export const initiateGoogleAuth = () => {
-  const apiUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000/en"
-      : process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com/en";
+  // Ensure the base URL doesn't end with a slash
+  const baseUrl = (process.env.NODE_ENV === "development"
+    ? process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000"
+    : process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com"
+  ).replace(/\/+$/, ''); // Remove trailing slashes
 
-  // Redirect to Laravel Google OAuth endpoint
-  window.location.href = `${apiUrl}/auth/google/redirect`;
+  // Ensure the path starts with a single slash
+  const path = '/auth/google/redirect'.replace(/^\/+/, '/');
+  
+  // Combine base URL and path
+  window.location.href = `${baseUrl}${path}`;
 };
 
 export const handleGoogleCallback = async (code: string) => {
