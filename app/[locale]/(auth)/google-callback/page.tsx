@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { handleAuthCallback } from '../services/googleAuth';
 
 export default function GoogleCallbackPage() {
   const router = useRouter();
@@ -11,68 +10,69 @@ export default function GoogleCallbackPage() {
   const [message, setMessage] = useState('Processing Google authentication...');
 
   useEffect(() => {
-    const processCallback = async () => {
+    const processAuth = async () => {
       try {
-        // Check if we have the required parameters
+        // Get all the required parameters from the URL
         const token = searchParams.get('token');
         const userId = searchParams.get('user_id');
         const name = searchParams.get('name');
         const email = searchParams.get('email');
 
+        // Validate required parameters
         if (!token || !userId || !name || !email) {
           throw new Error('Missing authentication parameters');
         }
 
-        // Handle the auth callback
-        const result = await handleAuthCallback();
+        // Store the auth data in localStorage
+        localStorage.setItem('auth_token', token);
+        localStorage.setItem('user', JSON.stringify({
+          id: userId,
+          name: decodeURIComponent(name),
+          email: decodeURIComponent(email)
+        }));
+
+        // Get redirect URL from state or use default
+        let redirectUrl = '/';
+        const state = searchParams.get('state');
         
-        if (result) {
-          setStatus('success');
-          setMessage('Authentication successful! Redirecting...');
-          
-          // Get redirect URL from state or use default
-          const state = searchParams.get('state');
-          let redirectUrl = '/';
-          
-          if (state) {
-            try {
-              const parsedState = JSON.parse(decodeURIComponent(state));
-              if (parsedState.redirect_after_login) {
-                redirectUrl = parsedState.redirect_after_login;
-              }
-            } catch (e) {
-              console.warn('Failed to parse state parameter', e);
+        if (state) {
+          try {
+            const parsedState = JSON.parse(decodeURIComponent(state));
+            if (parsedState.redirect_after_login) {
+              redirectUrl = parsedState.redirect_after_login;
             }
+          } catch (e) {
+            console.warn('Failed to parse state parameter', e);
           }
-          
-          // Redirect after a short delay
-          setTimeout(() => {
-            window.location.href = redirectUrl;
-          }, 1500);
-        } else {
-          throw new Error('Authentication failed: No data returned');
         }
-      } catch (err) {
-        console.error('Google callback error:', err);
+
+        // Update status and redirect
+        setStatus('success');
+        setMessage('Authentication successful! Redirecting...');
+        
+        // Use a small timeout to show success message before redirect
+        setTimeout(() => {
+          window.location.href = redirectUrl;
+        }, 1000);
+
+      } catch (error) {
+        console.error('Authentication error:', error);
         setStatus('error');
         setMessage(
-          err instanceof Error 
-            ? `Authentication failed: ${err.message}` 
+          error instanceof Error 
+            ? `Authentication failed: ${error.message}`
             : 'An unknown error occurred during authentication'
         );
         
         // Redirect to login page after showing error
         setTimeout(() => {
-          const redirectUrl = new URL('/signin', window.location.origin);
-          if (err instanceof Error) {
-            redirectUrl.searchParams.set('error', encodeURIComponent(err.message));
-          }
-          window.location.href = redirectUrl.toString();
+          const errorMessage = error instanceof Error ? error.message : 'Authentication failed';
+          router.push(`/signin?error=${encodeURIComponent(errorMessage)}`);
         }, 3000);
       }
     };
 
-    processCallback();
+    processAuth();
   }, [router, searchParams]);
 
   return (
