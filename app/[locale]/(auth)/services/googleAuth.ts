@@ -1,10 +1,10 @@
 "use client";
 
-export const initiateGoogleAuth = () => {
+export const initiateGoogleAuth = (locale: string = 'en') => {
   // Ensure the base URL doesn't end with a slash
   const baseUrl = (process.env.NODE_ENV === "development"
-    ? process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000"
-    : process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com"
+    ? process.env.NEXT_PUBLIC_API_LOCAL_URL || `http://127.0.0.1:8000/${locale}`
+    : process.env.NEXT_PUBLIC_API_BASE_URL || `https://api.luxeragift.com/${locale}`
   ).replace(/\/+$/, ''); // Remove trailing slashes
 
   // Ensure the path starts with a single slash
@@ -28,8 +28,8 @@ export const handleGoogleCallback = async (code: string) => {
   try {
     // Ensure the base URL doesn't end with a slash
     const baseUrl = (process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com"
-      : process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000"
+      ? process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com/en"
+      : process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000/en"
     ).replace(/\/+$/, ''); // Remove trailing slashes
 
     // Ensure the path starts with a single slash
