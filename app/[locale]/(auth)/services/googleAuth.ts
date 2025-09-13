@@ -9,9 +9,19 @@ export const initiateGoogleAuth = () => {
 
   // Ensure the path starts with a single slash
   const path = '/auth/google/redirect'.replace(/^\/+/, '/');
+  const url = `${baseUrl}${path}`;
   
-  // Combine base URL and path
-  window.location.href = `${baseUrl}${path}`;
+  // Open in a new tab with specific dimensions
+  const width = 600;
+  const height = 700;
+  const left = (window.screen.width - width) / 2;
+  const top = (window.screen.height - height) / 2;
+  
+  window.open(
+    url,
+    'GoogleAuth',
+    `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes,status=yes`
+  );
 };
 
 export const handleGoogleCallback = async (code: string) => {

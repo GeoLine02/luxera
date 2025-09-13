@@ -23,10 +23,12 @@ export const registerService = async (
   }
 
   // Use local API URL in development, production URL otherwise
-  const apiUrl =
-    process.env.NODE_ENV === "production"
-      ? process.env.API_BASE_URL
-      : process.env.API_LOCAL_URL;
+  const isProduction = process.env.NODE_ENV === 'production';
+  const defaultApiUrl = isProduction 
+    ? 'https://api.luxeragift.com/en' 
+    : 'http://localhost:8000/en';
+    
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
 
   const res = await fetch(`${apiUrl}/register`, {
     method: "POST",
