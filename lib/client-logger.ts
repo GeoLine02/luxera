@@ -2,12 +2,12 @@
 
 // Client-side logger that only logs in development
 export const clientLogger = {
-  log: (...args: any[]) => {
+  log: (...args: unknown[]): void => {
     if (process.env.NODE_ENV === 'development') {
       console.log('[Client]', ...args);
     }
   },
-  error: (...args: any[]) => {
+  error: (...args: unknown[]): void => {
     console.error('[Client Error]', ...args);
   }
 };

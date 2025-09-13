@@ -27,7 +27,7 @@ export const loginService = async (
   }
 
   // Use environment variable with fallback to ioka.ae
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "api.luxeragift.com";
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.luxeragift.com/en";
   const apiUrl = API_BASE_URL;
   
   console.log('API URL:', apiUrl);
