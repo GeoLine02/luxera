@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import { registerValidationSchema } from "../validation/signUp";
-import { cookies } from "next/headers";
 
 export const registerService = async (
   _state: undefined,
@@ -91,14 +90,6 @@ export const registerService = async (
 
     // Handle successful registration
     if (responseData.access_token) {
-      const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7, // 1 week
-        sameSite: 'lax' as const,
-      };
-      
       // Redirect to login page after successful registration
       // The redirect function throws an error to handle the redirect
       redirect("/signin?registered=true");
@@ -111,9 +102,9 @@ export const registerService = async (
       message: "Registration successful",
       data: responseData,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Check if this is a redirect error (which is expected)
-    if (error.message === 'NEXT_REDIRECT') {
+    if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
       // Re-throw the redirect error to let Next.js handle it
       throw error;
     }
