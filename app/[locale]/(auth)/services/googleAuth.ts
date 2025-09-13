@@ -123,49 +123,49 @@ export const handleAuthCallback = (): GoogleAuthResponse | null => {
     const email = urlParams.get('email');
     const stateParam = urlParams.get('state');
     
-    if (token && userId && name && email) {
-      const authData = {
-        token,
-        user_id: parseInt(userId, 10),
-        name: decodeURIComponent(name),
-        email: decodeURIComponent(email)
-      };
-      
-      // Store the auth data
-      storeAuthData(authData);
-      
-      // Parse state if it exists
-      let redirectUrl = '/';
-      if (stateParam) {
-        try {
-          const state = JSON.parse(decodeURIComponent(stateParam));
-          if (state.redirect_after_login) {
-            redirectUrl = state.redirect_after_login;
-          }
-        } catch (e) {
-          console.warn('Failed to parse state parameter', e);
-        }
-      }
-      
-      // Notify the parent window (if in popup)
-      if (window.opener) {
-        window.opener.postMessage({
-          type: 'google-auth-success',
-          ...authData,
-          redirectTo: redirectUrl
-        }, process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://luxeragift.netlify.app');
-        
-        // Close the popup after a short delay
-        setTimeout(() => window.close(), 500);
-      } else {
-        // If not in popup, redirect directly
-        window.location.href = redirectUrl;
-      }
-      
-      return authData;
+    if (!token || !userId || !name || !email) {
+      throw new Error('Missing required authentication parameters');
     }
     
-    throw new Error('Missing required authentication parameters');
+    const authData: GoogleAuthResponse = {
+      token,
+      user_id: parseInt(userId, 10),
+      name: decodeURIComponent(name),
+      email: decodeURIComponent(email)
+    };
+    
+    // Store the auth data
+    storeAuthData(authData);
+    
+    // Parse state if it exists
+    let redirectUrl = '/';
+    if (stateParam) {
+      try {
+        const state = JSON.parse(decodeURIComponent(stateParam));
+        if (state.redirect_after_login) {
+          redirectUrl = state.redirect_after_login;
+        }
+      } catch (e) {
+        console.warn('Failed to parse state parameter', e);
+      }
+    }
+    
+    // If we're in a popup, notify the parent window
+    if (window.opener) {
+      window.opener.postMessage({
+        type: 'google-auth-success',
+        ...authData,
+        redirectTo: redirectUrl
+      }, window.location.origin);
+      
+      // Close the popup after a short delay
+      setTimeout(() => window.close(), 500);
+    } else {
+      // If not in a popup, redirect directly
+      window.location.href = redirectUrl;
+    }
+    
+    return authData;
     
   } catch (error) {
     console.error('Auth callback error:', error);

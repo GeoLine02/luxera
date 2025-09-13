@@ -13,6 +13,16 @@ export default function GoogleCallbackPage() {
   useEffect(() => {
     const processCallback = async () => {
       try {
+        // Check if we have the required parameters
+        const token = searchParams.get('token');
+        const userId = searchParams.get('user_id');
+        const name = searchParams.get('name');
+        const email = searchParams.get('email');
+
+        if (!token || !userId || !name || !email) {
+          throw new Error('Missing authentication parameters');
+        }
+
         // Handle the auth callback
         const result = await handleAuthCallback();
         
@@ -20,27 +30,50 @@ export default function GoogleCallbackPage() {
           setStatus('success');
           setMessage('Authentication successful! Redirecting...');
           
-          // Redirect to the home page after a short delay
+          // Get redirect URL from state or use default
+          const state = searchParams.get('state');
+          let redirectUrl = '/';
+          
+          if (state) {
+            try {
+              const parsedState = JSON.parse(decodeURIComponent(state));
+              if (parsedState.redirect_after_login) {
+                redirectUrl = parsedState.redirect_after_login;
+              }
+            } catch (e) {
+              console.warn('Failed to parse state parameter', e);
+            }
+          }
+          
+          // Redirect after a short delay
           setTimeout(() => {
-            router.push('/');
-          }, 2000);
+            window.location.href = redirectUrl;
+          }, 1500);
         } else {
-          throw new Error('Authentication failed');
+          throw new Error('Authentication failed: No data returned');
         }
       } catch (err) {
         console.error('Google callback error:', err);
         setStatus('error');
-        setMessage('An error occurred during authentication. Please try again.');
+        setMessage(
+          err instanceof Error 
+            ? `Authentication failed: ${err.message}` 
+            : 'An unknown error occurred during authentication'
+        );
         
         // Redirect to login page after showing error
         setTimeout(() => {
-          router.push('/signin?error=auth_failed');
+          const redirectUrl = new URL('/signin', window.location.origin);
+          if (err instanceof Error) {
+            redirectUrl.searchParams.set('error', encodeURIComponent(err.message));
+          }
+          window.location.href = redirectUrl.toString();
         }, 3000);
       }
     };
 
     processCallback();
-  }, [searchParams, router]);
+  }, [router, searchParams]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -74,7 +107,7 @@ export default function GoogleCallbackPage() {
             </div>
             <h2 className="text-xl font-semibold text-red-900">Authentication Failed</h2>
             <p className="text-gray-600">{message}</p>
-            <p className="text-sm text-gray-500">Redirecting to sign in page...</p>
+            <p className="text-sm text-gray-500">Redirecting to login page...</p>
           </div>
         )}
       </div>

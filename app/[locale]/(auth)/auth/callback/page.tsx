@@ -7,14 +7,23 @@ export default function AuthCallbackRedirect() {
   const router = useRouter();
 
   useEffect(() => {
-    // Get the full URL with all parameters
-    const url = new URL(window.location.href);
-    
-    // Create the new URL with the correct path
-    const newUrl = new URL('/en/auth/google-callback' + url.search, window.location.origin);
-    
-    // Redirect to the correct route
-    window.location.href = newUrl.toString();
+    if (typeof window !== 'undefined') {
+      // Get the current path to extract locale
+      const pathParts = window.location.pathname.split('/');
+      const locale = pathParts[1] || 'en';
+      
+      // Get all search params
+      const searchParams = new URLSearchParams(window.location.search);
+      
+      // Create the new URL with the correct locale
+      const newUrl = new URL(
+        `/${locale}/auth/google-callback?${searchParams.toString()}`,
+        window.location.origin
+      );
+      
+      // Redirect to the correct route
+      window.location.href = newUrl.toString();
+    }
   }, [router]);
 
   return (
