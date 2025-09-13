@@ -8,6 +8,7 @@ export const registerService = async (
   _state: undefined,
   formData: FormData
 ) => {
+  // Validate form data
   const parsed = registerValidationSchema.safeParse({
     fullName: formData.get("fullName")?.toString(),
     email: formData.get("email")?.toString(),
@@ -18,90 +19,111 @@ export const registerService = async (
   if (!parsed.success) {
     return {
       success: false,
+      message: "Validation failed",
       errors: parsed.error.flatten().fieldErrors,
     };
   }
 
-  // Use local API URL in development, production URL otherwise
-  const isProduction = process.env.NODE_ENV === 'production';
-  const defaultApiUrl = isProduction 
-    ? 'https://api.luxeragift.com/en' 
-    : 'http://localhost:8000/en';
-    
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
+  try {
+    // Use local API URL in development, production URL otherwise
+    const isProduction = process.env.NODE_ENV === 'production';
+    const defaultApiUrl = isProduction 
+      ? 'https://api.luxeragift.com/en' 
+      : 'http://localhost:8000/en';
+      
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
 
-  const res = await fetch(`${apiUrl}/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+    // Prepare registration data with password_confirmation field
+    const registrationData = {
       fullname: parsed.data.fullName,
       email: parsed.data.email,
       password: parsed.data.password,
-      password_confirmation: parsed.data.confirmPassword,
-    }),
-  });
+      password_confirmation: parsed.data.confirmPassword
+    };
 
-  // Check if the response is successful
-  if (!res.ok) {
-    const errorText = await res.text();
-    console.log("Register error response body:", errorText);
+    // Send registration request
+    const response = await fetch(`${apiUrl}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registrationData),
+    });
 
-    // Try to parse error as JSON for better error messages
-    let errorData;
+    // Parse response data
+    let responseData;
     try {
-      errorData = JSON.parse(errorText);
-      console.log("Parsed register error data:", errorData);
-    } catch {
-      console.log("Could not parse register error as JSON");
+      responseData = await response.json();
+    } catch (error) {
+      console.error("Failed to parse response as JSON:", error);
+      return {
+        success: false,
+        message: "Invalid server response",
+        errors: { general: ["The server returned an invalid response"] },
+      };
+    }
+
+    // Handle error responses
+    if (!response.ok) {
+      console.log("Registration error response:", {
+        status: response.status,
+        data: responseData,
+      });
+
+      // Handle validation errors from server
+      if (response.status === 422 && responseData.errors) {
+        return {
+          success: false,
+          message: responseData.message || "Validation failed",
+          errors: responseData.errors,
+        };
+      }
+
+      // Handle other error responses
+      return {
+        success: false,
+        message: responseData.message || "Registration failed",
+        errors: responseData.errors || { 
+          general: [responseData.message || "An unknown error occurred"] 
+        },
+      };
+    }
+
+    // Handle successful registration
+    if (responseData.access_token) {
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7, // 1 week
+        sameSite: 'lax' as const,
+      };
+      
+      // Redirect to login page after successful registration
+      // The redirect function throws an error to handle the redirect
+      redirect("/signin?registered=true");
+      // The code below won't be reached due to the redirect
+      return { success: true, message: "Redirecting to login..." };
     }
 
     return {
-      success: false,
-      errors: {
-        general: [
-          errorData?.message ||
-            `Registration failed: ${res.status} ${res.statusText}`,
-        ],
-      },
+      success: true,
+      message: "Registration successful",
+      data: responseData,
     };
-  }
-
-  // Check if the response is JSON
-  const contentType = res.headers.get("content-type");
-  if (!contentType || !contentType.includes("application/json")) {
-    await res.text();
+  } catch (error: any) {
+    // Check if this is a redirect error (which is expected)
+    if (error.message === 'NEXT_REDIRECT') {
+      // Re-throw the redirect error to let Next.js handle it
+      throw error;
+    }
+    console.error("Registration error:", error);
     return {
       success: false,
-      errors: {
-        general: ["Server returned an invalid response format"],
+      message: "An unexpected error occurred",
+      errors: { 
+        general: ["Failed to process registration. Please try again later."] 
       },
     };
   }
-
-  let data;
-  try {
-    data = await res.json();
-  } catch {
-    await res.text();
-    return {
-      success: false,
-      errors: {
-        general: ["Invalid server response"],
-      },
-    };
-  }
-
-  if (data.success && data.access_token) {
-    (await cookies()).set("access_token", data.access_token, {
-      httpOnly: true,
-      secure: true,
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-
-    // redirect to locale-aware home
-    redirect(`/`);
-  }
-
-  return data;
 };

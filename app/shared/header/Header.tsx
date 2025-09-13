@@ -2,7 +2,7 @@
 
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, usePathname as useNextPathname } from "next/navigation";
 import { IoCartOutline } from "react-icons/io5";
 
 import Button from "../../ui/Button";
@@ -20,6 +20,7 @@ import { getUser, logoutService } from "../../[locale]/(auth)/services/login";
 
 const Header = () => {
   const pathName = usePathname();
+  const pathname = useNextPathname();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -48,33 +49,41 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        setLoading(true);
-        const userData = await getUser();
-        setUser(userData);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchUser = async () => {
+    try {
+      setLoading(true);
+      const userData = await getUser();
+      setUser(userData);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     // Initial fetch
     fetchUser();
 
     // Also fetch user when auth changes
     const handleAuthChange = () => {
+      console.log('Auth change event received, fetching user...');
       fetchUser();
     };
 
+    // Add event listener for auth changes
     window.addEventListener('auth-change', handleAuthChange);
+    
     return () => {
       window.removeEventListener('auth-change', handleAuthChange);
     };
   }, []);
+  
+  // Watch for route changes to update auth state
+  useEffect(() => {
+    fetchUser();
+  }, [pathname]);
 
   // Close dropdown when clicking outside
   useEffect(() => {

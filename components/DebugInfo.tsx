@@ -12,7 +12,7 @@ export default function DebugInfo() {
     setEnv(process.env.NODE_ENV);
     
     console.log('Environment:', process.env.NODE_ENV);
-    console.log('API Base URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
+    console.log('API Base URL:', process.env.NEXT_PUBLIC_API_URL);
     console.log('Current URL:', window.location.href);
   }, []);
 
@@ -23,7 +23,7 @@ export default function DebugInfo() {
   return (
     <div className="fixed bottom-0 right-0 bg-black bg-opacity-80 text-white p-2 text-xs z-50">
       <div>Environment: {env}</div>
-      <div>API URL: {process.env.NEXT_PUBLIC_API_BASE_URL || 'Not set'}</div>
+      <div>API URL: {process.env.NEXT_PUBLIC_API_URL || 'Not set'}</div>
       <div>Current URL: {apiUrl}</div>
     </div>
   );
