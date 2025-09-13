@@ -2,7 +2,6 @@
 
 import { loginService } from "@/app/[locale]/(auth)/services/login";
 import { initiateGoogleAuth } from "@/app/[locale]/(auth)/services/googleAuth";
-import { LoginServiceResponse } from "@/app/types/user";
 import Button from "@/app/ui/Button";
 import Input from "@/app/ui/Input";
 import Link from "next/link";

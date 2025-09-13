@@ -43,8 +43,8 @@ const Header = () => {
       
       // Redirect to home
       router.push('/');
-    } catch (error) {
-      console.error('Logout error:', error);
+    } catch {
+      console.error('Logout error');
     }
   };
 
@@ -53,7 +53,7 @@ const Header = () => {
       try {
         const userData = await getUser();
         setUser(userData);
-      } catch (error) {
+      } catch {
         setUser(null);
       } finally {
         setLoading(false);
@@ -83,7 +83,7 @@ const Header = () => {
       try {
         const userData = await getUser();
         setUser(userData);
-      } catch (error) {
+      } catch {
         setUser(null);
       }
     };

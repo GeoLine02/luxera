@@ -63,7 +63,7 @@ export const registerService = async (
   // Check if the response is JSON
   const contentType = res.headers.get('content-type');
   if (!contentType || !contentType.includes('application/json')) {
-    const responseText = await res.text();
+    await res.text(); // Read the response but don't use it
     return {
       success: false,
       errors: { 
@@ -75,8 +75,8 @@ export const registerService = async (
   let data;
   try {
     data = await res.json();
-  } catch (error) {
-    const responseText = await res.text();
+  } catch {
+    await res.text(); // Read the response but don't use it
     return {
       success: false,
       errors: { 

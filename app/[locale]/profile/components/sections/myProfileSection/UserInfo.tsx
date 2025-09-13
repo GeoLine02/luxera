@@ -14,7 +14,7 @@ const UserInfo = () => {
       try {
         const userData = await getUser();
         setUser(userData);
-      } catch (error) {
+      } catch {
         setUser(null);
       } finally {
         setLoading(false);

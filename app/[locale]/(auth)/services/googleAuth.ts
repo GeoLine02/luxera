@@ -9,7 +9,19 @@ export const initiateGoogleAuth = () => {
   window.location.href = `${apiUrl}/auth/google/redirect`;
 };
 
-export const handleGoogleCallback = async (code: string): Promise<any> => {
+interface GoogleAuthResponse {
+  token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at: string | null;
+    created_at: string;
+    updated_at: string;
+  };
+}
+
+export const handleGoogleCallback = async (code: string): Promise<GoogleAuthResponse> => {
   try {
     const apiUrl = process.env.NODE_ENV === 'development' 
       ? process.env.NEXT_PUBLIC_API_LOCAL_URL || 'http://127.0.0.1:8000/en'
