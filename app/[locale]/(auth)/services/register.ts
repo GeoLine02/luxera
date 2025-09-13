@@ -3,10 +3,22 @@
 import { redirect } from "next/navigation";
 import { registerValidationSchema } from "../validation/signUp";
 
+type FormState = {
+  success: boolean;
+  message: string;
+  errors?: Record<string, string[]>;
+  data?: {
+    id?: string | number;
+    email?: string;
+    fullName?: string;
+    [key: string]: unknown;
+  };
+} | undefined;
+
 export const registerService = async (
-  _state: undefined,
+  _state: FormState,
   formData: FormData
-) => {
+): Promise<FormState> => {
   // Validate form data
   const parsed = registerValidationSchema.safeParse({
     fullName: formData.get("fullName")?.toString(),
@@ -19,7 +31,7 @@ export const registerService = async (
     return {
       success: false,
       message: "Validation failed",
-      errors: parsed.error.flatten().fieldErrors,
+      errors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
     };
   }
 
