@@ -9,6 +9,7 @@ import ReduxProvider from "../providers/ReduxProvider";
 import MobileTabs from "../shared/mobileTabs/MobileTabs";
 import SideMenu from "../shared/header/SideMenu";
 import CategoriesModal from "./(home)/components/categories/CategoriesModal";
+import DebugInfo from "@/components/DebugInfo";
 // import { fetchUser } from "./(auth)/services/login";
 // import { cookies } from "next/headers";
 
@@ -55,6 +56,7 @@ export default async function RootLayout({
             <MobileTabs />
             <Footer />
             <CategoriesModal />
+            <DebugInfo />
           </NextIntlClientProvider>
         </ReduxProvider>
       </body>
