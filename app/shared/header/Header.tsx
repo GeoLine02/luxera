@@ -51,16 +51,29 @@ const Header = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        setLoading(true);
         const userData = await getUser();
         setUser(userData);
-      } catch {
+      } catch (error) {
+        console.error('Error fetching user:', error);
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
 
+    // Initial fetch
     fetchUser();
+
+    // Also fetch user when auth changes
+    const handleAuthChange = () => {
+      fetchUser();
+    };
+
+    window.addEventListener('auth-change', handleAuthChange);
+    return () => {
+      window.removeEventListener('auth-change', handleAuthChange);
+    };
   }, []);
 
   // Close dropdown when clicking outside
@@ -80,23 +93,6 @@ const Header = () => {
     };
   }, []);
 
-  // Listen for login events to refresh user data
-  useEffect(() => {
-    const handleAuthChange = async () => {
-      try {
-        const userData = await getUser();
-        setUser(userData);
-      } catch {
-        setUser(null);
-      }
-    };
-
-    // Listen for custom auth events
-    window.addEventListener("auth-change", handleAuthChange);
-    return () => {
-      window.removeEventListener("auth-change", handleAuthChange);
-    };
-  }, []);
   if (
     pathName.includes("/signup") ||
     pathName.includes("/signin") ||

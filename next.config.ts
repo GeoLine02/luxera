@@ -2,8 +2,8 @@ import { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  // Enable static exports
-  output: 'export',
+  // Remove static export for dynamic routes
+  // output: 'export',
   
   // Set the base path if your app is served from a subdirectory
   // basePath: '/your-base-path',

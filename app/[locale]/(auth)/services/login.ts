@@ -26,12 +26,21 @@ export const loginService = async (
     };
   }
 
-  // Use local API URL in development, production URL otherwise
-  const apiUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.API_LOCAL_URL
-      : process.env.API_BASE_URL;
-
+  // Use environment variable with fallback to ioka.ae
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "api.luxeragift.com";
+  const apiUrl = API_BASE_URL;
+  
+  console.log('API URL:', apiUrl);
+  
+  if (!apiUrl) {
+    console.error('API URL is not configured');
+    return {
+      success: false,
+      errors: {
+        general: ['Server configuration error']
+      }
+    } as LoginServiceResponse;
+  }
   const res = await fetch(`${apiUrl}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -88,16 +97,7 @@ export const loginService = async (
     data.data?.token ||
     data.data?.access_token;
 
-  if (token) {
-    (await cookies()).set("access_token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-
-    redirect("/profile");
-  } else {
+  if (!token) {
     return {
       success: false,
       errors: {
@@ -105,6 +105,33 @@ export const loginService = async (
       },
     };
   }
+
+  // Set the token in a secure, httpOnly cookie
+  (await cookies()).set({
+    name: 'access_token',
+    value: token,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  });
+
+  // Get user data from response if available
+  const userData = data.data?.user;
+  
+  // Store user data in localStorage if available
+  if (userData && typeof window !== 'undefined') {
+    localStorage.setItem('user', JSON.stringify(userData));
+    // Dispatch auth-change event to update all components
+    window.dispatchEvent(new Event('auth-change'));
+  }
+
+  // Redirect to profile page
+  redirect('/profile');
+  
+  // This return is just for TypeScript, will be ignored due to redirect
+  return { success: true };
 
   return data;
 };
@@ -116,14 +143,20 @@ export async function getUser(): Promise<User | null> {
 
     const token = cookieStore.get("access_token")?.value;
     if (!token) {
+      console.log('No access token found');
       return null;
     }
-    // 2. Call backend /me endpoint with Bearer token
-    // Use local API URL in development, production URL otherwise
-    const apiUrl =
-      process.env.NODE_ENV === "development"
-        ? process.env.API_LOCAL_URL
-        : process.env.API_BASE_URL;
+    
+    // Use environment variable with fallback to ioka.ae
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://ioka.ae";
+    const apiUrl = API_BASE_URL;
+    
+    console.log('Fetching user from:', apiUrl);
+    
+    if (!apiUrl) {
+      console.error('API URL is not configured');
+      return null;
+    }
 
     const headers = {
       Accept: "application/json",
@@ -175,10 +208,9 @@ export async function logoutService(): Promise<boolean> {
       return true; // Already logged out
     }
 
-    const apiUrl =
-      process.env.NODE_ENV === "development"
-        ? process.env.API_LOCAL_URL
-        : process.env.API_BASE_URL;
+    // Use environment variable with fallback to ioka.ae
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://ioka.ae";
+    const apiUrl = API_BASE_URL;
 
     const headers = {
       Accept: "application/json",
