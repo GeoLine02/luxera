@@ -13,10 +13,9 @@ export const initiateGoogleAuth = () => {
 export const handleGoogleCallback = async (code: string) => {
   try {
     const apiUrl =
-      process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000/en"
-        : process.env.NEXT_PUBLIC_API_BASE_URL ||
-          "https://api.luxeragift.com/en";
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com/en"
+        : process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000/en";
 
     const response = await fetch(
       `${apiUrl}/auth/google/callback?code=${code}`,

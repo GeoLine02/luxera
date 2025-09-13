@@ -24,9 +24,9 @@ export const registerService = async (
 
   // Use local API URL in development, production URL otherwise
   const apiUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.API_LOCAL_URL
-      : process.env.API_BASE_URL;
+    process.env.NODE_ENV === "production"
+      ? process.env.API_BASE_URL
+      : process.env.API_LOCAL_URL;
 
   const res = await fetch(`${apiUrl}/register`, {
     method: "POST",

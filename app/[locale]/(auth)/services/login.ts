@@ -26,10 +26,15 @@ export const loginService = async (
     };
   }
 
-  // Use environment variable with fallback to ioka.ae
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.luxeragift.com/en";
-  const apiUrl = API_BASE_URL;
+  // Determine the base URL based on environment
+  const isProduction = process.env.NODE_ENV === 'production';
+  const defaultApiUrl = isProduction 
+    ? 'https://api.luxeragift.com/en' 
+    : 'http://localhost:8000/en';
+    
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
   
+  console.log('Environment:', process.env.NODE_ENV);
   console.log('API URL:', apiUrl);
   
   if (!apiUrl) {
@@ -147,9 +152,13 @@ export async function getUser(): Promise<User | null> {
       return null;
     }
     
-    // Use environment variable with fallback to ioka.ae
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://ioka.ae";
-    const apiUrl = API_BASE_URL;
+    // Use the same URL logic as loginService
+    const isProduction = process.env.NODE_ENV === 'production';
+    const defaultApiUrl = isProduction 
+      ? 'https://api.luxeragift.com/en' 
+      : 'http://localhost:8000/en';
+      
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
     
     console.log('Fetching user from:', apiUrl);
     
@@ -208,9 +217,15 @@ export async function logoutService(): Promise<boolean> {
       return true; // Already logged out
     }
 
-    // Use environment variable with fallback to ioka.ae
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://ioka.ae";
-    const apiUrl = API_BASE_URL;
+    // Use the same URL logic as loginService and getUser
+    const isProduction = process.env.NODE_ENV === 'production';
+    const defaultApiUrl = isProduction 
+      ? 'https://api.luxeragift.com/en' 
+      : 'http://localhost:8000/en';
+      
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
+    
+    console.log('Logging out from:', apiUrl);
 
     const headers = {
       Accept: "application/json",
