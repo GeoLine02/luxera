@@ -71,8 +71,8 @@ export const loginService = async (
   try {
     data = await res.json() as LoginResponse;
     
-  } catch (error) {
-    const responseText = await res.text();
+  } catch {
+    await res.text();
     return {
       success: false,
       errors: {
@@ -150,7 +150,7 @@ export async function getUser(): Promise<User | null> {
     let data: UserResponse;
     try {
       data = await resp.json() as UserResponse;
-    } catch (error) {
+    } catch {
       return null;
     }
 
@@ -197,7 +197,7 @@ export async function logoutService(): Promise<boolean> {
     (await cookies()).delete("access_token");
 
     return true;
-  } catch (error) {
+  } catch {
     // Clear cookie even if API call fails
     try {
       (await cookies()).delete("access_token");
