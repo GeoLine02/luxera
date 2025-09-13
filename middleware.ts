@@ -1,11 +1,19 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
+import { NextRequest } from "next/server";
 
-export default createMiddleware(routing);
+// main middleware
+export default async function middleware(req: NextRequest) {
+  // run next-intl middleware first
+  const intlMiddleware = createMiddleware(routing);
+  const response = intlMiddleware(req);
+
+  // Remove getUser call from middleware as it interferes with authentication
+  // User authentication should be handled in components/pages, not middleware
+  
+  return response;
+}
 
 export const config = {
-  // Match all pathnames except for
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-  // - … the ones containing a dot (e.g. `favicon.ico`)
   matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
 };

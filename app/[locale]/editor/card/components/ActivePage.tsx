@@ -14,7 +14,7 @@ const ActivePage = () => {
 
   return (
     <div className="w-full md:w-[25%] h-[80%] mb-14 md:mb-0  flex justify-center items-center">
-      <div className="h-full w-[80%] mx-auto md:w-full px-4 md:px-0 bg-light-pink overflow-hidden">
+      <div className="h-full w-[80%] mx-auto md:w-full px-4 bg-light-pink overflow-hidden">
         {activePage.id === 1 && <FirstPage />}
         {activePage.id === 2 && <SecondPage />}
         {activePage.id === 3 && <ThirdPage />}
