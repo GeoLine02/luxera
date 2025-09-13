@@ -21,7 +21,14 @@ export const initiateGoogleAuth = (locale: string = 'en') => {
 
     // Laravel Google OAuth endpoint
     const authPath = '/auth/google/redirect';
-    const url = `${baseUrl}${authPath}`;
+    
+    // Create state object with redirect URL
+    const state = encodeURIComponent(JSON.stringify({
+      redirect_after_login: window.location.href,
+      _token: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+    }));
+    
+    const url = `${baseUrl}${authPath}?state=${state}`;
     
     // Open in a new tab with specific dimensions
     const width = 600;
@@ -52,16 +59,17 @@ export const initiateGoogleAuth = (locale: string = 'en') => {
       if (allowedOrigins.includes(event.origin)) {
         if (event.data.type === 'google-auth-success') {
           // Handle successful authentication
-          const { token, user_id, name, email } = event.data;
+          const { token, user_id, name, email, redirectTo } = event.data;
           // Store the token and user data
           storeAuthData({ token, user_id, name, email });
-          // Close the popup
-          authWindow?.close();
           // Remove the event listener
           window.removeEventListener('message', messageHandler);
-          // Redirect or update the UI
+          // Update auth state
           window.dispatchEvent(new Event('auth-change'));
-          window.location.href = `/${locale}/profile`; // or your desired redirect path
+          
+          // Redirect to the original URL or profile
+          const redirectUrl = redirectTo || `/${locale}/profile`;
+          window.location.href = redirectUrl;
         } else if (event.data.type === 'google-auth-error') {
           // Handle authentication error
           console.error('Google auth error:', event.data.error);
@@ -82,7 +90,7 @@ export const initiateGoogleAuth = (locale: string = 'en') => {
 /**
  * Stores authentication data in cookies and localStorage
  */
-const storeAuthData = (data: GoogleAuthResponse) => {
+export const storeAuthData = (data: GoogleAuthResponse) => {
   const { token, user_id, name, email } = data;
   const isProduction = process.env.NODE_ENV === 'production';
   const secureFlag = isProduction ? 'secure; ' : '';
@@ -113,6 +121,7 @@ export const handleAuthCallback = (): GoogleAuthResponse | null => {
     const userId = urlParams.get('user_id');
     const name = urlParams.get('name');
     const email = urlParams.get('email');
+    const stateParam = urlParams.get('state');
     
     if (token && userId && name && email) {
       const authData = {
@@ -125,15 +134,32 @@ export const handleAuthCallback = (): GoogleAuthResponse | null => {
       // Store the auth data
       storeAuthData(authData);
       
+      // Parse state if it exists
+      let redirectUrl = '/';
+      if (stateParam) {
+        try {
+          const state = JSON.parse(decodeURIComponent(stateParam));
+          if (state.redirect_after_login) {
+            redirectUrl = state.redirect_after_login;
+          }
+        } catch (e) {
+          console.warn('Failed to parse state parameter', e);
+        }
+      }
+      
       // Notify the parent window (if in popup)
       if (window.opener) {
         window.opener.postMessage({
           type: 'google-auth-success',
-          ...authData
+          ...authData,
+          redirectTo: redirectUrl
         }, process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://luxeragift.netlify.app');
         
         // Close the popup after a short delay
         setTimeout(() => window.close(), 500);
+      } else {
+        // If not in popup, redirect directly
+        window.location.href = redirectUrl;
       }
       
       return authData;
