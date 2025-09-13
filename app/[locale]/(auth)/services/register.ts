@@ -23,9 +23,10 @@ export const registerService = async (
   }
 
   // Use local API URL in development, production URL otherwise
-  const apiUrl = process.env.NODE_ENV === 'development' 
-    ? process.env.API_LOCAL_URL 
-    : process.env.API_BASE_URL;
+  const apiUrl =
+    process.env.NODE_ENV === "development"
+      ? process.env.API_LOCAL_URL
+      : process.env.API_BASE_URL;
 
   const res = await fetch(`${apiUrl}/register`, {
     method: "POST",
@@ -41,33 +42,36 @@ export const registerService = async (
   // Check if the response is successful
   if (!res.ok) {
     const errorText = await res.text();
-    console.log('Register error response body:', errorText);
-    
+    console.log("Register error response body:", errorText);
+
     // Try to parse error as JSON for better error messages
     let errorData;
     try {
       errorData = JSON.parse(errorText);
-      console.log('Parsed register error data:', errorData);
+      console.log("Parsed register error data:", errorData);
     } catch {
-      console.log('Could not parse register error as JSON');
+      console.log("Could not parse register error as JSON");
     }
-    
+
     return {
       success: false,
-      errors: { 
-        general: [errorData?.message || `Registration failed: ${res.status} ${res.statusText}`] 
+      errors: {
+        general: [
+          errorData?.message ||
+            `Registration failed: ${res.status} ${res.statusText}`,
+        ],
       },
     };
   }
 
   // Check if the response is JSON
-  const contentType = res.headers.get('content-type');
-  if (!contentType || !contentType.includes('application/json')) {
-    await res.text(); // Read the response but don't use it
+  const contentType = res.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    await res.text();
     return {
       success: false,
-      errors: { 
-        general: ['Server returned an invalid response format'] 
+      errors: {
+        general: ["Server returned an invalid response format"],
       },
     };
   }
@@ -76,11 +80,11 @@ export const registerService = async (
   try {
     data = await res.json();
   } catch {
-    await res.text(); // Read the response but don't use it
+    await res.text();
     return {
       success: false,
-      errors: { 
-        general: ['Invalid server response'] 
+      errors: {
+        general: ["Invalid server response"],
       },
     };
   }

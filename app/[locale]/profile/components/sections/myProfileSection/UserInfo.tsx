@@ -44,7 +44,7 @@ const UserInfo = () => {
       <div>
         <label className="text-xs md:text-sm text-medium-gray">Full Name</label>
         <h2 className="font-medium text-sm md:text-lg text-dark-gray">
-          {user?.fullname || 'Not provided'}
+          {user?.fullname || "Not provided"}
         </h2>
       </div>
       <div>
@@ -52,7 +52,7 @@ const UserInfo = () => {
           Email Address
         </label>
         <h2 className="font-medium text-sm md:text-lg text-dark-gray">
-          {user?.email || 'Not provided'}
+          {user?.email || "Not provided"}
         </h2>
       </div>
       <div>

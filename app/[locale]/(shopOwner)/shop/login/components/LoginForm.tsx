@@ -15,12 +15,12 @@ const LoginForm = () => {
   // Log state changes to browser console
   useEffect(() => {
     if (state) {
-      console.log('Login state updated:', state);
+      console.log("Login state updated:", state);
       if (state.errors) {
-        console.error('Login errors:', state.errors);
+        console.error("Login errors:", state.errors);
       }
       if (state.success === false) {
-        console.error('Login failed:', state);
+        console.error("Login failed:", state);
       }
     }
   }, [state]);
@@ -47,7 +47,9 @@ const LoginForm = () => {
             bgColor="lightGray"
             className="rounded-xl"
             placeholder="Type your e-mail or phone number"
-            error={state?.errors?.email?.[0] || state?.errors?.emailOrPhone?.[0]}
+            error={
+              state?.errors?.email?.[0] || state?.errors?.emailOrPhone?.[0]
+            }
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -74,13 +76,13 @@ const LoginForm = () => {
             className="py-2 font-medium mt-4"
             loader={pending && <ClipLoader size={25} color="white" />}
           />
-          
+
           <div className="flex items-center my-4">
             <div className="flex-1 border-t border-gray-300"></div>
             <span className="px-4 text-sm text-gray-500">or</span>
             <div className="flex-1 border-t border-gray-300"></div>
           </div>
-          
+
           <Button
             rounded="full"
             title="Continue with Google"
