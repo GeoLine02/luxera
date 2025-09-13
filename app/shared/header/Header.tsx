@@ -36,15 +36,15 @@ const Header = () => {
     try {
       // Call logout service to clear token on server
       await logoutService();
-      
+
       // Update state
       setUser(null);
       setShowDropdown(false);
-      
+
       // Redirect to home
-      router.push('/');
+      router.push("/");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
@@ -53,7 +53,7 @@ const Header = () => {
       try {
         const userData = await getUser();
         setUser(userData);
-      } catch (error) {
+      } catch {
         setUser(null);
       } finally {
         setLoading(false);
@@ -66,14 +66,17 @@ const Header = () => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -83,15 +86,15 @@ const Header = () => {
       try {
         const userData = await getUser();
         setUser(userData);
-      } catch (error) {
+      } catch {
         setUser(null);
       }
     };
 
     // Listen for custom auth events
-    window.addEventListener('auth-change', handleAuthChange);
+    window.addEventListener("auth-change", handleAuthChange);
     return () => {
-      window.removeEventListener('auth-change', handleAuthChange);
+      window.removeEventListener("auth-change", handleAuthChange);
     };
   }, []);
   if (
@@ -136,18 +139,24 @@ const Header = () => {
           {loading ? (
             <div className="hidden md:block w-20 h-10 bg-gray-200 animate-pulse rounded-lg"></div>
           ) : user ? (
-            <div className="hidden md:flex items-center gap-3 relative" ref={dropdownRef}>
+            <div
+              className="hidden md:flex items-center gap-3 relative"
+              ref={dropdownRef}
+            >
               <div className="flex flex-col text-right">
-                <span className="text-sm font-medium text-gray-800">{user.fullname}</span>
+                <span className="text-sm font-medium text-gray-800">
+                  {user.fullname}
+                </span>
                 <span className="text-xs text-gray-500">{user.email}</span>
               </div>
-              <div 
+              <div
                 className="w-10 h-10 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold cursor-pointer"
                 onClick={() => setShowDropdown(!showDropdown)}
               >
-                {user.fullname?.charAt(0).toUpperCase() || user.email.charAt(0).toUpperCase()}
+                {user.fullname?.charAt(0).toUpperCase() ||
+                  user.email.charAt(0).toUpperCase()}
               </div>
-              
+
               {showDropdown && (
                 <div className="absolute top-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 w-48 z-50">
                   <button

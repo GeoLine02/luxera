@@ -3,14 +3,17 @@
 import { cookies } from "next/headers";
 import { loginValidationSchema } from "../validation/login";
 import { redirect } from "next/navigation";
-import { LoginResponse, UserResponse, User, LoginServiceResponse } from "../../../types/user";
+import {
+  LoginResponse,
+  UserResponse,
+  User,
+  LoginServiceResponse,
+} from "../../../types/user";
 
 export const loginService = async (
-  _state: LoginServiceResponse | undefined, 
+  _state: LoginServiceResponse | undefined,
   formData: FormData
 ): Promise<LoginServiceResponse> => {
-
-
   const parsed = loginValidationSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -24,9 +27,10 @@ export const loginService = async (
   }
 
   // Use local API URL in development, production URL otherwise
-  const apiUrl = process.env.NODE_ENV === 'development' 
-    ? process.env.API_LOCAL_URL 
-    : process.env.API_BASE_URL;
+  const apiUrl =
+    process.env.NODE_ENV === "development"
+      ? process.env.API_LOCAL_URL
+      : process.env.API_BASE_URL;
 
   const res = await fetch(`${apiUrl}/login`, {
     method: "POST",
@@ -36,53 +40,57 @@ export const loginService = async (
       password: parsed.data.password,
     }),
   });
-  
+
   if (!res.ok) {
     const errorText = await res.text();
     let errorData;
     try {
       errorData = JSON.parse(errorText);
-    } catch {
-    }
-    
+    } catch {}
+
     return {
       success: false,
-      errors: { 
-        general: [errorData?.message || `Login failed: ${res.status} ${res.statusText}`] 
+      errors: {
+        general: [
+          errorData?.message || `Login failed: ${res.status} ${res.statusText}`,
+        ],
       },
     };
-  } 
-  const contentType = res.headers.get('content-type');
-  if (!contentType || !contentType.includes('application/json')) {
+  }
+  const contentType = res.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
     return {
       success: false,
-      errors: { 
-        general: ['Server returned an invalid response format'] 
+      errors: {
+        general: ["Server returned an invalid response format"],
       },
     };
   }
 
   let data: LoginResponse;
   try {
-    data = await res.json() as LoginResponse;
-    
-  } catch (error) {
-    const responseText = await res.text();
+    data = (await res.json()) as LoginResponse;
+  } catch {
+    await res.text();
     return {
       success: false,
-      errors: { 
-        general: ['Invalid server response'] 
+      errors: {
+        general: ["Invalid server response"],
       },
     };
   }
 
   // Extract token from response
-  const token = data.token || data.access_token || data.data?.token || data.data?.access_token;
-  
+  const token =
+    data.token ||
+    data.access_token ||
+    data.data?.token ||
+    data.data?.access_token;
+
   if (token) {
     (await cookies()).set("access_token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
@@ -91,8 +99,8 @@ export const loginService = async (
   } else {
     return {
       success: false,
-      errors: { 
-        general: ['Login successful but no token received'] 
+      errors: {
+        general: ["Login successful but no token received"],
       },
     };
   }
@@ -111,10 +119,10 @@ export async function getUser(): Promise<User | null> {
     }
     // 2. Call backend /me endpoint with Bearer token
     // Use local API URL in development, production URL otherwise
-    const apiUrl = process.env.NODE_ENV === 'development' 
-      ? process.env.API_LOCAL_URL 
-      : process.env.API_BASE_URL;
-
+    const apiUrl =
+      process.env.NODE_ENV === "development"
+        ? process.env.API_LOCAL_URL
+        : process.env.API_BASE_URL;
 
     const headers = {
       Accept: "application/json",
@@ -122,26 +130,26 @@ export async function getUser(): Promise<User | null> {
       Authorization: `Bearer ${token}`,
       "X-Localization": "en",
     };
-    
+
     const resp = await fetch(`${apiUrl}/me`, {
       method: "GET",
       headers,
       cache: "no-store",
     });
-    
+
     if (!resp.ok) {
       return null;
     }
 
-    const contentType = resp.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
+    const contentType = resp.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
       return null;
     }
 
     let data: UserResponse;
     try {
-      data = await resp.json() as UserResponse;
-    } catch (error) {
+      data = (await resp.json()) as UserResponse;
+    } catch {
       return null;
     }
 
@@ -152,7 +160,7 @@ export async function getUser(): Promise<User | null> {
     }
 
     return user;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -166,9 +174,10 @@ export async function logoutService(): Promise<boolean> {
       return true; // Already logged out
     }
 
-    const apiUrl = process.env.NODE_ENV === 'development' 
-      ? process.env.API_LOCAL_URL 
-      : process.env.API_BASE_URL;
+    const apiUrl =
+      process.env.NODE_ENV === "development"
+        ? process.env.API_LOCAL_URL
+        : process.env.API_BASE_URL;
 
     const headers = {
       Accept: "application/json",
@@ -185,10 +194,9 @@ export async function logoutService(): Promise<boolean> {
 
     // Clear the cookie regardless of API response
     (await cookies()).delete("access_token");
-    
+
     return true;
-  } catch (error) {
-    // Clear cookie even if API call fails
+  } catch {
     try {
       (await cookies()).delete("access_token");
     } catch {}

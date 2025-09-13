@@ -1,19 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getUser } from '../../[locale]/(auth)/services/login';
+import { NextResponse } from "next/server";
+import { getUser } from "../../[locale]/(auth)/services/login";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const user = await getUser();
-    
+
     if (!user) {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
 
-    return NextResponse.json({ 
-      authenticated: true, 
-      user 
+    return NextResponse.json({
+      authenticated: true,
+      user,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ authenticated: false }, { status: 401 });
   }
 }
