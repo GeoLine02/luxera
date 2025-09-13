@@ -27,6 +27,7 @@ export const loginService = async (
   }
 
   // Determine the base URL based on environment
+  // Use local API URL in development, production URL otherwise
   const isProduction = process.env.NODE_ENV === 'production';
   const defaultApiUrl = isProduction 
     ? 'https://api.luxeragift.com/en' 
