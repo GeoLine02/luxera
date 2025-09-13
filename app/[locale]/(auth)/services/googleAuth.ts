@@ -16,13 +16,17 @@ export const initiateGoogleAuth = () => {
 
 export const handleGoogleCallback = async (code: string) => {
   try {
-    const apiUrl =
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com/en"
-        : process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000/en";
+    // Ensure the base URL doesn't end with a slash
+    const baseUrl = (process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_API_BASE_URL || "https://api.luxeragift.com"
+      : process.env.NEXT_PUBLIC_API_LOCAL_URL || "http://127.0.0.1:8000"
+    ).replace(/\/+$/, ''); // Remove trailing slashes
 
-    const response = await fetch(
-      `${apiUrl}/auth/google/callback?code=${code}`,
+    // Ensure the path starts with a single slash
+    const path = '/auth/google/callback'.replace(/^\/+/, '/');
+    const url = `${baseUrl}${path}?code=${encodeURIComponent(code)}`;
+
+    const response = await fetch(url,
       {
         method: "GET",
         headers: {
