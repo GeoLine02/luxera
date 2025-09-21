@@ -4,22 +4,34 @@ import "swiper/css";
 import "swiper/css/navigation";
 import FeaturedProductCard from "@/app/shared/FeaturedProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
-import { featuredProductsData } from "@/data/products";
-import { FeatureProductType } from "@/app/types/product";
 
-const ProductsList = () => {
+export type FeaturedItem = {
+  id: number;
+  image?: string;
+  price: number | string;
+  href?: string;
+};
+
+const ProductsList = ({
+  products,
+  title = "Featured products",
+}: {
+  products: FeaturedItem[];
+  title?: string;
+}) => {
   return (
     <div>
       <SwiperSlider
         titleWeight="bold"
-        title="Featured products"
+        title={title}
         titleFont="FRL"
-        data={featuredProductsData}
-        renderCard={(product: FeatureProductType) => (
+        data={products}
+        renderCard={(product: FeaturedItem) => (
           <FeaturedProductCard
             id={product.id}
             image={product.image}
             price={product.price}
+            href={product.href}
           />
         )}
       />

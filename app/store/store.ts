@@ -7,7 +7,8 @@ import ordersReducer from "./features/ordersSlice";
 import shopSLice from "./features/shopSlice";
 import cardEditorSlice from "./features/cardEditorSlice";
 
-export const store = () => {
+// Create the store configuration
+export function makeStore() {
   return configureStore({
     reducer: {
       categoriesReducer: categoriesReducer,
@@ -19,8 +20,9 @@ export const store = () => {
       cardEditorSlice: cardEditorSlice,
     },
   });
-};
-export type AppStore = ReturnType<typeof store>;
+}
+
+export type AppStore = ReturnType<typeof makeStore>;
 
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];

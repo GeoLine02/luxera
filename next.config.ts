@@ -32,6 +32,13 @@ const nextConfig: NextConfig = {
         child_process: false,
       };
     }
+
+    // Add path resolution for @ alias
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname),
+    };
+
     return config;
   },
 };

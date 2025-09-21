@@ -1,25 +1,35 @@
 import Link from "next/link";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 interface ProductCardProps {
   id: number;
-  image: StaticImageData;
-  price: number;
+  image?: string;
+  price: number | string;
+  href?: string;
 }
 
-const FeaturedProductCard = ({ id, image, price }: ProductCardProps) => {
+const FeaturedProductCard = ({ id, image, price, href }: ProductCardProps) => {
   return (
     <Link
-      href={`/${id}`}
+      href={href || `/${id}`}
       className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer w-full"
     >
       <div className="space-y-1 w-full max-w-[190px]">
         <div className="flex justify-center">
-          <Image
-            src={image}
-            alt="product image"
-            className="h-[120px] md:h-full object-cover"
-          />
+          {image ? (
+            <Image
+              src={image}
+              alt="product image"
+              className="h-[120px] md:h-full object-cover"
+              width={200}
+              height={200}
+            />
+          ) : (
+            <div
+              className="h-[120px] md:h-[200px] w-full max-w-[200px] bg-light-gray rounded"
+              aria-hidden="true"
+            />
+          )}
         </div>
         <p className="line-clamp-1 md:line-clamp-2 text-xs lg:text-base font-semibold truncate">
           Lorem ipsum dolor sit amet

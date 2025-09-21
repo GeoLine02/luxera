@@ -1,27 +1,37 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
 
 interface ProductCardProps {
   id: number;
-  image: StaticImageData;
+  image?: string;
   title: string;
-  price: number;
+  price: number | string;
+  href?: string;
 }
 
-const ProductCard = ({ image, price, title, id }: ProductCardProps) => {
+const ProductCard = ({ image, price, title, id, href }: ProductCardProps) => {
   return (
     <Link
-      href={`/${id}`}
+      href={href || `/${id}`}
       className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer"
     >
       <div className="space-y-1 md:space-y-1 w-full">
         <div className="flex justify-center">
-          <Image
-            className="h-[120px] md:h-full object-cover"
-            src={image}
-            alt="product image"
-          />
+          {image ? (
+            <Image
+              className="h-[120px] md:h-full object-cover"
+              src={image}
+              alt="product image"
+              width={200}
+              height={200}
+            />
+          ) : (
+            <div
+              className="h-[120px] md:h-[200px] w-full max-w-[200px] bg-light-gray rounded"
+              aria-hidden="true"
+            />
+          )}
         </div>
         <h1 className="font-semibold text-xs lg:text-base truncate">{title}</h1>
         <h1 className="font-semibold text-xs lg:text-base">{price} GEL</h1>

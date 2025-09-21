@@ -2,7 +2,7 @@ import Image, { StaticImageData } from "next/image";
 
 interface CategoryCardProps {
   label: string;
-  image: StaticImageData;
+  image: string | StaticImageData;
 }
 
 const CategoryCard = ({ image, label }: CategoryCardProps) => {
@@ -12,7 +12,7 @@ const CategoryCard = ({ image, label }: CategoryCardProps) => {
     >
       <h1 className="w-min font-medium">{label}</h1>
 
-      <Image height={50} src={image} alt={label + "image"} />
+      <Image height={50} width={50} src={image} alt={label + "image"} />
     </div>
   );
 };
