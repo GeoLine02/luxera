@@ -4,21 +4,26 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   // Remove static export for dynamic routes
   // output: 'export',
-  
+
   // Set the base path if your app is served from a subdirectory
   // basePath: '/your-base-path',
-  
+
   // Enable React Strict Mode
   reactStrictMode: true,
-  
+
   // Configure images for static export
   images: {
     unoptimized: true,
   },
-  
+
   // Enable trailing slashes for Netlify
   trailingSlash: true,
-  
+
+  // Use stable params API instead of experimental async params
+  experimental: {
+    typedRoutes: false,
+  },
+
   // Configure webpack
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -32,6 +37,13 @@ const nextConfig: NextConfig = {
         child_process: false,
       };
     }
+
+    // Add path resolution for @ alias
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname),
+    };
+
     return config;
   },
 };

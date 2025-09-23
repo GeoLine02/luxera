@@ -2,15 +2,21 @@
 
 import ProductCard from "@/app/shared/ProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
-import { productsData } from "@/data/products";
-const VIPListing = () => {
+export type VipItem = {
+  id: number;
+  image?: string;
+  price: number | string;
+  title: string;
+};
+
+const VIPListing = ({ products }: { products: VipItem[] }) => {
   return (
     <div className="space-y-3">
       <SwiperSlider
         titleWeight="bold"
-        data={productsData}
+        data={products}
         title="VIP Listing"
-        renderCard={(product) => (
+        renderCard={(product: VipItem) => (
           <ProductCard
             id={product.id}
             image={product.image}
