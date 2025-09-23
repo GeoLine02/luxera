@@ -6,9 +6,10 @@ interface ProductCardProps {
   image?: string;
   price: number | string;
   href?: string;
+  title?: string;
 }
 
-const FeaturedProductCard = ({ id, image, price, href }: ProductCardProps) => {
+const FeaturedProductCard = ({ id, image, price, href, title }: ProductCardProps) => {
   return (
     <Link
       href={href || `/${id}`}
@@ -32,7 +33,7 @@ const FeaturedProductCard = ({ id, image, price, href }: ProductCardProps) => {
           )}
         </div>
         <p className="line-clamp-1 md:line-clamp-2 text-xs lg:text-base font-semibold truncate">
-          Lorem ipsum dolor sit amet
+          {title || "Product Title"}
         </p>
         <h1 className="font-semibold text-xs lg:text-base">{price} GEL</h1>
       </div>

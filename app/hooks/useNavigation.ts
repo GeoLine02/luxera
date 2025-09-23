@@ -19,9 +19,9 @@ export function useNavigation(locale: string) {
         if (!mounted) return;
         setItems(data);
       })
-      .catch((e: any) => {
+      .catch((e: unknown) => {
         if (!mounted) return;
-        setError(e?.message || "Failed to fetch navigation");
+        setError((e as { message?: string })?.message || "Failed to fetch navigation");
       })
       .finally(() => {
         if (!mounted) return;

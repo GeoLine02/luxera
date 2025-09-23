@@ -1,9 +1,4 @@
-export interface HomepageData {
-  // Define a minimal shape if known, or keep as any while integrating components later
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any;
-  // Some backends wrap data, others return raw arrays; adjust as needed
-}
+import { HomepageData } from '@/app/types/homepage';
 
 export function resolveBaseUrl(): string {
   const rawBaseUrl =
@@ -25,7 +20,7 @@ export function resolveBaseUrl(): string {
   return baseUrl;
 }
 
-export async function getHomepageData(locale: string) {
+export async function getHomepageData(locale: string): Promise<HomepageData> {
   const baseUrl = resolveBaseUrl();
   const url = `${baseUrl}/${locale}/homepageData`;
 

@@ -10,6 +10,7 @@ export type FeaturedItem = {
   image?: string;
   price: number | string;
   href?: string;
+  title?: string;
 };
 
 const ProductsList = ({
@@ -32,6 +33,7 @@ const ProductsList = ({
             image={product.image}
             price={product.price}
             href={product.href}
+            title={product.title}
           />
         )}
       />

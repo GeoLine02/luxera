@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
+import { StaticImageData } from "next/image";
 
 interface ProductCardProps {
   id: number;
-  image?: string;
+  image?: string | StaticImageData;
   title: string;
   price: number | string;
   href?: string;

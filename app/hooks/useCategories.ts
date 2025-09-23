@@ -32,8 +32,8 @@ export const useCategories = (locale: string) => {
             })) : [],
           }));
           dispatch(setCategories(normalized));
-        } catch (e: any) {
-          const message = e?.message || 'Failed to fetch categories';
+        } catch (e: unknown) {
+          const message = (e as { message?: string })?.message || 'Failed to fetch categories';
           dispatch(setCategoriesError(message));
         }
       };

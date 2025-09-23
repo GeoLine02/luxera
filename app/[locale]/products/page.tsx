@@ -1,5 +1,3 @@
-import RecommendedProducts from "./components/RecommendedProducts";
-import BestSellerProducts from "./components/BestSellerProducts";
 import AllProducts, { type AllProductItem } from "./components/AllProducts";
 import ProductFilter from "./components/productFilter/ProductFilter";
 import Categories from "../(home)/components/categories/Categories";
@@ -10,30 +8,29 @@ import { imageUrlFromStorage } from "@/app/services/homepage";
 export default async function Products({
   params,
 }: {
-  params: Promise<{ locale: string }> | { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const resolvedParams =
-    typeof (params as any)?.then === "function"
-      ? await (params as Promise<{ locale: string }>)
-      : (params as { locale: string });
-  const locale = resolvedParams?.locale || "en";
+  const paramsResolved = await params;
+  const locale = paramsResolved.locale || "en";
 
   // Fetch all products from backend
-  let allProducts: any[] = [];
+  let allProducts: unknown[] = [];
   try {
     const json = await getAllProducts(locale);
     // Some APIs wrap data; support both shapes
-    allProducts = Array.isArray(json) ? json : (json?.data ?? json?.products ?? []);
+    allProducts = Array.isArray(json) ? json : (json as { data?: unknown[] })?.data ?? (json as { products?: unknown[] })?.products ?? [];
   } catch (e) {
     console.error("Failed to load all products", e);
   }
 
   const mappedAll: AllProductItem[] = Array.isArray(allProducts)
-    ? allProducts.map((p: any) => ({
-        id: Number(p.id),
-        image: imageUrlFromStorage(p?.images?.[0]?.image_name) || undefined,
-        price: p.price,
-        title: (p.translations?.[0]?.title || p.title || "").toString(),
+    ? allProducts.map((p: unknown) => ({
+        id: Number((p as { id?: unknown })?.id || 0),
+        image: imageUrlFromStorage(((p as { images?: unknown[] })?.images?.[0] as { image_name?: string })?.image_name),
+        price: (p as { price?: unknown })?.price as number | string,
+        title: ((p as { translations?: unknown[] })?.translations?.[0] as { title?: string })?.title ||
+               (p as { title?: string })?.title ||
+               "",
       }))
     : [];
 

@@ -5,14 +5,11 @@ import Image from "next/image";
 export default async function ProductDetail({
   params,
 }: {
-  params: Promise<{ locale: string; slug: string }> | { locale: string; slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const resolvedParams =
-    typeof (params as any)?.then === "function"
-      ? await (params as Promise<{ locale: string; slug: string }>)
-      : (params as { locale: string; slug: string });
-  const locale = resolvedParams?.locale || "en";
-  const slug = resolvedParams?.slug;
+  const paramsResolved = await params;
+  const locale = paramsResolved.locale || "en";
+  const slug = paramsResolved.slug;
 
   if (!slug) {
     return (
@@ -22,10 +19,10 @@ export default async function ProductDetail({
     );
   }
 
-  let product: any = null;
+  let product: unknown = null;
   try {
     const json = await getProductBySlug(locale, slug);
-    product = json?.data ?? json; // support both wrapped and raw shapes
+    product = (json as { data?: unknown })?.data ?? json; // support both wrapped and raw shapes
   } catch (e) {
     console.error("Failed to load product", e);
   }
@@ -38,13 +35,18 @@ export default async function ProductDetail({
     );
   }
 
-  const title = (product?.translations?.[0]?.title || product?.title || slug).toString();
-  const price = product?.price;
-  const images: string[] = Array.isArray(product?.images)
-    ? product.images
-        .map((img: any) => imageUrlFromStorage(img?.image_name))
-        .filter(Boolean) as string[]
+  const title = ((product as { translations?: unknown[] })?.translations?.[0] as { title?: string })?.title ||
+                (product as { title?: string })?.title ||
+                slug;
+  const price = (product as { price?: string | number })?.price;
+  const productImages = (product as { images?: unknown[] })?.images;
+  const images: string[] = Array.isArray(productImages)
+    ? productImages
+        .map((img: unknown) => imageUrlFromStorage((img as { image_name?: string })?.image_name))
+        .filter((src): src is string => Boolean(src))
     : [];
+
+  const description = (product as { description?: string })?.description;
 
   return (
     <div className="px-5 py-6 lg:px-11">
@@ -67,9 +69,9 @@ export default async function ProductDetail({
         </div>
         <div className="space-y-4">
           <h1 className="text-2xl lg:text-3xl font-bold">{title}</h1>
-          {price && <div className="text-xl font-semibold">{price} GEL</div>}
-          {product?.description && (
-            <p className="text-gray-700 whitespace-pre-line">{product.description}</p>
+          {price && <div className="text-xl font-semibold">{String(price)} GEL</div>}
+          {description && (
+            <p className="text-gray-700 whitespace-pre-line">{description}</p>
           )}
         </div>
       </div>
