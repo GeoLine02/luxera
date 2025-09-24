@@ -24,6 +24,27 @@ const nextConfig: NextConfig = {
     typedRoutes: false,
   },
 
+  // Configure rewrites for development proxy
+  async rewrites() {
+    if (process.env.NODE_ENV === 'development') {
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+      if (!backendUrl) {
+        console.warn('NEXT_PUBLIC_API_URL is not set. Proxy will not work.');
+        return [];
+      }
+      
+      const backendHost = new URL(backendUrl).host;
+      
+      return [
+        {
+          source: '/api/backend/:path*',
+          destination: `${backendUrl}/:path*`,
+        },
+      ];
+    }
+    return [];
+  },
+
   // Configure webpack
   webpack: (config, { isServer }) => {
     if (!isServer) {
