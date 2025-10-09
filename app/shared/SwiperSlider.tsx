@@ -81,7 +81,7 @@ const SwiperSlider = <T,>({
           }
         }}
       >
-        {data.map((item, idx) => (
+        {data?.map((item, idx) => (
           <SwiperSlide
             key={idx}
             className="!max-w-[calc(50%-10px)] xs:!max-w-fit"

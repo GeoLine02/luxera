@@ -47,8 +47,6 @@ const cardEditorSlice = createSlice({
     setActivePage: (state, action) => {
       const activePage = action.payload;
 
-      console.log("activePageee: ", activePage);
-
       state.activePage = activePage;
     },
     setActiveSetting: (state, action) => {

@@ -13,7 +13,7 @@ interface NavigationResponse {
 
 // Helper to create a proxy URL for development
 function getProxiedUrl(url: string): string {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     // Use Next.js API route as a proxy in development
     return `/api/proxy?url=${encodeURIComponent(url)}`;
   }
@@ -24,30 +24,28 @@ export async function fetchNavigationData(locale: string): Promise<NavItem[]> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     if (!baseUrl) {
-      console.error('NEXT_PUBLIC_API_URL is not defined');
+      console.error("NEXT_PUBLIC_API_URL is not defined");
       return [];
     }
 
     // Construct the target URL
     const targetUrl = new URL(`/${locale}/navigation`, baseUrl).toString();
     const url = getProxiedUrl(targetUrl);
-    
-    console.log('Fetching navigation from:', url);
 
     const response = await fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Accept-Language': locale,
+        Accept: "application/json",
+        "Accept-Language": locale,
       },
-      credentials: 'include',
-      cache: 'no-store',
-      mode: 'cors',
+      credentials: "include",
+      cache: "no-store",
+      mode: "cors",
     });
 
     if (!response.ok) {
-      const errorText = await response.text().catch(() => 'No error details');
-      console.error('Navigation fetch failed:', {
+      const errorText = await response.text().catch(() => "No error details");
+      console.error("Navigation fetch failed:", {
         status: response.status,
         statusText: response.statusText,
         url,
@@ -57,10 +55,14 @@ export async function fetchNavigationData(locale: string): Promise<NavItem[]> {
     }
 
     const data = await response.json();
-    const items = Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : [];
-    
+    const items = Array.isArray(data)
+      ? data
+      : Array.isArray(data?.data)
+      ? data.data
+      : [];
+
     if (!Array.isArray(items)) {
-      console.error('Invalid navigation data format received:', data);
+      console.error("Invalid navigation data format received:", data);
       return [];
     }
 
@@ -71,9 +73,8 @@ export async function fetchNavigationData(locale: string): Promise<NavItem[]> {
         title: String(item.title).trim(),
         slug: String(item.slug).trim(),
       }));
-      
   } catch (error) {
-    console.error('Error in fetchNavigationData:', error);
+    console.error("Error in fetchNavigationData:", error);
     return [];
   }
 }

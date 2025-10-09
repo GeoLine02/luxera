@@ -5,25 +5,12 @@ import { initiateGoogleAuth } from "@/app/[locale]/(auth)/services/googleAuth";
 import Button from "@/app/ui/Button";
 import Input from "@/app/ui/Input";
 import Link from "next/link";
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 import { ClipLoader } from "react-spinners";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginForm = () => {
   const [state, action, pending] = useActionState(loginService, undefined);
-
-  // Log state changes to browser console
-  useEffect(() => {
-    if (state) {
-      console.log("Login state updated:", state);
-      if (state.errors) {
-        console.error("Login errors:", state.errors);
-      }
-      if (state.success === false) {
-        console.error("Login failed:", state);
-      }
-    }
-  }, [state]);
 
   const handleGoogleLogin = () => {
     initiateGoogleAuth();

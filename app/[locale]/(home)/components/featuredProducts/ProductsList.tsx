@@ -2,24 +2,19 @@
 
 import "swiper/css";
 import "swiper/css/navigation";
-import FeaturedProductCard from "@/app/shared/FeaturedProductCard";
+import FeaturedProductCard from "@/app/[locale]/(home)/components/featuredProducts/FeaturedProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
+import { ProductType } from "@/app/types/product";
 
-export type FeaturedItem = {
-  id: number;
-  image?: string;
-  price: number | string;
-  href?: string;
-  title?: string;
-};
+interface ProcutsListProps {
+  products: ProductType[];
+  title: "Featured products";
+}
 
 const ProductsList = ({
   products,
   title = "Featured products",
-}: {
-  products: FeaturedItem[];
-  title?: string;
-}) => {
+}: ProcutsListProps) => {
   return (
     <div>
       <SwiperSlider
@@ -27,13 +22,12 @@ const ProductsList = ({
         title={title}
         titleFont="FRL"
         data={products}
-        renderCard={(product: FeaturedItem) => (
+        renderCard={(product: ProductType) => (
           <FeaturedProductCard
             id={product.id}
-            image={product.image}
-            price={product.price}
-            href={product.href}
-            title={product.title}
+            image={product.product_image}
+            price={product.product_price}
+            title={product.product_name}
           />
         )}
       />

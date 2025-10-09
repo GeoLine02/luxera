@@ -5,14 +5,14 @@ interface ProductCardProps {
   id: number;
   image?: string;
   price: number | string;
-  href?: string;
+
   title?: string;
 }
 
-const FeaturedProductCard = ({ id, image, price, href, title }: ProductCardProps) => {
+const FeaturedProductCard = ({ id, image, price, title }: ProductCardProps) => {
   return (
     <Link
-      href={href || `/${id}`}
+      href={`/${id}`}
       className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer w-full"
     >
       <div className="space-y-1 w-full max-w-[190px]">

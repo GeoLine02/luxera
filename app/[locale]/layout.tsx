@@ -32,11 +32,6 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
 
-  // const cookieStore = await cookies();
-  // const token = cookieStore.get("access_token")?.value;
-
-  // const user = await fetchUser();
-  // console.log(user);
   return (
     <html lang={locale}>
       <head>

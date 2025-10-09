@@ -28,23 +28,20 @@ export const loginService = async (
 
   // Determine the base URL based on environment
   // Use local API URL in development, production URL otherwise
-  const isProduction = process.env.NODE_ENV === 'production';
-  const defaultApiUrl = isProduction 
-    ? 'https://api.luxeragift.com/en' 
-    : 'http://localhost:8000/en';
-    
+  const isProduction = process.env.NODE_ENV === "production";
+  const defaultApiUrl = isProduction
+    ? "https://api.luxeragift.com/en"
+    : "http://localhost:8000/en";
+
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
-  
-  console.log('Environment:', process.env.NODE_ENV);
-  console.log('API URL:', apiUrl);
-  
+
   if (!apiUrl) {
-    console.error('API URL is not configured');
+    console.error("API URL is not configured");
     return {
       success: false,
       errors: {
-        general: ['Server configuration error']
-      }
+        general: ["Server configuration error"],
+      },
     } as LoginServiceResponse;
   }
   const res = await fetch(`${apiUrl}/login`, {
@@ -84,8 +81,7 @@ export const loginService = async (
 
   let data: LoginResponse;
   try {
-    data = await res.json() as LoginResponse;
-    
+    data = (await res.json()) as LoginResponse;
   } catch {
     await res.text();
     return {
@@ -114,28 +110,28 @@ export const loginService = async (
 
   // Set the token in a secure, httpOnly cookie
   (await cookies()).set({
-    name: 'access_token',
+    name: "access_token",
     value: token,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
 
   // Get user data from response if available
   const userData = data.data?.user;
-  
+
   // Store user data in localStorage if available
-  if (userData && typeof window !== 'undefined') {
-    localStorage.setItem('user', JSON.stringify(userData));
+  if (userData && typeof window !== "undefined") {
+    localStorage.setItem("user", JSON.stringify(userData));
     // Dispatch auth-change event to update all components
-    window.dispatchEvent(new Event('auth-change'));
+    window.dispatchEvent(new Event("auth-change"));
   }
 
   // Redirect to profile page
-  redirect('/profile');
-  
+  redirect("/profile");
+
   // This return is just for TypeScript, will be ignored due to redirect
   return { success: true };
 
@@ -149,22 +145,19 @@ export async function getUser(): Promise<User | null> {
 
     const token = cookieStore.get("access_token")?.value;
     if (!token) {
-      console.log('No access token found');
       return null;
     }
-    
+
     // Use the same URL logic as loginService
-    const isProduction = process.env.NODE_ENV === 'production';
-    const defaultApiUrl = isProduction 
-      ? 'https://api.luxeragift.com/en' 
-      : 'http://localhost:8000/en';
-      
+    const isProduction = process.env.NODE_ENV === "production";
+    const defaultApiUrl = isProduction
+      ? "https://api.luxeragift.com/en"
+      : "http://localhost:8000/en";
+
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
-    
-    console.log('Fetching user from:', apiUrl);
-    
+
     if (!apiUrl) {
-      console.error('API URL is not configured');
+      console.error("API URL is not configured");
       return null;
     }
 
@@ -192,7 +185,7 @@ export async function getUser(): Promise<User | null> {
 
     let data: UserResponse;
     try {
-      data = await resp.json() as UserResponse;
+      data = (await resp.json()) as UserResponse;
     } catch {
       return null;
     }
@@ -219,14 +212,12 @@ export async function logoutService(): Promise<boolean> {
     }
 
     // Use the same URL logic as loginService and getUser
-    const isProduction = process.env.NODE_ENV === 'production';
-    const defaultApiUrl = isProduction 
-      ? 'https://api.luxeragift.com/en' 
-      : 'http://localhost:8000/en';
-      
+    const isProduction = process.env.NODE_ENV === "production";
+    const defaultApiUrl = isProduction
+      ? "https://api.luxeragift.com/en"
+      : "http://localhost:8000/en";
+
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
-    
-    console.log('Logging out from:', apiUrl);
 
     const headers = {
       Accept: "application/json",

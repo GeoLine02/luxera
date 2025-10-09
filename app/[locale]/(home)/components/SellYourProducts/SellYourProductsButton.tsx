@@ -1,26 +1,9 @@
-"use client";
-
 import Button from "@/app/ui/Button";
-import { useRouter } from "next/navigation";
 
-type SellYourProductsButtonProps = {
-  href?: string;
-};
-
-const SellYourProductsButton = ({ href }: SellYourProductsButtonProps) => {
-  const router = useRouter();
-
+const SellYourProductsButton = () => {
   return (
     <Button
       type="button"
-      onClick={() => {
-        if (!href) return;
-        if (/^https?:\/\//i.test(href)) {
-          window.location.href = href;
-        } else {
-          router.push(href);
-        }
-      }}
       rounded="full"
       title="Get Started"
       bgColor="transparent"

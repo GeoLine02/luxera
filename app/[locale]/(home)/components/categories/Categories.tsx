@@ -1,18 +1,20 @@
-import { fetchCategoriesData, type ApiCategory } from "@/data/categories";
-import { getLocale } from "next-intl/server";
-import CategoryCard from "./CategoryCard";
+import CategoryCard from "./SubCategoryCard";
+import { SubCategoryType } from "@/app/types/categories";
 
-export default async function Categories() {
-  const locale = await getLocale();
-  const categories: ApiCategory[] = await fetchCategoriesData(locale);
+interface CategoriesProps {
+  subCategories: SubCategoryType[];
+}
 
+export default async function Categories({ subCategories }: CategoriesProps) {
   return (
     <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4 px-4 card-container ">
-      {categories.map((category) => (
+      {subCategories?.map((subcategory) => (
         <CategoryCard
-          key={category.label}
-          label={category.label}
-          image={category.image}
+          key={subcategory.id}
+          id={subcategory.id}
+          categoryId={subcategory.categoryId}
+          subCategoryImage={subcategory.subCategoryImage}
+          subCategoryName={subcategory.subCategoryName}
         />
       ))}
     </div>

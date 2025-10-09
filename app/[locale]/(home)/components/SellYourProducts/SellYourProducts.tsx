@@ -3,10 +3,9 @@ import SellYourProductsButton from "./SellYourProductsButton";
 type SellYourProductsProps = {
   title?: string;
   desc?: string;
-  href?: string;
 };
 
-const SellYourProducts = ({ title, desc, href }: SellYourProductsProps) => {
+const SellYourProducts = ({ title, desc }: SellYourProductsProps) => {
   const heading = title || "Sell Your Products";
   const sub = desc || "Join our marketplace and showcase your unique gifts";
   return (
@@ -17,7 +16,7 @@ const SellYourProducts = ({ title, desc, href }: SellYourProductsProps) => {
         </h1>
         <p>{sub}</p>
       </div>
-      <SellYourProductsButton href={href} />
+      <SellYourProductsButton />
     </div>
   );
 };

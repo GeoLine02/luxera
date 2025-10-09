@@ -3,17 +3,19 @@
 import { redirect } from "next/navigation";
 import { registerValidationSchema } from "../validation/signUp";
 
-type FormState = {
-  success: boolean;
-  message: string;
-  errors?: Record<string, string[]>;
-  data?: {
-    id?: string | number;
-    email?: string;
-    fullName?: string;
-    [key: string]: unknown;
-  };
-} | undefined;
+type FormState =
+  | {
+      success: boolean;
+      message: string;
+      errors?: Record<string, string[]>;
+      data?: {
+        id?: string | number;
+        email?: string;
+        fullName?: string;
+        [key: string]: unknown;
+      };
+    }
+  | undefined;
 
 export const registerService = async (
   _state: FormState,
@@ -37,11 +39,11 @@ export const registerService = async (
 
   try {
     // Use local API URL in development, production URL otherwise
-    const isProduction = process.env.NODE_ENV === 'production';
-    const defaultApiUrl = isProduction 
-      ? 'https://api.luxeragift.com/en' 
-      : 'http://localhost:8000/en';
-      
+    const isProduction = process.env.NODE_ENV === "production";
+    const defaultApiUrl = isProduction
+      ? "https://api.luxeragift.com/en"
+      : "http://localhost:8000/en";
+
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
 
     // Prepare registration data with password_confirmation field
@@ -49,7 +51,7 @@ export const registerService = async (
       fullname: parsed.data.fullName,
       email: parsed.data.email,
       password: parsed.data.password,
-      password_confirmation: parsed.data.confirmPassword
+      password_confirmation: parsed.data.confirmPassword,
     };
 
     // Send registration request
@@ -76,11 +78,6 @@ export const registerService = async (
 
     // Handle error responses
     if (!response.ok) {
-      console.log("Registration error response:", {
-        status: response.status,
-        data: responseData,
-      });
-
       // Handle validation errors from server
       if (response.status === 422 && responseData.errors) {
         return {
@@ -94,8 +91,8 @@ export const registerService = async (
       return {
         success: false,
         message: responseData.message || "Registration failed",
-        errors: responseData.errors || { 
-          general: [responseData.message || "An unknown error occurred"] 
+        errors: responseData.errors || {
+          general: [responseData.message || "An unknown error occurred"],
         },
       };
     }
@@ -116,7 +113,7 @@ export const registerService = async (
     };
   } catch (error: unknown) {
     // Check if this is a redirect error (which is expected)
-    if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
       // Re-throw the redirect error to let Next.js handle it
       throw error;
     }
@@ -124,8 +121,8 @@ export const registerService = async (
     return {
       success: false,
       message: "An unexpected error occurred",
-      errors: { 
-        general: ["Failed to process registration. Please try again later."] 
+      errors: {
+        general: ["Failed to process registration. Please try again later."],
       },
     };
   }

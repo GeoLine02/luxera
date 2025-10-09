@@ -1,4 +1,4 @@
-import { HomepageData } from '@/app/types/homepage';
+import { HomepageData } from "@/app/types/homepage";
 
 export function resolveBaseUrl(): string {
   const rawBaseUrl =
@@ -29,7 +29,7 @@ export async function getHomepageData(locale: string): Promise<HomepageData> {
     // You can also use: cache: 'no-store'
     next: { revalidate: 60 },
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Accept-Language": locale,
     },
   });
@@ -37,16 +37,18 @@ export async function getHomepageData(locale: string): Promise<HomepageData> {
     const text = await res.text().catch(() => "");
     throw new Error(`Failed to fetch homepage data (${res.status}): ${text}`);
   }
-  
+
   // Some APIs return { data, success } while others return raw arrays/objects.
   // Return the parsed JSON directly; consuming components can adapt as needed.
   const json = await res.json();
-  console.log('homepageData json', json)
+
   return json;
 }
 
 // Helper to construct a full image URL from banner images that provide a relative storage path
-export function imageUrlFromBanner(imageName?: string | null): string | undefined {
+export function imageUrlFromBanner(
+  imageName?: string | null
+): string | undefined {
   if (!imageName) return undefined;
   const base = resolveBaseUrl();
   // Common Laravel pattern: files accessible under /storage/<path>
@@ -55,7 +57,9 @@ export function imageUrlFromBanner(imageName?: string | null): string | undefine
 }
 
 // Generic helper for any storage-backed image path (e.g., product images)
-export function imageUrlFromStorage(imageName?: string | null): string | undefined {
+export function imageUrlFromStorage(
+  imageName?: string | null
+): string | undefined {
   if (!imageName) return undefined;
   const base = resolveBaseUrl();
   const normalized = String(imageName).replace(/^\/+/, "");
