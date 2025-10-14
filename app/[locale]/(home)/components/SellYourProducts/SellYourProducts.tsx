@@ -1,13 +1,20 @@
 import SellYourProductsButton from "./SellYourProductsButton";
 
-const SellYourProducts = () => {
+type SellYourProductsProps = {
+  title?: string;
+  desc?: string;
+};
+
+const SellYourProducts = ({ title, desc }: SellYourProductsProps) => {
+  const heading = title || "Sell Your Products";
+  const sub = desc || "Join our marketplace and showcase your unique gifts";
   return (
     <div className="flex flex-col gap-7 lg:gap-10 lg:flex-row lg:justify-between lg:items-center p-10 lg:px-[67px] lg:py-[63px] bg-light-pink">
       <div className="space-y-6 lg:space-y-[51px]">
         <h1 className="text-[40px] lg:text-[64px] font-bold font-FRL">
-          Sell Your Products
+          {heading}
         </h1>
-        <p>Join our msrketplace and showcase your unique gifts</p>
+        <p>{sub}</p>
       </div>
       <SellYourProductsButton />
     </div>

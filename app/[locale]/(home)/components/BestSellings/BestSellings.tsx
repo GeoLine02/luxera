@@ -2,21 +2,28 @@
 
 import ProductCard from "@/app/shared/ProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
-import { productsData } from "@/data/products";
+export type BestSellingItem = {
+  id: number;
+  image?: string;
+  price: number | string;
+  title: string;
+  href?: string;
+};
 
-const BestSellings = () => {
+const BestSellings = ({ products }: { products: BestSellingItem[] }) => {
   return (
     <div className="space-y-4">
       <SwiperSlider
         titleWeight="bold"
-        data={productsData}
+        data={products}
         title="Best Sellings"
-        renderCard={(product) => (
+        renderCard={(product: BestSellingItem) => (
           <ProductCard
             id={product.id}
             image={product.image}
             price={product.price}
             title={product.title}
+            href={product.href}
           />
         )}
       />

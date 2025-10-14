@@ -2,12 +2,26 @@
 
 import { redirect } from "next/navigation";
 import { registerValidationSchema } from "../validation/signUp";
-import { cookies } from "next/headers";
+
+type FormState =
+  | {
+      success: boolean;
+      message: string;
+      errors?: Record<string, string[]>;
+      data?: {
+        id?: string | number;
+        email?: string;
+        fullName?: string;
+        [key: string]: unknown;
+      };
+    }
+  | undefined;
 
 export const registerService = async (
-  _state: undefined,
+  _state: FormState,
   formData: FormData
-) => {
+): Promise<FormState> => {
+  // Validate form data
   const parsed = registerValidationSchema.safeParse({
     fullName: formData.get("fullName")?.toString(),
     email: formData.get("email")?.toString(),
@@ -18,34 +32,105 @@ export const registerService = async (
   if (!parsed.success) {
     return {
       success: false,
-      errors: parsed.error.flatten().fieldErrors,
+      message: "Validation failed",
+      errors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
     };
   }
 
+<<<<<<< HEAD
   const res = await fetch(`${process.env.API_BASE_URL}/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
+=======
+  try {
+    // Use local API URL in development, production URL otherwise
+    const isProduction = process.env.NODE_ENV === "production";
+    const defaultApiUrl = isProduction
+      ? "https://api.luxeragift.com/en"
+      : "http://localhost:8000/en";
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
+
+    // Prepare registration data with password_confirmation field
+    const registrationData = {
+>>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46
       fullname: parsed.data.fullName,
       email: parsed.data.email,
       password: parsed.data.password,
       password_confirmation: parsed.data.confirmPassword,
-    }),
-  });
+    };
 
-  const data = await res.json();
-
-  if (data.success && data.access_token) {
-    (await cookies()).set("access_token", data.access_token, {
-      httpOnly: true,
-      secure: true,
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
+    // Send registration request
+    const response = await fetch(`${apiUrl}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registrationData),
     });
 
-    // redirect to locale-aware home
-    redirect(`/`);
-  }
+    // Parse response data
+    let responseData;
+    try {
+      responseData = await response.json();
+    } catch (error) {
+      console.error("Failed to parse response as JSON:", error);
+      return {
+        success: false,
+        message: "Invalid server response",
+        errors: { general: ["The server returned an invalid response"] },
+      };
+    }
 
-  return data;
+    // Handle error responses
+    if (!response.ok) {
+      // Handle validation errors from server
+      if (response.status === 422 && responseData.errors) {
+        return {
+          success: false,
+          message: responseData.message || "Validation failed",
+          errors: responseData.errors,
+        };
+      }
+
+      // Handle other error responses
+      return {
+        success: false,
+        message: responseData.message || "Registration failed",
+        errors: responseData.errors || {
+          general: [responseData.message || "An unknown error occurred"],
+        },
+      };
+    }
+
+    // Handle successful registration
+    if (responseData.access_token) {
+      // Redirect to login page after successful registration
+      // The redirect function throws an error to handle the redirect
+      redirect("/signin?registered=true");
+      // The code below won't be reached due to the redirect
+      return { success: true, message: "Redirecting to login..." };
+    }
+
+    return {
+      success: true,
+      message: "Registration successful",
+      data: responseData,
+    };
+  } catch (error: unknown) {
+    // Check if this is a redirect error (which is expected)
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
+      // Re-throw the redirect error to let Next.js handle it
+      throw error;
+    }
+    console.error("Registration error:", error);
+    return {
+      success: false,
+      message: "An unexpected error occurred",
+      errors: {
+        general: ["Failed to process registration. Please try again later."],
+      },
+    };
+  }
 };

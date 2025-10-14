@@ -1,3 +1,5 @@
+"use client";
+
 import { useUpload } from "@/app/hooks/useUpload";
 import { manageFirstPage } from "@/app/store/features/cardEditorSlice";
 import { AppDispatch, RootState } from "@/app/store/store";

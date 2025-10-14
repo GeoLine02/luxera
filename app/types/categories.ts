@@ -1,12 +1,14 @@
 import { StaticImageData } from "next/image";
 
 export interface SubCategoryType {
-  label: string;
-  image: StaticImageData;
+  id: number;
+  subCategoryName: string;
+  subCategoryImage: StaticImageData | string;
+  categoryId: number;
 }
 
 export interface CategoryType {
   label: string;
-  image: StaticImageData;
+  image: StaticImageData | string;
   subCategories: SubCategoryType[];
 }

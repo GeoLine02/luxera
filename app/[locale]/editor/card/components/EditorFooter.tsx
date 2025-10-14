@@ -51,7 +51,6 @@ const EditorFooter = () => {
   );
   const handleChooseSetting = (settingLabel: EditorActiveSettingType) => {
     if (activeSetting === settingLabel) {
-      console.log("enter");
       dispatch(setActiveSetting(null));
     } else {
       dispatch(setActiveSetting(settingLabel));

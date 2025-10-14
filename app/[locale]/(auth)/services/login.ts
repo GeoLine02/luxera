@@ -3,8 +3,22 @@
 import { cookies } from "next/headers";
 import { loginValidationSchema } from "../validation/login";
 import { redirect } from "next/navigation";
+<<<<<<< HEAD
 
 export const loginService = async (_state: undefined, formData: FormData) => {
+=======
+import {
+  LoginResponse,
+  UserResponse,
+  User,
+  LoginServiceResponse,
+} from "../../../types/user";
+
+export const loginService = async (
+  _state: LoginServiceResponse | undefined,
+  formData: FormData
+): Promise<LoginServiceResponse> => {
+>>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46
   const parsed = loginValidationSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -17,7 +31,29 @@ export const loginService = async (_state: undefined, formData: FormData) => {
     };
   }
 
+<<<<<<< HEAD
   const res = await fetch(`${process.env.API_BASE_URL}/login`, {
+=======
+  // Determine the base URL based on environment
+  // Use local API URL in development, production URL otherwise
+  const isProduction = process.env.NODE_ENV === "production";
+  const defaultApiUrl = isProduction
+    ? "https://api.luxeragift.com/en"
+    : "http://localhost:8000/en";
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
+
+  if (!apiUrl) {
+    console.error("API URL is not configured");
+    return {
+      success: false,
+      errors: {
+        general: ["Server configuration error"],
+      },
+    } as LoginServiceResponse;
+  }
+  const res = await fetch(`${apiUrl}/login`, {
+>>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -26,6 +62,7 @@ export const loginService = async (_state: undefined, formData: FormData) => {
     }),
   });
 
+<<<<<<< HEAD
   // const res2 = await fetch("https://api.luxeragift.com/sanctum/csrf-cookie");
 
   const data = await res.json();
@@ -45,11 +82,100 @@ export const loginService = async (_state: undefined, formData: FormData) => {
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getUser(): Promise<any> {
+=======
+  if (!res.ok) {
+    const errorText = await res.text();
+    let errorData;
+    try {
+      errorData = JSON.parse(errorText);
+    } catch {}
+
+    return {
+      success: false,
+      errors: {
+        general: [
+          errorData?.message || `Login failed: ${res.status} ${res.statusText}`,
+        ],
+      },
+    };
+  }
+  const contentType = res.headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    return {
+      success: false,
+      errors: {
+        general: ["Server returned an invalid response format"],
+      },
+    };
+  }
+
+  let data: LoginResponse;
+  try {
+    data = (await res.json()) as LoginResponse;
+  } catch {
+    await res.text();
+    return {
+      success: false,
+      errors: {
+        general: ["Invalid server response"],
+      },
+    };
+  }
+
+  // Extract token from response
+  const token =
+    data.token ||
+    data.access_token ||
+    data.data?.token ||
+    data.data?.access_token;
+
+  if (!token) {
+    return {
+      success: false,
+      errors: {
+        general: ["Login successful but no token received"],
+      },
+    };
+  }
+
+  // Set the token in a secure, httpOnly cookie
+  (await cookies()).set({
+    name: "access_token",
+    value: token,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  });
+
+  // Get user data from response if available
+  const userData = data.data?.user;
+
+  // Store user data in localStorage if available
+  if (userData && typeof window !== "undefined") {
+    localStorage.setItem("user", JSON.stringify(userData));
+    // Dispatch auth-change event to update all components
+    window.dispatchEvent(new Event("auth-change"));
+  }
+
+  // Redirect to profile page
+  redirect("/profile");
+
+  // This return is just for TypeScript, will be ignored due to redirect
+  return { success: true };
+
+  return data;
+};
+
+export async function getUser(): Promise<User | null> {
+>>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46
   try {
     // 1. Get token from Authorization header
     const cookieStore = await cookies();
 
     const token = cookieStore.get("access_token")?.value;
+<<<<<<< HEAD
 
     if (!token) {
       console.warn("No token found in headers");
@@ -75,12 +201,113 @@ export async function getUser(): Promise<any> {
 
     if (!user) {
       console.warn("getUser: unexpected response shape", data);
+=======
+    if (!token) {
+      return null;
+    }
+
+    // Use the same URL logic as loginService
+    const isProduction = process.env.NODE_ENV === "production";
+    const defaultApiUrl = isProduction
+      ? "https://api.luxeragift.com/en"
+      : "http://localhost:8000/en";
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
+
+    if (!apiUrl) {
+      console.error("API URL is not configured");
+      return null;
+    }
+
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      "X-Localization": "en",
+    };
+
+    const resp = await fetch(`${apiUrl}/me`, {
+      method: "GET",
+      headers,
+      cache: "no-store",
+    });
+
+    if (!resp.ok) {
+      return null;
+    }
+
+    const contentType = resp.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      return null;
+    }
+
+    let data: UserResponse;
+    try {
+      data = (await resp.json()) as UserResponse;
+    } catch {
+      return null;
+    }
+
+    const user = data?.success && data?.data ? data.data : null;
+
+    if (!user) {
+>>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46
       return null;
     }
 
     return user;
+<<<<<<< HEAD
   } catch (error) {
     console.error("getUser failed:", error);
     return null;
   }
 }
+=======
+  } catch {
+    return null;
+  }
+}
+
+export async function logoutService(): Promise<boolean> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("access_token")?.value;
+
+    if (!token) {
+      return true; // Already logged out
+    }
+
+    // Use the same URL logic as loginService and getUser
+    const isProduction = process.env.NODE_ENV === "production";
+    const defaultApiUrl = isProduction
+      ? "https://api.luxeragift.com/en"
+      : "http://localhost:8000/en";
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || defaultApiUrl;
+
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      "X-Localization": "en",
+    };
+
+    await fetch(`${apiUrl}/logout`, {
+      method: "POST",
+      headers,
+      cache: "no-store",
+    });
+
+    // Clear the cookie regardless of API response
+    (await cookies()).delete("access_token");
+
+    return true;
+  } catch {
+    // Clear cookie even if API call fails
+    try {
+      (await cookies()).delete("access_token");
+    } catch {}
+    return true;
+  }
+}
+>>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46

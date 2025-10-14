@@ -8,12 +8,19 @@ import { AppDispatch } from "@/app/store/store";
 import { openCategoiresModal } from "@/app/store/features/categoriesSlice";
 import { Link, usePathname } from "@/i18n/navigation";
 import Button from "@/app/ui/Button";
+import { useCategories } from "@/app/hooks/useCategories";
+import { useNavigation } from "@/app/hooks/useNavigation";
 
 const Navigation = () => {
   const locale = useLocale();
   const [currentLang, setCurrentLang] = useState(locale);
   const pathName = usePathname();
   const dispatch = useDispatch<AppDispatch>();
+
+  // Fetch categories for header display
+  const { categories } = useCategories(currentLang);
+  // Fetch navigation pages from backend
+  const { items: navItems } = useNavigation(currentLang);
 
   const handleToggleCategories = () => {
     dispatch(openCategoiresModal());
@@ -24,7 +31,7 @@ const Navigation = () => {
   };
   return (
     <nav className="w-full items-center justify-between px-12 py-3 border-b border-gray-200 hidden md:flex">
-      <div>
+      <div className="flex items-center gap-6 min-w-0">
         <>
           <button
             onClick={handleToggleCategories}
@@ -33,12 +40,25 @@ const Navigation = () => {
             <span>☰</span> All Categories
           </button>
         </>
+        {categories && categories.length > 0 && (
+          <ul className="flex items-center gap-4 overflow-x-auto no-scrollbar text-sm text-gray-700">
+            {categories.map((c) => (
+              <li key={c.label} className="whitespace-nowrap hover:text-black">
+                {c.label}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <ul className="flex items-center gap-10 text-lg font-medium">
-        <Link href={`/`}>Home</Link>
-        <Link href={`/about`}>About</Link>
-        <Link href={`/contact`}>Contact</Link>
+        {navItems && navItems.length > 0 && (
+          navItems.map((n) => (
+            <Link key={n.slug} href={`/${n.slug}`}>
+              {n.title}
+            </Link>
+          ))
+        )}
       </ul>
 
       <div className="flex items-center gap-6">

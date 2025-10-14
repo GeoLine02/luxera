@@ -1,15 +1,9 @@
-"use client";
-
 import Button from "@/app/ui/Button";
-import { useRouter } from "next/navigation";
 
 const SellYourProductsButton = () => {
-  const router = useRouter();
-
   return (
     <Button
       type="button"
-      onClick={() => router.push("/")}
       rounded="full"
       title="Get Started"
       bgColor="transparent"

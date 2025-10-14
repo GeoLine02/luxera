@@ -1,16 +1,12 @@
-import { StaticImageData } from "next/image";
-
 export interface ProductType {
   id: number;
-  image: StaticImageData;
-  title: string;
-  price: number;
-}
-
-export interface FeatureProductType {
-  id: number;
-  image: StaticImageData;
-  price: number;
+  product_image: string;
+  product_name: string;
+  product_rating: number;
+  product_price: number;
+  produt_status: string;
+  product_category_id: number;
+  product_owner_id: number;
 }
 
 export interface ProductImageType {
