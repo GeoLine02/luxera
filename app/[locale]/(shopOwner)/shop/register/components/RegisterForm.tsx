@@ -2,10 +2,27 @@
 
 import Button from "@/app/ui/Button";
 import Input from "@/app/ui/Input";
+import { FormEvent } from "react";
+import { registerShopService } from "../services/registerShop";
+import { useUser } from "@/app/providers/UserProvider";
 
 const RegisterForm = () => {
+  const { user } = useUser();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formdata = new FormData(e.currentTarget);
+
+    const res = await registerShopService(formdata, Number(user?.id));
+
+    console.log(res);
+  };
+
   return (
-    <form className="max-w-[424px] space-y-4 flex flex-col">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-[424px] space-y-4 flex flex-col"
+    >
       <div className="space-y-2">
         <h1 className="text-3xl font-medium">Open Your Online Store</h1>
         <span className="text-xl">It&apos;s free and easy</span>
@@ -13,31 +30,9 @@ const RegisterForm = () => {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <label className="text-sm text-medium-gray" htmlFor="fullName">
-            Full Name
+            Shop name
           </label>
-          <Input
-            onChange={() => {}}
-            name="fullName"
-            bgColor="lightGray"
-            className="rounded-xl"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-medium-gray" htmlFor="fullName">
-            Your Gmail
-          </label>
-          <Input
-            name="gmail"
-            bgColor="lightGray"
-            className="rounded-xl"
-            type="email"
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-sm text-medium-gray" htmlFor="fullName">
-            Phone Number
-          </label>
-          <Input name="phone" bgColor="lightGray" className="rounded-xl" />
+          <Input name="shopName" bgColor="lightGray" className="rounded-xl" />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-sm text-medium-gray" htmlFor="fullName">
