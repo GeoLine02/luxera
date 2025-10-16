@@ -1,20 +1,13 @@
 import SearchContainer from "@/app/shared/search/SearchContainer";
-import BestSellings, {
-  BestSellingItem,
-} from "./components/BestSellings/BestSellings";
-import Categories from "./components/categories/Categories";
+import SubCategories from "../../shared/categories/SubCategories";
 import ProductsList from "./components/featuredProducts/ProductsList";
 import Hero from "./components/hero/Hero";
 import SellYourProducts from "./components/SellYourProducts/SellYourProducts";
 import VIPListing from "./components/VIPLiisting/VIPListing";
 import Button from "@/app/ui/Button";
 import Link from "next/link";
-// import { getHomepageData, imageUrlFromStorage } from "@/app/services/homepage";
-import { HomepageData } from "@/app/types/homepage";
 import { fetchFeaturedProducts, fetchVipProducts } from "./services/products";
 import { ProductType } from "@/app/types/product";
-import { fetchSubCategories } from "./services/categoires";
-import { SubCategoryType } from "@/app/types/categories";
 
 export default async function Home(props: {
   params: Promise<{ locale: string }>;
@@ -22,42 +15,8 @@ export default async function Home(props: {
   const params = await props.params;
   const locale = params.locale || "en";
 
-  // let homepageData: HomepageData | null = null;
-  // try {
-  //   homepageData = await getHomepageData(locale);
-  // } catch (e) {
-  //   console.error("Failed to load homepage data", e);
-  // }
-
-  // const mapBestSelling = (arr: unknown[] | undefined): BestSellingItem[] =>
-  //   Array.isArray(arr)
-  //     ? arr.map((p: unknown) => ({
-  //         id: Number((p as { id?: unknown })?.id || 0),
-  //         image: imageUrlFromStorage(
-  //           (
-  //             (p as { images?: unknown[] })?.images?.[0] as {
-  //               image_name?: string;
-  //             }
-  //           )?.image_name
-  //         ),
-  //         price: (p as { price?: unknown })?.price as number | string,
-  //         title:
-  //           (
-  //             (p as { translations?: unknown[] })?.translations?.[0] as {
-  //               title?: string;
-  //             }
-  //           )?.title ||
-  //           (p as { title?: string })?.title ||
-  //           "",
-  //       }))
-  //     : [];
-
-  const subCategoriesData: SubCategoryType[] = await fetchSubCategories();
   const vipProductsData: ProductType[] = await fetchVipProducts();
   const feturedProductsData: ProductType[] = await fetchFeaturedProducts();
-  // const bestSellingProducts: BestSellingItem[] = mapBestSelling(
-  //   homepageData?.bestSellingProducts
-  // );
 
   return (
     <div>
@@ -65,7 +24,7 @@ export default async function Home(props: {
         <SearchContainer />
       </div>
 
-      <Categories subCategories={subCategoriesData} />
+      <SubCategories />
 
       <div className="mt-[50px]">
         <Hero

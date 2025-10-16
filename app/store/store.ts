@@ -8,7 +8,7 @@ import shopSLice from "./features/shopSlice";
 import cardEditorSlice from "./features/cardEditorSlice";
 
 // Create the store configuration
-export function makeStore() {
+export function makeStore(preloadedState?: unknown) {
   return configureStore({
     reducer: {
       categoriesReducer: categoriesReducer,
@@ -19,6 +19,7 @@ export function makeStore() {
       shopSLice: shopSLice,
       cardEditorSlice: cardEditorSlice,
     },
+    preloadedState,
   });
 }
 

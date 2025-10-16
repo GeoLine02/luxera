@@ -2,6 +2,7 @@ import ProductFilter from "./components/productFilter/ProductFilter";
 import SearchContainer from "@/app/shared/search/SearchContainer";
 import { fetchAllProducts } from "./services/allProducts";
 import AllProducts from "./components/AllProducts";
+import SubCategories from "../../shared/categories/SubCategories";
 
 export default async function Products({
   params: paramsPromise,
@@ -17,9 +18,7 @@ export default async function Products({
       <div className="md:hidden">
         <SearchContainer />
       </div>
-
-      {/* <Categories /> */}
-
+      <SubCategories />
       <div className="mt-12">
         <ProductFilter />
       </div>
