@@ -6,12 +6,17 @@ import Button from "@/app/ui/Button";
 import OtherAccounts from "../../shared/OtherAccounts";
 import AlreadyHaveAnAccount from "./AlreadyHaveAnAccount";
 import TermsAndPolicies from "./TermsAndPolicies";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { registerService } from "../../services/register";
 import { ClipLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
   const [state, action, pending] = useActionState(registerService, undefined);
+  const router = useRouter();
+  useEffect(() => {
+    if (state?.success) router.push("/signin");
+  }, [router, state?.success]);
 
   return (
     <div className="max-w-[424px] w-full space-y-[57px]">
@@ -31,6 +36,7 @@ const SignUpForm = () => {
             name="fullName"
             type="text"
             placeholder="Enter your name"
+            defaultValue={state?.values?.fullName || ""}
             error={state?.errors?.fullName?.[0]}
           />
           <Input
@@ -40,6 +46,7 @@ const SignUpForm = () => {
             name="email"
             type="email"
             placeholder="Type your e-mail or phone number"
+            defaultValue={state?.values?.email}
             error={state?.errors?.email?.[0]}
           />
           <Input
@@ -61,10 +68,16 @@ const SignUpForm = () => {
             error={state?.errors?.confirmPassword?.[0]}
           />
         </div>
+
+        {state?.status === 400 && (
+          <p className="text-sm text-red-500 font-medium">{state?.error}</p>
+        )}
+
         <div className="flex items-center gap-2">
           <Input bgColor="transparent" name="terms" required type="checkbox" />
           <TermsAndPolicies />
         </div>
+
         <Button
           className="py-4 flex items-center justify-center font-bold"
           type="submit"

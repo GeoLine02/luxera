@@ -9,9 +9,6 @@ import ReduxProvider from "../providers/ReduxProvider";
 import MobileTabs from "../shared/mobileTabs/MobileTabs";
 import SideMenu from "../shared/header/SideMenu";
 import CategoriesModal from "./(home)/components/categories/CategoriesModal";
-import DebugInfo from "@/components/DebugInfo";
-// import { fetchUser } from "./(auth)/services/login";
-// import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Luxera Gift Shop",
@@ -32,6 +29,11 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
 
+  // const cookieStore = await cookies();
+  // const token = cookieStore.get("access_token")?.value;
+
+  // const user = await fetchUser();
+  // console.log(user);
   return (
     <html lang={locale}>
       <head>
@@ -51,7 +53,6 @@ export default async function RootLayout({
             <MobileTabs />
             <Footer />
             <CategoriesModal />
-            <DebugInfo />
           </NextIntlClientProvider>
         </ReduxProvider>
       </body>
