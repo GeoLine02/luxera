@@ -12,6 +12,7 @@ import CategoriesModal from "../shared/categories/CategoriesModal";
 import { fetchSubCategories } from "./(home)/services/categoires";
 import { makeStore } from "../store/store";
 import { setSubCategories } from "../store/features/categoriesSlice";
+import { UserProvider } from "../providers/UserProvider";
 
 export const metadata: Metadata = {
   title: "Luxera Gift Shop",
@@ -50,14 +51,16 @@ export default async function RootLayout({
       <body className={`font-${inter.style.fontFamily}`}>
         <ReduxProvider preloadedState={preloadedState}>
           <NextIntlClientProvider>
-            <div className="relative">
-              <Header />
-              <SideMenu />
-            </div>
-            <main>{children}</main>
-            <MobileTabs />
-            <Footer />
-            <CategoriesModal />
+            <UserProvider user={null}>
+              <div className="relative">
+                <Header />
+                <SideMenu />
+              </div>
+              <main>{children}</main>
+              <MobileTabs />
+              <Footer />
+              <CategoriesModal />
+            </UserProvider>
           </NextIntlClientProvider>
         </ReduxProvider>
       </body>

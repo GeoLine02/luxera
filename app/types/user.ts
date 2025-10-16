@@ -6,10 +6,9 @@ export interface UserRegisterCredsType {
 }
 
 export interface User {
-  id: string;
+  id: number;
   email: string;
   fullname: string;
-  // Add other user properties as needed
 }
 
 export interface LoginResponse {
