@@ -8,7 +8,10 @@ import Footer from "../shared/Footer/Footer";
 import ReduxProvider from "../providers/ReduxProvider";
 import MobileTabs from "../shared/mobileTabs/MobileTabs";
 import SideMenu from "../shared/header/SideMenu";
-import CategoriesModal from "./(home)/components/categories/CategoriesModal";
+import CategoriesModal from "../shared/categories/CategoriesModal";
+import { fetchSubCategories } from "./(home)/services/categoires";
+import { makeStore } from "../store/store";
+import { setSubCategories } from "../store/features/categoriesSlice";
 
 export const metadata: Metadata = {
   title: "Luxera Gift Shop",
@@ -29,11 +32,13 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
 
-  // const cookieStore = await cookies();
-  // const token = cookieStore.get("access_token")?.value;
+  const store = makeStore();
 
-  // const user = await fetchUser();
-  // console.log(user);
+  const allSubcategoriesData = await fetchSubCategories();
+  store.dispatch(setSubCategories(allSubcategoriesData));
+
+  const preloadedState = store.getState();
+
   return (
     <html lang={locale}>
       <head>
@@ -43,7 +48,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`font-${inter.style.fontFamily}`}>
-        <ReduxProvider>
+        <ReduxProvider preloadedState={preloadedState}>
           <NextIntlClientProvider>
             <div className="relative">
               <Header />

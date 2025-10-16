@@ -6,13 +6,14 @@ import { makeStore } from "@/app/store/store";
 
 export default function StoreProvider({
   children,
+  preloadedState,
 }: {
   children: React.ReactNode;
+  preloadedState?: unknown;
 }) {
   const storeRef = useRef<AppStore | null>(null);
   if (!storeRef.current) {
-    // Create the store instance the first time this renders
-    storeRef.current = makeStore();
+    storeRef.current = makeStore(preloadedState);
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;
