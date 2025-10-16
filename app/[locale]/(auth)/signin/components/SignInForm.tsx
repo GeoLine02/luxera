@@ -6,12 +6,19 @@ import Button from "@/app/ui/Button";
 import ForgetPasswordButton from "./ForgetPasswordButton";
 import OtherAccounts from "../../shared/OtherAccounts";
 import Link from "next/link";
-import { useActionState } from "react";
-import { loginService } from "../../services/login";
+import { useActionState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
+import { loginService } from "../../services/login";
+import { useRouter } from "next/navigation";
 
 const SignInForm = () => {
   const [state, action, pending] = useActionState(loginService, undefined);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state?.status === 203) router.push("/");
+  }, [router, state?.status]);
 
   return (
     <div className="max-w-[424px] w-full space-y-[57px]">
@@ -26,8 +33,9 @@ const SignInForm = () => {
             bgColor="lightGray"
             label="E-mail or phone number"
             name="email"
-            type="text"
+            type="email"
             placeholder="Type your e-mail or phone number"
+            defaultValue={state?.values?.email}
             error={state?.errors?.email?.[0]}
           />
         </div>
@@ -38,6 +46,7 @@ const SignInForm = () => {
             name="password"
             type="password"
             placeholder="Type your password"
+            defaultValue={""}
             error={state?.errors?.password?.[0]}
           />
           <ForgetPasswordButton />

@@ -1,71 +1,79 @@
 import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
-<<<<<<< HEAD
 import { routing } from "./i18n/routing";
-import { NextRequest } from "next/server";
-import { getUser } from "./app/[locale]/(auth)/services/login";
-
-// your user fetcher
-
-// main middleware
-export default async function middleware(req: NextRequest) {
-  // run next-intl middleware first
-  const intlMiddleware = createMiddleware(routing);
-  const response = intlMiddleware(req);
-
-  // fetch user for this request
-  const user = await getUser();
-  // optionally attach user info to request/response
-  if (user) {
-    response.headers.set("x-user-id", user.id); // example: pass along user info
-  }
-=======
-import { routing } from "./i18n/routing"; // adjust path
+import { cookies } from "next/headers";
 
 const intlMiddleware = createMiddleware(routing);
 
-export async function middleware(req: NextRequest) {
-  const corsHeaders = {
-    "Access-Control-Allow-Origin": "*", // Update this to your frontend URL in production
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers":
-      "Content-Type, Authorization, Accept, Accept-Language, X-Requested-With",
-    "Access-Control-Allow-Credentials": "true",
-  };
+async function refreshAccessToken(refreshToken: string) {
+  try {
+    const apiUrl =
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_API_URL
+        : process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
 
-  // Handle CORS preflight requests
-  if (req.method === "OPTIONS") {
-    return new NextResponse(null, {
-      status: 204,
-      headers: corsHeaders,
+    const res = await fetch(`${apiUrl}/user/refresh`, {
+      method: "GET",
+      headers: {
+        Cookie: `refreshToken=${refreshToken}`,
+      },
+      credentials: "include",
     });
+
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data?.accessToken || null;
+  } catch {
+    return null;
+  }
+}
+
+export async function middleware(req: NextRequest) {
+  const accessToken = req.cookies.get("accessToken")?.value;
+  const refreshToken = req.cookies.get("refreshToken")?.value;
+  const { pathname } = req.nextUrl;
+
+  const authRoutes = ["/signin", "/signup"];
+
+  // 🟢 Case 1: User is authenticated
+  if (accessToken && refreshToken) {
+    if (pathname.includes(authRoutes[0]) || pathname.includes(authRoutes[1])) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/";
+
+      return NextResponse.redirect(url);
+    }
+    return intlMiddleware(req);
   }
 
-  let response: NextResponse;
+  // 🔄 Case 2: No access token but has refresh token — try to refresh
+  if (!accessToken && refreshToken) {
+    const newAccessToken = await refreshAccessToken(refreshToken);
+    console.log("token: ", newAccessToken);
+    if (newAccessToken) {
+      const response = intlMiddleware(req);
 
-  // For API and other routes -> just pass through but add CORS
-  if (req.nextUrl.pathname.startsWith("/api")) {
-    response = NextResponse.next();
-  } else {
-    // For non-API routes -> run next-intl middleware
-    response = intlMiddleware(req);
+      const cookiesStore = await cookies();
+
+      cookiesStore.set("accessToken", newAccessToken, {
+        httpOnly: true,
+        maxAge: 15 * 60 * 60,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+      });
+
+      return response;
+    }
   }
 
-  // Add CORS headers universally
-  Object.entries(corsHeaders).forEach(([key, value]) => {
-    response.headers.set(key, value);
-  });
-
->>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46
-  return response;
+  // 🟠 Case 3: Unauthenticated (no tokens)
+  // Allow access to signin/signup and public routes
+  return intlMiddleware(req);
 }
 
 export const config = {
-<<<<<<< HEAD
-  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
-=======
   matcher: [
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
->>>>>>> 07de716efb37bb364e84ea9282f48e194e625c46
 };

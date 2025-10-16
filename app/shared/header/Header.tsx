@@ -2,11 +2,7 @@
 
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
 import Image from "next/image";
-import {
-  usePathname,
-  useRouter,
-  usePathname as useNextPathname,
-} from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { IoCartOutline } from "react-icons/io5";
 
 import Button from "../../ui/Button";
@@ -17,18 +13,9 @@ import { openMenu } from "../../store/features/sideMenuSlice";
 import SearchContainer from "../search/SearchContainer";
 import Navigation from "./Navigation";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
-import { FiLogOut, FiUser } from "react-icons/fi";
-import { User } from "../../types/user";
-import { getUser, logoutService } from "../../[locale]/(auth)/services/login";
 
 const Header = () => {
   const pathName = usePathname();
-  const pathname = useNextPathname();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
@@ -36,74 +23,6 @@ const Header = () => {
   const handleOpenMenu = () => {
     dispatch(openMenu());
   };
-
-  const handleLogout = async () => {
-    try {
-      // Call logout service to clear token on server
-      await logoutService();
-
-      // Update state
-      setUser(null);
-      setShowDropdown(false);
-
-      // Redirect to home
-      router.push("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
-
-  const fetchUser = async () => {
-    try {
-      setLoading(true);
-      const userData = await getUser();
-      setUser(userData);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    // Initial fetch
-    fetchUser();
-
-    // Also fetch user when auth changes
-    const handleAuthChange = () => {
-      fetchUser();
-    };
-
-    // Add event listener for auth changes
-    window.addEventListener("auth-change", handleAuthChange);
-
-    return () => {
-      window.removeEventListener("auth-change", handleAuthChange);
-    };
-  }, []);
-
-  // Watch for route changes to update auth state
-  useEffect(() => {
-    fetchUser();
-  }, [pathname]);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowDropdown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   if (
     pathName.includes("/signup") ||
@@ -144,61 +63,16 @@ const Header = () => {
           <div className="md:hidden cursor-pointer">
             <FaBars onClick={handleOpenMenu} size={25} />
           </div>
-          {loading ? (
-            <div className="hidden md:block w-20 h-10 bg-gray-200 animate-pulse rounded-lg"></div>
-          ) : user ? (
-            <div
-              className="hidden md:flex items-center gap-3 relative"
-              ref={dropdownRef}
-            >
-              <div className="flex flex-col text-right">
-                <span className="text-sm font-medium text-gray-800">
-                  {user.fullname}
-                </span>
-                <span className="text-xs text-gray-500">{user.email}</span>
-              </div>
-              <div
-                className="w-10 h-10 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold cursor-pointer"
-                onClick={() => setShowDropdown(!showDropdown)}
-              >
-                {user.fullname?.charAt(0).toUpperCase() ||
-                  user.email.charAt(0).toUpperCase()}
-              </div>
-
-              {showDropdown && (
-                <div className="absolute top-12 right-0 bg-white border border-gray-200 rounded-lg shadow-lg py-2 w-48 z-50">
-                  <button
-                    onClick={() => {
-                      router.push("/profile");
-                      setShowDropdown(false);
-                    }}
-                    className="flex items-center gap-2 w-full px-4 py-2 text-left hover:bg-gray-50 transition-colors"
-                  >
-                    <FiUser size={16} />
-                    <span>Profile</span>
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-2 w-full px-4 py-2 text-left hover:bg-gray-50 transition-colors text-red-600"
-                  >
-                    <FiLogOut size={16} />
-                    <span>Logout</span>
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link href={"/signin"}>
-              <Button
-                bgColor="lightPink"
-                rounded="lg"
-                title="Sign in"
-                type="button"
-                className="hidden md:block !w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
-                titleColor="black"
-              />
-            </Link>
-          )}
+          <Link href={"/signin"}>
+            <Button
+              bgColor="lightPink"
+              rounded="lg"
+              title="Sign in"
+              type="button"
+              className="hidden md:block !w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
+              titleColor="black"
+            />
+          </Link>
         </div>
       </header>
 
