@@ -13,6 +13,8 @@ import { fetchSubCategories } from "./(home)/services/categoires";
 import { makeStore } from "../store/store";
 import { setSubCategories } from "../store/features/categoriesSlice";
 import { UserProvider } from "../providers/UserProvider";
+import { getUser } from "@/utils/getUser";
+// import { getUser } from "@/utils/getUser";
 
 export const metadata: Metadata = {
   title: "Luxera Gift Shop",
@@ -40,6 +42,8 @@ export default async function RootLayout({
 
   const preloadedState = store.getState();
 
+  const user = await getUser();
+
   return (
     <html lang={locale}>
       <head>
@@ -51,7 +55,7 @@ export default async function RootLayout({
       <body className={`font-${inter.style.fontFamily}`}>
         <ReduxProvider preloadedState={preloadedState}>
           <NextIntlClientProvider>
-            <UserProvider user={null}>
+            <UserProvider userData={user}>
               <div className="relative">
                 <Header />
                 <SideMenu />
