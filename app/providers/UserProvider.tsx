@@ -23,10 +23,9 @@ export function UserProvider({
   userData: User | null;
 }) {
   const [user, setUser] = useState<null | User>(null);
-  console.log("client user", user);
   useEffect(() => {
     setUser(userData);
-  }, [user, userData]);
+  }, [userData]);
 
   return (
     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>

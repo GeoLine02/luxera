@@ -32,6 +32,9 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const authRoutes = ["/signin", "/signup"];
+
+  console.log("req", req.cookies);
+
   if (!accessToken && refreshToken) {
     const res = await refeshAccessToken(refreshToken);
     if (res.accessToken) {

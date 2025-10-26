@@ -4,10 +4,9 @@ import { cookies } from "next/headers";
 import api from "./axios";
 
 export async function getUser() {
+  const cookie = await cookies();
+  const accessToken = cookie.get("accessToken")?.value;
   try {
-    const cookie = await cookies();
-    const accessToken = cookie.get("accessToken")?.value;
-
     const res = await api.get("/user/me", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -20,18 +19,5 @@ export async function getUser() {
     }
   } catch (err) {
     console.log(err);
-    // if (err.response?.status === 401) {
-    //   // Token expired → refresh
-    //   const res = await api.get("/user/refresh", {
-    //     headers: {
-    //       Authorization: `Bearer ${refreshToken}`,
-    //     },
-    //   });
-
-    //   if (res.data === null) return null;
-    //   // Retry the original request
-    //   return await api.get("/user/me");
-    // }
-    // throw err;
   }
 }
