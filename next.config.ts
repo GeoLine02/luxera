@@ -17,6 +17,21 @@ const nextConfig: NextConfig = {
     ],
   },
   trailingSlash: false,
+
+  // 👇 Add this block
+  async rewrites() {
+    const destination =
+      process.env.NODE_ENV === "production"
+        ? `${process.env.PROD_API_URL}/:path*`
+        : `${process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL}/:path*`;
+
+    return [
+      {
+        source: "/:locale/api/:path*", // any call to /api/*
+        destination: destination, // proxies to your Express backend
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

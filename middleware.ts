@@ -1,25 +1,31 @@
-// middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
-import api from "./utils/axios";
+import axios from "axios"; // ⬅️ use direct axios instead of your axios instance
 
 const intlMiddleware = createMiddleware(routing);
 
+// ✅ Direct axios instance avoids recursive proxy calls
 async function refreshAccessToken(refreshToken: string) {
   try {
-    const res = await api.get("/user/refresh", {
+    const baseURL =
+      process.env.NODE_ENV === "production"
+        ? process.env.PROD_API_URL
+        : process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
+
+    const res = await axios.get(`${baseURL}/user/refresh`, {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
       },
+      withCredentials: true,
     });
 
-    if (res.status === 200) {
-      return res.data.accessToken; // Make sure this returns the token string
+    if (res.status === 200 && res.data?.accessToken) {
+      return res.data.accessToken;
     }
-    return null; // Explicit return
+    return null;
   } catch (err) {
-    console.log(err);
+    console.error("Refresh token failed:", err);
     return null;
   }
 }
@@ -28,31 +34,33 @@ export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("accessToken")?.value;
   const refreshToken = req.cookies.get("refreshToken")?.value;
   const { pathname } = req.nextUrl;
+
   const authRoutes = ["/signin", "/signup"];
 
+  // Run intl middleware first
   const response = intlMiddleware(req);
   let newAccessToken = accessToken;
 
-  // Refresh token if needed
+  // ✅ Refresh if accessToken is missing but refreshToken exists
   if (!accessToken && refreshToken) {
     const refreshedToken = await refreshAccessToken(refreshToken);
+    console.log("🔄 Refresh triggered");
 
     if (refreshedToken) {
-      // Type guard: ensures refreshedToken is string, not null
       newAccessToken = refreshedToken;
 
-      // Set cookie on response
+      // ✅ Always set cookies on *response*, not req
       response.cookies.set("accessToken", refreshedToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 15 * 60,
+        maxAge: 15 * 60, // 15 minutes
         path: "/",
         sameSite: "lax",
       });
     }
   }
 
-  // Redirect logged-in users away from auth pages
+  // ✅ Redirect authenticated users away from signin/signup
   if (
     newAccessToken &&
     authRoutes.some((route) => pathname.startsWith(route))

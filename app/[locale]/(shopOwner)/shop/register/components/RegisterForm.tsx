@@ -9,19 +9,19 @@ import { useUser } from "@/app/providers/UserProvider";
 const RegisterForm = () => {
   const { user } = useUser();
   console.log(user);
-  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  //   const formdata = new FormData(e.currentTarget);
+    const formdata = new FormData(e.currentTarget);
 
-  //   const res = await registerShopService(formdata, Number(user?.id));
+    const res = await registerShopService(formdata, Number(user?.id));
 
-  //   console.log(res);
-  // };
+    console.log(res);
+  };
 
   return (
     <form
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       className="max-w-[424px] space-y-4 flex flex-col"
     >
       <div className="space-y-2">
