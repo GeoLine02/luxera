@@ -1,13 +1,18 @@
+// utils/getUser.ts
 "use server";
 
 import { cookies } from "next/headers";
 import api from "./axios";
 
 export async function getUser() {
-  try {
-    const cookie = await cookies();
-    const accessToken = cookie.get("accessToken")?.value;
+  const cookie = await cookies();
+  const accessToken = cookie.get("accessToken")?.value;
 
+  if (!accessToken) {
+    return null;
+  }
+
+  try {
     const res = await api.get("/user/me", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -15,23 +20,13 @@ export async function getUser() {
     });
 
     if (res.status === 200) {
-      const data = res.data;
-      return data;
+      console.log(res.data);
+      return res.data;
     }
-  } catch (err) {
-    console.log(err);
-    // if (err.response?.status === 401) {
-    //   // Token expired → refresh
-    //   const res = await api.get("/user/refresh", {
-    //     headers: {
-    //       Authorization: `Bearer ${refreshToken}`,
-    //     },
-    //   });
 
-    //   if (res.data === null) return null;
-    //   // Retry the original request
-    //   return await api.get("/user/me");
-    // }
-    // throw err;
+    return null;
+  } catch (err) {
+    console.error("Failed to fetch user:", err);
+    return null;
   }
 }

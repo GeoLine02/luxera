@@ -6,13 +6,13 @@ export const registerShopService = async (
   userId: number
 ) => {
   try {
+    console.log("Should run second");
     const shopPayload: ShopRegisterType = {
-      owenerId: userId,
+      userId: userId,
       password: formData.get("password")?.toString() as string,
       repeatPassword: formData.get("repeatPassword")?.toString() as string,
       shopName: formData.get("shopName")?.toString() as string,
     };
-
     const res = await api.post("/shop/register", shopPayload);
 
     if (res.status === 201) {

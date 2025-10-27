@@ -8,6 +8,7 @@ import { useUser } from "@/app/providers/UserProvider";
 
 const RegisterForm = () => {
   const { user } = useUser();
+  console.log(user);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
