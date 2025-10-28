@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         port: "4000",
         pathname: "/uploads/**", // allow any file under /uploads
       },
+      {
+        protocol: "https",
+        hostname: "example.com",
+        pathname: "/**",
+      },
     ],
   },
   trailingSlash: false,

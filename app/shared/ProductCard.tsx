@@ -13,13 +13,13 @@ const ProductCard = ({ image, price, title, id }: ProductCardProps) => {
   return (
     <Link
       href={`/${id}`}
-      className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer"
+      className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 max-w-[200px] bg-white flex flex-col items-center cursor-pointer"
     >
       <div className="space-y-1 md:space-y-1 w-full">
-        <div className="flex justify-center">
+        <div className="flex justify-center max-w-[200px]">
           {image ? (
             <Image
-              className="h-[120px] md:h-full object-cover"
+              className="h-[120px] max-w-[200px] md:h-full object-cover"
               src={image}
               alt="product image"
               width={200}

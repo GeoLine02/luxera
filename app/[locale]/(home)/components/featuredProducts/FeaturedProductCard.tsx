@@ -13,7 +13,7 @@ const FeaturedProductCard = ({ id, image, price, title }: ProductCardProps) => {
   return (
     <Link
       href={`/${id}`}
-      className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white flex flex-col items-center cursor-pointer w-full"
+      className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 bg-white max-w-[200px] flex flex-col items-center cursor-pointer w-full"
     >
       <div className="space-y-1 w-full max-w-[190px]">
         <div className="flex justify-center">
