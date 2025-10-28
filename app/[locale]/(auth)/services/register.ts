@@ -1,7 +1,7 @@
 "use server";
 
+import api from "@/utils/axios";
 import { registerValidationSchema } from "../validation/signUp";
-import fetchData from "@/utils/fetchData";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function registerService(_prevState: any, formData: FormData) {
@@ -19,14 +19,10 @@ export async function registerService(_prevState: any, formData: FormData) {
   }
 
   try {
-    const res = await fetchData("/user/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userRegisterCreds),
-    });
+    const res = await api.post("/user/register", userRegisterCreds);
 
-    if (!res.ok) {
-      const data = await res.json();
+    if (res.status !== 201) {
+      const data = await res.data;
 
       return {
         values: userRegisterCreds,
@@ -35,8 +31,11 @@ export async function registerService(_prevState: any, formData: FormData) {
       };
     }
 
-    const data = await res.json();
-    if (data) return { success: true };
+    if (res.status === 201) {
+      const data = await res.data;
+
+      if (data) return { success: true };
+    }
   } catch (error) {
     console.error(error);
     return { error: "Something went wrong." };
