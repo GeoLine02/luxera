@@ -1,5 +1,5 @@
 export interface ShopRegisterType {
-  userId: number;
+  userId: string;
   shopName: string;
   password: string;
   repeatPassword: string;
