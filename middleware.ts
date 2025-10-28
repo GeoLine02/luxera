@@ -33,13 +33,18 @@ async function refreshAccessToken(refreshToken: string) {
 export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get("accessToken")?.value;
   const refreshToken = req.cookies.get("refreshToken")?.value;
+  const shopAccessToken = req.cookies.get("shopAccessToken")?.value;
+  const shopRefreshTokn = req.cookies.get("shopRefreshToken")?.value;
+
   const { pathname } = req.nextUrl;
 
   const authRoutes = ["/signin", "/signup"];
+  const shopAuthRoutes = ["/shop/login", "/shop/register"];
 
   // Run intl middleware first
   const response = intlMiddleware(req);
   let newAccessToken = accessToken;
+  const newShopAccessToken = shopAccessToken;
 
   // ✅ Refresh if accessToken is missing but refreshToken exists
   if (!accessToken && refreshToken) {
@@ -58,6 +63,15 @@ export async function middleware(req: NextRequest) {
         sameSite: "lax",
       });
     }
+  }
+
+  if (
+    newShopAccessToken &&
+    shopAuthRoutes.some((route) => pathname.startsWith(route))
+  ) {
+    const url = req.nextUrl.clone();
+    url.pathname = "/";
+    return NextResponse.redirect(url);
   }
 
   // ✅ Redirect authenticated users away from signin/signup

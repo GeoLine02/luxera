@@ -1,25 +1,41 @@
-import { ShopRegisterType } from "@/app/types/shop";
 import api from "@/utils/axios";
+import shopRegisterSchema from "../validation/shopRegisterSchema";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const registerShopService = async (
-  formData: FormData,
-  userId: number
+  _prevState: any,
+  formData: FormData
 ) => {
-  try {
-    console.log("Should run second");
-    const shopPayload: ShopRegisterType = {
-      userId: userId,
-      password: formData.get("password")?.toString() as string,
-      repeatPassword: formData.get("repeatPassword")?.toString() as string,
-      shopName: formData.get("shopName")?.toString() as string,
-    };
-    const res = await api.post("/shop/register", shopPayload);
+  const formValues = {
+    userId: formData.get("userId")?.toString() ?? "",
+    shopName: formData.get("shopName")?.toString() ?? "",
+    password: formData.get("password")?.toString() ?? "",
+    repeatPassword: formData.get("repeatPassword")?.toString() ?? "",
+  };
 
-    if (res.status === 201) {
-      const data = await res.data;
-      return data;
-    }
-  } catch (error) {
-    console.log(error);
+  const validation = shopRegisterSchema.safeParse(formValues);
+
+  if (!validation.success) {
+    // Return Zod errors to your useActionState's `state`
+    return {
+      errors: validation.error.flatten().fieldErrors,
+    };
   }
+
+  // Proceed with API call if valid
+  const { shopName, password } = validation.data;
+
+  const res = await api.post("/shop/register", {
+    userId: formValues.userId,
+    shopName,
+    password,
+  });
+
+  if (res.status === 201) return res.data;
+  return {
+    error: {
+      status: res.status,
+      message: "Unexpected server response.",
+    },
+  };
 };
