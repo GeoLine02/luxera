@@ -5,9 +5,11 @@ import Input from "@/app/ui/Input";
 import { FormEvent } from "react";
 import { registerShopService } from "../services/registerShop";
 import { useUser } from "@/app/providers/UserProvider";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const { user } = useUser();
+  const router = useRouter();
   console.log(user);
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,7 +18,9 @@ const RegisterForm = () => {
 
     const res = await registerShopService(formdata, Number(user?.id));
 
-    console.log(res);
+    if (res.accessToken) {
+      router.push("/shop");
+    }
   };
 
   return (
