@@ -9,7 +9,7 @@ import { shopLoginService } from "../services/loginService";
 
 const LoginForm = () => {
   const [state, action, pending] = useActionState(shopLoginService, undefined);
-  console.log(state);
+
   return (
     <form
       action={action}

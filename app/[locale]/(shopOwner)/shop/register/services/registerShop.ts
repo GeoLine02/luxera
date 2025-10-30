@@ -1,8 +1,8 @@
 import api from "@/utils/axios";
 import shopRegisterSchema from "../validation/shopRegisterSchema";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const registerShopService = async (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _prevState: any,
   formData: FormData
 ) => {
