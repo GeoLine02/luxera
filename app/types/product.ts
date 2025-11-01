@@ -1,3 +1,5 @@
+import { CategoryType, SubCategoryType } from "./categories";
+
 export interface ProductType {
   id: number;
   product_image: string;
@@ -7,6 +9,23 @@ export interface ProductType {
   produt_status: string;
   product_category_id: number;
   product_owner_id: number;
+}
+
+export interface NewProductValues {
+  productName: string;
+  productPrice: number;
+  productDescription: string;
+  productSubCategory: SubCategoryType | null;
+  productCategory: CategoryType | null;
+  productImages: File[];
+  productVariants: ProductVariantType[];
+  productQuantity: number;
+  productDiscount: number;
+}
+
+export interface ProductVariantType {
+  id: string;
+  variantName: string;
 }
 
 export interface ProductImageType {

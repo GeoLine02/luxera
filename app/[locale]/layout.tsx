@@ -9,9 +9,15 @@ import ReduxProvider from "../providers/ReduxProvider";
 import MobileTabs from "../shared/mobileTabs/MobileTabs";
 import SideMenu from "../shared/header/SideMenu";
 import CategoriesModal from "../shared/categories/CategoriesModal";
-import { fetchSubCategories } from "./(home)/services/categoires";
+import {
+  fetchCategories,
+  fetchSubCategories,
+} from "./(home)/services/categoires";
 import { makeStore } from "../store/store";
-import { setSubCategories } from "../store/features/categoriesSlice";
+import {
+  setCategories,
+  setSubCategories,
+} from "../store/features/categoriesSlice";
 import { UserProvider } from "../providers/UserProvider";
 import { getUser } from "@/utils/getUser";
 // import { getUser } from "@/utils/getUser";
@@ -38,7 +44,9 @@ export default async function RootLayout({
   const store = makeStore();
 
   const allSubcategoriesData = await fetchSubCategories();
+  const allCateogiresData = await fetchCategories();
   store.dispatch(setSubCategories(allSubcategoriesData));
+  store.dispatch(setCategories(allCateogiresData));
 
   const preloadedState = store.getState();
 

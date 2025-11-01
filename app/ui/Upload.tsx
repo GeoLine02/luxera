@@ -1,57 +1,143 @@
 "use client";
 
-import { useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
-const MAX_FILE_SIZE_MB = 5; // 5 MB
+const MAX_FILE_SIZE_MB = 5;
+const MAX_TOTAL_FILES = 5;
 
 const beforeUpload = (file: File): string | null => {
   const sizeInMB = file.size / (1024 * 1024);
-  if (sizeInMB > MAX_FILE_SIZE_MB) {
-    return `File size exceeds ${MAX_FILE_SIZE_MB}MB.`;
-  }
-  return null;
+  return sizeInMB > MAX_FILE_SIZE_MB
+    ? `File size exceeds ${MAX_FILE_SIZE_MB}MB`
+    : null;
 };
 
-const Upload = () => {
+interface UploadProps {
+  value: File[];
+  onChange: (files: File[]) => void;
+  multiple?: boolean;
+}
+
+const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [previews, setPreviews] = useState<string[]>([]);
 
-  const handleClick = () => {
-    fileInputRef.current?.click();
+  const handleClick = () => fileInputRef.current?.click();
+
+  useEffect(() => {
+    const urls = value.map((file) => URL.createObjectURL(file));
+    setPreviews(urls);
+
+    return () => urls.forEach((url) => URL.revokeObjectURL(url));
+  }, [value]);
+
+  const handleRemoveImage = (index: number) => {
+    const updatedImages = value.filter((_, i) => i !== index);
+    onChange(updatedImages);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const errorMessage = beforeUpload(file);
-      if (errorMessage) {
-        setError(errorMessage);
-        setFileName(null);
+    const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
+    if (!selectedFiles.length) return;
+
+    const errorMessages: string[] = [];
+    const validFiles: File[] = [];
+
+    for (const file of selectedFiles) {
+      const err = beforeUpload(file);
+
+      if (err) {
+        errorMessages.push(`${file.name}: ${err}`);
       } else {
-        setError(null);
-        setFileName(file.name);
+        validFiles.push(file);
       }
     }
+
+    const updatedFiles = [...value, ...validFiles].slice(0, MAX_TOTAL_FILES);
+
+    if (updatedFiles.length > MAX_TOTAL_FILES) {
+      errorMessages.push(`You can upload up to ${MAX_TOTAL_FILES} images.`);
+    }
+
+    setError(errorMessages.length ? errorMessages.join(", ") : null);
+    onChange(updatedFiles);
   };
 
   return (
-    <div aria-labelledby="image upload" className="w-full">
-      <div
-        onClick={handleClick}
-        className="h-48 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center text-gray-600 cursor-pointer hover:border-gray-600 transition"
-      >
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          className="hidden"
-        />
-        <span>
-          {fileName ? `Selected: ${fileName}` : "Click to upload a file"}
-        </span>
-      </div>
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+    <div className="w-full space-y-3">
+      {/* Upload Box */}
+      {!previews.length && (
+        <div
+          onClick={handleClick}
+          className="h-40 border-2 border-dashed border-gray-400 rounded-lg flex items-center justify-center cursor-pointer hover:border-gray-700 transition"
+        >
+          <input
+            type="file"
+            ref={fileInputRef}
+            multiple={multiple}
+            onChange={handleFileChange}
+            className="hidden"
+          />
+          <span>
+            {value.length
+              ? "Click to upload more images"
+              : "Click to upload images"}
+          </span>
+        </div>
+      )}
+
+      {/* Thumbnail Preview */}
+      {previews.length > 0 && (
+        <div className="flex flex-wrap gap-3">
+          {previews.map((src, index) => (
+            <div
+              key={src}
+              className="relative rounded-lg overflow-hidden max-h-[150px]"
+            >
+              <Image
+                src={src}
+                alt={`Preview ${index}`}
+                width={150}
+                height={150}
+              />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemoveImage(index);
+                }}
+                className="absolute top-1 right-1 bg-black/60 text-white rounded-full flex items-center justify-center text-xs"
+              >
+                <IoClose
+                  className="hover:text-red-500 cursor-pointer"
+                  size={25}
+                />
+              </button>
+            </div>
+          ))}
+
+          <div
+            onClick={handleClick}
+            className=" border-2 border-dashed w-[150px] aspect-square border-gray-400 rounded-lg flex items-center justify-center cursor-pointer hover:border-gray-700 transition"
+          >
+            <input
+              type="file"
+              ref={fileInputRef}
+              multiple={multiple}
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            <span>
+              <FaPlus size={35} color="gray" />
+            </span>
+          </div>
+        </div>
+      )}
+
+      {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>
   );
 };

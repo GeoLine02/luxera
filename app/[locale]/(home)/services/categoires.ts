@@ -8,3 +8,12 @@ export const fetchSubCategories = async () => {
     console.log(error);
   }
 };
+
+export const fetchCategories = async () => {
+  try {
+    const res = await api.get("/categories");
+    if (res.status === 200) return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
