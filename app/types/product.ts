@@ -17,16 +17,20 @@ export interface NewProductValues {
   productDescription: string;
   productSubCategory: SubCategoryType | null;
   productCategory: CategoryType | null;
-  productImages: File[];
+  productPreviewImages: File[];
   productVariants: ProductVariantType[];
   productQuantity: number;
   productDiscount: number;
 }
 
-export interface ProductVariantType {
+export type ProductVariantType = {
   id: string;
   variantName: string;
-}
+  variantPrice: number;
+  variantQuantity: number;
+  variantDiscount: number;
+  variantImages: File[];
+};
 
 export interface ProductImageType {
   source: string;

@@ -1,20 +1,8 @@
 import api from "@/utils/axios";
 
-export const createNewProduct = async (_prevState, formData: FormData) => {
+export const createNewProduct = async (formData: FormData) => {
   try {
-    const formValues = {
-      productCategoryId: "",
-      subCategoryId: "",
-      productDescription: "",
-      productImages: "",
-      productStatus: "",
-      productName: "",
-      productPrice: "",
-      productVariants: "",
-      userId: "",
-    };
-
-    const res = await api.post("/products/create", formValues);
+    const res = await api.post("/products/create", formData);
 
     if (res.status === 201) {
       return res.data;
