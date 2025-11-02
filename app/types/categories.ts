@@ -8,7 +8,8 @@ export interface SubCategoryType {
 }
 
 export interface CategoryType {
-  label: string;
-  image: StaticImageData | string;
+  id: number;
+  categoryName: string;
+  categoryImage: StaticImageData | string;
   subCategories: SubCategoryType[];
 }
