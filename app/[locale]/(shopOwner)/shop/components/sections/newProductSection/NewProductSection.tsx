@@ -44,11 +44,11 @@ const NewProductSection = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const validatedValues = ProductCreationSchema.safeParse(productValues);
-
-      if (!validatedValues.success) {
-        return validatedValues.error.flatten().fieldErrors;
-      }
+      // const validatedValues = ProductCreationSchema.safeParse(productValues);
+      // console.log(validatedValues.success);
+      // if (!validatedValues.success) {
+      //   return validatedValues.error.flatten().fieldErrors;
+      // }
 
       const formData = new FormData();
 
