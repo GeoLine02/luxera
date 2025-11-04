@@ -16,7 +16,7 @@ interface AddProductFormProps {
     fieldValue: NewProductValues[K]
   ) => void;
   formValues: NewProductValues;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => any;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 }
 
 const AddProductForm = ({
@@ -167,7 +167,7 @@ const AddProductForm = ({
                   {formValues.productCategory?.categoryName || "Select"}
                 </Dropdown.Trigger>
                 <Dropdown.Menu className="!top-11" expandMode="absolute">
-                  {categories.map((category) => (
+                  {categories?.map((category) => (
                     <Dropdown.Item
                       key={category.id}
                       onSelect={() =>
@@ -193,7 +193,7 @@ const AddProductForm = ({
                       "Select subcategory"}
                   </Dropdown.Trigger>
                   <Dropdown.Menu className="!top-11" expandMode="absolute">
-                    {formValues.productCategory.subCategories.map((sub) => (
+                    {formValues.productCategory.subCategories?.map((sub) => (
                       <Dropdown.Item
                         key={sub.id}
                         onSelect={() =>
