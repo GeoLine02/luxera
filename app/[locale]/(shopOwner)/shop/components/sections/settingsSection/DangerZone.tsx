@@ -1,6 +1,16 @@
+"use client";
+
 import Button from "@/app/ui/Button";
+import { useState } from "react";
+import ShopDeleteModal from "./ShopDeleteModal";
 
 const DangerZone = () => {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
   return (
     <section className="border-t border-red-500 w-full mt-6 space-y-4">
       <h2 className="text-2xl text-red-500 font-medium mt-4">საშიში ზონა</h2>
@@ -20,8 +30,12 @@ const DangerZone = () => {
           bgColor="red"
           className="py-2 px-4 font-medium md:!w-fit"
           titleColor="white"
+          onClick={handleOpenDeleteModal}
         />
       </div>
+      {isDeleteModalOpen && (
+        <ShopDeleteModal setIsModalOpen={setIsDeleteModalOpen} />
+      )}
     </section>
   );
 };

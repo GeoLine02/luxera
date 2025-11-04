@@ -69,12 +69,14 @@ export const Dropdown = ({ children }: DropdownProps) => {
 interface TriggerProps {
   children: ReactNode;
   className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
-const Trigger = ({ children, className }: TriggerProps) => {
+const Trigger = ({ children, className, type = "button" }: TriggerProps) => {
   const { toggle } = useDropdown();
   return (
     <button
+      type={type}
       onClick={toggle}
       className={`${className} cursor-pointer rounded-lg`}
     >
