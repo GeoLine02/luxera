@@ -32,11 +32,7 @@ const Input: React.FC<InputProps> = ({
   const inputBorderStyles = classNames(
     "w-full px-3 py-2 rounded-md focus:outline-none",
     inputBackgroundStyles,
-    border,
-    {
-      "border border-red-500 focus:ring-1 focus:ring-red-500": !!error, // highlight when error exists
-      "border border-gray-300 focus:ring-1 focus:ring-black": !error, // default border
-    }
+    border
   );
 
   return (
@@ -76,7 +72,7 @@ const Input: React.FC<InputProps> = ({
               {label}
             </label>
           )}
-          <div className="w-full">
+          <div className="w-full border border-light-gray rounded-lg">
             <input
               type={type}
               id={rest.id ?? rest.name}
