@@ -1,6 +1,13 @@
+import { User } from "@/app/types/user";
 import SellerPageButton from "./SellerPageButton";
 
-const Seller = () => {
+interface SellerProps {
+  seller: User;
+  shopId: number;
+}
+
+const Seller = ({ seller, shopId }: SellerProps) => {
+  console.log("seller", seller);
   return (
     <div className="bg-light-pink rounded-xl p-4 flex items-center justify-between mt-4 max-w-[570px]">
       <div className="flex items-center gap-4">
@@ -9,7 +16,7 @@ const Seller = () => {
         </div>
         <div>
           <span className="text-sm text-medium-gray">Seller</span>
-          <h1>Seller Name</h1>
+          <h1>{seller.full_name}</h1>
         </div>
       </div>
       <SellerPageButton />

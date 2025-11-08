@@ -2,17 +2,27 @@
 
 import { useState } from "react";
 import ProductImages from "./ProductImages";
+import Image from "next/image";
 import { ProductImageType } from "@/app/types/product";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store/store";
 
 interface ProductPreviewProps {
   productImages: ProductImageType[];
 }
 
 const ProductPreview = ({ productImages }: ProductPreviewProps) => {
-  const [selectedImage, setSelectedImage] = useState<{
-    source: string;
-    id: number;
-  }>(productImages[0]);
+  const { selectedVaraintId } = useSelector(
+    (state: RootState) => state.productDetailsReducer
+  );
+
+  const selectedVariantImages = productImages.filter(
+    (image) => image.variant_id === selectedVaraintId
+  );
+
+  const [selectedImage, setSelectedImage] = useState<ProductImageType>(
+    selectedVariantImages[0]
+  );
 
   const handleSelectImage = (image: ProductImageType) => {
     setSelectedImage(image);
@@ -21,11 +31,17 @@ const ProductPreview = ({ productImages }: ProductPreviewProps) => {
   return (
     <div className="gap-4 hidden md:flex">
       <ProductImages
-        images={productImages}
+        images={selectedVariantImages}
         handleSelectImage={handleSelectImage}
       />
-      <div className="bg-light-pink w-[400px] h-full flex items-center justify-center text-7xl">
-        {selectedImage.id}
+      <div className="flex text-7xl">
+        <Image
+          className="max-w-[421px] w-full max-h-[500px] h-full"
+          width={500}
+          height={600}
+          src={selectedImage.image}
+          alt=""
+        />
       </div>
     </div>
   );

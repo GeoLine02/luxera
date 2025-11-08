@@ -8,7 +8,7 @@ export interface UserRegisterCredsType {
 export interface User {
   id: number;
   email: string;
-  fullname: string;
+  full_name: string;
 }
 
 export interface LoginResponse {
