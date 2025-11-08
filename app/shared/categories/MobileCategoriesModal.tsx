@@ -34,8 +34,8 @@ const MobileCategoriesModal = ({
           <CategoryDropDown
             selectedCategory={selectedCategory}
             category={category}
-            key={category.label}
-            label={category.label}
+            key={category.id}
+            label={category.categoryName}
             handleChooseCatogery={handleChooseCatogery}
             handleChooseSubCategory={handleChooseSubCategory}
           />

@@ -5,8 +5,9 @@ import { AppDispatch, RootState } from "@/app/store/store";
 import {
   chooseSelectedCategory,
   closeCategoriesModal,
+  setSubCategories,
 } from "@/app/store/features/categoriesSlice";
-import { CategoryType } from "@/app/types/categories";
+import { CategoryType, SubCategoryType } from "@/app/types/categories";
 import MobileCategoriesModal from "./MobileCategoriesModal";
 import classNames from "classnames";
 import DesktopCategoriesModal from "./DesktopCategoriesModal";
@@ -22,8 +23,16 @@ const CategoriesModal = () => {
     dispatch(chooseSelectedCategory(category));
   };
 
-  const { selectedCategory, selectedSubCategory, isCategoriesModalOpen } =
-    useSelector((state: RootState) => state.categoriesReducer);
+  const handleChooseSubCategory = (subCategory: SubCategoryType) => {
+    dispatch(setSubCategories(subCategory));
+  };
+
+  const {
+    categories,
+    selectedCategory,
+    selectedSubCategory,
+    isCategoriesModalOpen,
+  } = useSelector((state: RootState) => state.categoriesReducer);
 
   const mobileCategoriesStyles = classNames(
     "fixed left-0 w-full z-[999990] transition-all duration-300 ease-in-out",
@@ -41,24 +50,24 @@ const CategoriesModal = () => {
   return (
     <>
       <div className={`md:hidden ${mobileCategoriesStyles}`}>
-        {/* <MobileCategoriesModal
+        <MobileCategoriesModal
           categories={categories}
           handleChooseCatogery={handleChooseCatogery}
           handleChooseSubCategory={handleChooseSubCategory}
           handleCloseModal={handleCloseModal}
           selectedCategory={selectedCategory}
           selectedSubCategory={selectedSubCategory}
-        /> */}
+        />
       </div>
       <div className={`hidden md:block ${mobileCategoriesStyles}`}>
-        {/* <DesktopCategoriesModal
+        <DesktopCategoriesModal
           handleChooseCatogery={handleChooseCatogery}
           categories={categories}
           handleChooseSubCategory={handleChooseSubCategory}
           selectedSubCategory={selectedSubCategory}
           handleCloseModal={handleCloseModal}
           selectedCategory={selectedCategory}
-        /> */}
+        />
       </div>
     </>
   );
