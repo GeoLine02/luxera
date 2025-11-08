@@ -1,20 +1,5 @@
-// import Image from "next/image";
-
 import { ProductImageType } from "@/app/types/product";
-
-interface ProductImageProps {
-  source: string;
-  id: number;
-}
-
-const ProductImage = ({ id }: ProductImageProps) => {
-  return (
-    // <Image height={30} width={30} src={source} alt={source} />
-    <div className="w-20 h-28 bg-light-pink flex items-center justify-center text-2xl">
-      {id}
-    </div>
-  );
-};
+import Image from "next/image";
 
 interface ProductImagesProps {
   images: ProductImageType[];
@@ -24,9 +9,15 @@ interface ProductImagesProps {
 const ProductImages = ({ images, handleSelectImage }: ProductImagesProps) => {
   return (
     <div className="flex flex-col gap-2 max-h-full overflow-y-auto overflow-x-hidden">
-      {images.map((image) => (
-        <div onClick={() => handleSelectImage(image)} key={image.id}>
-          <ProductImage source={image.source} id={image.id} />
+      {images.map((image: ProductImageType) => (
+        <div onClick={() => handleSelectImage(image)} key={image.image}>
+          <Image
+            className="max-w-[70px] max-h-[98px]"
+            width={200}
+            height={300}
+            src={image.image}
+            alt=""
+          />
         </div>
       ))}
     </div>

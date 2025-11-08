@@ -1,12 +1,14 @@
+import { ProductVariantType } from "@/app/types/product";
+
 interface ProductVariantSelectorProps {
-  variants: { variant: string }[];
-  selected: string;
-  onChange: (value: string) => void;
+  variants: ProductVariantType[];
+  selectedId: number | null;
+  onChange: (variantId: number) => void;
 }
 
 const ProductVariantSelector = ({
   variants,
-  selected,
+  selectedId,
   onChange,
 }: ProductVariantSelectorProps) => {
   return (
@@ -19,11 +21,11 @@ const ProductVariantSelector = ({
           <input
             type="radio"
             name="variant"
-            checked={selected === v.variant}
-            onChange={() => onChange(v.variant)}
+            checked={selectedId === v.id}
+            onChange={() => onChange(v.id)}
             className="accent-pink-600"
           />
-          <span className="text-lg font-medium">{v.variant}</span>
+          <span className="text-lg font-medium">{v.variantName}</span>
         </label>
       ))}
     </div>

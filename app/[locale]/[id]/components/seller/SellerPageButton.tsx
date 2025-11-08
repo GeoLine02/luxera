@@ -6,7 +6,7 @@ import Link from "next/link";
 const SellerPageButton = () => {
   return (
     <div>
-      <Link href={`seller/sellerName`}>
+      <Link href={`seller/`}>
         <Button
           rounded="xl"
           title="View Shop"

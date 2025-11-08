@@ -1,4 +1,5 @@
 import { CategoryType, SubCategoryType } from "./categories";
+import { User } from "./user";
 
 export interface ProductType {
   id: number;
@@ -7,8 +8,22 @@ export interface ProductType {
   product_rating: number;
   product_price: number;
   produt_status: string;
-  product_category_id: number;
+  product_subcategory_id: number;
   product_owner_id: number;
+}
+
+export interface ProductDetailsType extends ProductType {
+  variants: ProductVariantType[];
+  images: ProductImageType[];
+  owner: User;
+  shop_id: number;
+}
+
+export interface ProductImageType {
+  id: number;
+  image: string;
+  productId: number;
+  variant_id: number;
 }
 
 export interface NewProductValues {
@@ -24,18 +39,13 @@ export interface NewProductValues {
 }
 
 export type ProductVariantType = {
-  id: string;
-  variantName: string;
-  variantPrice: number;
-  variantQuantity: number;
-  variantDiscount: number;
-  variantImages: File[];
-};
-
-export interface ProductImageType {
-  source: string;
   id: number;
-}
+  variantName: string;
+  variantPrice: string;
+  variantQuantity: number;
+  variantDiscount: string;
+  // variantImages: File[];
+};
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
 

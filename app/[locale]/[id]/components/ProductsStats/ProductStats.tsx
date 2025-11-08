@@ -1,13 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
 import ProductVariantSelector from "./ProductVariantSelector";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import { ProductVariantType } from "@/app/types/product";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/store/store";
+import { selectVariantId } from "@/app/store/features/productDetailsSlice";
 
 interface ProductStatsProps {
   productTitle: string;
   productPrice: number;
-  productVariants: { variant: string }[];
+  productVariants: ProductVariantType[];
   description: string;
 }
 
@@ -17,21 +21,41 @@ const ProductStats = ({
   productTitle,
   productVariants,
 }: ProductStatsProps) => {
-  const [selectedVariant, setSelectedVariant] = useState(
-    productVariants[0]?.variant || ""
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(selectVariantId(productVariants[0].id));
+  }, [dispatch, productVariants]);
+
+  const { selectedVaraintId } = useSelector(
+    (state: RootState) => state.productDetailsReducer
   );
+
+  const onVariantChange = (variantId: number) => {
+    dispatch(selectVariantId(variantId));
+  };
 
   return (
     <div className=" text-left px-4">
       {/* Title and Price */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">{productTitle}</h1>
+      <div className="flex items-center justify-between gap-6">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          {productTitle}
+        </h1>
+        <span
+          aria-labelledby="add item to wishliste"
+          className="inline-block p-2 bg-light-gray rounded-full cursor-pointer"
+        >
+          <FaRegHeart color="gray" size={20} />
+        </span>
+      </div>
       <p className="text-xl font-semibold mb-4">{productPrice} Gel</p>
 
       {/* Variant Selector */}
       <ProductVariantSelector
         variants={productVariants}
-        selected={selectedVariant}
-        onChange={setSelectedVariant}
+        selectedId={selectedVaraintId}
+        onChange={onVariantChange}
       />
 
       {/* Quantity */}
