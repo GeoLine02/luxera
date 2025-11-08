@@ -18,6 +18,8 @@ const CategoryDropDown = ({
   handleChooseSubCategory,
   selectedCategory,
 }: CategoryDropDownProps) => {
+  console.log(category.categoryImage);
+
   return (
     <Dropdown>
       <Dropdown.Trigger>
@@ -26,10 +28,17 @@ const CategoryDropDown = ({
           className="flex items-center justify-between p-3 border-b border-b-light-gray"
         >
           <div className="flex items-center gap-5">
-            <Image width={40} height={40} src={category.image} alt={label} />
+            {!category.categoryImage && (
+              <Image
+                width={40}
+                height={40}
+                src={category.categoryImage}
+                alt={label}
+              />
+            )}
             <h1 className="text-xl font-medium">{label}</h1>
           </div>
-          {selectedCategory?.label === label ? (
+          {selectedCategory?.categoryName === label ? (
             <IoIosArrowUp
               size={25}
               className="bg-light-gray rounded-full p-2 box-content stroke-medium-gray"
@@ -46,9 +55,9 @@ const CategoryDropDown = ({
         {selectedCategory?.subCategories.map((subCategory) => (
           <Dropdown.Item
             onSelect={() => handleChooseSubCategory(subCategory)}
-            key={subCategory.label}
+            key={subCategory.subCategoryName}
           >
-            {subCategory.label}
+            {subCategory.subCategoryName}
           </Dropdown.Item>
         ))}
       </Dropdown.Menu>

@@ -39,11 +39,11 @@ const DesktopCategoriesModal = ({
               {categories.map((category) => (
                 <div
                   onClick={() => handleChooseCatogery(category)}
-                  key={category.label}
+                  key={category.id}
                 >
                   <CategoryModalCard
-                    image={category.image}
-                    label={category.label}
+                    image={category.categoryImage}
+                    label={category.categoryName}
                   />
                 </div>
               ))}
@@ -53,17 +53,17 @@ const DesktopCategoriesModal = ({
           {/* Right: Subcategories in two columns */}
           <section className="flex-2/3 flex-wrap w-full px-4">
             <h1 className="text-xl font-medium mb-2">
-              {selectedCategory?.label}
+              {selectedCategory?.categoryName}
             </h1>
             <div className="grid grid-cols-2 gap-3">
               {selectedCategory?.subCategories.map((category) => (
                 <div
                   onClick={() => handleChooseSubCategory(category)}
-                  key={category.label}
+                  key={category.id}
                 >
                   <CategoryModalCard
-                    label={category.label}
-                    image={category.image}
+                    label={category.subCategoryName}
+                    image={category.subCategoryImage}
                   />
                 </div>
               ))}
