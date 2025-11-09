@@ -3,6 +3,8 @@ import axios from "axios";
 const isServer = typeof window === "undefined";
 const isProduction = process.env.NODE_ENV === "production";
 
+// change http://localhost:4000 to PROD_API_URL
+
 const baseURL = isServer
   ? isProduction
     ? process.env.PROD_API_URL // absolute for production SSR
