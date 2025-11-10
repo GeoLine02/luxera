@@ -1,5 +1,7 @@
 "use client";
 
+import SearchResponsiveWrapper from "../search/SearchResponsiveWrapper";
+
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -43,7 +45,8 @@ const Header = () => {
           alt="Luxera logo"
         />
         <div className="w-full hidden md:flex">
-          <SearchContainer />
+          {/* <SearchResponsiveWrapper />     for mobile searching */}
+          <SearchContainer /> 
         </div>
 
         <div className="flex items-center md:gap-6">
