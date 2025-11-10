@@ -5,6 +5,11 @@ export interface UserRegisterCredsType {
   confirmPassword: string;
 }
 
+export interface UserSignInCredsType {
+  email: string;
+  password: string;
+}
+
 export interface User {
   id: number;
   email: string;

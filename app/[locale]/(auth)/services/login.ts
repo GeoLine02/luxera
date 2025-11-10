@@ -1,25 +1,24 @@
+import { UserSignInCredsType } from "@/app/types/user";
 import { loginValidationSchema } from "../validation/login";
 import api from "@/utils/axios";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const loginService = async (_prevState: any, formData: FormData) => {
+export const loginService = async (userSignInCreds: UserSignInCredsType) => {
   try {
-    const fieldValues = {
-      email: formData.get("email")?.toString(),
-      password: formData.get("password")?.toString(),
-    };
-
-    const validatedFields = loginValidationSchema.safeParse(fieldValues);
-
+    const validatedFields = loginValidationSchema.safeParse(userSignInCreds);
+    console.log(validatedFields.error?.flatten().fieldErrors);
     if (!validatedFields.success) {
       return {
-        values: fieldValues,
+        values: userSignInCreds,
         errors: validatedFields.error.flatten().fieldErrors,
       };
     }
 
-    const res = await api.post("/user/login", fieldValues);
-    return res.data;
+    const res = await api.post("/user/login", userSignInCreds);
+
+    return {
+      data: res.data,
+      success: true,
+    };
   } catch (error) {
     console.log(error);
   }
