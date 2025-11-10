@@ -8,6 +8,7 @@ import {
 import { IoIosSearch } from "react-icons/io";
 import { SearchFiltersType } from "@/app/types/search";
 import classNames from "classnames";
+import useDebounce from "@/app/hooks/useDebounce";
 
 interface SearchProps {
   searchValue: string;
@@ -45,11 +46,12 @@ SearchProps) => {
     "rounded-t-2xl rounded-b border-ice-blue": isSearchOpen,
     "rounded-full ": !isSearchOpen,
   });
+  const debouncedSearch=useDebounce(searchValue)
 
   return (
     <div
       onClick={handleOpenSearch}
-      className={`${opendSearchStyles} flex items-center px-4 py-2 bg-ice-blue border border-medium-gray`}
+      className={`${opendSearchStyles} flex items-center px-4 py-2 bg-white border border-medium-gray`}
     >
       <input
         value={searchValue}

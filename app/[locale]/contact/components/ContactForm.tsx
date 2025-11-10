@@ -82,7 +82,7 @@ const ContactForm = () => {
         title="გაგზავნა"
         type="submit"
         bgColor="lightPink"
-        className="py-2 font-medium"
+        className="py-2 font-medium hover:bg-pink-400 hover:text-white transition-colors duration-400"
       />
     </form>
   );

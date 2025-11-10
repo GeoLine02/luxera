@@ -49,7 +49,7 @@ const Footer = () => {
             <ul className="space-y-2 font-normal">
               <li className="cursor-pointer">About Us</li>
               <li className="cursor-pointer">Promotions</li>
-              <li className="cursor-pointer">Contact</li>
+              <li className="cursor-pointer"  onClick={() => router.push("/contact")}>Contact</li>
             </ul>
           </div>
         </div>
