@@ -47,7 +47,7 @@ export default async function RootLayout({
   // store.dispatch(setSubCategories(allSubcategories.data));
   // store.dispatch(setCategories(allCateogires.data));
   // console.log(allCateogires.data);
-  const preloadedState = store.getState();
+  // const preloadedState = store.getState();
 
   // const user = await getUser();
 
@@ -60,7 +60,9 @@ export default async function RootLayout({
         />
       </head>
       <body className={`font-${inter.style.fontFamily}`}>
-        <ReduxProvider preloadedState={preloadedState}>
+        <ReduxProvider
+        // preloadedState={preloadedState}
+        >
           <NextIntlClientProvider>
             {/* <UserProvider userData={user}> */}
             <div className="relative">
