@@ -39,12 +39,12 @@ export interface NewProductValues {
 }
 
 export type ProductVariantType = {
-  id: number;
+  id: number | string;
   variantName: string;
-  variantPrice: string;
+  variantPrice: number;
   variantQuantity: number;
-  variantDiscount: string;
-  // variantImages: File[];
+  variantDiscount: number;
+  variantImages: File[];
 };
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";

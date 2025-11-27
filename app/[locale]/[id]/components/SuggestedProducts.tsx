@@ -18,9 +18,9 @@ const SuggestedProducts = ({ suggestedProducts }: SuggestedProductsProps) => {
         renderCard={(product: ProductType) => (
           <ProductCard
             id={product.id}
-            image={product.image}
-            price={product.price}
-            title={product.title}
+            image={product.product_name}
+            price={product.product_price}
+            title={product.product_name}
           />
         )}
       />

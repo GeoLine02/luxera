@@ -7,7 +7,6 @@ import VIPListing from "./components/VIPLiisting/VIPListing";
 import Button from "@/app/ui/Button";
 import Link from "next/link";
 import { fetchFeaturedProducts, fetchVipProducts } from "./services/products";
-import { ProductType } from "@/app/types/product";
 
 export default async function Home(props: {
   params: Promise<{ locale: string }>;
@@ -15,8 +14,8 @@ export default async function Home(props: {
   const params = await props.params;
   const locale = params.locale || "en";
 
-  const vipProductsData: ProductType[] = await fetchVipProducts();
-  const feturedProductsData: ProductType[] = await fetchFeaturedProducts();
+  const vipProducts = await fetchVipProducts();
+  const feturedProducts = await fetchFeaturedProducts();
 
   return (
     <div>
@@ -34,7 +33,7 @@ export default async function Home(props: {
       </div>
       <div className="mt-[50px] px-5 lg:px-11">
         <ProductsList
-          products={feturedProductsData}
+          products={feturedProducts.data}
           title="Featured products"
         />
       </div>
@@ -45,7 +44,7 @@ export default async function Home(props: {
         />
       </div>
       <div className="mt-[30px] lg:mt-[54px] px-5 lg:px-11">
-        <VIPListing products={vipProductsData} />
+        <VIPListing products={vipProducts.data} />
       </div>
       <div className="mt-[100px] px-5 lg:px-11">
         {/* <BestSellings products={bestSellingProducts} /> */}

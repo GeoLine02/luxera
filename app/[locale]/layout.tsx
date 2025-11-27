@@ -43,11 +43,11 @@ export default async function RootLayout({
 
   const store = makeStore();
 
-  const allSubcategoriesData = await fetchSubCategories();
-  const allCateogiresData = await fetchCategories();
-  store.dispatch(setSubCategories(allSubcategoriesData));
-  store.dispatch(setCategories(allCateogiresData));
-
+  const allSubcategories = await fetchSubCategories();
+  const allCateogires = await fetchCategories();
+  store.dispatch(setSubCategories(allSubcategories.data));
+  store.dispatch(setCategories(allCateogires.data));
+  console.log(allCateogires.data);
   const preloadedState = store.getState();
 
   const user = await getUser();

@@ -22,7 +22,7 @@ const ProductVariantSelector = ({
             type="radio"
             name="variant"
             checked={selectedId === v.id}
-            onChange={() => onChange(v.id)}
+            onChange={() => onChange(v.id as number)}
             className="accent-pink-600"
           />
           <span className="text-lg font-medium">{v.variantName}</span>

@@ -1,7 +1,7 @@
 "use client";
 
-import ProductCard from "@/app/shared/ProductCard";
-import SwiperSlider from "@/app/shared/SwiperSlider";
+// import ProductCard from "@/app/shared/ProductCard";
+// import SwiperSlider from "@/app/shared/SwiperSlider";
 export type BestSellingItem = {
   id: number;
   image?: string;
@@ -10,10 +10,10 @@ export type BestSellingItem = {
   href?: string;
 };
 
-const BestSellings = ({ products }: { products: BestSellingItem[] }) => {
+const BestSellings = ({}: { products: BestSellingItem[] }) => {
   return (
     <div className="space-y-4">
-      <SwiperSlider
+      {/* <SwiperSlider
         titleWeight="bold"
         data={products}
         title="Best Sellings"
@@ -26,7 +26,7 @@ const BestSellings = ({ products }: { products: BestSellingItem[] }) => {
             href={product.href}
           />
         )}
-      />
+      /> */}
     </div>
   );
 };

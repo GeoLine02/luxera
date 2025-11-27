@@ -6,7 +6,7 @@ interface SellerProps {
   shopId: number;
 }
 
-const Seller = ({ seller, shopId }: SellerProps) => {
+const Seller = ({ seller }: SellerProps) => {
   console.log("seller", seller);
   return (
     <div className="bg-light-pink rounded-xl p-4 flex items-center justify-between mt-4 max-w-[570px]">

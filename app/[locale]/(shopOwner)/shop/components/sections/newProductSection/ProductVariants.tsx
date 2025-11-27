@@ -39,7 +39,7 @@ const ProductVariants = ({
                 className="cursor-pointer"
                 size={20}
                 color="red"
-                onClick={() => onDeleteVariant(variant.id)}
+                onClick={() => onDeleteVariant(variant.id as string)}
               />
             </div>
 
@@ -51,7 +51,11 @@ const ProductVariants = ({
                 value={variant.variantName}
                 placeholder="Variant name"
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  onChangeVariant(variant.id, "variantName", e.target.value)
+                  onChangeVariant(
+                    variant.id as string,
+                    "variantName",
+                    e.target.value
+                  )
                 }
               />
             </div>
@@ -67,7 +71,7 @@ const ProductVariants = ({
                   placeholder="00.00"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onChangeVariant(
-                      variant.id,
+                      variant.id as string,
                       "variantPrice",
                       Number(e.target.value)
                     )
@@ -84,7 +88,7 @@ const ProductVariants = ({
                   placeholder="0"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onChangeVariant(
-                      variant.id,
+                      variant.id as string,
                       "variantQuantity",
                       Number(e.target.value)
                     )
@@ -101,7 +105,7 @@ const ProductVariants = ({
                   placeholder="0%"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onChangeVariant(
-                      variant.id,
+                      variant.id as string,
                       "variantDiscount",
                       Number(e.target.value)
                     )
@@ -118,7 +122,7 @@ const ProductVariants = ({
                 multiple
                 value={variant.variantImages}
                 onChange={(files) =>
-                  onChangeVariant(variant.id, "variantImages", files)
+                  onChangeVariant(variant.id as string, "variantImages", files)
                 }
               />
             </div>

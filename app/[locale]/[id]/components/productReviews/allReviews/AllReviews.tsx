@@ -1,7 +1,6 @@
 "use client";
 
 import { Dropdown } from "@/app/ui/DropDown";
-import { BsArrowDown } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 
 const AllReviews = () => {

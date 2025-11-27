@@ -4,12 +4,11 @@ import { fetchAllProducts } from "./services/allProducts";
 import AllProducts from "./components/AllProducts";
 import SubCategories from "../../shared/categories/SubCategories";
 
-export default async function Products({
-  params: paramsPromise,
-}: {
+export default async function Products({}: // params: paramsPromise,
+{
   params: Promise<{ locale: string }>;
 }) {
-  const params = await paramsPromise;
+  // const params = await paramsPromise;
 
   const allProductsData = await fetchAllProducts();
 

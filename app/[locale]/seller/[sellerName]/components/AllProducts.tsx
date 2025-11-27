@@ -1,9 +1,9 @@
-import ProductCard from "@/app/shared/ProductCard";
-import ProductImage from "@/public/ProductImage.png";
+// import ProductCard from "@/app/shared/ProductCard";
+// import ProductImage from "@/public/ProductImage.png";
 const AllProducts = () => {
   return (
     <div className="grid grid-cols-2 gap-6 items-center xs:grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
-      <ProductCard
+      {/* <ProductCard
         id={1}
         price={120}
         title="Product title"
@@ -38,7 +38,7 @@ const AllProducts = () => {
         price={120}
         title="Product title"
         image={ProductImage}
-      />
+      /> */}
     </div>
   );
 };

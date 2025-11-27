@@ -8,7 +8,7 @@ import { RootState } from "@/app/store/store";
 import { NewProductValues } from "@/app/types/product";
 import { useUser } from "@/app/providers/UserProvider";
 import { createNewProduct } from "../../../services/products";
-import { ProductCreationSchema } from "../../../login/validation/productCreationSchema";
+// import { ProductCreationSchema } from "../../../login/validation/productCreationSchema";
 
 const NewProductSection = () => {
   const [productValues, setProductsValues] = useState<NewProductValues>({
