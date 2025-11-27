@@ -7,6 +7,9 @@ export const fetchVipProducts = async () => {
     if (res.status === 200) return res.data;
   } catch (error) {
     console.log(error);
+    return {
+      data: [],
+    };
   }
 };
 
@@ -17,5 +20,6 @@ export const fetchFeaturedProducts = async () => {
     if (res.status === 200) return res.data;
   } catch (error) {
     console.log(error);
+    return { data: [] };
   }
 };

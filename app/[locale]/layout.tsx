@@ -20,7 +20,6 @@ import {
 } from "../store/features/categoriesSlice";
 import { UserProvider } from "../providers/UserProvider";
 import { getUser } from "@/utils/getUser";
-// import { getUser } from "@/utils/getUser";
 
 export const metadata: Metadata = {
   title: "Luxera Gift Shop",
@@ -42,14 +41,14 @@ export default async function RootLayout({
   const { locale } = params;
   const store = makeStore();
 
-  // const allSubcategories = await fetchSubCategories();
-  // const allCateogires = await fetchCategories();
-  // store.dispatch(setSubCategories(allSubcategories.data));
-  // store.dispatch(setCategories(allCateogires.data));
-  // console.log(allCateogires.data);
-  // const preloadedState = store.getState();
+  const allSubcategories = await fetchSubCategories();
+  const allCateogires = await fetchCategories();
+  store.dispatch(setSubCategories(allSubcategories.data));
+  store.dispatch(setCategories(allCateogires.data));
+  console.log(allCateogires.data);
+  const preloadedState = store.getState();
 
-  // const user = await getUser();
+  const user = await getUser();
 
   return (
     <html lang={locale}>
@@ -60,20 +59,18 @@ export default async function RootLayout({
         />
       </head>
       <body className={`font-${inter.style.fontFamily}`}>
-        <ReduxProvider
-        // preloadedState={preloadedState}
-        >
+        <ReduxProvider preloadedState={preloadedState}>
           <NextIntlClientProvider>
-            {/* <UserProvider userData={user}> */}
-            <div className="relative">
-              <Header />
-              <SideMenu />
-            </div>
-            <main>{children}</main>
-            <MobileTabs />
-            <Footer />
-            <CategoriesModal />
-            {/* </UserProvider> */}
+            <UserProvider userData={user}>
+              <div className="relative">
+                <Header />
+                <SideMenu />
+              </div>
+              <main>{children}</main>
+              <MobileTabs />
+              <Footer />
+              <CategoriesModal />
+            </UserProvider>
           </NextIntlClientProvider>
         </ReduxProvider>
       </body>
