@@ -14,8 +14,6 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = async ({ params }: ProductDetailsProps) => {
-  // TODO: Fetch productById data here
-
   const { id } = await params;
   const productId = Number(id);
 
@@ -25,7 +23,7 @@ const ProductDetails = async ({ params }: ProductDetailsProps) => {
 
   return (
     <div className="mt-6">
-      <div className="flex flex-col md:flex-row lg:justify-evenly">
+      <div className="flex flex-col md:flex-row justify-between container">
         <ProductPreview productImages={productByIdData.images} />
         <MobileProductPreview productImages={productByIdData.images} />
         <ProductStats

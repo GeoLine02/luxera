@@ -9,7 +9,7 @@ export const fetchProductById = async (productId: number) => {
       return res.data?.message;
     }
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.log(error);
   }
