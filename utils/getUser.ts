@@ -18,9 +18,9 @@ export async function getUser() {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-
+    console.log("ressss::::", res.data);
     if (res.status === 200) {
-      console.log(res.data);
+      console.log("userrrrrrr", res.data);
       return res.data;
     }
 

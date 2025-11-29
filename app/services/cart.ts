@@ -26,7 +26,7 @@ export const changeCartItemQuantityService = async (
     if (res.status !== 200) {
       return res.data.message;
     }
-
+    console.log("123123312", res.data);
     const data = res.data;
     return data;
   } catch (error) {

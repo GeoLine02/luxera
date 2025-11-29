@@ -5,6 +5,13 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  productionBrowserSourceMaps: true,
+  webpack(config, { isServer }) {
+    if (isServer) {
+      config.devtool = "source-map";
+    }
+    return config;
+  },
   images: {
     unoptimized: false,
     remotePatterns: [

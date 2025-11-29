@@ -20,13 +20,19 @@ export function UserProvider({
   userData,
 }: {
   children: ReactNode;
-  userData: User | null;
+  userData: { success: boolean; message?: string; data: User } | null;
 }) {
-  const [user, setUser] = useState<null | User>(userData);
+  const [user, setUser] = useState<null | User>(
+    userData?.data ? userData.data : null
+  );
   console.log("user", user);
   // Update state when userData prop changes
   useEffect(() => {
-    setUser(userData);
+    if (userData?.data) {
+      setUser(userData.data);
+    } else {
+      setUser(null);
+    }
   }, [userData]);
 
   return (

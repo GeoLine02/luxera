@@ -61,7 +61,7 @@ export default async function RootLayout({
       <body className={`font-${inter.style.fontFamily}`}>
         <ReduxProvider preloadedState={preloadedState}>
           <NextIntlClientProvider>
-            <UserProvider userData={user.data}>
+            <UserProvider userData={user}>
               <div className="relative">
                 <Header />
                 <SideMenu />
