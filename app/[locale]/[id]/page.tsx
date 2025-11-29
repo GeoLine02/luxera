@@ -27,7 +27,8 @@ const ProductDetails = async ({ params }: ProductDetailsProps) => {
         <ProductPreview productImages={productByIdData.images} />
         <MobileProductPreview productImages={productByIdData.images} />
         <ProductStats
-          description={"productByIdData"}
+          productId={productId}
+          productDescription={productByIdData.product_description}
           productPrice={productByIdData.product_price}
           productTitle={productByIdData.product_name}
           productVariants={productByIdData.variants}
