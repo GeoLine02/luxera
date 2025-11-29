@@ -1,19 +1,22 @@
+// services/categories.ts
 import api from "@/utils/axios";
-
-export const fetchSubCategories = async () => {
-  try {
-    const res = await api.get("/categories/subCategories");
-    if (res.status === 200) return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export const fetchCategories = async () => {
   try {
     const res = await api.get("/categories");
-    if (res.status === 200) return res.data;
+    return res.data ?? { data: [] };
   } catch (error) {
-    console.log(error);
+    console.error("fetchCategories error:", error);
+    return { data: [] }; // prevent undefined
+  }
+};
+
+export const fetchSubCategories = async () => {
+  try {
+    const res = await api.get("/categories/subCategories");
+    return res.data ?? { data: [] };
+  } catch (error) {
+    console.error("fetchSubCategories error:", error);
+    return { data: [] }; // prevent undefined
   }
 };

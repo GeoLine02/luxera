@@ -33,7 +33,7 @@ export const categoriesSlice = createSlice({
       const category: CategoryType = action.payload;
       if (
         state.selectedCategory &&
-        state?.selectedCategory.categoryImage === category.categoryImage
+        state?.selectedCategory.category_image === category.category_image
       ) {
         state.selectedCategory = null;
       } else {

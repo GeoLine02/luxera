@@ -46,11 +46,11 @@ const AddProductForm = ({
   const handleAddVariant = () => {
     const newVariant: ProductVariantType = {
       id: crypto.randomUUID(),
-      variantName: "",
-      variantPrice: 0,
-      variantQuantity: 1,
-      variantDiscount: 0,
-      variantImages: [],
+      variant_name: "",
+      variant_price: 0,
+      variant_quantity: 1,
+      variant_discont: 0,
+      variant_images: [],
     };
     handleChangeForm("productVariants", [
       ...formValues.productVariants,
@@ -164,7 +164,7 @@ const AddProductForm = ({
               </label>
               <Dropdown>
                 <Dropdown.Trigger className="text-left border p-2 border-light-gray">
-                  {formValues.productCategory?.categoryName || "Select"}
+                  {formValues.productCategory?.category_name || "Select"}
                 </Dropdown.Trigger>
                 <Dropdown.Menu className="!top-11" expandMode="absolute">
                   {categories?.map((category) => (
@@ -174,7 +174,7 @@ const AddProductForm = ({
                         handleChangeForm("productCategory", category)
                       }
                     >
-                      {category.categoryName}
+                      {category.category_name}
                     </Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
@@ -189,7 +189,7 @@ const AddProductForm = ({
                 </label>
                 <Dropdown>
                   <Dropdown.Trigger className="text-left border p-2 border-light-gray">
-                    {formValues.productSubCategory?.subCategoryName ||
+                    {formValues.productSubCategory?.sub_category_name ||
                       "Select subcategory"}
                   </Dropdown.Trigger>
                   <Dropdown.Menu className="!top-11" expandMode="absolute">
@@ -200,7 +200,7 @@ const AddProductForm = ({
                           handleChangeForm("productSubCategory", sub)
                         }
                       >
-                        {sub.subCategoryName}
+                        {sub.sub_category_name}
                       </Dropdown.Item>
                     ))}
                   </Dropdown.Menu>

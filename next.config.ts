@@ -5,6 +5,13 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  productionBrowserSourceMaps: true,
+  webpack(config, { isServer }) {
+    if (isServer) {
+      config.devtool = "source-map";
+    }
+    return config;
+  },
   images: {
     unoptimized: false,
     remotePatterns: [
@@ -18,6 +25,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "example.com",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: `${process.env.PROD_HOST}`,
+        pathname: "/uploads/**",
       },
     ],
   },

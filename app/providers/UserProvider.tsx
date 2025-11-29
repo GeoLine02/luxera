@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useState, ReactNode, useContext } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect,
+} from "react";
 import { User } from "../types/user";
 
 interface UserContextType {
@@ -14,9 +20,20 @@ export function UserProvider({
   userData,
 }: {
   children: ReactNode;
-  userData: User | null;
+  userData: { success: boolean; message?: string; data: User } | null;
 }) {
-  const [user] = useState<null | User>(userData);
+  const [user, setUser] = useState<null | User>(
+    userData?.data ? userData.data : null
+  );
+  console.log("user", user);
+  // Update state when userData prop changes
+  useEffect(() => {
+    if (userData?.data) {
+      setUser(userData.data);
+    } else {
+      setUser(null);
+    }
+  }, [userData]);
 
   return (
     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>

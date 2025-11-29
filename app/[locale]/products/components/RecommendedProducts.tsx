@@ -1,13 +1,12 @@
 "use client";
 
-import ProductCard from "@/app/shared/ProductCard";
-import SwiperSlider from "@/app/shared/SwiperSlider";
-import { ProductType } from "@/app/types/product";
-import { productsData } from "@/data/products";
+// import ProductCard from "@/app/shared/ProductCard";
+// import SwiperSlider from "@/app/shared/SwiperSlider";
+// import { ProductType } from "@/app/types/product";
 const RecommendedProducts = () => {
   return (
     <div>
-      <SwiperSlider<ProductType>
+      {/* <SwiperSlider<ProductType>
         data={productsData}
         renderCard={(product: ProductType) => (
           <ProductCard
@@ -20,7 +19,7 @@ const RecommendedProducts = () => {
         titleFont="default"
         titleWeight="bold"
         title="Recommended"
-      />
+      /> */}
     </div>
   );
 };

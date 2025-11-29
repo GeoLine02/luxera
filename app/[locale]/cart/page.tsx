@@ -1,21 +1,14 @@
-import Link from "next/link";
 import CartItemsList from "./components/CartItemsList";
-import CartTotals from "./components/CartTotals";
 
-const Cart = () => {
+import OrderSummary from "./components/OrderSummary";
+
+const Cart = async () => {
   return (
     <div className="container min-h-[calc(100vh-80px)] px-2">
-      <div>
-        <span>
-          <Link className="text-medium-gray pl-2" href={"/"}>
-            Home
-          </Link>{" "}
-          &gt; Cart
-        </span>
-      </div>
+      <h1 className="text-4xl font-bold mt-4">Cart</h1>
       <div className="flex gap-2">
         <CartItemsList />
-        <CartTotals />
+        <OrderSummary />
       </div>
     </div>
   );

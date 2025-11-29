@@ -9,12 +9,14 @@ export interface ProductType {
   product_price: number;
   produt_status: string;
   product_subcategory_id: number;
+  product_description: string;
   product_owner_id: number;
 }
 
 export interface ProductDetailsType extends ProductType {
   variants: ProductVariantType[];
   images: ProductImageType[];
+  product_description: string;
   owner: User;
   shop_id: number;
 }
@@ -39,12 +41,12 @@ export interface NewProductValues {
 }
 
 export type ProductVariantType = {
-  id: number;
-  variantName: string;
-  variantPrice: string;
-  variantQuantity: number;
-  variantDiscount: string;
-  // variantImages: File[];
+  id: number | string;
+  variant_name: string;
+  variant_price: number;
+  variant_quantity: number;
+  variant_discont: number;
+  variant_images: File[];
 };
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";

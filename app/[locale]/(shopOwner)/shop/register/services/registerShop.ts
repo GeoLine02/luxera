@@ -31,7 +31,7 @@ export const registerShopService = async (
     password,
   });
 
-  if (res.status === 201) return res.data;
+  if (res.status === 201) return res.data.data;
   return {
     error: {
       status: res.status,

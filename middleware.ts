@@ -17,7 +17,7 @@ async function refreshAccessToken(refreshToken: string) {
       withCredentials: true,
     });
 
-    return res.status === 200 ? res.data.accessToken : null;
+    return res.status === 200 ? res.data.data.accessToken : null;
   } catch (err) {
     console.error("Refresh token failed:", err);
     return null;
@@ -36,7 +36,7 @@ async function refreshShopAccessToken(shopRefreshToken: string) {
       withCredentials: true,
     });
 
-    return res.status === 200 ? res.data.shopAccessToken : null;
+    return res.status === 200 ? res.data.data.shopAccessToken : null;
   } catch (err) {
     console.log("Shop refresh token failed", err);
     return null;

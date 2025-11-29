@@ -1,10 +1,6 @@
 import { SubCategoryType } from "@/app/types/categories";
-import Image from "next/image";
 
-const SubCategoryCard = ({
-  subCategoryImage,
-  subCategoryName,
-}: SubCategoryType) => {
+const SubCategoryCard = ({ sub_category_name }: SubCategoryType) => {
   // const backendUrl = process.env.NEXT_PUBLIC_API_URL; // e.g., http://localhost:4000
   // const imageUrl = `${backendUrl}${
   //   subCategoryImage.startsWith("/") ? "" : "/"
@@ -14,7 +10,7 @@ const SubCategoryCard = ({
     <div
       className={`bg-light-pink rounded-md card px-2 flex items-center justify-around w-full  box-border lg:max-w-full h-[90px] cursor-pointer`}
     >
-      <h1 className="w-min font-medium">{subCategoryName}</h1>
+      <h1 className="w-min font-medium">{sub_category_name}</h1>
 
       {/* <Image
         height={50}

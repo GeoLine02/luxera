@@ -16,9 +16,9 @@ export default function SubCategories() {
         <SubCategoryCard
           key={subcategory.id}
           id={subcategory.id}
-          categoryId={subcategory.categoryId}
-          subCategoryImage={subcategory.subCategoryImage}
-          subCategoryName={subcategory.subCategoryName}
+          category_id={subcategory.category_id}
+          sub_category_image={subcategory.sub_category_image}
+          sub_category_name={subcategory.sub_category_name}
         />
       ))}
     </div>

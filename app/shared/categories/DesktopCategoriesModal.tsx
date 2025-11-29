@@ -42,8 +42,8 @@ const DesktopCategoriesModal = ({
                   key={category.id}
                 >
                   <CategoryModalCard
-                    image={category.categoryImage}
-                    label={category.categoryName}
+                    image={category.category_image}
+                    label={category.category_name}
                   />
                 </div>
               ))}
@@ -53,7 +53,7 @@ const DesktopCategoriesModal = ({
           {/* Right: Subcategories in two columns */}
           <section className="flex-2/3 flex-wrap w-full px-4">
             <h1 className="text-xl font-medium mb-2">
-              {selectedCategory?.categoryName}
+              {selectedCategory?.category_name}
             </h1>
             <div className="grid grid-cols-2 gap-3">
               {selectedCategory?.subCategories.map((category) => (
@@ -62,8 +62,8 @@ const DesktopCategoriesModal = ({
                   key={category.id}
                 >
                   <CategoryModalCard
-                    label={category.subCategoryName}
-                    image={category.subCategoryImage}
+                    label={category.sub_category_name}
+                    image={category.sub_category_image}
                   />
                 </div>
               ))}

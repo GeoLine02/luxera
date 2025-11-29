@@ -4,14 +4,12 @@ import api from "@/utils/axios";
 
 export const fetchProductById = async (productId: number) => {
   try {
-    console.log("productId", productId);
     const res = await api.get(`/products/${productId}`);
-
     if (res.status !== 200) {
       return res.data?.message;
     }
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.log(error);
   }
