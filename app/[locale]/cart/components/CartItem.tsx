@@ -12,6 +12,7 @@ interface CartItemProps {
   description: string;
   quantity: number;
   onQuantityChange: (cartItemId: number, quantity: number) => void;
+  onItemDelete: (cartItemId: number) => void;
 }
 
 const quantityOptions = Array.from({ length: 99 }, (_, i) => i + 1);
@@ -23,6 +24,7 @@ const CartItem = ({
   quantity,
   title,
   onQuantityChange,
+  onItemDelete,
 }: CartItemProps) => {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 border-b border-light-gray w-full">
@@ -73,6 +75,7 @@ const CartItem = ({
 
         {/* Delete */}
         <FaTrash
+          onClick={() => onItemDelete(id)}
           size={22}
           className="text-light-pink cursor-pointer hover:text-pink-600 transition"
         />

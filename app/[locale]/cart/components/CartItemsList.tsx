@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store/store";
 import {
   changeCartItemQuantity,
+  deleteCartItem,
   saveCartItems,
 } from "@/app/store/features/cartSlice";
 import { useEffect } from "react";
@@ -21,6 +22,10 @@ const CartItemsList = () => {
     dispatch(changeCartItemQuantity({ cartItemId, quantity }));
   };
 
+  const onItemDelete = async (cartItemId: number) => {
+    dispatch(deleteCartItem({ cartItemId }));
+  };
+
   useEffect(() => {
     const fetchCart = async () => {
       if (!user?.id) return;
@@ -30,7 +35,6 @@ const CartItemsList = () => {
 
     fetchCart();
   }, [user?.id, dispatch]);
-  console.log("cart", cart);
 
   return (
     <div className="w-full space-y-4">
@@ -38,7 +42,7 @@ const CartItemsList = () => {
       <div className="flex items-center gap-2 py-2 pl-2 rounded-lg">
         <Input type="checkbox" name="selectAll" checked={false} />
         <label htmlFor="selectAll" className="text-lg md:text-xl font-medium">
-          Select All (3)
+          Select All ({cart.length})
         </label>
       </div>
 
@@ -53,6 +57,7 @@ const CartItemsList = () => {
             quantity={cartItem.product_quantity}
             title={cartItem.variant.variant_name}
             onQuantityChange={onQuantityChange}
+            onItemDelete={onItemDelete}
           />
         ))}
       </div>

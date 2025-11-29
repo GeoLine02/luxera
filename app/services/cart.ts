@@ -33,3 +33,17 @@ export const changeCartItemQuantityService = async (
     console.log(error);
   }
 };
+
+export const deleteCartItemService = async (cartItemId: number) => {
+  try {
+    const res = await api.delete(`cart/${cartItemId}`);
+    if (res.status !== 200) {
+      return res.data.message;
+    }
+
+    const data = res.data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
