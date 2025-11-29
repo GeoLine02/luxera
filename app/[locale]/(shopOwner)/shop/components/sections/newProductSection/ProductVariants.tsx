@@ -48,12 +48,12 @@ const ProductVariants = ({
                 Variant Name
               </label>
               <Input
-                value={variant.variantName}
+                value={variant.variant_name}
                 placeholder="Variant name"
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   onChangeVariant(
                     variant.id as string,
-                    "variantName",
+                    "variant_name",
                     e.target.value
                   )
                 }
@@ -67,12 +67,12 @@ const ProductVariants = ({
                 </label>
                 <Input
                   type="number"
-                  value={variant.variantPrice}
+                  value={variant.variant_price}
                   placeholder="00.00"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onChangeVariant(
                       variant.id as string,
-                      "variantPrice",
+                      "variant_price",
                       Number(e.target.value)
                     )
                   }
@@ -84,12 +84,12 @@ const ProductVariants = ({
                 </label>
                 <Input
                   type="number"
-                  value={variant.variantQuantity}
+                  value={variant.variant_quantity}
                   placeholder="0"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onChangeVariant(
                       variant.id as string,
-                      "variantQuantity",
+                      "variant_quantity",
                       Number(e.target.value)
                     )
                   }
@@ -101,12 +101,12 @@ const ProductVariants = ({
                 </label>
                 <Input
                   type="number"
-                  value={variant.variantDiscount}
+                  value={variant.variant_discont}
                   placeholder="0%"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     onChangeVariant(
                       variant.id as string,
-                      "variantDiscount",
+                      "variant_discont",
                       Number(e.target.value)
                     )
                   }
@@ -120,9 +120,9 @@ const ProductVariants = ({
               </label>
               <Upload
                 multiple
-                value={variant.variantImages}
+                value={variant.variant_images}
                 onChange={(files) =>
-                  onChangeVariant(variant.id as string, "variantImages", files)
+                  onChangeVariant(variant.id as string, "variant_images", files)
                 }
               />
             </div>
