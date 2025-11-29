@@ -46,11 +46,11 @@ const AddProductForm = ({
   const handleAddVariant = () => {
     const newVariant: ProductVariantType = {
       id: crypto.randomUUID(),
-      variantName: "",
-      variantPrice: 0,
-      variantQuantity: 1,
-      variantDiscount: 0,
-      variantImages: [],
+      variant_name: "",
+      variant_price: 0,
+      variant_quantity: 1,
+      variant_discont: 0,
+      variant_images: [],
     };
     handleChangeForm("productVariants", [
       ...formValues.productVariants,

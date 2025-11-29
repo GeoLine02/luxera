@@ -83,19 +83,19 @@ const NewProductSection = () => {
       const variantsMetadata = productValues.productVariants.map(
         (variant, index) => ({
           index,
-          variantName: variant.variantName,
-          variantPrice: variant.variantPrice,
-          variantQuantity: variant.variantQuantity,
-          variantDiscount: variant.variantDiscount,
-          imageCount: variant.variantImages?.length || 0,
+          variantName: variant.variant_name,
+          variantPrice: variant.variant_price,
+          variantQuantity: variant.variant_quantity,
+          variantDiscount: variant.variant_discont,
+          imageCount: variant.variant_images?.length || 0,
         })
       );
       formData.append("variantsMetadata", JSON.stringify(variantsMetadata));
 
       // Variant images with simple naming: variantImages_0, variantImages_1, etc.
       productValues.productVariants.forEach((variant, index) => {
-        if (variant.variantImages && variant.variantImages.length > 0) {
-          variant.variantImages.forEach((image) => {
+        if (variant.variant_images && variant.variant_images.length > 0) {
+          variant.variant_images.forEach((image) => {
             formData.append(`variantImages_${index}`, image);
           });
         }
