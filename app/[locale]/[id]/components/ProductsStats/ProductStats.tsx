@@ -1,28 +1,33 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProductVariantSelector from "./ProductVariantSelector";
 import { FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { ProductVariantType } from "@/app/types/product";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/app/store/store";
 import { selectVariantId } from "@/app/store/features/productDetailsSlice";
+import { addToCartService } from "../../services/cart";
+import { useUser } from "@/app/providers/UserProvider";
 
 interface ProductStatsProps {
+  productId: number;
   productTitle: string;
   productPrice: number;
   productVariants: ProductVariantType[];
-  description: string;
+  productDescription: string;
 }
 
 const ProductStats = ({
-  description,
+  productId,
   productPrice,
   productTitle,
   productVariants,
+  productDescription,
 }: ProductStatsProps) => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const { user } = useUser();
+  const [productQuantity, setProductQuantity] = useState<number>(1);
   useEffect(() => {
     dispatch(selectVariantId(productVariants[0].id));
   }, [dispatch, productVariants]);
@@ -33,6 +38,28 @@ const ProductStats = ({
 
   const onVariantChange = (variantId: number) => {
     dispatch(selectVariantId(variantId));
+  };
+
+  const handleAddToCart = async () => {
+    if (user?.id) {
+      const res = await addToCartService(
+        user?.id,
+        productId,
+        selectedVaraintId as number,
+        productQuantity
+      );
+      console.log(res);
+    }
+  };
+
+  const onQuantityChange = (action: "increment" | "decrement") => {
+    if (action === "increment") {
+      setProductQuantity(productQuantity + 1);
+    }
+
+    if (action === "decrement") {
+      setProductQuantity(productQuantity - 1);
+    }
   };
 
   return (
@@ -60,11 +87,17 @@ const ProductStats = ({
 
       {/* Quantity */}
       <div className="flex items-center gap-4 mb-6">
-        <button className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer">
+        <button
+          onClick={() => onQuantityChange("decrement")}
+          className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer"
+        >
           -
         </button>
-        <span className="text-lg">1</span>
-        <button className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer">
+        <span className="text-lg">{productQuantity}</span>
+        <button
+          onClick={() => onQuantityChange("increment")}
+          className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer"
+        >
           +
         </button>
       </div>
@@ -74,7 +107,10 @@ const ProductStats = ({
         <button className="bg-dirty-pink  text-white font-semibold py-1 px-9 rounded-lg ">
           Order Now
         </button>
-        <button className="border border-gray-300 hover:border-gray-400 py-2 px-4 rounded-lg flex items-center gap-2">
+        <button
+          onClick={handleAddToCart}
+          className="border cursor-pointer border-gray-300 hover:border-gray-400 py-2 px-4 rounded-lg flex items-center gap-2"
+        >
           <FaShoppingCart size={20} color="gray" />
           Add to Cart
         </button>
@@ -87,8 +123,8 @@ const ProductStats = ({
 
       {/* Description */}
       <div className="mt-8">
-        <h2 className="text-lg font-semibold mb-2">Description</h2>
-        <p className="text-gray-700">{description}</p>
+        <h2 className="text-lg font-semibold mb-2">{productDescription}</h2>
+        <p className="text-gray-700">{productDescription}</p>
       </div>
     </div>
   );

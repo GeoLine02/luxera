@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
         hostname: "example.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: `${process.env.PROD_HOST}`,
+        pathname: "/uploads/**",
+      },
     ],
   },
   trailingSlash: false,
