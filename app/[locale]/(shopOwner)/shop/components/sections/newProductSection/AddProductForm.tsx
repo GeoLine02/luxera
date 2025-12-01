@@ -3,8 +3,6 @@
 import { ChangeEvent } from "react";
 import Button from "@/app/ui/Button";
 import { Dropdown } from "@/app/ui/DropDown";
-import Input from "@/app/ui/Input";
-import Upload from "@/app/ui/Upload";
 import { CategoryType } from "@/app/types/categories";
 import { NewProductValues, ProductVariantType } from "@/app/types/product";
 import ProductVariants from "./ProductVariants";
@@ -32,6 +30,8 @@ const AddProductForm = ({
     handleChangeForm(fieldKey, e.target.value);
   };
 
+  console.log("categories", categories);
+
   const handleVariantFieldChange = <K extends keyof ProductVariantType>(
     id: string,
     field: K,
@@ -49,8 +49,9 @@ const AddProductForm = ({
       variant_name: "",
       variant_price: 0,
       variant_quantity: 1,
-      variant_discont: 0,
-      variant_images: [],
+      variant_discount: 0,
+      images: [],
+      product_id: Infinity,
     };
     handleChangeForm("productVariants", [
       ...formValues.productVariants,
@@ -71,35 +72,6 @@ const AddProductForm = ({
         <div className="flex flex-col gap-8 border-b border-light-gray pb-6 md:flex-row">
           {/* LEFT SECTION */}
           <section className="max-w-full w-full space-y-4 md:max-w-[70%]">
-            {/* MAIN IMAGES */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium">
-                Main Product Images (Max 5)
-              </label>
-              <Upload
-                multiple={true}
-                value={formValues.productPreviewImages}
-                onChange={(files) =>
-                  handleChangeForm("productPreviewImages", files)
-                }
-              />
-            </div>
-
-            {/* PRODUCT NAME */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium mb-1.5 inline-block">
-                Title
-              </label>
-              <Input
-                value={formValues.productName}
-                onChange={(e) => onInputChange("productName", e)}
-                placeholder="e.g. Handmade Leather Bag"
-                bgColor="white"
-                border="border border-light-gray rounded-lg"
-              />
-            </div>
-
-            {/* DESCRIPTION */}
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium inline-block mb-1.5">
                 Description
@@ -112,7 +84,6 @@ const AddProductForm = ({
               />
             </div>
 
-            {/* PRODUCT VARIANTS */}
             <ProductVariants
               variants={formValues.productVariants}
               onChangeVariant={handleVariantFieldChange}
@@ -123,40 +94,6 @@ const AddProductForm = ({
 
           {/* RIGHT SECTION */}
           <section className="max-w-full w-full space-y-4 md:max-w-[30%]">
-            {/* MAIN PRICE */}
-            <div>
-              <label className="text-sm font-medium">Main Product Price</label>
-              <Input
-                placeholder="Base price (optional)"
-                onChange={(e) => onInputChange("productPrice", e)}
-                value={formValues.productPrice}
-              />
-            </div>
-
-            {/* MAIN QUANTITY */}
-            <div>
-              <label className="text-sm font-medium">
-                Main Product Quantity
-              </label>
-              <Input
-                placeholder="Base quantity (optional)"
-                onChange={(e) => onInputChange("productQuantity", e)}
-                value={formValues.productQuantity}
-              />
-            </div>
-
-            {/* MAIN DISCOUNT */}
-            <div>
-              <label className="text-sm font-medium">
-                Main Product Discount
-              </label>
-              <Input
-                placeholder="Base discount (optional)"
-                onChange={(e) => onInputChange("productDiscount", e)}
-                value={formValues.productDiscount}
-              />
-            </div>
-
             {/* CATEGORY */}
             <div>
               <label className="text-sm font-medium mb-1.5 inline-block">
@@ -164,7 +101,8 @@ const AddProductForm = ({
               </label>
               <Dropdown>
                 <Dropdown.Trigger className="text-left border p-2 border-light-gray">
-                  {formValues.productCategory?.category_name || "Select"}
+                  {formValues.productCategory?.category_name ||
+                    "Select Category"}
                 </Dropdown.Trigger>
                 <Dropdown.Menu className="!top-11" expandMode="absolute">
                   {categories?.map((category) => (

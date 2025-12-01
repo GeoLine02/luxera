@@ -2,9 +2,9 @@
 
 import "swiper/css";
 import "swiper/css/navigation";
-import FeaturedProductCard from "@/app/[locale]/(home)/components/featuredProducts/FeaturedProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
 import { ProductType } from "@/app/types/product";
+import ProductCard from "@/app/shared/ProductCard";
 
 interface ProcutsListProps {
   products: ProductType[];
@@ -23,11 +23,11 @@ const ProductsList = ({
         titleFont="FRL"
         data={products}
         renderCard={(product: ProductType) => (
-          <FeaturedProductCard
+          <ProductCard
             id={product.id}
-            image={product.product_image}
-            price={product.product_price}
-            title={product.product_name}
+            images={product.variants[0].images}
+            price={product.variants[0].variant_price}
+            title={product.variants[0].variant_name}
           />
         )}
       />

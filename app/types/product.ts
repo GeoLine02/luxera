@@ -3,22 +3,20 @@ import { User } from "./user";
 
 export interface ProductType {
   id: number;
-  product_image: string;
-  product_name: string;
   product_rating: number;
   product_price: number;
   produt_status: string;
   product_subcategory_id: number;
   product_description: string;
   product_owner_id: number;
+  shop_id: number;
+  variants: ProductVariantType[];
 }
 
 export interface ProductDetailsType extends ProductType {
-  variants: ProductVariantType[];
   images: ProductImageType[];
   product_description: string;
   owner: User;
-  shop_id: number;
 }
 
 export interface ProductImageType {
@@ -45,8 +43,10 @@ export type ProductVariantType = {
   variant_name: string;
   variant_price: number;
   variant_quantity: number;
-  variant_discont: number;
-  variant_images: File[];
+  variant_discount: number;
+  product_id: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  images: { id: number; image: string }[] | any;
 };
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
