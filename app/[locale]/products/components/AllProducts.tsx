@@ -13,9 +13,9 @@ const AllProducts = ({ products }: { products: ProductType[] }) => {
           <div className="max-w-[calc(50%-10x)]" key={product.id}>
             <ProductCard
               id={product.id}
-              image={product.product_image}
+              images={product.variants[0].images}
               price={product.product_price}
-              title={product.product_name}
+              title={product.variants[0].variant_name}
             />
           </div>
         ))}
