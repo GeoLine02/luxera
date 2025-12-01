@@ -14,8 +14,8 @@ export default async function Home(props: {
   const params = await props.params;
   const locale = params.locale || "en";
 
-  const vipProducts = await fetchVipProducts();
-  const feturedProducts = await fetchFeaturedProducts();
+  // const vipProducts = await fetchVipProducts();
+  // const feturedProducts = await fetchFeaturedProducts();
 
   return (
     <div>
@@ -32,10 +32,10 @@ export default async function Home(props: {
         />
       </div>
       <div className="mt-[50px] px-5 lg:px-11">
-        <ProductsList
+        {/* <ProductsList
           products={feturedProducts.data}
           title="Featured products"
-        />
+        /> */}
       </div>
       <div className="mt-[54px]">
         <SellYourProducts
@@ -44,7 +44,7 @@ export default async function Home(props: {
         />
       </div>
       <div className="mt-[30px] lg:mt-[54px] px-5 lg:px-11">
-        <VIPListing products={vipProducts.data} />
+        {/* <VIPListing products={vipProducts.data} /> */}
       </div>
       <div className="mt-[100px] px-5 lg:px-11">
         {/* <BestSellings products={bestSellingProducts} /> */}

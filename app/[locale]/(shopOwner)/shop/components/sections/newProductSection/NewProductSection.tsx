@@ -44,59 +44,33 @@ const NewProductSection = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // const validatedValues = ProductCreationSchema.safeParse(productValues);
-      // console.log(validatedValues.success);
-      // if (!validatedValues.success) {
-      //   return validatedValues.error.flatten().fieldErrors;
-      // }
-
       const formData = new FormData();
 
       // Basic product info
-      formData.append("productName", productValues.productName);
       formData.append("productDescription", productValues.productDescription);
-      formData.append("productPrice", String(productValues.productPrice));
-      formData.append("productQuantity", String(productValues.productQuantity));
-      formData.append("productDiscount", String(productValues.productDiscount));
-      formData.append("userId", String(user?.id));
+      formData.append("ownerId", String(user?.id));
 
-      // Category info
-      if (productValues.productCategory) {
-        formData.append(
-          "productCategoryId",
-          String(productValues.productCategory.id)
-        );
-      }
       if (productValues.productSubCategory) {
         formData.append(
-          "subCategoryId",
+          "productSubCategoryId",
           String(productValues.productSubCategory.id)
         );
       }
 
-      // Product preview images
-      productValues.productPreviewImages.forEach((image) => {
-        formData.append("productPreviewImages", image);
-      });
-
       // Variants metadata as JSON (cleaner than nested form data)
-      const variantsMetadata = productValues.productVariants.map(
-        (variant, index) => ({
-          index,
-          variantName: variant.variant_name,
-          variantPrice: variant.variant_price,
-          variantQuantity: variant.variant_quantity,
-          variantDiscount: variant.variant_discont,
-          imageCount: variant.variant_images?.length || 0,
-        })
-      );
-      formData.append("variantsMetadata", JSON.stringify(variantsMetadata));
+      const variantsMetadata = productValues.productVariants.map((variant) => ({
+        variantName: variant.variant_name,
+        variantPrice: variant.variant_price,
+        variantQuantity: variant.variant_quantity,
+        variantDiscount: variant.variant_discont,
+      }));
+      formData.append("productVariants", JSON.stringify(variantsMetadata));
 
       // Variant images with simple naming: variantImages_0, variantImages_1, etc.
       productValues.productVariants.forEach((variant, index) => {
         if (variant.variant_images && variant.variant_images.length > 0) {
           variant.variant_images.forEach((image) => {
-            formData.append(`variantImages_${index}`, image);
+            formData.append(`variant-${index + 1}-image`, image);
           });
         }
       });
