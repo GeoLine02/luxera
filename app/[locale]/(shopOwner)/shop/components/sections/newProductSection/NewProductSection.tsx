@@ -62,14 +62,14 @@ const NewProductSection = () => {
         variantName: variant.variant_name,
         variantPrice: variant.variant_price,
         variantQuantity: variant.variant_quantity,
-        variantDiscount: variant.variant_discont,
+        variantDiscount: variant.variant_discount,
       }));
       formData.append("productVariants", JSON.stringify(variantsMetadata));
 
       // Variant images with simple naming: variantImages_0, variantImages_1, etc.
       productValues.productVariants.forEach((variant, index) => {
-        if (variant.variant_images && variant.variant_images.length > 0) {
-          variant.variant_images.forEach((image) => {
+        if (variant.images && variant.images.length > 0) {
+          variant.images.forEach((image: File) => {
             formData.append(`variant-${index + 1}-image`, image);
           });
         }

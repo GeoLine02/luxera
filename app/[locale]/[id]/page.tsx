@@ -29,8 +29,6 @@ const ProductDetails = async ({ params }: ProductDetailsProps) => {
         <ProductStats
           productId={productId}
           productDescription={productByIdData.product_description}
-          productPrice={productByIdData.product_price}
-          productTitle={productByIdData.product_name}
           productVariants={productByIdData.variants}
         />
       </div>

@@ -12,22 +12,19 @@ import { useUser } from "@/app/providers/UserProvider";
 
 interface ProductStatsProps {
   productId: number;
-  productTitle: string;
-  productPrice: number;
   productVariants: ProductVariantType[];
   productDescription: string;
 }
 
 const ProductStats = ({
   productId,
-  productPrice,
-  productTitle,
   productVariants,
   productDescription,
 }: ProductStatsProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useUser();
   const [productQuantity, setProductQuantity] = useState<number>(1);
+
   useEffect(() => {
     dispatch(selectVariantId(productVariants[0].id));
   }, [dispatch, productVariants]);
@@ -57,26 +54,67 @@ const ProductStats = ({
       setProductQuantity(productQuantity + 1);
     }
 
-    if (action === "decrement") {
+    if (action === "decrement" && productQuantity !== 1) {
       setProductQuantity(productQuantity - 1);
     }
   };
 
+  const selectedVariant = productVariants.find(
+    (variant) => variant.id === selectedVaraintId
+  );
+
+  const selectedVariantTitle = selectedVariant?.variant_name;
+  const selectedVariantPrice = selectedVariant?.variant_price;
+  const selectedVariantDiscount = selectedVariant?.variant_discount || 0;
+
+  // Calculate discounted price
+  const discountedPrice =
+    selectedVariantDiscount > 0
+      ? selectedVariantPrice! * (1 - selectedVariantDiscount / 100)
+      : selectedVariantPrice;
+
+  const hasDiscount = selectedVariantDiscount > 0;
+
   return (
-    <div className=" text-left px-4">
+    <div className="text-left px-4">
       {/* Title and Price */}
       <div className="flex items-center justify-between gap-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          {productTitle}
+          {selectedVariantTitle}
         </h1>
         <span
-          aria-labelledby="add item to wishliste"
-          className="inline-block p-2 bg-light-gray rounded-full cursor-pointer"
+          aria-label="add item to wishlist"
+          className="inline-block p-2 bg-light-gray rounded-full cursor-pointer hover:bg-gray-200 transition-colors"
         >
           <FaRegHeart color="gray" size={20} />
         </span>
       </div>
-      <p className="text-xl font-semibold mb-4">{productPrice} Gel</p>
+
+      {/* Price with Discount */}
+      <div className="mb-4">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-2xl font-bold text-gray-900">
+            {discountedPrice?.toFixed(2)} Gel
+          </span>
+
+          {hasDiscount && (
+            <>
+              <span className="text-lg text-gray-400 line-through">
+                {selectedVariantPrice?.toFixed(2)} Gel
+              </span>
+              <span className="bg-red-500 text-white text-sm font-semibold px-2 py-1 rounded-md">
+                -{selectedVariantDiscount}%
+              </span>
+            </>
+          )}
+        </div>
+
+        {hasDiscount && (
+          <p className="text-sm text-green-600 font-medium mt-1">
+            You save {(selectedVariantPrice! - discountedPrice!).toFixed(2)} Gel
+          </p>
+        )}
+      </div>
 
       {/* Variant Selector */}
       <ProductVariantSelector
@@ -89,14 +127,17 @@ const ProductStats = ({
       <div className="flex items-center gap-4 mb-6">
         <button
           onClick={() => onQuantityChange("decrement")}
-          className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer"
+          className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={productQuantity === 1}
         >
           -
         </button>
-        <span className="text-lg">{productQuantity}</span>
+        <span className="text-lg font-medium min-w-[2ch] text-center">
+          {productQuantity}
+        </span>
         <button
           onClick={() => onQuantityChange("increment")}
-          className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer"
+          className="w-8 h-8 rounded-lg text-lg font-semibold bg-light-gray cursor-pointer hover:bg-gray-200 transition-colors"
         >
           +
         </button>
@@ -104,12 +145,12 @@ const ProductStats = ({
 
       {/* Action Buttons */}
       <div className="flex gap-4 mb-6">
-        <button className="bg-dirty-pink  text-white font-semibold py-1 px-9 rounded-lg ">
+        <button className="bg-dirty-pink text-white font-semibold py-1 px-9 rounded-lg hover:opacity-90 transition-opacity">
           Order Now
         </button>
         <button
           onClick={handleAddToCart}
-          className="border cursor-pointer border-gray-300 hover:border-gray-400 py-2 px-4 rounded-lg flex items-center gap-2"
+          className="border cursor-pointer border-gray-300 hover:border-gray-400 hover:bg-gray-50 py-2 px-4 rounded-lg flex items-center gap-2 transition-all"
         >
           <FaShoppingCart size={20} color="gray" />
           Add to Cart
@@ -117,14 +158,14 @@ const ProductStats = ({
       </div>
 
       {/* Personalise Button */}
-      <button className="w-full bg-light-gray py-3 px-4 rounded-lg text-xl font-semibold">
+      <button className="w-full bg-light-gray py-3 px-4 rounded-lg text-xl font-semibold hover:bg-gray-200 transition-colors">
         Personalise & Add to basket
       </button>
 
       {/* Description */}
       <div className="mt-8">
-        <h2 className="text-lg font-semibold mb-2">{productDescription}</h2>
-        <p className="text-gray-700">{productDescription}</p>
+        <h2 className="text-lg font-semibold mb-2">Description</h2>
+        <p className="text-gray-700 leading-relaxed">{productDescription}</p>
       </div>
     </div>
   );

@@ -49,8 +49,9 @@ const AddProductForm = ({
       variant_name: "",
       variant_price: 0,
       variant_quantity: 1,
-      variant_discont: 0,
-      variant_images: [],
+      variant_discount: 0,
+      images: [],
+      product_id: Infinity,
     };
     handleChangeForm("productVariants", [
       ...formValues.productVariants,
@@ -71,32 +72,6 @@ const AddProductForm = ({
         <div className="flex flex-col gap-8 border-b border-light-gray pb-6 md:flex-row">
           {/* LEFT SECTION */}
           <section className="max-w-full w-full space-y-4 md:max-w-[70%]">
-            {/* <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium">
-                Main Product Images (Max 5)
-              </label>
-              <Upload
-                multiple={true}
-                value={formValues.productPreviewImages}
-                onChange={(files) =>
-                  handleChangeForm("productPreviewImages", files)
-                }
-              />
-            </div> */}
-
-            {/* <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium mb-1.5 inline-block">
-                Title
-              </label>
-              <Input
-                value={formValues.productName}
-                onChange={(e) => onInputChange("productName", e)}
-                placeholder="e.g. Handmade Leather Bag"
-                bgColor="white"
-                border="border border-light-gray rounded-lg"
-              />
-            </div> */}
-
             <div className="flex flex-col gap-2">
               <label className="text-sm font-medium inline-block mb-1.5">
                 Description
@@ -119,40 +94,6 @@ const AddProductForm = ({
 
           {/* RIGHT SECTION */}
           <section className="max-w-full w-full space-y-4 md:max-w-[30%]">
-            {/* MAIN PRICE */}
-            {/* <div>
-              <label className="text-sm font-medium">Main Product Price</label>
-              <Input
-                placeholder="Base price (optional)"
-                onChange={(e) => onInputChange("productPrice", e)}
-                value={formValues.productPrice}
-              />
-            </div> */}
-
-            {/* MAIN QUANTITY */}
-            {/* <div>
-              <label className="text-sm font-medium">
-                Main Product Quantity
-              </label>
-              <Input
-                placeholder="Base quantity (optional)"
-                onChange={(e) => onInputChange("productQuantity", e)}
-                value={formValues.productQuantity}
-              />
-            </div> */}
-
-            {/* MAIN DISCOUNT */}
-            {/* <div>
-              <label className="text-sm font-medium">
-                Main Product Discount
-              </label>
-              <Input
-                placeholder="Base discount (optional)"
-                onChange={(e) => onInputChange("productDiscount", e)}
-                value={formValues.productDiscount}
-              />
-            </div> */}
-
             {/* CATEGORY */}
             <div>
               <label className="text-sm font-medium mb-1.5 inline-block">
@@ -164,21 +105,16 @@ const AddProductForm = ({
                     "Select Category"}
                 </Dropdown.Trigger>
                 <Dropdown.Menu className="!top-11" expandMode="absolute">
-                  {categories?.map(
-                    (category) => (
-                      console.log("category", category),
-                      (
-                        <Dropdown.Item
-                          key={category.id}
-                          onSelect={() =>
-                            handleChangeForm("productCategory", category)
-                          }
-                        >
-                          {category.category_name}
-                        </Dropdown.Item>
-                      )
-                    )
-                  )}
+                  {categories?.map((category) => (
+                    <Dropdown.Item
+                      key={category.id}
+                      onSelect={() =>
+                        handleChangeForm("productCategory", category)
+                      }
+                    >
+                      {category.category_name}
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
             </div>
