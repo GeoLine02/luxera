@@ -1,7 +1,6 @@
-import { ProductFormType } from "@/app/types/product";
 import api from "@/utils/axios";
 
-export const createNewProduct = async (data: ProductFormType) => {
+export const createNewProduct = async (data: FormData) => {
   try {
     const res = await api.post("/seller/products/create", data);
 

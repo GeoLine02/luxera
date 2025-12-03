@@ -4,7 +4,7 @@ import Button from "@/app/ui/Button";
 import { Dropdown } from "@/app/ui/DropDown";
 import { CategoryType } from "@/app/types/categories";
 import { ProductFormType } from "@/app/types/product";
-import ProductVariants from "./ProductVariants";
+import ProductVariants from "./sections/newProductSection/ProductVariants";
 import {
   Control,
   Controller,
@@ -15,6 +15,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
+import { ClipLoader } from "react-spinners";
 
 interface AddProductFormProps {
   categories: CategoryType[];
@@ -29,9 +30,11 @@ interface AddProductFormProps {
   handleSubmit: UseFormHandleSubmit<ProductFormType, ProductFormType>;
   watch: UseFormWatch<ProductFormType>;
   errors: FieldErrors<ProductFormType>;
+  disabled: boolean;
+  isLoading: boolean;
 }
 
-const AddProductForm = ({
+const ProductForm = ({
   categories,
   addNewVariantForm,
   deleteVariantForm,
@@ -43,6 +46,8 @@ const AddProductForm = ({
   watch,
   handleSubmit,
   errors,
+  disabled,
+  isLoading,
 }: AddProductFormProps) => {
   const selectedCategory = watch("product_category");
 
@@ -181,6 +186,8 @@ const AddProductForm = ({
             titleColor="white"
             rounded="lg"
             className="py-2 p-4 max-w-[400px]"
+            disabled={disabled}
+            loader={isLoading && <ClipLoader size={25} color="white" />}
           />
         </div>
       </div>
@@ -188,4 +195,4 @@ const AddProductForm = ({
   );
 };
 
-export default AddProductForm;
+export default ProductForm;
