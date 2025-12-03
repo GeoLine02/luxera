@@ -1,4 +1,4 @@
-import { CategoryType, SubCategoryType } from "./categories";
+import { SubCategoryType } from "./categories";
 import { User } from "./user";
 
 export interface ProductType {
@@ -26,27 +26,32 @@ export interface ProductImageType {
   variant_id: number;
 }
 
-export interface NewProductValues {
-  productName: string;
-  productPrice: number;
-  productDescription: string;
-  productSubCategory: SubCategoryType | null;
-  productCategory: CategoryType | null;
-  productPreviewImages: File[];
-  productVariants: ProductVariantType[];
-  productQuantity: number;
-  productDiscount: number;
+// export interface ProductFormType {
+//   product_description: string;
+//   product_variants: ProductVariantType[];
+//   product_category: Omit<CategoryType, "category_image"> | null;
+//   product_sub_category: Omit<SubCategoryType, "sub_category_image"> | null;
+// }
+
+export interface ProductFormType {
+  product_description: string;
+  product_variants: ProductVariantType[];
+  product_category: {
+    id: number;
+    category_name: string;
+    subCategories: Omit<SubCategoryType, "sub_category_image">[];
+  } | null;
+  product_sub_category: Omit<SubCategoryType, "sub_category_image"> | null;
 }
 
 export type ProductVariantType = {
-  id: number | string;
+  id?: number | string;
   variant_name: string;
   variant_price: number;
   variant_quantity: number;
   variant_discount: number;
-  product_id: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  images: { id: number; image: string }[] | any;
+  product_id?: number;
+  images: { id: number; image: string }[] | File[];
 };
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";

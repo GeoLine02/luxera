@@ -1,87 +1,74 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import AddProductForm from "./AddProductForm";
-
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import { NewProductValues } from "@/app/types/product";
+import { ProductFormType } from "@/app/types/product";
 import { useUser } from "@/app/providers/UserProvider";
 import { createNewProduct } from "../../../services/products";
-// import { ProductCreationSchema } from "../../../login/validation/productCreationSchema";
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { productFormSchema } from "./validation/productCreation.schema";
 
 const NewProductSection = () => {
-  const [productValues, setProductsValues] = useState<NewProductValues>({
-    productSubCategory: null,
-    productCategory: null,
-    productDescription: "",
-    productDiscount: 0,
-    productPreviewImages: [],
-    productName: "",
-    productPrice: 0,
-    productQuantity: 1,
-    productVariants: [],
-  });
-
   const { user } = useUser();
-
-  console.log(productValues);
-
   const { categories } = useSelector(
     (state: RootState) => state.categoriesReducer
   );
 
-  const handleChangeForm = <K extends keyof NewProductValues>(
-    fieldName: K,
-    fieldValue: NewProductValues[K]
-  ) => {
-    setProductsValues((prev) => ({
-      ...prev,
-      [fieldName]: fieldValue,
-    }));
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    watch,
+    formState: { errors, disabled, isLoading },
+  } = useForm<ProductFormType>({
+    resolver: zodResolver(productFormSchema),
+    defaultValues: {
+      product_category: null,
+      product_description: "",
+      product_sub_category: null,
+      product_variants: [
+        {
+          id: 1,
+          images: [],
+          variant_discount: 0,
+          variant_name: "",
+          variant_price: 0,
+          variant_quantity: 1,
+        },
+      ],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    name: "product_variants",
+    control,
+  });
+
+  console.log("fields", fields);
+
+  const addNewVariantForm = () => {
+    append({
+      id: fields[fields.length - 1]?.id + 1,
+      images: [],
+      variant_name: "",
+      variant_discount: 0,
+      variant_price: 0,
+      variant_quantity: 1,
+    });
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
+  const deleteVariantForm = (variantId: number) => {
+    remove(variantId);
+  };
 
-      // Basic product info
-      formData.append("productDescription", productValues.productDescription);
-      formData.append("ownerId", String(user?.id));
+  const onSubmit = async (data: ProductFormType) => {
+    console.log("Form submitted with data:", data);
+    const res = await createNewProduct(data);
 
-      if (productValues.productSubCategory) {
-        formData.append(
-          "productSubCategoryId",
-          String(productValues.productSubCategory.id)
-        );
-      }
-
-      // Variants metadata as JSON (cleaner than nested form data)
-      const variantsMetadata = productValues.productVariants.map((variant) => ({
-        variantName: variant.variant_name,
-        variantPrice: variant.variant_price,
-        variantQuantity: variant.variant_quantity,
-        variantDiscount: variant.variant_discount,
-      }));
-      formData.append("productVariants", JSON.stringify(variantsMetadata));
-
-      // Variant images with simple naming: variantImages_0, variantImages_1, etc.
-      productValues.productVariants.forEach((variant, index) => {
-        if (variant.images && variant.images.length > 0) {
-          variant.images.forEach((image: File) => {
-            formData.append(`variant-${index + 1}-image`, image);
-          });
-        }
-      });
-
-      // Send to backend
-      const response = await createNewProduct(formData);
-
-      console.log(response);
-    } catch (err) {
-      console.error("Error creating product:", err);
-    }
+    console.log("response", res);
   };
 
   return (
@@ -90,10 +77,17 @@ const NewProductSection = () => {
         Add New Product
       </h1>
       <AddProductForm
-        handleSubmit={handleSubmit}
-        handleChangeForm={handleChangeForm}
-        formValues={productValues}
+        addNewVariantForm={addNewVariantForm}
+        deleteVariantForm={deleteVariantForm}
         categories={categories}
+        variants={fields}
+        register={register}
+        control={control}
+        setValue={setValue}
+        onSubmit={onSubmit}
+        handleSubmit={handleSubmit}
+        watch={watch}
+        errors={errors}
       />
     </div>
   );

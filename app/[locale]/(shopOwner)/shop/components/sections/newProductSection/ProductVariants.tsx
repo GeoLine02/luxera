@@ -1,133 +1,166 @@
 "use client";
 
-import { ChangeEvent } from "react";
-import { ProductVariantType } from "@/app/types/product";
+import { ProductFormType, ProductVariantType } from "@/app/types/product";
 import Input from "@/app/ui/Input";
 import Upload from "@/app/ui/Upload";
 import Button from "@/app/ui/Button";
 import { IoClose } from "react-icons/io5";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  UseFormRegister,
+} from "react-hook-form";
 
 interface ProductVariantsProps {
   variants: ProductVariantType[];
-  onChangeVariant: <K extends keyof ProductVariantType>(
-    id: string,
-    field: K,
-    value: ProductVariantType[K]
-  ) => void;
   onAddVariant: () => void;
-  onDeleteVariant: (id: string) => void;
+  onDeleteVariant: (variantId: number) => void;
+  register: UseFormRegister<ProductFormType>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<ProductFormType, any, ProductFormType>;
+  errors: FieldErrors<ProductFormType>;
 }
 
 const ProductVariants = ({
   variants,
-  onChangeVariant,
   onAddVariant,
   onDeleteVariant,
+  register,
+  control,
+  errors,
 }: ProductVariantsProps) => {
   return (
     <div className="space-y-4">
       <label className="text-sm font-medium">Product Variants</label>
 
+      {/* Display general variants error */}
+      {errors?.product_variants && !Array.isArray(errors.product_variants) && (
+        <span className="text-red-500 text-sm block">
+          {errors?.product_variants.message}
+        </span>
+      )}
+
       <div className="space-y-6">
-        {variants.map((variant) => (
-          <div
-            key={variant.id}
-            className="border p-4 rounded-lg space-y-4 border-light-gray"
-          >
-            <div className="flex justify-end">
-              <IoClose
-                className="cursor-pointer"
-                size={20}
-                color="red"
-                onClick={() => onDeleteVariant(variant.id as string)}
-              />
-            </div>
+        {variants.map((variant, index) => {
+          const variantErrors = errors?.product_variants?.[index];
 
-            <div>
-              <label className="text-sm font-medium block mb-1.5">
-                Variant Name
-              </label>
-              <Input
-                value={variant.variant_name}
-                placeholder="Variant name"
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  onChangeVariant(
-                    variant.id as string,
-                    "variant_name",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div className="flex gap-3">
-              <div className="flex-1">
-                <label className="text-sm font-medium block mb-1.5">
-                  Price
-                </label>
-                <Input
-                  type="number"
-                  value={variant.variant_price}
-                  placeholder="00.00"
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    onChangeVariant(
-                      variant.id as string,
-                      "variant_price",
-                      Number(e.target.value)
-                    )
-                  }
+          return (
+            <div
+              key={variant.id}
+              className="border p-4 rounded-lg space-y-4 border-light-gray"
+            >
+              <div className="flex justify-end">
+                <IoClose
+                  className="cursor-pointer"
+                  size={20}
+                  color="red"
+                  onClick={() => onDeleteVariant(index)}
                 />
               </div>
-              <div className="flex-1">
-                <label className="text-sm font-medium block mb-1.5">
-                  Quantity
-                </label>
-                <Input
-                  type="number"
-                  value={variant.variant_quantity}
-                  placeholder="0"
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    onChangeVariant(
-                      variant.id as string,
-                      "variant_quantity",
-                      Number(e.target.value)
-                    )
-                  }
-                />
-              </div>
-              <div className="flex-1">
-                <label className="text-sm font-medium block mb-1.5">
-                  Discount %
-                </label>
-                <Input
-                  type="number"
-                  value={variant.variant_discount}
-                  placeholder="0%"
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    onChangeVariant(
-                      variant.id as string,
-                      "variant_discount",
-                      Number(e.target.value)
-                    )
-                  }
-                />
-              </div>
-            </div>
 
-            <div>
-              <label className="text-sm font-medium block mb-1.5">
-                Variant Images
-              </label>
-              <Upload
-                multiple
-                value={variant.images}
-                onChange={(files) =>
-                  onChangeVariant(variant.id as string, "images", files)
-                }
-              />
+              <div>
+                <label className="text-sm font-medium block mb-1.5">
+                  Variant Name
+                </label>
+                <Input
+                  placeholder="Variant name"
+                  className={
+                    variantErrors?.variant_name ? "border-red-500" : ""
+                  }
+                  {...register(`product_variants.${index}.variant_name`)}
+                />
+                {variantErrors?.variant_name && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {variantErrors?.variant_name.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex gap-3">
+                <div className="flex-1">
+                  <label className="text-sm font-medium block mb-1.5">
+                    Price
+                  </label>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    placeholder="00.00"
+                    className={
+                      variantErrors?.variant_price ? "border-red-500" : ""
+                    }
+                    {...register(`product_variants.${index}.variant_price`)}
+                  />
+                  {variantErrors?.variant_price && (
+                    <span className="text-red-500 text-sm block mt-1">
+                      {variantErrors?.variant_price.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm font-medium block mb-1.5">
+                    Quantity
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="0"
+                    className={
+                      variantErrors?.variant_quantity ? "border-red-500" : ""
+                    }
+                    {...register(`product_variants.${index}.variant_quantity`)}
+                  />
+                  {variantErrors?.variant_quantity && (
+                    <span className="text-red-500 text-sm block mt-1">
+                      {variantErrors?.variant_quantity.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <label className="text-sm font-medium block mb-1.5">
+                    Discount %
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="0%"
+                    className={
+                      variantErrors?.variant_discount ? "border-red-500" : ""
+                    }
+                    {...register(`product_variants.${index}.variant_discount`)}
+                  />
+                  {variantErrors?.variant_discount && (
+                    <span className="text-red-500 text-sm block mt-1">
+                      {variantErrors?.variant_discount.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium block mb-1.5">
+                  Variant Images
+                </label>
+                <Controller
+                  name={`product_variants.${index}.images`}
+                  control={control}
+                  render={({ field }) => (
+                    <div>
+                      <Upload
+                        multiple
+                        value={field.value as File[]}
+                        onChange={(files) => field.onChange(files)}
+                      />
+                      {variantErrors?.images && (
+                        <span className="text-red-500 text-sm block mt-1">
+                          {variantErrors.images.message}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         <Button
           title="Add Variant"

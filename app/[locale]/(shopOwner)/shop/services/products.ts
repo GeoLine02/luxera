@@ -1,8 +1,9 @@
+import { ProductFormType } from "@/app/types/product";
 import api from "@/utils/axios";
 
-export const createNewProduct = async (formData: FormData) => {
+export const createNewProduct = async (data: ProductFormType) => {
   try {
-    const res = await api.post("/products", formData);
+    const res = await api.post("/seller/products/create", data);
 
     if (res.status === 201) {
       return res.data;
