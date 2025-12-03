@@ -1,96 +1,95 @@
 import classNames from "classnames";
 import React from "react";
+import { UseFormRegisterReturn, FieldError } from "react-hook-form";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "name"> {
   label?: string;
   labelColor?: "darkGray";
-  error?: string;
+  error?: string | FieldError;
   bgColor?: "lightGray" | "transparent" | "white";
   border?: string;
+  name: string;
+  register?: UseFormRegisterReturn;
 }
 
-const Input: React.FC<InputProps> = ({
-  label,
-  type = "text",
-  error,
-  bgColor = "transparent",
-  className = "",
-  labelColor,
-  border,
-  ...rest
-}) => {
-  const inputBackgroundStyles = classNames({
-    "bg-light-gray": bgColor === "lightGray",
-    "bg-transparent": bgColor === "transparent",
-    "bg-white": bgColor === "white",
-  });
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      label,
+      type = "text",
+      error,
+      bgColor = "transparent",
+      className = "",
+      labelColor,
+      border,
+      name,
+      register,
+      ...rest
+    },
+    ref
+  ) => {
+    const inputBackgroundStyles = classNames({
+      "bg-light-gray": bgColor === "lightGray",
+      "bg-transparent": bgColor === "transparent",
+      "bg-white": bgColor === "white",
+    });
 
-  const labelStyles = classNames("label", {
-    "text-medium-gray": labelColor === "darkGray",
-  });
+    const labelStyles = classNames("label", {
+      "text-medium-gray": labelColor === "darkGray",
+    });
 
-  const inputBorderStyles = classNames(
-    "w-full px-3 py-2 rounded-md focus:outline-none",
-    inputBackgroundStyles,
-    border
-  );
+    const inputBorderStyles = classNames(
+      "w-full px-3 py-2 rounded-md focus:outline-none",
+      inputBackgroundStyles,
+      border
+    );
 
-  return (
-    <div className={className}>
-      {type === "checkbox" ? (
-        <div className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            id={rest.id ?? rest.name}
-            {...rest}
-            className={classNames(
-              "h-4 w-4 text-green-600 rounded focus:outline-none",
-              border,
-              {
-                "border border-red-500": !!error,
-              }
+    // Extract error message if error is a FieldError object
+    const errorMessage = typeof error === "string" ? error : error?.message;
+
+    // Merge register props with component props
+    const inputProps = register ? { ...register, ...rest } : { ...rest, name };
+
+    // Handle ref - use register's ref if available, otherwise use forwarded ref
+    const inputRef = register?.ref || ref;
+
+    return (
+      <div className={className}>
+        {type === "checkbox" ? (
+          <label className="flex items-center space-x-2 cursor-pointer">
+            <input
+              type="checkbox"
+              className="form-checkbox"
+              ref={inputRef}
+              {...inputProps}
+            />
+            {label && <span className={labelStyles}>{label}</span>}
+          </label>
+        ) : (
+          <>
+            {label && (
+              <label htmlFor={name} className={labelStyles}>
+                {label}
+              </label>
             )}
-            aria-invalid={!!error}
-            aria-describedby={error ? `${rest.name}-error` : undefined}
-          />
-          {label && (
-            <label
-              htmlFor={rest.id ?? rest.name}
-              className={`${labelStyles} text-sm`}
-            >
-              {label}
-            </label>
-          )}
-        </div>
-      ) : (
-        <>
-          {label && (
-            <label
-              htmlFor={rest.id ?? rest.name}
-              className="block mb-1 font-medium text-gray-700"
-            >
-              {label}
-            </label>
-          )}
-          <div className="w-full border border-light-gray rounded-lg">
             <input
               type={type}
-              id={rest.id ?? rest.name}
-              {...rest}
+              id={name}
               className={inputBorderStyles}
-              aria-invalid={!!error}
-              aria-describedby={error ? `${rest.name}-error` : undefined}
+              ref={inputRef}
+              {...inputProps}
             />
-          </div>
-        </>
-      )}
-      {error && (
-        <p id={`${rest.name}-error`} className="text-red-500 text-sm mt-1">
-          {error}
-        </p>
-      )}
-    </div>
-  );
-};
+          </>
+        )}
+        {errorMessage && (
+          <div className="text-red-500 text-sm mt-1">{errorMessage}</div>
+        )}
+      </div>
+    );
+  }
+);
+
+Input.displayName = "Input";
 
 export default Input;

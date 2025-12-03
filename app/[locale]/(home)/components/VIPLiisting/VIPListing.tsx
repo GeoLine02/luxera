@@ -18,7 +18,9 @@ const VIPListing = ({ products }: VipListingProps) => {
         renderCard={(product: ProductType) => (
           <ProductCard
             id={product.id}
-            images={product.variants[0].images}
+            images={
+              product.variants[0].images as { id: number; image: string }[]
+            }
             price={product.variants[0].variant_price}
             title={product.variants[0].variant_name}
           />
