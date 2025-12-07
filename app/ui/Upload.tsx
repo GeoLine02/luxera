@@ -16,8 +16,8 @@ const beforeUpload = (file: File): string | null => {
 };
 
 interface UploadProps {
-  value: File[];
-  onChange: (files: File[]) => void;
+  value: (File | string)[];
+  onChange: (files: (File | string)[]) => void;
   multiple?: boolean;
 }
 
@@ -27,12 +27,22 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
   const [previews, setPreviews] = useState<string[]>([]);
 
   const handleClick = () => fileInputRef.current?.click();
-
+  console.log("valueeeeeeee:::: ", value);
   useEffect(() => {
-    const urls = value.map((file) => URL.createObjectURL(file));
+    const urls = value.map((item) => {
+      if (typeof item === "string") return item; // backend URL
+      return URL.createObjectURL(item); // uploaded file
+    });
+
     setPreviews(urls);
 
-    return () => urls.forEach((url) => URL.revokeObjectURL(url));
+    return () => {
+      value.forEach((item) => {
+        if (item instanceof File) {
+          URL.revokeObjectURL(URL.createObjectURL(item));
+        }
+      });
+    };
   }, [value]);
 
   const handleRemoveImage = (index: number) => {

@@ -9,6 +9,7 @@ import FinancesSection from "./financesSection/FinancesSection";
 import AdvertismentSection from "./advertisment/AdvertismentSection";
 import SettingsSection from "./settingsSection/SettingsSection";
 import ReferalSection from "./referalSection/ReferalSection";
+import UpdateProductSection from "./updateSection/UpdateProductSection";
 
 const Sections = () => {
   const { activeSection } = useSelector((state: RootState) => state.shopSLice);
@@ -21,6 +22,7 @@ const Sections = () => {
       {activeSection === "advertisment" && <AdvertismentSection />}
       {activeSection === "settings" && <SettingsSection />}
       {activeSection === "referal" && <ReferalSection />}
+      {activeSection === "updateProduct" && <UpdateProductSection />}
     </div>
   );
 };

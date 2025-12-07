@@ -47,6 +47,7 @@ const productVariantSchema = z.object({
 
 // Main ProductForm schema
 export const productFormSchema = z.object({
+  id: z.number().optional(),
   product_description: z
     .string()
     .min(10, "Description must be at least 10 characters")

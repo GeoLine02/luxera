@@ -8,6 +8,7 @@ import shopSLice from "./features/shopSlice";
 import cardEditorSlice from "./features/cardEditorSlice";
 import productDetailsReducer from "./features/productDetailsSlice";
 import cartReducer from "./features/cartSlice";
+import sellerReducer from "./features/sellerSlice";
 
 // Create the store configuration
 export function makeStore(preloadedState?: unknown) {
@@ -22,6 +23,7 @@ export function makeStore(preloadedState?: unknown) {
       cardEditorSlice: cardEditorSlice,
       productDetailsReducer: productDetailsReducer,
       cartReducer: cartReducer,
+      sellerReducer: sellerReducer,
     },
     preloadedState,
   });
