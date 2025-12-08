@@ -39,11 +39,6 @@ export interface ProductFormType {
   product_sub_category: Omit<SubCategoryType, "sub_category_image"> | null;
 }
 
-export interface UploadedImageType {
-  id: number;
-  image: string;
-}
-
 export type ProductVariantType = {
   id?: number | string;
   variant_name: string;
@@ -51,7 +46,7 @@ export type ProductVariantType = {
   variant_quantity: number;
   variant_discount: number;
   product_id?: number;
-  images: ProductImageType[] | File[];
+  images: ProductImageType[] | File[] | string[];
 };
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
@@ -65,4 +60,8 @@ export interface SellerProductType {
   sales_per_month: number;
   product_status: SellerProductStatusType;
   primaryVariant: ProductVariantType;
+}
+
+export interface UpdateProductFormType extends ProductFormType {
+  images: string[];
 }

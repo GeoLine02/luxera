@@ -1,6 +1,7 @@
 import {
   fetchSellerProductById,
   fetchSellerProducts,
+  updateSellerProductById,
 } from "@/app/[locale]/(shopOwner)/shop/services/products";
 import { ProductType, SellerProductType } from "@/app/types/product";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -11,12 +12,14 @@ interface InitialStateType {
   sellerProduct: ProductType | null;
   loading: boolean;
   error: string | null;
+  success: boolean;
 }
 
 const initialState: InitialStateType = {
   sellerProducts: [],
   selectedProductId: null,
   sellerProduct: null,
+  success: false,
   loading: false,
   error: null,
 };
@@ -52,6 +55,25 @@ export const getSellerProductById = createAsyncThunk(
   }
 );
 
+interface UpdateProductResponse {
+  success: boolean;
+  message: string;
+  data?: ProductType;
+}
+
+export const updateProductThunk = createAsyncThunk<
+  UpdateProductResponse,
+  { formData: FormData }
+>("products/updateProductThunk", async ({ formData }, { rejectWithValue }) => {
+  try {
+    const result = await updateSellerProductById(formData);
+    return result.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    return rejectWithValue(err);
+  }
+});
+
 const sellerSlice = createSlice({
   name: "sellerSlice",
   initialState,
@@ -76,10 +98,12 @@ const sellerSlice = createSlice({
       .addCase(getSellerProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.sellerProducts = action.payload;
+        state.success = true;
       })
       .addCase(getSellerProducts.rejected, (state, action) => {
         state.error = action.payload as string;
         state.loading = false;
+        state.success = false;
       })
       // Fetch Seller Product By Id
       .addCase(getSellerProductById.pending, (state) => {
@@ -93,6 +117,21 @@ const sellerSlice = createSlice({
       .addCase(getSellerProductById.rejected, (state, action) => {
         state.error = action.payload as string;
         state.loading = false;
+        state.success = false;
+      })
+      // Update Product By ID
+      .addCase(updateProductThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProductThunk.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+      })
+      .addCase(updateProductThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+        state.success = false;
       });
   },
 });

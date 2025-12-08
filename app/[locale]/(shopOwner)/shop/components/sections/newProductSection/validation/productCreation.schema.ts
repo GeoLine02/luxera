@@ -14,12 +14,6 @@ const categoryWithoutImageSchema = z.object({
   subCategories: z.array(subCategoryWithoutImageSchema),
 });
 
-// Structured image object schema
-const structuredImageSchema = z.object({
-  id: z.number(),
-  image: z.string(),
-});
-
 // Product variant schema with union type for images
 const productVariantSchema = z.object({
   id: z.union([z.number(), z.string()]).optional(),
@@ -38,10 +32,16 @@ const productVariantSchema = z.object({
   product_id: z.number().optional(),
   // Check for File[] first, then fallback to structured images
   images: z
-    .array(z.instanceof(File))
-    .min(1, "At least one image is required")
-    .or(
-      z.array(structuredImageSchema).min(1, "At least one image is required")
+    .array(z.any())
+    .refine(
+      (arr) =>
+        arr.every(
+          (i) =>
+            i instanceof File ||
+            typeof i === "string" ||
+            ("id" in i && "image" in i)
+        ),
+      "Images must be File objects, URLs, or structured image objects"
     ),
 });
 
