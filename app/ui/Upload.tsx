@@ -16,8 +16,8 @@ const beforeUpload = (file: File): string | null => {
 };
 
 interface UploadProps {
-  value: File[];
-  onChange: (files: File[]) => void;
+  value: (File | { id: number; image: string })[];
+  onChange: (files: (File | { id: number; image: string })[]) => void;
   multiple?: boolean;
 }
 
@@ -28,16 +28,28 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
 
   const handleClick = () => fileInputRef.current?.click();
 
+  // ✅ Sync previews directly from value
   useEffect(() => {
-    const urls = value.map((file) => URL.createObjectURL(file));
+    const urls = value.map((item) => {
+      if (item instanceof File) return URL.createObjectURL(item);
+      if (typeof item === "string") return item;
+      return item.image; // ← existing DB file object
+    });
+
     setPreviews(urls);
 
-    return () => urls.forEach((url) => URL.revokeObjectURL(url));
+    return () => {
+      urls.forEach((url, i) => {
+        if (value[i] instanceof File) {
+          URL.revokeObjectURL(url);
+        }
+      });
+    };
   }, [value]);
 
   const handleRemoveImage = (index: number) => {
     const updatedImages = value.filter((_, i) => i !== index);
-    onChange(updatedImages);
+    onChange(updatedImages); // <-- updates RHF state
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,14 +61,11 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
 
     for (const file of selectedFiles) {
       const err = beforeUpload(file);
-
-      if (err) {
-        errorMessages.push(`${file.name}: ${err}`);
-      } else {
-        validFiles.push(file);
-      }
+      if (err) errorMessages.push(`${file.name}: ${err}`);
+      else validFiles.push(file);
     }
 
+    // Merge old and new files
     const updatedFiles = [...value, ...validFiles].slice(0, MAX_TOTAL_FILES);
 
     if (updatedFiles.length > MAX_TOTAL_FILES) {
@@ -64,12 +73,11 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
     }
 
     setError(errorMessages.length ? errorMessages.join(", ") : null);
-    onChange(updatedFiles);
+    onChange(updatedFiles); // <-- update RHF state
   };
 
   return (
     <div className="w-full space-y-3">
-      {/* Upload Box */}
       {!previews.length && (
         <div
           onClick={handleClick}
@@ -90,12 +98,11 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
         </div>
       )}
 
-      {/* Thumbnail Preview */}
       {previews.length > 0 && (
         <div className="flex flex-wrap gap-3">
           {previews.map((src, index) => (
             <div
-              key={src}
+              key={index}
               className="relative rounded-lg overflow-hidden max-h-[150px]"
             >
               <Image
@@ -105,35 +112,30 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
                 height={150}
               />
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRemoveImage(index);
-                }}
+                type="button"
+                onClick={() => handleRemoveImage(index)}
                 className="absolute top-1 right-1 bg-black/60 text-white rounded-full flex items-center justify-center text-xs"
               >
-                <IoClose
-                  className="hover:text-red-500 cursor-pointer"
-                  size={25}
-                />
+                <IoClose size={25} />
               </button>
             </div>
           ))}
 
-          <div
-            onClick={handleClick}
-            className=" border-2 border-dashed w-[150px] aspect-square border-gray-400 rounded-lg flex items-center justify-center cursor-pointer hover:border-gray-700 transition"
-          >
-            <input
-              type="file"
-              ref={fileInputRef}
-              multiple={multiple}
-              onChange={handleFileChange}
-              className="hidden"
-            />
-            <span>
+          {previews.length < MAX_TOTAL_FILES && (
+            <div
+              onClick={handleClick}
+              className="border-2 border-dashed w-[150px] aspect-square border-gray-400 rounded-lg flex items-center justify-center cursor-pointer hover:border-gray-700 transition"
+            >
+              <input
+                type="file"
+                ref={fileInputRef}
+                multiple={multiple}
+                onChange={handleFileChange}
+                className="hidden"
+              />
               <FaPlus size={35} color="gray" />
-            </span>
-          </div>
+            </div>
+          )}
         </div>
       )}
 

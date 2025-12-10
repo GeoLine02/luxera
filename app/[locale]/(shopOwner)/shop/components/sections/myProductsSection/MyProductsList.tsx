@@ -1,66 +1,62 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import MyProductCard from "./MyProductCard";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/store/store";
 import {
-  SellerProductStatusType,
-  SellersProductType,
-} from "@/app/types/product";
-
-const productsMockData: SellersProductType[] = [
-  {
-    title: "პერსონალური ჭიქა",
-    id: "456785",
-    views: "12 / 250",
-    sales: "0 / 8",
-    status: "active",
-  },
-  {
-    title: "პერსონალური ჭიქა",
-    id: "456781",
-    views: "12 / 250",
-    sales: "0 / 8",
-    status: "active",
-  },
-  {
-    title: "პერსონალური ჭიქა",
-    id: "456782",
-    views: "12 / 250",
-    sales: "0 / 8",
-    status: "active",
-  },
-  {
-    title: "პერსონალური ჭიქა",
-    id: "456786",
-    views: "12 / 250",
-    sales: "0 / 8",
-    status: "active",
-  },
-];
+  getSellerProducts,
+  selectProductId,
+} from "@/app/store/features/sellerSlice";
+import { ClipLoader } from "react-spinners";
+import { ProductImageType } from "@/app/types/product";
+import { changeSection } from "@/app/store/features/shopSlice";
 
 const MyProductsList = () => {
-  const [products, setProducts] = useState(productsMockData);
+  const dispatch = useDispatch<AppDispatch>();
+  const { sellerProducts, error, loading, selectedProductId } = useSelector(
+    (state: RootState) => state.sellerReducer
+  );
 
-  const handleChangeStatus = (
-    productId: string,
-    status: SellerProductStatusType
-  ) => {
-    setProducts((prevProudcts) =>
-      prevProudcts.map((product) =>
-        productId === product.id ? { ...product, status } : product
-      )
-    );
+  console.log("selectedProductId", selectedProductId);
+  const handleSelectProductId = (id: number) => {
+    dispatch(changeSection("updateProduct"));
+    dispatch(selectProductId(id));
   };
+
+  useEffect(() => {
+    dispatch(getSellerProducts());
+  }, [dispatch]);
+
+  if (error) {
+    return (
+      <div className="w-full min-h-[89vh] flex items-center justify-center">
+        <h1 className="text-red-500 rext-3xl">{error}</h1>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-[89vh] w-full bg-black/50 flex items-center justify-center">
+        <ClipLoader size={30} color="white" />
+      </div>
+    );
+  }
 
   return (
     <div className="mt-6 space-y-2">
-      {products.map((product) => (
+      {sellerProducts.map((product) => (
         <MyProductCard
           key={product.id}
           id={product.id}
-          title={product.title}
-          views={product.views}
-          sales={product.sales}
-          status={product.status}
-          handleChangeStatus={handleChangeStatus}
+          title={product.primaryVariant.variant_name}
+          status={product.product_status}
+          salesPerDay={product.sales_per_day}
+          salesPerMonth={product.sales_per_month}
+          viewsPerDay={product.views_per_day}
+          viewsPerMonth={product.views_per_month}
+          productImage={product.primaryVariant.images[0] as ProductImageType}
+          handleChangeStatus={() => {}}
+          handleSelectProductId={handleSelectProductId}
         />
       ))}
     </div>

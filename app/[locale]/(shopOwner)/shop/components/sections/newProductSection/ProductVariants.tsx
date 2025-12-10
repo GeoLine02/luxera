@@ -142,20 +142,25 @@ const ProductVariants = ({
                 <Controller
                   name={`product_variants.${index}.images`}
                   control={control}
-                  render={({ field }) => (
-                    <div>
-                      <Upload
-                        multiple
-                        value={field.value as File[]}
-                        onChange={(files) => field.onChange(files)}
-                      />
-                      {variantErrors?.images && (
-                        <span className="text-red-500 text-sm block mt-1">
-                          {variantErrors.images.message}
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  render={({ field }) => {
+                    const allValues: (File | { id: number; image: string })[] =
+                      field.value || [];
+
+                    return (
+                      <div>
+                        <Upload
+                          multiple
+                          value={allValues}
+                          onChange={(files) => field.onChange(files)}
+                        />
+                        {variantErrors?.images && (
+                          <span className="text-red-500 text-sm block mt-1">
+                            {variantErrors.images.message}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  }}
                 />
               </div>
             </div>
