@@ -46,7 +46,7 @@ export type ProductVariantType = {
   variant_quantity: number;
   variant_discount: number;
   product_id?: number;
-  images: ProductImageType[] | File[] | string[];
+  images: (ProductImageType | File)[];
 };
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
@@ -60,8 +60,4 @@ export interface SellerProductType {
   sales_per_month: number;
   product_status: SellerProductStatusType;
   primaryVariant: ProductVariantType;
-}
-
-export interface UpdateProductFormType extends ProductFormType {
-  images: string[];
 }

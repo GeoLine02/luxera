@@ -26,6 +26,8 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
   const [error, setError] = useState<string | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
 
+  console.log("value", value);
+
   const handleClick = () => fileInputRef.current?.click();
 
   // ✅ Sync previews directly from value
