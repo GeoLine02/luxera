@@ -143,16 +143,9 @@ const ProductVariants = ({
                   name={`product_variants.${index}.images`}
                   control={control}
                   render={({ field }) => {
-                    const allValues: (File | string)[] = field.value
-                      ? field.value.map((value) =>
-                          value instanceof File
-                            ? value
-                            : typeof value === "string"
-                            ? value
-                            : value.image
-                        )
-                      : [];
-                    console.log("field.value", field.value);
+                    const allValues: (File | { id: number; image: string })[] =
+                      field.value || [];
+
                     return (
                       <div>
                         <Upload

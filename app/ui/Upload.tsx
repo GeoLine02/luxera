@@ -16,8 +16,8 @@ const beforeUpload = (file: File): string | null => {
 };
 
 interface UploadProps {
-  value: (File | string)[];
-  onChange: (files: (File | string)[]) => void;
+  value: (File | { id: number; image: string })[];
+  onChange: (files: (File | { id: number; image: string })[]) => void;
   multiple?: boolean;
 }
 
@@ -26,15 +26,16 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
   const [error, setError] = useState<string | null>(null);
   const [previews, setPreviews] = useState<string[]>([]);
 
-  console.log("value", value);
-
   const handleClick = () => fileInputRef.current?.click();
 
   // ✅ Sync previews directly from value
   useEffect(() => {
-    const urls = value.map((item) =>
-      typeof item === "string" ? item : URL.createObjectURL(item)
-    );
+    const urls = value.map((item) => {
+      if (item instanceof File) return URL.createObjectURL(item);
+      if (typeof item === "string") return item;
+      return item.image; // ← existing DB file object
+    });
+
     setPreviews(urls);
 
     return () => {
