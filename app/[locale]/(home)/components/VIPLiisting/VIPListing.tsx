@@ -2,10 +2,7 @@
 
 import ProductCard from "@/app/shared/ProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
-import {
-  ProductImageType,
-  ProductWithPrimaryVariant,
-} from "@/app/types/product";
+import { ProductWithPrimaryVariant } from "@/app/types/product";
 
 interface VipListingProps {
   products: ProductWithPrimaryVariant[];
@@ -21,7 +18,7 @@ const VIPListing = ({ products }: VipListingProps) => {
         renderCard={(product: ProductWithPrimaryVariant) => (
           <ProductCard
             id={product.id}
-            images={product.primaryVariant.images as ProductImageType[]}
+            priamryImage={product.primaryVariant.image}
             price={product.primaryVariant.variant_price}
             title={product.primaryVariant.variant_name}
           />

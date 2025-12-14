@@ -15,7 +15,9 @@ export interface ProductType {
 }
 
 export type ProductWithPrimaryVariant = Omit<ProductType, "variants"> & {
-  primaryVariant: ProductVariantType;
+  primaryVariant: Omit<ProductVariantType, "images"> & {
+    image: string;
+  };
 };
 
 export interface ProductDetailsType extends ProductType {

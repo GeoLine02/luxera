@@ -5,7 +5,6 @@ import api from "@/utils/axios";
 export const loginService = async (userSignInCreds: UserSignInCredsType) => {
   try {
     const validatedFields = loginValidationSchema.safeParse(userSignInCreds);
-    console.log(validatedFields.error?.flatten().fieldErrors);
     if (!validatedFields.success) {
       return {
         values: userSignInCreds,

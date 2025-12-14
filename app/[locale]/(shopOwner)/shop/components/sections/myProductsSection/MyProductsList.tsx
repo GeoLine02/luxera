@@ -16,7 +16,6 @@ const MyProductsList = () => {
     (state: RootState) => state.sellerReducer
   );
 
-  console.log("selectedProductId", selectedProductId);
   const handleSelectProductId = (id: number) => {
     dispatch(changeSection("updateProduct"));
     dispatch(selectProductId(id));
