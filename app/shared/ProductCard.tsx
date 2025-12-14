@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosStar } from "react-icons/io";
+import { ProductImageType } from "../types/product";
 
 interface ProductCardProps {
   id: number;
 
-  images: { id: number; image: string }[];
+  images: ProductImageType[];
   price: number;
   title: string;
 }
@@ -13,7 +14,7 @@ interface ProductCardProps {
 const ProductCard = ({ images, price, title, id }: ProductCardProps) => {
   return (
     <Link
-      href={`/${id}`}
+      href={`/product/${title}-${id}`}
       className="border-2 rounded-lg border-ice-blue p-2.5 space-y-1 max-w-[200px] bg-white flex flex-col items-center cursor-pointer"
     >
       <div className="space-y-1 md:space-y-1 w-full">

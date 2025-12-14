@@ -1,7 +1,5 @@
-// import { productsData } from "@/data/products";
 import ProductPreview from "./components/ProductPreview";
 import ProductStats from "./components/ProductsStats/ProductStats";
-// import SuggestedProducts from "./components/SuggestedProducts";
 import MobileProductPreview from "./components/MobileProductPreview";
 import Seller from "./components/seller/Seller";
 import { fetchProductById } from "./services/products";
@@ -10,24 +8,27 @@ import AddReview from "./components/productReviews/addReview/AddReview";
 import AllReviews from "./components/productReviews/allReviews/AllReviews";
 
 interface ProductDetailsProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
 const ProductDetails = async ({ params }: ProductDetailsProps) => {
-  const { id } = await params;
-  const productId = Number(id);
+  const { slug } = await params;
 
-  const productByIdData: ProductDetailsType = await fetchProductById(productId);
+  const productId = slug.split("-")[1];
 
-  console.log("productByIdData", productByIdData);
+  const id = Number(productId);
 
+  const productByIdData: ProductDetailsType = await fetchProductById(id);
+  console.log("product Data: ", productByIdData);
   return (
     <div className="mt-6">
       <div className="flex flex-col md:flex-row justify-between container">
-        <ProductPreview productImages={productByIdData.images} />
-        <MobileProductPreview productImages={productByIdData.images} />
+        <ProductPreview productVariants={productByIdData.variants} />
+        <MobileProductPreview productVariants={productByIdData.variants} />
         <ProductStats
-          productId={productId}
+          productId={id}
           productDescription={productByIdData.product_description}
           productVariants={productByIdData.variants}
         />
