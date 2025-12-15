@@ -42,6 +42,10 @@ const ProductFilter = () => {
             <FilterModal
               setIsFilterOpen={setIsFilterOpen}
               isModalOpen={isFilterOpen}
+              priceFrom={priceFrom}
+              priceTo={priceTo}
+              setPriceFrom={setPriceFrom}
+              setPriceTo={setPriceTo}
             />
           </Dropdown.Menu>
         </Dropdown>
