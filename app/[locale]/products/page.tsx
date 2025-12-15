@@ -1,16 +1,32 @@
-import ProductFilter from "./components/productFilter/ProductFilter";
 import SearchContainer from "@/app/shared/search/SearchContainer";
 import { fetchAllProducts } from "./services/allProducts";
+import SubCategories from "@/app/shared/categories/SubCategories";
+import ProductFilter from "./components/productFilter/ProductFilter";
 import AllProducts from "./components/AllProducts";
-import SubCategories from "../../shared/categories/SubCategories";
 
-export default async function Products({}: // params: paramsPromise,
-{
-  params: Promise<{ locale: string }>;
+export default async function Products({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    page?: string;
+    subcategory?: string;
+    priceFrom?: string;
+    priceTo?: string;
+  }>;
 }) {
-  // const params = await paramsPromise;
+  const resolvedParams = await searchParams;
 
-  const allProductsData = await fetchAllProducts();
+  const pageParam = Number(resolvedParams.page) || 1;
+  const subcategoryParam = resolvedParams.subcategory;
+  const priceFrom = resolvedParams.priceFrom || "";
+  const priceTo = resolvedParams.priceTo || "";
+
+  const allProductsData = await fetchAllProducts(
+    pageParam,
+    subcategoryParam,
+    priceFrom,
+    priceTo
+  );
 
   return (
     <div>
@@ -22,7 +38,14 @@ export default async function Products({}: // params: paramsPromise,
         <ProductFilter />
       </div>
       <div className="mt-[50px] px-5">
-        <AllProducts products={allProductsData} />
+        <AllProducts
+          initialProducts={allProductsData.data}
+          initialHasMore={allProductsData.hasMore}
+          pageParam={pageParam}
+          subcategoryParam={subcategoryParam}
+          priceFromParam={priceFrom}
+          priceToParam={priceTo}
+        />
       </div>
     </div>
   );

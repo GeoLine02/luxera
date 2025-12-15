@@ -20,7 +20,6 @@ const Header = () => {
   const pathName = usePathname();
 
   const { user } = useUser();
-  console.log("Header user", user);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 

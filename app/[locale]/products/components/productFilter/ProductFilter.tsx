@@ -4,10 +4,29 @@ import { Dropdown } from "@/app/ui/DropDown";
 import Input from "@/app/ui/Input";
 import { FaArrowDown } from "react-icons/fa6";
 import FilterModal from "./FilterModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ProductFilter = () => {
+  const searchParams = useSearchParams();
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const router = useRouter();
+  const [priceFrom, setPriceFrom] = useState<string>(
+    searchParams.get("priceFrom") || ""
+  );
+  const [priceTo, setPriceTo] = useState<string>(
+    searchParams.get("priceTo") || ""
+  );
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (priceFrom) params.set("priceFrom", priceFrom.toString());
+    else params.delete("priceFrom");
+    if (priceTo) params.set("priceTo", priceTo.toString());
+    else params.delete("priceTo");
+
+    router.replace(`${window.location.pathname}?${params.toString()}`);
+  }, [priceFrom, priceTo, router, searchParams]);
 
   return (
     <>
@@ -39,6 +58,8 @@ const ProductFilter = () => {
               type="text"
               placeholder="0"
               className="max-w-[70px]"
+              value={priceFrom}
+              onChange={(e) => setPriceFrom(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-3">
@@ -49,6 +70,8 @@ const ProductFilter = () => {
               type="text"
               placeholder="100"
               className="max-w-[70px]"
+              value={priceTo}
+              onChange={(e) => setPriceTo(e.target.value)}
             />
           </div>
         </div>
