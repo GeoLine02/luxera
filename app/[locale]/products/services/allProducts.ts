@@ -3,8 +3,8 @@ import api from "@/utils/axios";
 export const fetchAllProducts = async (
   page: number,
   subcategoryId?: string,
-  priceFrom?: number,
-  priceTo?: number
+  priceFrom?: string,
+  priceTo?: string
 ) => {
   try {
     const res = await api.get(

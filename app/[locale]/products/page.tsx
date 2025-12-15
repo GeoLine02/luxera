@@ -10,13 +10,23 @@ export default async function Products({
   searchParams: Promise<{
     page?: string;
     subcategory?: string;
+    priceFrom?: string;
+    priceTo?: string;
   }>;
 }) {
   const resolvedParams = await searchParams;
 
   const pageParam = Number(resolvedParams.page) || 1;
   const subcategoryParam = resolvedParams.subcategory;
-  const allProductsData = await fetchAllProducts(pageParam, subcategoryParam);
+  const priceFrom = resolvedParams.priceFrom || "";
+  const priceTo = resolvedParams.priceTo || "";
+
+  const allProductsData = await fetchAllProducts(
+    pageParam,
+    subcategoryParam,
+    priceFrom,
+    priceTo
+  );
 
   return (
     <div>
@@ -33,6 +43,8 @@ export default async function Products({
           initialHasMore={allProductsData.hasMore}
           pageParam={pageParam}
           subcategoryParam={subcategoryParam}
+          priceFromParam={priceFrom}
+          priceToParam={priceTo}
         />
       </div>
     </div>

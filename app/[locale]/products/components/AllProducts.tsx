@@ -11,11 +11,15 @@ const AllProducts = ({
   initialHasMore,
   pageParam,
   subcategoryParam,
+  priceFromParam,
+  priceToParam,
 }: {
   initialProducts: ProductWithPrimaryVariant[];
   initialHasMore: boolean;
   subcategoryParam: string | undefined;
   pageParam: number;
+  priceFromParam: string;
+  priceToParam: string;
 }) => {
   const [page, setPage] = useState<number>(pageParam);
   const [products, setProducts] = useState(initialProducts);
@@ -27,7 +31,12 @@ const AllProducts = ({
     setLoading(true);
 
     const nextPage = page + 1;
-    const res = await fetchAllProducts(nextPage, subcategoryParam);
+    const res = await fetchAllProducts(
+      nextPage,
+      subcategoryParam,
+      priceFromParam,
+      priceToParam
+    );
 
     if (!res.data.length) {
       setHasMore(false);
