@@ -17,7 +17,7 @@ export default async function Products({
   const resolvedParams = await searchParams;
 
   const pageParam = Number(resolvedParams.page) || 1;
-  const subcategoryParam = resolvedParams.subcategory;
+  const subcategoryParam = resolvedParams.subcategory || "";
   const priceFrom = resolvedParams.priceFrom || "";
   const priceTo = resolvedParams.priceTo || "";
 
