@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 const AllProducts = ({
   initialProducts,
   initialHasMore,
-  pageParam,
   subcategoryParam,
+  pageParam,
   priceFromParam,
   priceToParam,
 }: {
@@ -52,6 +52,7 @@ const AllProducts = ({
     setProducts(initialProducts);
     setPage(pageParam);
     setHasMore(initialHasMore);
+    console.log("rerenders");
   }, [initialProducts, pageParam, initialHasMore, subcategoryParam]);
 
   return (

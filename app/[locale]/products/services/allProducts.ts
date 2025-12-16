@@ -2,18 +2,18 @@ import api from "@/utils/axios";
 
 export const fetchAllProducts = async (
   page: number,
-  subcategoryId?: string,
+  subcategory?: string,
   priceFrom?: string,
   priceTo?: string
 ) => {
   try {
     const res = await api.get(
-      `/products?page=${page}&subcategoryId=${subcategoryId}&priceFrom=${priceFrom}&priceTo=${priceTo}`
+      `/products?page=${page}&subcategory=${subcategory}&priceFrom=${priceFrom}&priceTo=${priceTo}`
     );
 
     if (res.status === 200) {
       const data = await res.data;
-      console.log("paginated products data");
+      console.log("paginated products data", data);
       return data;
     }
   } catch (error) {
