@@ -1,13 +1,13 @@
 import { User } from "@/app/types/user";
 import SellerPageButton from "./SellerPageButton";
+import { ShopType } from "@/app/types/shop";
 
 interface SellerProps {
-  seller: User;
-  shopId: number;
+  shop: ShopType;
 }
 
-const Seller = ({ seller }: SellerProps) => {
-  console.log("seller", seller);
+const Seller = ({ shop }: SellerProps) => {
+  console.log("shop", shop);
   return (
     <div className="bg-light-pink rounded-xl p-4 flex items-center justify-between mt-4 max-w-[570px]">
       <div className="flex items-center gap-4">
@@ -16,10 +16,10 @@ const Seller = ({ seller }: SellerProps) => {
         </div>
         <div>
           <span className="text-sm text-medium-gray">Seller</span>
-          <h1>{seller.full_name}</h1>
+          <h1>{shop.shop_name}</h1>
         </div>
       </div>
-      <SellerPageButton />
+      <SellerPageButton shopId={shop.id} shopName={shop.shop_name} />
     </div>
   );
 };

@@ -4,3 +4,9 @@ export interface ShopRegisterType {
   password: string;
   repeatPassword: string;
 }
+
+export interface ShopType {
+  id: number;
+  owner_id: number;
+  shop_name: string;
+}

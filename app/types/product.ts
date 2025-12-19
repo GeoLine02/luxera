@@ -1,4 +1,5 @@
 import { SubCategoryType } from "./categories";
+import { ShopType } from "./shop";
 import { User } from "./user";
 
 export interface ProductType {
@@ -24,6 +25,7 @@ export interface ProductDetailsType extends ProductType {
   images: ProductImageType[];
   product_description: string;
   owner: User;
+  shop: ShopType;
 }
 
 export interface ProductImageType {
