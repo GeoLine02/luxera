@@ -5,6 +5,7 @@ import { ProductWithPrimaryVariant } from "@/app/types/product";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchAllProducts } from "../services/allProducts";
 import { useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
 
 const AllProducts = ({
   initialProducts,
@@ -64,7 +65,7 @@ const AllProducts = ({
         dataLength={products.length}
         hasMore={hasMore}
         next={fetchMore}
-        loader={loading && <p>Loading...</p>}
+        loader={loading && <ClipLoader size={25} />}
         scrollThreshold={0.8}
       >
         <div className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5 xl:gap-6 2xl:grid-cols-6">

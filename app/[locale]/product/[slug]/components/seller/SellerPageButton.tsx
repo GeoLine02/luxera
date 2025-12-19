@@ -3,10 +3,17 @@
 import Button from "@/app/ui/Button";
 import Link from "next/link";
 
-const SellerPageButton = () => {
+interface SellerPageButtonProps {
+  shopName: string;
+  shopId: number;
+}
+
+const SellerPageButton = ({ shopId, shopName }: SellerPageButtonProps) => {
+  const slug = encodeURIComponent(`${shopName}-${shopId}`);
+
   return (
     <div>
-      <Link href={`seller/`}>
+      <Link href={`/seller/${slug}`}>
         <Button
           rounded="xl"
           title="View Shop"

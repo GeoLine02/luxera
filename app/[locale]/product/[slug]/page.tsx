@@ -34,10 +34,7 @@ const ProductDetails = async ({ params }: ProductDetailsProps) => {
         />
       </div>
       <div className="px-4 md:px-0 container">
-        <Seller
-          seller={productByIdData.owner}
-          shopId={productByIdData.shop_id}
-        />
+        <Seller shop={productByIdData.shop} />
       </div>
       <div className="mt-8 container space-y-4 px-4 md:px-0">
         <AddReview />
