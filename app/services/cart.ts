@@ -26,7 +26,6 @@ export const changeCartItemQuantityService = async (
     if (res.status !== 200) {
       return res.data.message;
     }
-    console.log("123123312", res.data);
     const data = res.data;
     return data;
   } catch (error) {
@@ -36,13 +35,13 @@ export const changeCartItemQuantityService = async (
 
 export const deleteCartItemService = async (cartItemId: number) => {
   try {
-    const res = await api.delete(`cart/${cartItemId}`);
-    if (res.status !== 200) {
-      return res.data.message;
-    }
+    const res = await api.delete(`/cart/${cartItemId}`);
 
-    const data = res.data;
-    return data;
+    console.log("data", res.data);
+    if (res.status === 200) {
+      const data = res.data;
+      return data;
+    }
   } catch (error) {
     console.log(error);
   }

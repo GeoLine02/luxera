@@ -17,7 +17,7 @@ const CartItemsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useUser();
   const { cart } = useSelector((state: RootState) => state.cartReducer);
-
+  console.log(cart);
   const onQuantityChange = async (cartItemId: number, quantity: number) => {
     dispatch(changeCartItemQuantity({ cartItemId, quantity }));
   };
