@@ -45,8 +45,8 @@ export const deleteCartItem = createAsyncThunk<
   { rejectValue: string }
 >("cart/delteItem", async ({ cartItemId }, thunkAPI) => {
   try {
-    const data = await deleteCartItemService(cartItemId);
-    return data;
+    const res = await deleteCartItemService(cartItemId);
+    return res;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -76,6 +76,7 @@ const cartSlice = createSlice({
       );
     });
     builder.addCase(deleteCartItem.fulfilled, (state, action) => {
+      console.log("cartItemId", action.payload);
       const cartItemId = action.payload.data.itemId;
       state.cart = state.cart.filter((cartItem) => cartItem.id !== cartItemId);
     });

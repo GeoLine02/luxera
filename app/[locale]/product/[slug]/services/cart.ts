@@ -11,7 +11,7 @@ export const addToCartService = async (
       userId,
       productId,
       variantId: productVariantId,
-      productQuantity,
+      quantity: productQuantity,
     });
     if (res.status !== 201) {
       return res.data.message;
