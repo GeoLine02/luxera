@@ -1,6 +1,7 @@
 "use client";
 
 import useOutsideClick from "@/app/hooks/useOutSideClick";
+import Button from "@/app/ui/Button";
 import Input from "@/app/ui/Input";
 import classNames from "classnames";
 
@@ -11,6 +12,7 @@ interface FilterModalProps {
   setPriceTo: React.Dispatch<React.SetStateAction<string>>;
   priceFrom: string;
   priceTo: string;
+  handleFilterProducts: () => void;
 }
 
 const FilterModal = ({
@@ -20,6 +22,7 @@ const FilterModal = ({
   setPriceTo,
   priceFrom,
   priceTo,
+  handleFilterProducts,
 }: FilterModalProps) => {
   const modalToggleStyles = classNames("dropdown-animation", {
     "dropdown-open": isModalOpen,
@@ -57,6 +60,15 @@ const FilterModal = ({
           />
         </div>
       </div>
+      <Button
+        rounded="lg"
+        title="Filter"
+        type="button"
+        bgColor="black"
+        titleColor="white"
+        className="py-2 font-medium"
+        onClick={handleFilterProducts}
+      />
     </div>
   );
 };

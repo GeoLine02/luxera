@@ -5,7 +5,7 @@ import { CategoryType, SubCategoryType } from "@/app/types/categories";
 
 interface DesktopCategoriesModalProps {
   handleChooseCatogery: (category: CategoryType) => void;
-  handleChooseSubCategory: (category: SubCategoryType) => void;
+  handleChooseSubCategory: (subcategory: SubCategoryType) => void;
   handleCloseModal: () => void;
   categories: CategoryType[];
   selectedCategory: null | CategoryType;
@@ -56,14 +56,14 @@ const DesktopCategoriesModal = ({
               {selectedCategory?.category_name}
             </h1>
             <div className="grid grid-cols-2 gap-3">
-              {selectedCategory?.subCategories.map((category) => (
+              {selectedCategory?.subCategories.map((subcategory) => (
                 <div
-                  onClick={() => handleChooseSubCategory(category)}
-                  key={category.id}
+                  onClick={() => handleChooseSubCategory(subcategory)}
+                  key={subcategory.id}
                 >
                   <CategoryModalCard
-                    label={category.sub_category_name}
-                    image={category.sub_category_image}
+                    label={subcategory.sub_category_name}
+                    image={subcategory.sub_category_image}
                   />
                 </div>
               ))}

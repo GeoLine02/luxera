@@ -4,8 +4,9 @@ import { Dropdown } from "@/app/ui/DropDown";
 import Input from "@/app/ui/Input";
 import { FaArrowDown } from "react-icons/fa6";
 import FilterModal from "./FilterModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Button from "@/app/ui/Button";
 
 const ProductFilter = () => {
   const searchParams = useSearchParams();
@@ -18,15 +19,14 @@ const ProductFilter = () => {
     searchParams.get("priceTo") || ""
   );
 
-  useEffect(() => {
+  const handleFilterProducts = () => {
     const params = new URLSearchParams(searchParams.toString());
     if (priceFrom) params.set("priceFrom", priceFrom.toString());
     else params.delete("priceFrom");
     if (priceTo) params.set("priceTo", priceTo.toString());
     else params.delete("priceTo");
-
     router.replace(`${window.location.pathname}?${params.toString()}`);
-  }, [priceFrom, priceTo, router, searchParams]);
+  };
 
   return (
     <>
@@ -38,7 +38,7 @@ const ProductFilter = () => {
               <FaArrowDown className="p-1.5 rounded-full box-content border border-black" />
             </div>
           </Dropdown.Trigger>
-          <Dropdown.Menu expandMode="overlay">
+          <Dropdown.Menu className="mt-4" expandMode="overlay">
             <FilterModal
               setIsFilterOpen={setIsFilterOpen}
               isModalOpen={isFilterOpen}
@@ -46,6 +46,7 @@ const ProductFilter = () => {
               priceTo={priceTo}
               setPriceFrom={setPriceFrom}
               setPriceTo={setPriceTo}
+              handleFilterProducts={handleFilterProducts}
             />
           </Dropdown.Menu>
         </Dropdown>
@@ -79,16 +80,15 @@ const ProductFilter = () => {
             />
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <label htmlFor="sortBy">Sort By</label>
-          <Input
-            bgColor="white"
-            name="sortBy"
-            type="text"
-            placeholder="Default"
-            className="max-w-[120px]"
-          />
-        </div>
+        <Button
+          rounded="lg"
+          title="Filter"
+          className="font-medium py-2 max-w-[100px]"
+          type="button"
+          bgColor="black"
+          titleColor="white"
+          onClick={handleFilterProducts}
+        />
       </div>
     </>
   );
