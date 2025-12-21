@@ -14,6 +14,13 @@ const categoryWithoutImageSchema = z.object({
   subCategories: z.array(subCategoryWithoutImageSchema),
 });
 
+const productImageSchema = z.object({
+  id: z.number(),
+  image: z.string(),
+  productId: z.number(),
+  variant_id: z.number(),
+});
+
 // Product variant schema with union type for images
 const productVariantSchema = z.object({
   id: z.union([z.number(), z.string()]).optional(),
@@ -32,17 +39,8 @@ const productVariantSchema = z.object({
   product_id: z.number().optional(),
   // Check for File[] first, then fallback to structured images
   images: z
-    .array(z.any())
-    .refine(
-      (arr) =>
-        arr.every(
-          (i) =>
-            i instanceof File ||
-            typeof i === "string" ||
-            ("id" in i && "image" in i)
-        ),
-      "Images must be File objects, URLs, or structured image objects"
-    ),
+    .array(z.union([z.instanceof(File), productImageSchema]))
+    .min(1, "At least one image is required"),
 });
 
 // Main ProductForm schema
@@ -55,8 +53,16 @@ export const productFormSchema = z.object({
   product_variants: z
     .array(productVariantSchema)
     .min(1, "At least one product variant is required"),
-  product_category: categoryWithoutImageSchema.nullable(),
-  product_sub_category: subCategoryWithoutImageSchema.nullable(),
+  product_category: categoryWithoutImageSchema
+    .nullable()
+    .refine((val) => val !== null, {
+      message: "Category is required",
+    }),
+  product_sub_category: subCategoryWithoutImageSchema
+    .nullable()
+    .refine((val) => val !== null, {
+      message: "Subcateogry is required",
+    }),
 });
 
 export type ProductFormSchema = z.infer<typeof productFormSchema>;

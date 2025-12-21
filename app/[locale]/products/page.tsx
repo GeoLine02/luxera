@@ -39,6 +39,7 @@ export default async function Products({
       </div>
       <div className="mt-[50px] px-5">
         <AllProducts
+          key={`${subcategoryParam}-${priceFrom}-${priceTo}`}
           initialProducts={allProductsData.data}
           initialHasMore={allProductsData.hasMore}
           pageParam={pageParam}

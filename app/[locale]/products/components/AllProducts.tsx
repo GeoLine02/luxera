@@ -4,7 +4,7 @@ import ProductCard from "@/app/shared/ProductCard";
 import { ProductWithPrimaryVariant } from "@/app/types/product";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchAllProducts } from "../services/allProducts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 const AllProducts = ({
@@ -23,10 +23,10 @@ const AllProducts = ({
   priceToParam: string;
 }) => {
   const [page, setPage] = useState<number>(pageParam);
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] =
+    useState<ProductWithPrimaryVariant[]>(initialProducts);
   const [loading, setLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore);
-
   const fetchMore = async () => {
     if (loading) return; // prevent duplicate calls
     setLoading(true);
@@ -40,21 +40,14 @@ const AllProducts = ({
     );
 
     if (!res.data.length) {
-      setHasMore(false);
+      setHasMore(res.hasMore);
     } else {
       setProducts((prev) => [...prev, ...res.data]);
-      setPage(nextPage);
+      setPage(Number(res.page));
     }
 
     setLoading(false);
   };
-
-  useEffect(() => {
-    setProducts(initialProducts);
-    setPage(pageParam);
-    setHasMore(initialHasMore);
-    console.log("rerenders");
-  }, [initialProducts, pageParam, initialHasMore, subcategoryParam]);
 
   return (
     <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8">

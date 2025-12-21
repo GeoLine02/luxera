@@ -40,7 +40,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     });
 
     const inputBorderStyles = classNames(
-      "w-full px-3 py-2 rounded-md focus:outline-none",
+      "w-full px-3 py-2 rounded-md border-1 border-light-gray focus:outline-none",
       inputBackgroundStyles,
       border
     );

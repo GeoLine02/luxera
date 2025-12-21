@@ -45,6 +45,8 @@ const NewProductSection = () => {
     },
   });
 
+  console.log("errors", errors);
+
   const { fields, append, remove } = useFieldArray({
     name: "product_variants",
     control,

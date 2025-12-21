@@ -5,16 +5,16 @@ import { AppDispatch, RootState } from "@/app/store/store";
 import {
   chooseSelectedCategory,
   closeCategoriesModal,
-  setSubCategories,
 } from "@/app/store/features/categoriesSlice";
 import { CategoryType, SubCategoryType } from "@/app/types/categories";
 import MobileCategoriesModal from "./MobileCategoriesModal";
 import classNames from "classnames";
 import DesktopCategoriesModal from "./DesktopCategoriesModal";
+import { useRouter } from "next/navigation";
 
 const CategoriesModal = () => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const router = useRouter();
   const handleCloseModal = () => {
     dispatch(closeCategoriesModal());
   };
@@ -23,8 +23,11 @@ const CategoriesModal = () => {
     dispatch(chooseSelectedCategory(category));
   };
 
-  const handleChooseSubCategory = (subCategory: SubCategoryType) => {
-    dispatch(setSubCategories(subCategory));
+  const handleChooseSubCategory = (subcategory: SubCategoryType) => {
+    router.push(
+      `/products?subcategory=${subcategory.sub_category_name}-${subcategory.id}`
+    );
+    dispatch(closeCategoriesModal());
   };
 
   const {
