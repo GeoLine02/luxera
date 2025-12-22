@@ -14,7 +14,6 @@ const ChangePassword = () => {
           <Input
             name="newPassword"
             bgColor="white"
-            border="border rounded-lg border-light-gray"
             type="password"
             className="max-w-[300px] mt-2"
           />
@@ -24,7 +23,6 @@ const ChangePassword = () => {
           <Input
             name="confirmNewPassword"
             bgColor="white"
-            border="border rounded-lg border-light-gray"
             type="password"
             className="max-w-[300px] !py-0 mt-2"
           />

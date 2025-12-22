@@ -50,7 +50,7 @@ const AllProducts = ({
   };
 
   return (
-    <div className="w-full px-3 sm:px-4 md:px-6 lg:px-8">
+    <div className="w-full">
       <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-[40px] font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-12 xl:mb-14">
         All Products
       </h1>
@@ -61,7 +61,7 @@ const AllProducts = ({
         loader={loading && <ClipLoader size={25} />}
         scrollThreshold={0.8}
       >
-        <div className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5 xl:gap-6 2xl:grid-cols-6">
+        <div className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           {products.map((product) => (
             <ProductCard
               key={product.id}

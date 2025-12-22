@@ -8,7 +8,6 @@ interface InputProps
   labelColor?: "darkGray";
   error?: string | FieldError;
   bgColor?: "lightGray" | "transparent" | "white";
-  border?: string;
   name: string;
   register?: UseFormRegisterReturn;
 }
@@ -19,30 +18,20 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       label,
       type = "text",
       error,
-      bgColor = "transparent",
       className = "",
       labelColor,
-      border,
       name,
       register,
       ...rest
     },
     ref
   ) => {
-    const inputBackgroundStyles = classNames({
-      "bg-light-gray": bgColor === "lightGray",
-      "bg-transparent": bgColor === "transparent",
-      "bg-white": bgColor === "white",
-    });
-
     const labelStyles = classNames("label", {
       "text-medium-gray": labelColor === "darkGray",
     });
 
     const inputBorderStyles = classNames(
-      "w-full px-3 py-2 rounded-md border-1 border-light-gray focus:outline-none",
-      inputBackgroundStyles,
-      border
+      "w-full px-3 py-2 rounded-md border-1 border-light-gray focus:outline-none"
     );
 
     // Extract error message if error is a FieldError object
@@ -55,7 +44,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputRef = register?.ref || ref;
 
     return (
-      <div className={className}>
+      <div className={className + "border-2 border-light-gray rounded-lg"}>
         {type === "checkbox" ? (
           <label className="flex items-center space-x-2 cursor-pointer">
             <input
@@ -76,7 +65,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             <input
               type={type}
               id={name}
-              className={inputBorderStyles}
+              className={inputBorderStyles + "border-2 border-light-gray"}
               ref={inputRef}
               {...inputProps}
             />

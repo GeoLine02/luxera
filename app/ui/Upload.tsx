@@ -36,6 +36,7 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
       return item.image; // ← existing DB file object
     });
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPreviews(urls);
 
     return () => {

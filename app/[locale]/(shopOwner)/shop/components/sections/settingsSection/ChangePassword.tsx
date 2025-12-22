@@ -12,7 +12,6 @@ const ChangePassword = () => {
             className="md:w-fit"
             name="currentPassword"
             bgColor="white"
-            border="border border-light-gray rounded-xl"
             type="password"
           />
         </div>
@@ -22,7 +21,6 @@ const ChangePassword = () => {
             className="md:w-fit"
             name="newPassword"
             bgColor="white"
-            border="border border-light-gray rounded-xl"
             type="password"
           />
         </div>
@@ -32,7 +30,6 @@ const ChangePassword = () => {
             className="md:w-fit"
             name="currentPassword"
             bgColor="white"
-            border="border border-light-gray rounded-xl"
             type="password"
           />
         </div>
