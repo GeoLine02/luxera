@@ -1,8 +1,8 @@
 import SearchContainer from "@/app/shared/search/SearchContainer";
 import { fetchAllProducts } from "./services/allProducts";
 import SubCategories from "@/app/shared/categories/SubCategories";
-import ProductFilter from "./components/productFilter/ProductFilter";
 import AllProducts from "./components/AllProducts";
+import ProductFilterMobile from "./components/productFilter/ProductFilterMobile";
 
 export default async function Products({
   searchParams,
@@ -34,10 +34,10 @@ export default async function Products({
         <SearchContainer />
       </div>
       <SubCategories />
-      <div className="mt-12">
-        <ProductFilter />
+      <div className="mt-4">
+        <ProductFilterMobile />
       </div>
-      <div className="mt-[50px] px-5">
+      <div className="mt-2 md:mt-[50px] px-5">
         <AllProducts
           key={`${subcategoryParam}-${priceFrom}-${priceTo}`}
           initialProducts={allProductsData.data}
