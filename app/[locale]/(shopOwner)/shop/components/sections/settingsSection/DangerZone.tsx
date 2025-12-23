@@ -27,7 +27,7 @@ const DangerZone = () => {
           rounded="lg"
           title="მაღაზიის დახურვა"
           type="button"
-          bgColor="red"
+          bgcolor="red"
           className="py-2 px-4 font-medium md:!w-fit"
           titleColor="white"
           onClick={handleOpenDeleteModal}

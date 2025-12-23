@@ -60,7 +60,7 @@ const UserInfo = () => {
           rounded="lg"
           title="Edit Profile"
           type="button"
-          bgColor="darkGray"
+          bgcolor="darkGray"
           className="!w-fit px-2 md:px-4 py-1 md:py-2"
           titleColor="white"
         />

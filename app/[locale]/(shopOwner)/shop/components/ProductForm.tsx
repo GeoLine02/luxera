@@ -182,7 +182,7 @@ const ProductForm = ({
           <Button
             title="Add Product"
             type="submit"
-            bgColor="black"
+            bgcolor="black"
             titleColor="white"
             rounded="lg"
             className="py-2 p-4 max-w-[400px]"

@@ -76,7 +76,7 @@ const EditorHeader = () => {
           rounded="md"
           title="Preview"
           type="button"
-          bgColor="darkPink"
+          bgcolor="darkPink"
           className="px-3 sm:px-6 py-2 w-fit text-sm sm:text-base md:text-xl md:w-auto"
           onClick={() => {}}
           titleColor="white"

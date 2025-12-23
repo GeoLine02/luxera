@@ -18,7 +18,7 @@ const SellerPageButton = ({ shopId, shopName }: SellerPageButtonProps) => {
           rounded="xl"
           title="View Shop"
           type="button"
-          bgColor="white"
+          bgcolor="white"
           className="p-2 px-4 font-medium border border-light-gray w-fit"
         />
       </Link>

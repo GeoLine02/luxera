@@ -10,7 +10,7 @@ const YourLReferalLink = () => {
           rounded="lg"
           title="კოპირება"
           type="button"
-          bgColor="black"
+          bgcolor="black"
           className="py-2 px-4 font-medium md:!w-fit"
           titleColor="white"
         />

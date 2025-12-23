@@ -172,7 +172,7 @@ const ProductVariants = ({
           type="button"
           onClick={onAddVariant}
           className="!w-fit px-6 py-2"
-          bgColor="black"
+          bgcolor="black"
           rounded="lg"
           titleColor="white"
         />

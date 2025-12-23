@@ -16,7 +16,7 @@ const ContactInfo = () => {
       <Input
         value={email}
         onChange={onChange}
-        bgColor="lightGray"
+        bgcolor="lightGray"
         name="email"
         placeholder="Your email"
       />
@@ -24,7 +24,7 @@ const ContactInfo = () => {
         rounded="full"
         title="Subscribe"
         type="button"
-        bgColor="black"
+        bgcolor="black"
         titleColor="white"
         className="py-2 px-6 flex items-center justify-center !w-fit font-semibold"
       />

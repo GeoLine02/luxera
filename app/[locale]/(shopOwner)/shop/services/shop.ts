@@ -1,7 +1,4 @@
-"use server";
-
 import api from "@/utils/axios";
-import { cookies } from "next/headers";
 
 export const deleteShopService = async (userId: number, password: string) => {
   try {
@@ -13,13 +10,30 @@ export const deleteShopService = async (userId: number, password: string) => {
       return { error: res.data.message };
     }
 
-    const cookieStore = await cookies();
+    // const cookieStore = await cookies();
 
-    cookieStore.delete("shopAccessToken");
-    cookieStore.delete("shopRefreshToken");
+    // cookieStore.delete("shopAccessToken");
+    // cookieStore.delete("shopRefreshToken");
 
     return res.data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const updateShopLocation = async (
+  cityId: number | null,
+  customCityName: string
+) => {
+  try {
+    const res = await api.patch(`/shop/location`, {
+      locationId: cityId,
+      customCity: customCityName,
+    });
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (err) {
+    console.log(err);
   }
 };

@@ -150,7 +150,7 @@ const MyProductCard = ({
           rounded="lg"
           title="Edit"
           type="button"
-          bgColor="lightGray"
+          bgcolor="lightGray"
           className="py-2 px-9 font-medium"
         />
       </div>

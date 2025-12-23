@@ -1,5 +1,6 @@
 import ChangePassword from "./ChangePassword";
 import DangerZone from "./DangerZone";
+import LocationSection from "./LocationSection";
 import Notifications from "./Notifications";
 
 const SettingsSection = () => {
@@ -11,7 +12,7 @@ const SettingsSection = () => {
 
       <div className="bg-white p-4 rounded-xl mt-4">
         <Notifications />
-
+        <LocationSection />
         <ChangePassword />
 
         <DangerZone />

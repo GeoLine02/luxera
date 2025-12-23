@@ -43,7 +43,7 @@ const ContactForm = () => {
           onChange={onChange}
           value={contactFields.name}
           name="name"
-          bgColor="lightGray"
+          bgcolor="lightGray"
         />
       </div>
       <div>
@@ -58,7 +58,7 @@ const ContactForm = () => {
           value={contactFields.email}
           onChange={onChange}
           name="email"
-          bgColor="lightGray"
+          bgcolor="lightGray"
           type="email"
         />
       </div>
@@ -81,7 +81,7 @@ const ContactForm = () => {
         rounded="lg"
         title="გაგზავნა"
         type="submit"
-        bgColor="lightPink"
+        bgcolor="lightPink"
         className="py-2 font-medium"
       />
     </form>

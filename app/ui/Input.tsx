@@ -7,7 +7,7 @@ interface InputProps
   label?: string;
   labelColor?: "darkGray";
   error?: string | FieldError;
-  bgColor?: "lightGray" | "transparent" | "white";
+  bgcolor?: "lightGray" | "transparent" | "white";
   name: string;
   register?: UseFormRegisterReturn;
 }
@@ -44,7 +44,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputRef = register?.ref || ref;
 
     return (
-      <div className={className + "border-2 border-light-gray rounded-lg"}>
+      <div className={className + " border-2 border-light-gray rounded-lg"}>
         {type === "checkbox" ? (
           <label className="flex items-center space-x-2 cursor-pointer">
             <input

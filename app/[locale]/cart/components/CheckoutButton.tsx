@@ -10,7 +10,7 @@ const CheckoutButton = ({ itemsCount }: CheckoutButtonProps) => {
       <Button
         rounded="full"
         type="button"
-        bgColor="lightPink"
+        bgcolor="lightPink"
         className="py-2 flex items-center justify-center font-medium"
         titleColor="black"
         onClick={() => console.log("checked out")}

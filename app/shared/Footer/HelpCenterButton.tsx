@@ -12,7 +12,7 @@ const HelpCenterButton = () => {
         rounded="lg"
         title="Go to Help Center"
         type="button"
-        bgColor="dirtyPink"
+        bgcolor="dirtyPink"
         className=" py-2 px-6 border-2 border-black !w-fit"
         titleColor="black"
         onClick={() => router.push("/help-center")}

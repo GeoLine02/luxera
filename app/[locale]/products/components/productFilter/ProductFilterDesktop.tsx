@@ -41,7 +41,7 @@ const ProductFilterDesktop = () => {
           <Input
             onChange={(e) => setPriceFrom(e.target.value)}
             value={priceFrom}
-            bgColor="white"
+            bgcolor="white"
             name="priceFrom"
             placeholder="100"
           />
@@ -51,7 +51,7 @@ const ProductFilterDesktop = () => {
           <Input
             onChange={(e) => setPriceTo(e.target.value)}
             value={priceTo}
-            bgColor="white"
+            bgcolor="white"
             name="priceTo"
             placeholder="100"
           />
@@ -61,7 +61,7 @@ const ProductFilterDesktop = () => {
         rounded="lg"
         title="Filter"
         type="button"
-        bgColor="black"
+        bgcolor="black"
         titleColor="white"
         className="py-2 font-medium mt-5"
         onClick={handleFilterProducts}

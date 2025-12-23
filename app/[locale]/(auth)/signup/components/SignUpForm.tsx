@@ -31,7 +31,7 @@ const SignUpForm = () => {
         <div className="space-y-3">
           <Input
             labelColor="darkGray"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             label="Full Name"
             name="fullName"
             type="text"
@@ -41,7 +41,7 @@ const SignUpForm = () => {
           />
           <Input
             labelColor="darkGray"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             label="E-mail or phone number"
             name="email"
             type="email"
@@ -51,7 +51,7 @@ const SignUpForm = () => {
           />
           <Input
             labelColor="darkGray"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             label="Password"
             name="password"
             type="password"
@@ -60,7 +60,7 @@ const SignUpForm = () => {
           />
           <Input
             labelColor="darkGray"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             label="Confirm password"
             name="confirmPassword"
             type="password"
@@ -74,14 +74,14 @@ const SignUpForm = () => {
         )}
 
         <div className="flex items-center gap-2">
-          <Input bgColor="transparent" name="terms" required type="checkbox" />
+          <Input bgcolor="transparent" name="terms" required type="checkbox" />
           <TermsAndPolicies />
         </div>
 
         <Button
           className="py-4 flex items-center justify-center font-bold"
           type="submit"
-          bgColor="black"
+          bgcolor="black"
           rounded="full"
           title={`${pending ? "" : "Sign Up"}`}
           titleColor="white"
