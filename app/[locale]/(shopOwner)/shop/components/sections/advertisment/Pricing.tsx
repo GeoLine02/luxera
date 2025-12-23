@@ -54,7 +54,7 @@ const PricingCard = ({
         rounded="lg"
         title={`${isSelected ? "არჩეული პაკეტი" : "პაკეტის არჩევა"}`}
         type="button"
-        bgColor={`${isSelected ? "mediumGray" : "darkGray"}`}
+        bgcolor={`${isSelected ? "mediumGray" : "darkGray"}`}
         titleColor={"white"}
         className="py-2 font-mediu px-4"
       />

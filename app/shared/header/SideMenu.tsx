@@ -69,7 +69,7 @@ const SideMenu = () => {
             rounded="full"
             title="ქართული"
             type="button"
-            bgColor="lightPink"
+            bgcolor="lightPink"
             className="py-2 px-4 w-fit"
             titleColor="black"
           />
@@ -79,7 +79,7 @@ const SideMenu = () => {
             rounded="full"
             title="English"
             type="button"
-            bgColor="lightPink"
+            bgcolor="lightPink"
             className="py-2 px-4"
             titleColor="black"
           />

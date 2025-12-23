@@ -61,7 +61,7 @@ const SignInForm = () => {
       <form className="space-y-[30px]" onSubmit={handleSignIn}>
         <div>
           <Input
-            bgColor="lightGray"
+            bgcolor="lightGray"
             label="E-mail or phone number"
             name="email"
             type="email"
@@ -72,7 +72,7 @@ const SignInForm = () => {
         </div>
         <div>
           <Input
-            bgColor="lightGray"
+            bgcolor="lightGray"
             label="Password"
             name="password"
             type="password"
@@ -86,7 +86,7 @@ const SignInForm = () => {
         <Button
           className="py-4  gap-2 flex items-center justify-center font-bold"
           type="submit"
-          bgColor="black"
+          bgcolor="black"
           rounded="full"
           title="Sign In"
           titleColor="white"

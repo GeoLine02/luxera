@@ -19,7 +19,7 @@ const Notifications = () => {
         rounded="lg"
         title="შენახვა"
         type="button"
-        bgColor="darkGray"
+        bgcolor="darkGray"
         className="py-2 px-4 !w-fit"
         titleColor="white"
       />

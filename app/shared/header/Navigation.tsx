@@ -47,7 +47,7 @@ const Navigation = () => {
             rounded="lg"
             title="Open Shop"
             type="button"
-            bgColor="lightPink"
+            bgcolor="lightPink"
             className="py-2 px-4 font-medium"
             titleColor="black"
           />

@@ -54,7 +54,7 @@ const Header = () => {
             rounded="full"
             title="Luxera AI"
             type="button"
-            bgColor="black"
+            bgcolor="black"
             className="py-2 px-4 font-medium min-w-[120px] w-full hidden md:block"
             titleColor="white"
             onClick={() => router.push("/luxera-ai")}
@@ -69,7 +69,7 @@ const Header = () => {
           {!user ? (
             <Link href={"/signin"}>
               <Button
-                bgColor="lightPink"
+                bgcolor="lightPink"
                 rounded="lg"
                 title="Sign in"
                 type="button"

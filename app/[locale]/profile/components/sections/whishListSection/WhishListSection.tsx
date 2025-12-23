@@ -13,7 +13,7 @@ const WhishListSection = () => {
           rounded="lg"
           title="Share"
           type="button"
-          bgColor="lightPink"
+          bgcolor="lightPink"
           titleColor="black"
           className="!w-fit px-2 md:px-4 py-1 md:py-2 gap-3 items-center font-medium flex"
           icon={<FaShareAlt size={20} />}

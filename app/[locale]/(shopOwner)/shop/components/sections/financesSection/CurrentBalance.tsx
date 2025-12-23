@@ -15,7 +15,7 @@ const CurrentBalance = ({ currentBalance }: CurrentBalanceProps) => {
         rounded="lg"
         title="თანხის გამოტანა"
         type="button"
-        bgColor="darkGray"
+        bgcolor="darkGray"
         className="py-2 font-medium"
         disabled={currentBalance === "0.00"}
         titleColor="white"

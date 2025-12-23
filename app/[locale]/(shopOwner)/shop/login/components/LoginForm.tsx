@@ -25,7 +25,7 @@ const LoginForm = () => {
           <label htmlFor="password">Password</label>
           <Input
             name="password"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             className="rounded-xl"
             type="password"
             placeholder="Type your password"
@@ -40,7 +40,7 @@ const LoginForm = () => {
             rounded="full"
             title="Sign In"
             type="submit"
-            bgColor="black"
+            bgcolor="black"
             titleColor="white"
             className="py-2 font-medium mt-4"
             loader={pending && <ClipLoader size={25} color="white" />}

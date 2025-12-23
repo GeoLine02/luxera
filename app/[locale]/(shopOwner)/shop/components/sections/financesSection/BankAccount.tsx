@@ -39,7 +39,7 @@ const BankAccount = () => {
           rounded="lg"
           title="ინფორმაციის შენახვა"
           type="button"
-          bgColor="darkGray"
+          bgcolor="darkGray"
           titleColor="white"
           className="py-2 px-4 font-medium md:!w-fit "
         />

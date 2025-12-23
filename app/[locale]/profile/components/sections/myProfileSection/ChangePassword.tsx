@@ -13,7 +13,7 @@ const ChangePassword = () => {
           <label htmlFor="newPassword">New Password</label>
           <Input
             name="newPassword"
-            bgColor="white"
+            bgcolor="white"
             type="password"
             className="max-w-[300px] mt-2"
           />
@@ -22,7 +22,7 @@ const ChangePassword = () => {
           <label htmlFor="confirmNewPassword">Confirm new password</label>
           <Input
             name="confirmNewPassword"
-            bgColor="white"
+            bgcolor="white"
             type="password"
             className="max-w-[300px] !py-0 mt-2"
           />
@@ -32,7 +32,7 @@ const ChangePassword = () => {
             rounded="lg"
             title="Change Password"
             type="button"
-            bgColor="darkGray"
+            bgcolor="darkGray"
             className="!w-fit px-2 md:px-4 py-1 md:py-2"
             titleColor="white"
           />

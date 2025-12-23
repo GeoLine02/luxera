@@ -5,15 +5,19 @@ import axios from "axios";
 
 const intlMiddleware = createMiddleware(routing);
 
-async function refreshAccessToken(refreshToken: string) {
+async function refreshAccessToken(refreshToken: string, req: NextRequest) {
   try {
     const baseURL =
       process.env.NODE_ENV === "production"
         ? process.env.PROD_API_URL
         : process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
 
+    const cookieHeader = req.headers.get("cookie") || "";
     const res = await axios.get(`${baseURL}/user/refresh`, {
-      headers: { Authorization: `Bearer ${refreshToken}` },
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+        Cookie: cookieHeader,
+      },
       withCredentials: true,
     });
 
@@ -24,15 +28,23 @@ async function refreshAccessToken(refreshToken: string) {
   }
 }
 
-async function refreshShopAccessToken(shopRefreshToken: string) {
+async function refreshShopAccessToken(
+  shopRefreshToken: string,
+  req: NextRequest
+) {
   try {
     const baseURL =
       process.env.NODE_ENV === "production"
         ? process.env.PROD_API_URL
         : process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
 
+    const cookieHeader = req.headers.get("cookie") || "";
+
     const res = await axios.get(`${baseURL}/shop/refresh`, {
-      headers: { Authorization: `Bearer ${shopRefreshToken}` },
+      headers: {
+        Authorization: `Bearer ${shopRefreshToken}`,
+        Cookie: cookieHeader,
+      },
       withCredentials: true,
     });
 
@@ -48,7 +60,6 @@ export async function proxy(req: NextRequest) {
   const refreshToken = req.cookies.get("refreshToken")?.value;
   const shopAccessToken = req.cookies.get("shopAccessToken")?.value;
   const shopRefreshToken = req.cookies.get("shopRefreshToken")?.value;
-
   const { pathname } = req.nextUrl;
 
   const authRoutes = ["/signin", "/signup"];
@@ -61,7 +72,7 @@ export async function proxy(req: NextRequest) {
 
   // Refresh user token
   if (!accessToken && refreshToken) {
-    const refreshed = await refreshAccessToken(refreshToken);
+    const refreshed = await refreshAccessToken(refreshToken, req);
     if (refreshed) {
       newAccessToken = refreshed;
       response.cookies.set("accessToken", refreshed, {
@@ -76,7 +87,7 @@ export async function proxy(req: NextRequest) {
 
   // Refresh shop token
   if (!shopAccessToken && shopRefreshToken) {
-    const refreshedShop = await refreshShopAccessToken(shopRefreshToken);
+    const refreshedShop = await refreshShopAccessToken(shopRefreshToken, req);
     if (refreshedShop) {
       newShopAccessToken = refreshedShop;
       response.cookies.set("shopAccessToken", refreshedShop, {
