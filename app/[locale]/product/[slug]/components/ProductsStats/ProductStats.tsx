@@ -76,7 +76,7 @@ const ProductStats = ({
   const hasDiscount = selectedVariantDiscount > 0;
 
   return (
-    <div className="text-left px-4">
+    <div className="text-left px-4 w-1/2">
       {/* Title and Price */}
       <div className="flex items-center justify-between gap-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
