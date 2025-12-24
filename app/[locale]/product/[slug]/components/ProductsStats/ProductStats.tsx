@@ -76,7 +76,7 @@ const ProductStats = ({
   const hasDiscount = selectedVariantDiscount > 0;
 
   return (
-    <div className="text-left px-4 w-1/2">
+    <div className="text-left px-4 md:w-1/2">
       {/* Title and Price */}
       <div className="flex items-center justify-between gap-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
@@ -155,12 +155,12 @@ const ProductStats = ({
           <FaShoppingCart size={20} color="gray" />
           Add to Cart
         </button>
+        <button className=" bg-light-gray py-2 px-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition-colors cursor-pointer">
+          Personalise & Add to basket
+        </button>
       </div>
 
       {/* Personalise Button */}
-      <button className="w-full bg-light-gray py-3 px-4 rounded-lg text-xl font-semibold hover:bg-gray-200 transition-colors">
-        Personalise & Add to basket
-      </button>
 
       {/* Description */}
       <div className="mt-8">
