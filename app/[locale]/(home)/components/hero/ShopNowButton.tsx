@@ -28,7 +28,7 @@ const ShopNowButton = ({ href }: ShopNowButtonProps) => {
   return (
     <Button
       className="py-3 !w-fit px-12"
-      bgColor="dirtyPink"
+      bgcolor="dirtyPink"
       rounded="full"
       title="Shop now"
       titleColor="white"

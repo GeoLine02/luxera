@@ -84,7 +84,7 @@ const EditorFooter = () => {
               rounded="md"
               title="Done"
               type="button"
-              bgColor="darkPink"
+              bgcolor="darkPink"
               titleColor="white"
               className="py-2 px-4 text-lg font-medium"
               onClick={() => {}}

@@ -1,112 +1,130 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import AddProductForm from "./AddProductForm";
-
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import { NewProductValues } from "@/app/types/product";
+import { ProductFormType } from "@/app/types/product";
 import { useUser } from "@/app/providers/UserProvider";
 import { createNewProduct } from "../../../services/products";
-// import { ProductCreationSchema } from "../../../login/validation/productCreationSchema";
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { productFormSchema } from "./validation/productCreation.schema";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ProductForm from "../../ProductForm";
 
 const NewProductSection = () => {
-  const [productValues, setProductsValues] = useState<NewProductValues>({
-    productSubCategory: null,
-    productCategory: null,
-    productDescription: "",
-    productDiscount: 0,
-    productPreviewImages: [],
-    productName: "",
-    productPrice: 0,
-    productQuantity: 1,
-    productVariants: [],
-  });
-
   const { user } = useUser();
-
-  console.log(productValues);
-
   const { categories } = useSelector(
     (state: RootState) => state.categoriesReducer
   );
 
-  const handleChangeForm = <K extends keyof NewProductValues>(
-    fieldName: K,
-    fieldValue: NewProductValues[K]
-  ) => {
-    setProductsValues((prev) => ({
-      ...prev,
-      [fieldName]: fieldValue,
-    }));
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    control,
+    watch,
+    formState: { errors, disabled, isLoading },
+  } = useForm<ProductFormType>({
+    resolver: zodResolver(productFormSchema),
+    defaultValues: {
+      product_category: null,
+      product_description: "",
+      product_sub_category: null,
+      product_variants: [
+        {
+          id: 1,
+          images: [],
+          variant_discount: 0,
+          variant_name: "",
+          variant_price: 0,
+          variant_quantity: 1,
+        },
+      ],
+    },
+  });
+
+  console.log("errors", errors);
+
+  const { fields, append, remove } = useFieldArray({
+    name: "product_variants",
+    control,
+  });
+
+  const addNewVariantForm = () => {
+    append({
+      id: fields[fields.length - 1]?.id + 1,
+      images: [],
+      variant_name: "",
+      variant_discount: 0,
+      variant_price: 0,
+      variant_quantity: 1,
+    });
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const deleteVariantForm = (variantId: number) => {
+    remove(variantId);
+  };
+
+  const onSubmit = async (data: ProductFormType) => {
     try {
-      // const validatedValues = ProductCreationSchema.safeParse(productValues);
-      // console.log(validatedValues.success);
-      // if (!validatedValues.success) {
-      //   return validatedValues.error.flatten().fieldErrors;
-      // }
+      const form = new FormData();
 
-      const formData = new FormData();
-
-      // Basic product info
-      formData.append("productName", productValues.productName);
-      formData.append("productDescription", productValues.productDescription);
-      formData.append("productPrice", String(productValues.productPrice));
-      formData.append("productQuantity", String(productValues.productQuantity));
-      formData.append("productDiscount", String(productValues.productDiscount));
-      formData.append("userId", String(user?.id));
-
-      // Category info
-      if (productValues.productCategory) {
-        formData.append(
-          "productCategoryId",
-          String(productValues.productCategory.id)
-        );
-      }
-      if (productValues.productSubCategory) {
-        formData.append(
-          "subCategoryId",
-          String(productValues.productSubCategory.id)
-        );
-      }
-
-      // Product preview images
-      productValues.productPreviewImages.forEach((image) => {
-        formData.append("productPreviewImages", image);
-      });
-
-      // Variants metadata as JSON (cleaner than nested form data)
-      const variantsMetadata = productValues.productVariants.map(
-        (variant, index) => ({
-          index,
-          variantName: variant.variant_name,
-          variantPrice: variant.variant_price,
-          variantQuantity: variant.variant_quantity,
-          variantDiscount: variant.variant_discont,
-          imageCount: variant.variant_images?.length || 0,
-        })
+      // 1. Add simple text fields
+      form.append("productDescription", data.product_description);
+      form.append("productCategoryId", String(data.product_category?.id));
+      form.append(
+        "productSubCategoryId",
+        String(data.product_sub_category?.id)
       );
-      formData.append("variantsMetadata", JSON.stringify(variantsMetadata));
+      form.append("userId", String(user?.id));
 
-      // Variant images with simple naming: variantImages_0, variantImages_1, etc.
-      productValues.productVariants.forEach((variant, index) => {
-        if (variant.variant_images && variant.variant_images.length > 0) {
-          variant.variant_images.forEach((image) => {
-            formData.append(`variantImages_${index}`, image);
-          });
-        }
+      // 2. Build variants metadata JSON
+      const metadata = data.product_variants.map((v, index) => ({
+        index,
+        variantName: v.variant_name,
+        variantPrice: v.variant_price,
+        variantQuantity: v.variant_quantity,
+        variantDiscount: v.variant_discount,
+      }));
+
+      form.append("variantsMetadata", JSON.stringify(metadata));
+
+      // 3. Attach images with keys like variantImages_0[]
+      data.product_variants.forEach((variant, i) => {
+        variant.images.forEach((img) => {
+          if (img instanceof File) {
+            form.append(`variantImages_${i}`, img);
+          }
+        });
       });
 
-      // Send to backend
-      const response = await createNewProduct(formData);
+      // 4. Send multipart/form-data
+      const res = await createNewProduct(form);
 
-      console.log(response);
-    } catch (err) {
-      console.error("Error creating product:", err);
+      if (res.success) {
+        reset({
+          product_category: null,
+          product_description: "",
+          product_sub_category: null,
+          product_variants: [
+            {
+              id: 1,
+              images: [],
+              variant_discount: 0,
+              variant_name: "",
+              variant_price: 0,
+              variant_quantity: 1,
+            },
+          ],
+        });
+        toast.success("Product created successfully!");
+      } else {
+        toast.error("Failed to Create Product");
+      }
+    } catch {
+      toast.error("Server Error! Please try again later");
     }
   };
 
@@ -115,12 +133,22 @@ const NewProductSection = () => {
       <h1 className="text-2xl md:text-3xl font-medium text-dark-gray">
         Add New Product
       </h1>
-      <AddProductForm
-        handleSubmit={handleSubmit}
-        handleChangeForm={handleChangeForm}
-        formValues={productValues}
+      <ProductForm
+        addNewVariantForm={addNewVariantForm}
+        deleteVariantForm={deleteVariantForm}
         categories={categories}
+        variants={fields}
+        register={register}
+        control={control}
+        setValue={setValue}
+        onSubmit={onSubmit}
+        handleSubmit={handleSubmit}
+        watch={watch}
+        errors={errors}
+        disabled={disabled}
+        isLoading={isLoading}
       />
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

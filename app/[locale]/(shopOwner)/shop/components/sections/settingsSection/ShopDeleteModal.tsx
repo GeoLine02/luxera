@@ -77,7 +77,7 @@ const ShopDeleteModal = ({ setIsModalOpen }: ShopDeleteModalProps) => {
             title="Delete"
             rounded="md"
             type="button"
-            bgColor="red"
+            bgcolor="red"
             disabled={loading}
             loader={loading && <ClipLoader size={25} color="white" />}
             onClick={handleDeleteModal}
@@ -88,7 +88,7 @@ const ShopDeleteModal = ({ setIsModalOpen }: ShopDeleteModalProps) => {
             title="Decline"
             rounded="md"
             type="button"
-            bgColor="black"
+            bgcolor="black"
             titleColor="white"
             className="!w-fit py-2 px-4 font-medium"
             onClick={handleCloseDeleteModal}

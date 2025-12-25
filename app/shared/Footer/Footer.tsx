@@ -35,53 +35,32 @@ const Footer = () => {
       {/* Top Section */}
       <div className="flex flex-col lg:flex-row justify-between gap-12 px-11 pt-[52px] pb-[33px] bg-light-pink mt-4">
         {/* Earn & Company */}
-        <div className="flex gap-20 font-semibold">
-          <div className="space-y-4">
-            <h1 className="text-lg">Earn</h1>
-            <ul className="space-y-2 font-normal">
-              <li className="cursor-pointer">Become Affiliate</li>
-              <li className="cursor-pointer">Open Shop</li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h1 className="text-lg">Company</h1>
-            <ul className="space-y-2 font-normal">
-              <li className="cursor-pointer">About Us</li>
-              <li className="cursor-pointer">Promotions</li>
-              <li className="cursor-pointer"  onClick={() => router.push("/contact")}>Contact</li>
-            </ul>
-          </div>
+        <div className="space-y-4">
+          <h1 className="text-lg font-medium">Earn</h1>
+          <ul className="space-y-2 font-normal">
+            <li className="cursor-pointer">Become Affiliate</li>
+            <li className="cursor-pointer">Open Shop</li>
+          </ul>
         </div>
 
-        {/* Newsletter & Social Icons */}
-        <div className="flex flex-col items-center gap-6">
-          <div className="flex gap-3">
-            {/* Replace with your own icons */}
-            <div className="bg-white w-9 aspect-square rounded-md flex items-center justify-center">
-              <FiPhone size={20} />
-            </div>
-            <div className="bg-white p-2 w-9 rounded-md flex items-center justify-center">
-              <CiFacebook size={20} />
-            </div>
-            <div className="bg-white p-2 w-9 rounded-md flex items-center justify-center">
-              <CiInstagram size={20} />
-            </div>
-          </div>
-          <div className="flex items-center gap-4 bg-white rounded-md pr-3">
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="rounded-full px-4 py-2 border border-gray-300 outline-none"
-            />
-            <div className="border border-black rounded-full ">
-              <IoIosArrowRoundForward size={20} />
-            </div>
-          </div>
-          <p className="text-sm">Be the first to know - subscribe now!</p>
+        <div className="space-y-4">
+          <h1 className="text-lg font-medium">Company</h1>
+          <ul className="space-y-2 font-normal">
+            <li className="cursor-pointer">About Us</li>
+            <li className="cursor-pointer">Promotions</li>
+            <li className="cursor-pointer">Contact</li>
+          </ul>
         </div>
 
-        {/* Why Luxera Gift */}
+        <div className="space-y-4">
+          <h1 className="text-lg font-medium">Important Links</h1>
+          <ul className="space-y-2 font-normal">
+            <li>წესები და პირობები</li>
+            <li>დაბრუნების პოლიტიკა</li>
+            <li>კონფიდენციალურობის პოლიტიკა</li>
+          </ul>
+        </div>
+
         <div className="space-y-4 max-w-sm">
           <h1 className="text-lg font-semibold">
             Why <span className="font-bold">Luxera Gift?</span>
@@ -110,7 +89,37 @@ const Footer = () => {
             </li>
           </ul>
         </div>
+
+        {/* Newsletter & Social Icons */}
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex gap-3">
+            {/* Replace with your own icons */}
+            <div className="bg-white w-9 aspect-square rounded-md flex items-center justify-center">
+              <FiPhone size={20} />
+            </div>
+            <div className="bg-white p-2 w-9 rounded-md flex items-center justify-center">
+              <CiFacebook size={20} />
+            </div>
+            <div className="bg-white p-2 w-9 rounded-md flex items-center justify-center">
+              <CiInstagram size={20} />
+            </div>
+          </div>
+          <div className="flex items-center gap-4 bg-white rounded-md pr-3">
+            <input
+              type="email"
+              placeholder="Your Email"
+              className="rounded-full px-4 py-2 border border-gray-300 outline-none"
+            />
+            <div className="border border-black rounded-full ">
+              <IoIosArrowRoundForward size={20} />
+            </div>
+          </div>
+          <p className="text-sm font-medium">
+            Be the first to know - subscribe now!
+          </p>
+        </div>
       </div>
+      {/* Why Luxera Gift */}
 
       {/* Bottom Section */}
       <div className="bg-black text-white py-4 flex flex-col lg:flex-row gap-6 items-center justify-between px-11 text-sm">

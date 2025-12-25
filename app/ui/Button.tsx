@@ -12,7 +12,7 @@ interface ButtonProps {
   rounded: "sm" | "md" | "lg" | "xl" | "full";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   loader?: any;
-  bgColor?:
+  bgcolor?:
     | "black"
     | "lightPink"
     | "darkPink"
@@ -34,7 +34,7 @@ const Button = ({
   onClick = () => {},
   title,
   disabled = false,
-  bgColor = "transparent",
+  bgcolor = "transparent",
   rounded,
   icon,
   titleColor = "black",
@@ -46,16 +46,16 @@ const Button = ({
     "rounded-lg": rounded === "lg",
     "rounded-xl": rounded === "xl",
     "rounded-full": rounded === "full",
-    "bg-black": bgColor === "black",
-    "bg-light-pink": bgColor === "lightPink",
-    "bg-dirty-pink": bgColor === "dirtyPink",
-    "bg-dark-pink": bgColor === "darkPink",
-    "bg-ice-blue": bgColor === "iceBlue",
-    "bg-light-gray": bgColor === "lightGray",
-    "bg-red-500": bgColor === "red",
-    "bg-white": bgColor === "white",
-    "bg-dark-gray": bgColor === "darkGray",
-    "bg-medium-gray": bgColor === "mediumGray",
+    "bg-black": bgcolor === "black",
+    "bg-light-pink": bgcolor === "lightPink",
+    "bg-dirty-pink": bgcolor === "dirtyPink",
+    "bg-dark-pink": bgcolor === "darkPink",
+    "bg-ice-blue": bgcolor === "iceBlue",
+    "bg-light-gray": bgcolor === "lightGray",
+    "bg-red-500": bgcolor === "red",
+    "bg-white": bgcolor === "white",
+    "bg-dark-gray": bgcolor === "darkGray",
+    "bg-medium-gray": bgcolor === "mediumGray",
     "text-black": titleColor === "black",
     "text-white": titleColor === "white",
     "text-dirty-pink": titleColor === "dirtyPink",

@@ -25,8 +25,7 @@ export function UserProvider({
   const [user, setUser] = useState<null | User>(
     userData?.data ? userData.data : null
   );
-  console.log("user", user);
-  // Update state when userData prop changes
+
   useEffect(() => {
     if (userData?.data) {
       setUser(userData.data);

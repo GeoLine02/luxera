@@ -18,9 +18,9 @@ export const shopLoginService = async (_prevState: any, formData: FormData) => {
     };
   }
 
-  const { email, password } = validation.data;
+  const { password } = validation.data;
 
-  const res = await api.post("/shop/login", { email, password });
+  const res = await api.post(`/shop/login?password=${password}`);
 
   if (res.status === 203) redirect("/shop");
 

@@ -11,8 +11,7 @@ const ChangePassword = () => {
           <Input
             className="md:w-fit"
             name="currentPassword"
-            bgColor="white"
-            border="border border-light-gray rounded-xl"
+            bgcolor="white"
             type="password"
           />
         </div>
@@ -21,8 +20,7 @@ const ChangePassword = () => {
           <Input
             className="md:w-fit"
             name="newPassword"
-            bgColor="white"
-            border="border border-light-gray rounded-xl"
+            bgcolor="white"
             type="password"
           />
         </div>
@@ -31,8 +29,7 @@ const ChangePassword = () => {
           <Input
             className="md:w-fit"
             name="currentPassword"
-            bgColor="white"
-            border="border border-light-gray rounded-xl"
+            bgcolor="white"
             type="password"
           />
         </div>
@@ -41,7 +38,7 @@ const ChangePassword = () => {
           rounded="lg"
           title="პაროლის განახლება"
           type="button"
-          bgColor="darkGray"
+          bgcolor="darkGray"
           className="py-2 px-4 md:!w-fit"
           titleColor="white"
         />

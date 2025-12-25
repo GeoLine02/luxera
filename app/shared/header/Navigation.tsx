@@ -9,18 +9,11 @@ import { openCategoiresModal } from "@/app/store/features/categoriesSlice";
 import { Link, usePathname } from "@/i18n/navigation";
 import Button from "@/app/ui/Button";
 
-// import { useNavigation } from "@/app/hooks/useNavigation";
-
 const Navigation = () => {
   const locale = useLocale();
   const [currentLang, setCurrentLang] = useState(locale);
   const pathName = usePathname();
   const dispatch = useDispatch<AppDispatch>();
-
-  // Fetch categories for header display
-
-  // Fetch navigation pages from backend
-  // const { items: navItems } = useNavigation(currentLang);
 
   const handleToggleCategories = () => {
     dispatch(openCategoiresModal());
@@ -42,13 +35,19 @@ const Navigation = () => {
         </>
       </div>
 
+      <section className="flex items-center gap-6 font-medium">
+        <Link href={"/"}>Home</Link>
+        <Link href={"/about"}>About Us</Link>
+        <Link href={"/contact"}>Contact</Link>
+      </section>
+
       <div className="flex items-center gap-6">
         <Link href={"/shop/register"}>
           <Button
             rounded="lg"
             title="Open Shop"
             type="button"
-            bgColor="lightPink"
+            bgcolor="lightPink"
             className="py-2 px-4 font-medium"
             titleColor="black"
           />

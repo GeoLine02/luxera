@@ -1,30 +1,39 @@
 "use client";
 
-import { SellerProductStatusType } from "@/app/types/product";
+import { ProductImageType, SellerProductStatusType } from "@/app/types/product";
 import Button from "@/app/ui/Button";
 import { Dropdown } from "@/app/ui/DropDown";
 import classNames from "classnames";
+import Image from "next/image";
 import { IoIosArrowDown } from "react-icons/io";
 
 interface MyProductCardProps {
   title: string;
-  id: string;
-  views: string;
-  sales: string;
+  id: number;
+  viewsPerDay: number;
+  viewsPerMonth: number;
+  salesPerDay: number;
+  salesPerMonth: number;
+  productImage: ProductImageType;
   status: "active" | "inactive" | "outOfStock";
   handleChangeStatus: (
     productId: string,
     status: SellerProductStatusType
   ) => void;
+  handleSelectProductId: (id: number) => void;
 }
 
 const MyProductCard = ({
   title,
   id,
-  views,
-  sales,
   status,
   handleChangeStatus,
+  salesPerDay,
+  salesPerMonth,
+  viewsPerDay,
+  viewsPerMonth,
+  productImage,
+  handleSelectProductId,
 }: MyProductCardProps) => {
   const statusColorStyles = classNames({
     "text-green-600 bg-green-200": status === "active",
@@ -32,24 +41,17 @@ const MyProductCard = ({
     "text-red-500 bg-red-200": status === "outOfStock",
   });
 
-  const getStatusTitle = () => {
-    if (status === "active") {
-      return "Active";
-    }
-    if (status === "inactive") {
-      return "Inactive";
-    }
-    if (status === "outOfStock") {
-      return "Out of Stock";
-    }
-  };
-
   return (
     <div className="flex flex-col gap-2 bg-white p-2 rounded-xl md:flex-row md:items-center">
       <div className="flex items-center gap-4 border-b border-medium-gray pb-4 md:pb-0 md:border-none">
-        <div className="w-[70px] aspect-square bg-light-pink rounded-lg flex items-center justify-center font-medium text-2xl">
-          Gift
-        </div>
+        <Image
+          className="max-w-[55px] aspect-square rounded-lg"
+          width={500}
+          height={500}
+          src={productImage.image}
+          alt={title}
+        />
+
         <div className="md:max-w-[200px]">
           <h1 className="font-medium text-dark-gray truncate">{title}</h1>
           <h1 className="text-medium-gray">ID: #{id}</h1>
@@ -59,7 +61,7 @@ const MyProductCard = ({
                 <span
                   className={`${statusColorStyles} rounded-md px-4 flex items-center gap-2 w-fit`}
                 >
-                  {getStatusTitle()}
+                  {status}
                   <IoIosArrowDown size={20} />
                 </span>
               </Dropdown.Trigger>
@@ -68,19 +70,21 @@ const MyProductCard = ({
                 className="!top-9 min-w-[130px] rounded-lg"
               >
                 <Dropdown.Item
-                  onSelect={() => handleChangeStatus(id, "active")}
+                  onSelect={() => handleChangeStatus(id.toString(), "active")}
                   className="py-2"
                 >
                   Active
                 </Dropdown.Item>
                 <Dropdown.Item
-                  onSelect={() => handleChangeStatus(id, "inactive")}
+                  onSelect={() => handleChangeStatus(id.toString(), "inactive")}
                   className="py-2"
                 >
                   Inactive
                 </Dropdown.Item>
                 <Dropdown.Item
-                  onSelect={() => handleChangeStatus(id, "outOfStock")}
+                  onSelect={() =>
+                    handleChangeStatus(id.toString(), "outOfStock")
+                  }
                   className="py-2"
                 >
                   Out of stock
@@ -93,11 +97,15 @@ const MyProductCard = ({
       <div className="flex items-center justify-around border-b border-medium-gray md:border-none w-full pb-2 md:pb-0">
         <div className="flex flex-col items-center">
           <h2 className="text-medium-gray text-sm">Views (day/month)</h2>
-          <h1 className="font-medium">{views}</h1>
+          <h1 className="font-medium">
+            {viewsPerDay}/{viewsPerMonth}
+          </h1>
         </div>
         <div className="flex flex-col items-center">
-          <h2 className="text-medium-gray text-sm">Views (day/month)</h2>
-          <h1 className="font-medium">{sales}</h1>
+          <h2 className="text-medium-gray text-sm">Sells (day/month)</h2>
+          <h1 className="font-medium">
+            {salesPerDay}/{salesPerMonth}
+          </h1>
         </div>
         <div className="flex-col items-center hidden md:flex">
           <h1 className="text-medium-gray text-sm">status</h1>
@@ -106,7 +114,7 @@ const MyProductCard = ({
               <span
                 className={`${statusColorStyles} rounded-md px-4 flex items-center gap-2`}
               >
-                {getStatusTitle()}
+                {status}
                 <IoIosArrowDown size={20} />
               </span>
             </Dropdown.Trigger>
@@ -115,19 +123,19 @@ const MyProductCard = ({
               className="!top-9 min-w-[130px] rounded-lg"
             >
               <Dropdown.Item
-                onSelect={() => handleChangeStatus(id, "active")}
+                onSelect={() => handleChangeStatus(id.toString(), "active")}
                 className="py-2"
               >
                 Active
               </Dropdown.Item>
               <Dropdown.Item
-                onSelect={() => handleChangeStatus(id, "inactive")}
+                onSelect={() => handleChangeStatus(id.toString(), "inactive")}
                 className="py-2"
               >
                 Inactive
               </Dropdown.Item>
               <Dropdown.Item
-                onSelect={() => handleChangeStatus(id, "outOfStock")}
+                onSelect={() => handleChangeStatus(id.toString(), "outOfStock")}
                 className="py-2"
               >
                 Out of stock
@@ -138,10 +146,11 @@ const MyProductCard = ({
       </div>
       <div>
         <Button
+          onClick={() => handleSelectProductId(id)}
           rounded="lg"
           title="Edit"
           type="button"
-          bgColor="lightGray"
+          bgcolor="lightGray"
           className="py-2 px-9 font-medium"
         />
       </div>

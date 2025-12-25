@@ -40,7 +40,7 @@ const RegisterForm = () => {
           <Input
             error={state?.errors?.shopName?.[0]}
             name="shopName"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             className="rounded-xl"
           />
         </label>
@@ -50,7 +50,7 @@ const RegisterForm = () => {
           <Input
             error={state?.errors?.password?.[0]}
             name="password"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             className="rounded-xl"
           />
         </label>
@@ -60,7 +60,7 @@ const RegisterForm = () => {
           <Input
             error={state?.errors?.repeatPassword?.[0]}
             name="repeatPassword"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             className="rounded-xl"
           />
         </label>
@@ -86,7 +86,7 @@ const RegisterForm = () => {
           rounded="full"
           title="Register Shop"
           type="submit"
-          bgColor="black"
+          bgcolor="black"
           titleColor="white"
           className="py-2 px-4 font-medium"
         />

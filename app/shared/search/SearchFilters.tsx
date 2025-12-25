@@ -27,7 +27,7 @@ const Section = ({
       rounded="full"
       title={title}
       type="button"
-      bgColor="iceBlue"
+      bgcolor="iceBlue"
       titleColor="black"
       onClick={() => handleSetActiveFilter(title as SearchFiltersType)}
       className={`${activeFilterStyles} font-semibold py-2 px-6 !w-fit border border-dirty-pink`}

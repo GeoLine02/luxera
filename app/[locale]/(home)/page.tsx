@@ -50,7 +50,7 @@ export default async function Home(props: {
         {/* <BestSellings products={bestSellingProducts} /> */}
       </div>
       <div className="flex items-center justify-center mt-11">
-        <Link className="max-[322px]" href={`/${locale}/products`}>
+        <Link className="max-[322px]" href={`/${locale}/products?page=1`}>
           <Button
             rounded="full"
             title="Load more 100+"

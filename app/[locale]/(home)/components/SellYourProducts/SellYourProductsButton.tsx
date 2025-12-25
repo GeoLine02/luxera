@@ -6,7 +6,7 @@ const SellYourProductsButton = () => {
       type="button"
       rounded="full"
       title="Get Started"
-      bgColor="transparent"
+      bgcolor="transparent"
       titleColor="mediumBrown"
       className="py-2 px-6 flex items-center justify-center !w-fit border-2 border-medium-brown"
     />

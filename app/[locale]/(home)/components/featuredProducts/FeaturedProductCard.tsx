@@ -3,13 +3,18 @@ import Image from "next/image";
 
 interface ProductCardProps {
   id: number;
-  image?: string;
+  images: { id: number; image: string }[];
   price: number | string;
 
   title?: string;
 }
 
-const FeaturedProductCard = ({ id, image, price, title }: ProductCardProps) => {
+const FeaturedProductCard = ({
+  id,
+  images,
+  price,
+  title,
+}: ProductCardProps) => {
   return (
     <Link
       href={`/${id}`}
@@ -17,9 +22,9 @@ const FeaturedProductCard = ({ id, image, price, title }: ProductCardProps) => {
     >
       <div className="space-y-1 w-full max-w-[190px]">
         <div className="flex justify-center">
-          {image ? (
+          {images ? (
             <Image
-              src={image}
+              src={images[0]?.image}
               alt="product image"
               className="h-[120px] md:h-full object-cover"
               width={200}

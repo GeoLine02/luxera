@@ -41,7 +41,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
           rounded="lg"
           title="View Details"
           type="button"
-          bgColor="lightPink"
+          bgcolor="lightPink"
           className="py-2 px-4 !w-fit font-medium"
           titleColor="black"
           onClick={handleOpenOrderDetails}

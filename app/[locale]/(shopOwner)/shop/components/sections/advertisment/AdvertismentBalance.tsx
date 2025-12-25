@@ -31,7 +31,7 @@ const AdvertismentBalance = () => {
         rounded="lg"
         title="ბალანსის შევსება"
         type="button"
-        bgColor="darkGray"
+        bgcolor="darkGray"
         className="py-2 px-4 font-medium flex justify-center gap-2 items-center md:!w-fit"
         titleColor="white"
       />
@@ -74,7 +74,7 @@ const AdvertismentBalance = () => {
               rounded="lg"
               title="გადახდა"
               type="button"
-              bgColor="darkGray"
+              bgcolor="darkGray"
               className="py-3 px-4"
               titleColor="white"
             />

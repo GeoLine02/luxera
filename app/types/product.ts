@@ -1,24 +1,31 @@
-import { CategoryType, SubCategoryType } from "./categories";
+import { SubCategoryType } from "./categories";
+import { ShopType } from "./shop";
 import { User } from "./user";
 
 export interface ProductType {
   id: number;
-  product_image: string;
-  product_name: string;
   product_rating: number;
   product_price: number;
   produt_status: string;
   product_subcategory_id: number;
+  product_category_id: number;
   product_description: string;
   product_owner_id: number;
+  shop_id: number;
+  variants: ProductVariantType[];
 }
 
+export type ProductWithPrimaryVariant = Omit<ProductType, "variants"> & {
+  primaryVariant: Omit<ProductVariantType, "images"> & {
+    image: string;
+  };
+};
+
 export interface ProductDetailsType extends ProductType {
-  variants: ProductVariantType[];
   images: ProductImageType[];
   product_description: string;
   owner: User;
-  shop_id: number;
+  shop: ShopType;
 }
 
 export interface ProductImageType {
@@ -28,33 +35,37 @@ export interface ProductImageType {
   variant_id: number;
 }
 
-export interface NewProductValues {
-  productName: string;
-  productPrice: number;
-  productDescription: string;
-  productSubCategory: SubCategoryType | null;
-  productCategory: CategoryType | null;
-  productPreviewImages: File[];
-  productVariants: ProductVariantType[];
-  productQuantity: number;
-  productDiscount: number;
+export interface ProductFormType {
+  id?: number | undefined;
+  product_description: string;
+  product_variants: ProductVariantType[];
+  product_category: {
+    id: number;
+    category_name: string;
+    subCategories: Omit<SubCategoryType, "sub_category_image">[];
+  } | null;
+  product_sub_category: Omit<SubCategoryType, "sub_category_image"> | null;
 }
 
 export type ProductVariantType = {
-  id: number | string;
+  id?: number | string;
   variant_name: string;
   variant_price: number;
   variant_quantity: number;
-  variant_discont: number;
-  variant_images: File[];
+  variant_discount: number;
+  product_id?: number;
+  images: (ProductImageType | File)[];
 };
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
 
-export interface SellersProductType {
+export interface SellerProductType {
   title: string;
-  id: string;
-  views: string;
-  sales: string;
-  status: SellerProductStatusType;
+  id: number;
+  views_per_day: number;
+  views_per_month: number;
+  sales_per_day: number;
+  sales_per_month: number;
+  product_status: SellerProductStatusType;
+  primaryVariant: ProductVariantType;
 }

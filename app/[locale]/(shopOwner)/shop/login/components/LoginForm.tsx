@@ -22,20 +22,10 @@ const LoginForm = () => {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="email">E-mail or phone number</label>
-          <Input
-            name="email"
-            bgColor="lightGray"
-            className="rounded-xl"
-            placeholder="Type your e-mail or phone number"
-            error={state?.errors?.email?.[0]}
-          />
-        </div>
-        <div className="flex flex-col gap-1">
           <label htmlFor="password">Password</label>
           <Input
             name="password"
-            bgColor="lightGray"
+            bgcolor="lightGray"
             className="rounded-xl"
             type="password"
             placeholder="Type your password"
@@ -50,7 +40,7 @@ const LoginForm = () => {
             rounded="full"
             title="Sign In"
             type="submit"
-            bgColor="black"
+            bgcolor="black"
             titleColor="white"
             className="py-2 font-medium mt-4"
             loader={pending && <ClipLoader size={25} color="white" />}

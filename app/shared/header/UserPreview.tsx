@@ -1,0 +1,38 @@
+"use client";
+
+import { useUser } from "@/app/providers/UserProvider";
+import { Dropdown } from "@/app/ui/DropDown";
+import Link from "next/link";
+import { FaUser } from "react-icons/fa";
+
+const UserPreview = () => {
+  const { user } = useUser();
+
+  return (
+    <div className="hidden md:block">
+      <Dropdown>
+        <Dropdown.Trigger>
+          <div className="flex items-center gap-2">
+            <div className="rounded-full p-2 bg-medium-gray cursor-pointer">
+              <FaUser size={20} color="white" />
+            </div>
+            <span className="text-lg font-medium">{user?.full_name}</span>
+          </div>
+        </Dropdown.Trigger>
+        <Dropdown.Menu expandMode="absolute" className="!top-11">
+          <Dropdown.Item>
+            <Link href={"/shop"}>My Shop</Link>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Link href={"/settings"}>Settings</Link>
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <Link href={"/login"}>Log Out</Link>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </div>
+  );
+};
+
+export default UserPreview;

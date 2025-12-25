@@ -15,10 +15,13 @@ import { openMenu } from "../../store/features/sideMenuSlice";
 import SearchContainer from "../search/SearchContainer";
 import Navigation from "./Navigation";
 import Link from "next/link";
+import { useUser } from "@/app/providers/UserProvider";
+import UserPreview from "./UserPreview";
 
 const Header = () => {
   const pathName = usePathname();
 
+  const { user } = useUser();
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -54,7 +57,7 @@ const Header = () => {
             rounded="full"
             title="Luxera AI"
             type="button"
-            bgColor="black"
+            bgcolor="black"
             className="py-2 px-4 font-medium min-w-[120px] w-full hidden md:block"
             titleColor="white"
             onClick={() => router.push("/luxera-ai")}
@@ -66,16 +69,20 @@ const Header = () => {
           <div className="md:hidden cursor-pointer">
             <FaBars onClick={handleOpenMenu} size={25} />
           </div>
-          <Link href={"/signin"}>
-            <Button
-              bgColor="lightPink"
-              rounded="lg"
-              title="Sign in"
-              type="button"
-              className="hidden md:block !w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
-              titleColor="black"
-            />
-          </Link>
+          {!user ? (
+            <Link href={"/signin"}>
+              <Button
+                bgcolor="lightPink"
+                rounded="lg"
+                title="Sign in"
+                type="button"
+                className="hidden md:block !w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
+                titleColor="black"
+              />
+            </Link>
+          ) : (
+            <UserPreview />
+          )}
         </div>
       </header>
 
