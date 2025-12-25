@@ -155,9 +155,6 @@ const ProductStats = ({
           <FaShoppingCart size={20} color="gray" />
           Add to Cart
         </button>
-        <button className=" bg-light-gray py-2 px-4 rounded-lg text-lg font-semibold hover:bg-gray-200 transition-colors cursor-pointer">
-          Personalise & Add to basket
-        </button>
       </div>
 
       {/* Personalise Button */}
