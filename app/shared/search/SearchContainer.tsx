@@ -2,35 +2,40 @@
 
 import { useState } from "react";
 import Search from "./Search";
-import { SearchFiltersType } from "@/app/types/search";
 import useOutsideClick from "@/app/hooks/useOutSideClick";
 import SearchResults from "./SearchResults";
+import useSearch from "./hooks/useSearch";
+import { ProductWithPrimaryVariant } from "@/app/types/product";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store/store";
 
 const SearchContainer = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const { searchValue } = useSelector(
+    (state: RootState) => state.searchReducer
+  );
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const [activeSearchFilter, setActiveSearchFilter] =
-    useState<SearchFiltersType>("All");
 
   const searchRef = useOutsideClick<HTMLDivElement>(() =>
     setIsSearchOpen(false)
   );
 
+  const [data, loading, error] = useSearch(searchValue);
+
   return (
     <div ref={searchRef} className="w-full px-4 md:px-0 md:mx-5 relative">
       <Search
-        setActiveSearchFilter={setActiveSearchFilter}
-        activeSearchFilter={activeSearchFilter}
         setIsSearchOpen={setIsSearchOpen}
         isSearchOpen={isSearchOpen}
         searchValue={searchValue}
-        setSearchValue={setSearchValue}
       />
 
       <SearchResults
-        activeSearchFilter={activeSearchFilter}
+        searchValue={searchValue}
         isSearchOpen={isSearchOpen}
-        setActiveSearchFilters={setActiveSearchFilter}
+        setIsSearchOpen={setIsSearchOpen}
+        error={error as string | null}
+        loading={loading as boolean}
+        searchResult={data as ProductWithPrimaryVariant[]}
       />
     </div>
   );
