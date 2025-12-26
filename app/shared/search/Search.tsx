@@ -6,28 +6,26 @@ import {
   useRef,
 } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { SearchFiltersType } from "@/app/types/search";
 import classNames from "classnames";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store/store";
+import { setSearchValue } from "@/app/store/features/searchSlice";
 
 interface SearchProps {
   searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
   setIsSearchOpen: Dispatch<SetStateAction<boolean>>;
   isSearchOpen: boolean;
-  activeSearchFilter: SearchFiltersType;
-  setActiveSearchFilter: Dispatch<SetStateAction<SearchFiltersType>>;
 }
 
 const Search = ({
   searchValue,
-  setSearchValue,
   isSearchOpen,
   setIsSearchOpen,
-}: // activeSearchFilter,
-// setActiveSearchFilter,
-SearchProps) => {
+}: SearchProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    dispatch(setSearchValue(e.target.value));
   };
 
   const inputRef = useRef<null | HTMLInputElement>(null);

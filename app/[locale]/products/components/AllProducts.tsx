@@ -14,6 +14,7 @@ const AllProducts = ({
   pageParam,
   priceFromParam,
   priceToParam,
+  searchParam,
 }: {
   initialProducts: ProductWithPrimaryVariant[];
   initialHasMore: boolean;
@@ -21,6 +22,7 @@ const AllProducts = ({
   pageParam: number;
   priceFromParam: string;
   priceToParam: string;
+  searchParam: string;
 }) => {
   const [page, setPage] = useState<number>(pageParam);
   const [products, setProducts] =
@@ -36,7 +38,8 @@ const AllProducts = ({
       nextPage,
       subcategoryParam,
       priceFromParam,
-      priceToParam
+      priceToParam,
+      searchParam
     );
 
     if (!res.data.length) {

@@ -1,32 +1,71 @@
+import { ProductWithPrimaryVariant } from "@/app/types/product";
 import classNames from "classnames";
-// import SearchFilters from "./SearchFilters";
-import { SearchFiltersType } from "@/app/types/search";
-import { Dispatch, SetStateAction } from "react";
+import SearchProductCard from "./SearchProductCard";
+import { ClipLoader } from "react-spinners";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface SearchResultsProps {
   isSearchOpen: boolean;
-  activeSearchFilter: SearchFiltersType;
-  setActiveSearchFilters: Dispatch<SetStateAction<SearchFiltersType>>;
+  setIsSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  searchResult: ProductWithPrimaryVariant[];
+  loading: boolean;
+  error: string | null;
+  searchValue: string;
 }
 
 const SearchResults = ({
   isSearchOpen,
-}: // activeSearchFilter,
-// setActiveSearchFilters,
-SearchResultsProps) => {
+  setIsSearchOpen,
+  error,
+  loading,
+  searchResult,
+  searchValue,
+}: SearchResultsProps) => {
   const searchResultsStyles = classNames("dropdown-animation", {
     "dropdown-open": isSearchOpen,
     "dropdown-closed": !isSearchOpen,
   });
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleShowMore = () => {
+    const param = new URLSearchParams(searchParams);
+
+    param.set("search", searchValue);
+    setIsSearchOpen(false);
+    router.push(`/products?search=${searchValue}`);
+  };
+
   return (
     <div
-      className={`${searchResultsStyles} top-12 md:top-12 left-0 absolute z-50  w-[calc(100%-32px)] ml-4 md:w-full min-h-[400px] bg-ice-blue rounded-b-xl border border-t-0 border-medium-gray md:ml-0`}
+      className={`${searchResultsStyles} top-12 md:top-12 left-0 absolute z-50 w-[calc(100%-32px)] ml-4 md:w-full bg-ice-blue rounded-b-xl border border-t-0 border-medium-gray md:ml-0 overflow-y-hidden pb-4`}
     >
-      {/* <SearchFilters
-        activeSearchFilter={activeSearchFilter}
-        setActiveSearchFilter={setActiveSearchFilters}
-      /> */}
+      <div>
+        {loading && (
+          <div>
+            <ClipLoader size={30} />
+          </div>
+        )}
+        <div>{error && <h1>{error}</h1>}</div>
+        <div className="grid grid-cols-1 xl:grid-cols-2 p-2 xl:p-3 gap-11">
+          {searchResult?.map((product) => (
+            <SearchProductCard
+              key={product.id}
+              product={product}
+              setIsSearchOpen={setIsSearchOpen}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="flex items-center justify-center">
+        <button
+          onClick={handleShowMore}
+          className="text-lg font-medium px-6 p-2 border-t-3 border-light-gray rounded-full hover:bg-black hover:text-white hover-transition cursor-pointer"
+        >
+          <span>ყველა პროდუქტი</span>
+        </button>
+      </div>
     </div>
   );
 };
