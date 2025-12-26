@@ -10,6 +10,8 @@ import { ClipLoader } from "react-spinners";
 import { loginService } from "../../services/login";
 import { useRouter } from "next/navigation";
 import { UserSignInCredsType } from "@/app/types/user";
+import { useUser } from "@/app/providers/UserProvider";
+import api from "@/utils/axios";
 
 const SignInForm = () => {
   const [userCreds, setUserCreds] = useState<UserSignInCredsType>({
@@ -28,9 +30,12 @@ const SignInForm = () => {
     }));
   };
 
+  const { setUser } = useUser();
+
   const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       const res = await loginService(userCreds);
 
@@ -39,13 +44,19 @@ const SignInForm = () => {
           email: res.errors?.email?.[0],
           password: res.errors?.password?.[0],
         });
+        return;
       }
 
       if (res?.data && res.success) {
+        const userRes = await api.get("/user/me");
+
+        const userData = userRes.data;
+
+        setUser(userData.data);
         router.push("/");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }

@@ -8,34 +8,41 @@ import {
   useEffect,
 } from "react";
 import { User } from "../types/user";
+import api from "@/utils/axios";
 
 interface UserContextType {
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  laoding: boolean;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export function UserProvider({
-  children,
-  userData,
-}: {
-  children: ReactNode;
-  userData: { success: boolean; message?: string; data: User } | null;
-}) {
-  const [user, setUser] = useState<null | User>(
-    userData?.data ? userData.data : null
-  );
+export function UserProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<null | User>(null);
+  const [laoding, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (userData?.data) {
-      setUser(userData.data);
-    } else {
-      setUser(null);
-    }
-  }, [userData]);
+    const hydrateUser = async () => {
+      try {
+        const res = await api.get("/user/me");
+
+        const data = await res.data;
+        setUser(data.data);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    hydrateUser();
+  }, []);
 
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser, laoding }}>
+      {children}
+    </UserContext.Provider>
   );
 }
 
