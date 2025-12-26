@@ -69,3 +69,8 @@ export interface SellerProductType {
   product_status: SellerProductStatusType;
   primaryVariant: ProductVariantType;
 }
+
+export interface ProductPriceDirectionType {
+  accessorKey: string;
+  label: string;
+}

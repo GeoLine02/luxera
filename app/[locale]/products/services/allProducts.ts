@@ -5,11 +5,12 @@ export const fetchAllProducts = async (
   subcategory?: string,
   priceFrom?: string,
   priceTo?: string,
-  search?: string
+  search?: string,
+  priceDirection?: string
 ) => {
   try {
     const res = await api.get(
-      `/products?page=${page}&subcategory=${subcategory}&priceFrom=${priceFrom}&priceTo=${priceTo}&search=${search}`
+      `/products?page=${page}&subcategory=${subcategory}&priceFrom=${priceFrom}&priceTo=${priceTo}&search=${search}&price=${priceDirection}`
     );
 
     if (res.status === 200) {
