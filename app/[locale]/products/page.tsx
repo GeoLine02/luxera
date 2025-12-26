@@ -13,6 +13,7 @@ export default async function Products({
     priceFrom?: string;
     priceTo?: string;
     search?: string;
+    price?: string;
   }>;
 }) {
   const resolvedParams = await searchParams;
@@ -22,13 +23,15 @@ export default async function Products({
   const priceFrom = resolvedParams.priceFrom || "";
   const priceTo = resolvedParams.priceTo || "";
   const searchParam = resolvedParams.search || "";
+  const priceDirection = resolvedParams.price || "";
 
   const allProductsData = await fetchAllProducts(
     pageParam,
     subcategoryParam,
     priceFrom,
     priceTo,
-    searchParam
+    searchParam,
+    priceDirection
   );
 
   return (
@@ -50,6 +53,7 @@ export default async function Products({
           priceFromParam={priceFrom}
           priceToParam={priceTo}
           searchParam={searchParam}
+          priceDirectionParam={priceDirection}
         />
       </div>
     </div>
