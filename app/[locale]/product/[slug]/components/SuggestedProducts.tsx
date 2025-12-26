@@ -2,10 +2,10 @@
 
 import ProductCard from "@/app/shared/ProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
-import { ProductType } from "@/app/types/product";
+import { ProductWithPrimaryVariant } from "@/app/types/product";
 
 interface SuggestedProductsProps {
-  suggestedProducts: ProductType[];
+  suggestedProducts: ProductWithPrimaryVariant[];
 }
 
 const SuggestedProducts = ({ suggestedProducts }: SuggestedProductsProps) => {
@@ -15,14 +15,12 @@ const SuggestedProducts = ({ suggestedProducts }: SuggestedProductsProps) => {
         titleWeight="medium"
         title="You may also like"
         data={suggestedProducts}
-        renderCard={(product: ProductType) => (
+        renderCard={(product: ProductWithPrimaryVariant) => (
           <ProductCard
             id={product.id}
-            images={
-              product.variants[0].images as { id: number; image: string }[]
-            }
+            priamryImage={product.primaryVariant.image}
             price={product.product_price}
-            title={product.variants[0].variant_name}
+            title={product.primaryVariant.variant_name}
           />
         )}
       />

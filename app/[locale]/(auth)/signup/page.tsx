@@ -1,11 +1,9 @@
-"use server";
-
 import Image from "next/image";
 import LuxeraLogo from "@/public/LuxeraLogo.svg";
 import AuthPoster from "@/public/AuthPoster.png";
 import SignUpForm from "./components/SignUpForm";
 
-const SignUp = () => {
+const SignUp = async () => {
   return (
     <div>
       <div className="flex flex-col lg:flex-row min-h-screen">
