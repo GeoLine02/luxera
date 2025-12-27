@@ -8,12 +8,14 @@ import { AppDispatch } from "@/app/store/store";
 import { openCategoiresModal } from "@/app/store/features/categoriesSlice";
 import { Link, usePathname } from "@/i18n/navigation";
 import Button from "@/app/ui/Button";
+import { useUser } from "@/app/providers/UserProvider";
 
 const Navigation = () => {
   const locale = useLocale();
   const [currentLang, setCurrentLang] = useState(locale);
   const pathName = usePathname();
   const dispatch = useDispatch<AppDispatch>();
+  const { user } = useUser();
 
   const handleToggleCategories = () => {
     dispatch(openCategoiresModal());
@@ -42,16 +44,18 @@ const Navigation = () => {
       </section>
 
       <div className="flex items-center gap-6">
-        <Link href={"/shop/register"}>
-          <Button
-            rounded="lg"
-            title="Open Shop"
-            type="button"
-            bgcolor="lightPink"
-            className="py-2 px-4 font-medium"
-            titleColor="black"
-          />
-        </Link>
+        {user?.role !== "seller" && (
+          <Link href={"/shop/register"}>
+            <Button
+              rounded="lg"
+              title="Open Shop"
+              type="button"
+              bgcolor="lightPink"
+              className="py-2 px-4 font-medium"
+              titleColor="black"
+            />
+          </Link>
+        )}
         <Link
           href={pathName}
           locale={`${currentLang === "en" ? "ka" : "en"}`}
