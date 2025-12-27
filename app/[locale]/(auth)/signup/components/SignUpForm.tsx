@@ -1,22 +1,54 @@
 "use client";
 
 import Input from "@/app/ui/Input";
-import Form from "next/form";
 import Button from "@/app/ui/Button";
 import OtherAccounts from "../../shared/OtherAccounts";
 import AlreadyHaveAnAccount from "./AlreadyHaveAnAccount";
 import TermsAndPolicies from "./TermsAndPolicies";
-import { useActionState, useEffect } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { registerService } from "../../services/register";
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
+import { UserRegisterCredsType } from "@/app/types/user";
+import { useUser } from "@/app/providers/UserProvider";
+import api from "@/utils/axios";
 
 const SignUpForm = () => {
-  const [state, action, pending] = useActionState(registerService, undefined);
+  const [userCreds, setUserCreds] = useState<UserRegisterCredsType>({
+    email: "",
+    fullName: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+  const { setUser } = useUser();
   const router = useRouter();
-  useEffect(() => {
-    if (state?.success) router.push("/signin");
-  }, [router, state?.success]);
+
+  const onchange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserCreds((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await registerService(userCreds);
+      console.log(res);
+      if (res.data && res.success) {
+        setUser(res.data.user);
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="max-w-[424px] w-full space-y-[57px]">
@@ -27,7 +59,7 @@ const SignUpForm = () => {
         <p className="text-dark-gray">It’s free and easy</p>
       </div>
 
-      <Form className="space-y-[30px] text-medium-gray" action={action}>
+      <form className="space-y-[30px] text-medium-gray" onSubmit={handleSignUp}>
         <div className="space-y-3">
           <Input
             labelColor="darkGray"
@@ -35,9 +67,9 @@ const SignUpForm = () => {
             label="Full Name"
             name="fullName"
             type="text"
+            value={userCreds.fullName}
             placeholder="Enter your name"
-            defaultValue={state?.values?.fullName || ""}
-            error={state?.errors?.fullName?.[0]}
+            onChange={onchange}
           />
           <Input
             labelColor="darkGray"
@@ -45,9 +77,9 @@ const SignUpForm = () => {
             label="E-mail or phone number"
             name="email"
             type="email"
+            value={userCreds.email}
             placeholder="Type your e-mail or phone number"
-            defaultValue={state?.values?.email}
-            error={state?.errors?.email?.[0]}
+            onChange={onchange}
           />
           <Input
             labelColor="darkGray"
@@ -55,23 +87,21 @@ const SignUpForm = () => {
             label="Password"
             name="password"
             type="password"
+            value={userCreds.password}
             placeholder="Type your password"
-            error={state?.errors?.password?.[0]}
+            onChange={onchange}
           />
           <Input
             labelColor="darkGray"
             bgcolor="lightGray"
             label="Confirm password"
             name="confirmPassword"
+            value={userCreds.confirmPassword}
             type="password"
             placeholder="Confirm your password"
-            error={state?.errors?.confirmPassword?.[0]}
+            onChange={onchange}
           />
         </div>
-
-        {state?.status === 400 && (
-          <p className="text-sm text-red-500 font-medium">{state?.error}</p>
-        )}
 
         <div className="flex items-center gap-2">
           <Input bgcolor="transparent" name="terms" required type="checkbox" />
@@ -83,9 +113,9 @@ const SignUpForm = () => {
           type="submit"
           bgcolor="black"
           rounded="full"
-          title={`${pending ? "" : "Sign Up"}`}
+          title={`${loading ? "" : "Sign Up"}`}
           titleColor="white"
-          loader={pending && <ClipLoader size={25} color="white" />}
+          loader={loading && <ClipLoader size={25} color="white" />}
         />
         <div className="flex items-center gap-4 text-medium-gray mt-7">
           <hr className="flex-1 border-t border-medium-gray" />
@@ -95,7 +125,7 @@ const SignUpForm = () => {
 
         <OtherAccounts />
         <AlreadyHaveAnAccount />
-      </Form>
+      </form>
     </div>
   );
 };

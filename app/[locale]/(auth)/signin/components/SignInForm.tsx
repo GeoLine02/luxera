@@ -57,6 +57,7 @@ const SignInForm = () => {
       }
     } catch (error) {
       console.error(error);
+      setUser(null);
     } finally {
       setLoading(false);
     }
