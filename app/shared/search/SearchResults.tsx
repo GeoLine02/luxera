@@ -48,7 +48,7 @@ const SearchResults = ({
           </div>
         )}
         <div>{error && <h1>{error}</h1>}</div>
-        <div className="grid grid-cols-1 xl:grid-cols-2 p-2 xl:p-3 gap-11">
+        <div className="grid grid-cols-1 xl:grid-cols-2 p-2 xl:p-3 gap-2 md:gap-6 xl:gap-11">
           {searchResult?.map((product) => (
             <SearchProductCard
               key={product.id}
