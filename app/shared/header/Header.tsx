@@ -36,8 +36,6 @@ const Header = () => {
   )
     return null;
 
-  console.log("userrrrrr: ", user);
-
   return (
     <>
       <header className="flex items-center justify-between px-6 lg:px-11 py-4 lg:py-5">

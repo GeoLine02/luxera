@@ -20,9 +20,8 @@ const SignInForm = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Partial<UserSignInCredsType> | null>(null);
-
+  const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
-
   const onchange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserCreds((prev) => ({
       ...prev,
@@ -35,11 +34,14 @@ const SignInForm = () => {
   const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
+    setServerError(null);
 
     try {
       const res = await loginService(userCreds);
 
-      if (res?.errors) {
+      // 🟡 Validation errors
+      if (res.type === "validation") {
         setError({
           email: res.errors?.email?.[0],
           password: res.errors?.password?.[0],
@@ -47,16 +49,21 @@ const SignInForm = () => {
         return;
       }
 
-      if (res?.data && res.success) {
+      // 🟢 Login success
+      if (res.type === "success") {
         const userRes = await api.get("/user/me");
-
-        const userData = userRes.data;
-
-        setUser(userData.data);
+        setUser(userRes.data.data);
         router.push("/");
       }
-    } catch (error) {
-      console.error(error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // 🔴 Server / Network errors
+      if (error.type === "server") {
+        setServerError(error.message);
+      } else {
+        setServerError("Unexpected error occurred");
+      }
+
       setUser(null);
     } finally {
       setLoading(false);
@@ -70,7 +77,7 @@ const SignInForm = () => {
         <p>Meet the good taste today</p>
       </div>
 
-      <form className="space-y-[30px]" onSubmit={handleSignIn}>
+      <form className="space-y-4" onSubmit={handleSignIn}>
         <div>
           <Input
             bgcolor="lightGray"
@@ -89,12 +96,14 @@ const SignInForm = () => {
             name="password"
             type="password"
             placeholder="Type your password"
-            defaultValue={""}
             error={error?.password}
             onChange={onchange}
           />
           <ForgetPasswordButton />
         </div>
+        {serverError && (
+          <p className="text-sm font-medium text-red-500 mb-3">{serverError}</p>
+        )}
         <Button
           className="py-4  gap-2 flex items-center justify-center font-bold"
           type="submit"
