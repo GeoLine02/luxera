@@ -18,9 +18,8 @@ const ProductsList = ({
   return (
     <div>
       <SwiperSlider
-        titleWeight="bold"
+        titleWeight="medium"
         title={title}
-        titleFont="FRL"
         data={products}
         renderCard={(product: ProductWithPrimaryVariant) => (
           <ProductCard

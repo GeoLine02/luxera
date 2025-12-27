@@ -11,9 +11,7 @@ const SellYourProducts = ({ title, desc }: SellYourProductsProps) => {
   return (
     <div className="flex flex-col gap-7 lg:gap-10 lg:flex-row lg:justify-between lg:items-center p-10 lg:px-[67px] lg:py-[63px] bg-light-pink">
       <div className="space-y-6 lg:space-y-[51px]">
-        <h1 className="text-[40px] lg:text-[64px] font-bold font-FRL">
-          {heading}
-        </h1>
+        <h1 className="text-[40px] lg:text-[64px] font-medium">{heading}</h1>
         <p>{sub}</p>
       </div>
       <SellYourProductsButton />

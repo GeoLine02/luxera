@@ -12,7 +12,7 @@ const VIPListing = ({ products }: VipListingProps) => {
   return (
     <div className="space-y-3">
       <SwiperSlider
-        titleWeight="bold"
+        titleWeight="medium"
         data={products}
         title="VIP Listing"
         renderCard={(product: ProductWithPrimaryVariant) => (

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 
 import "../globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import Header from "../shared/header/Header";
 import Footer from "../shared/Footer/Footer";
 import ReduxProvider from "../providers/ReduxProvider";
@@ -31,6 +31,13 @@ const inter = Inter({
   display: "swap",
 });
 
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-poppins",
+});
+
 export default async function RootLayout({
   children,
   params,
@@ -55,7 +62,7 @@ export default async function RootLayout({
           content="width=device-width, initial-scale=1.0, user-scalable=no"
         />
       </head>
-      <body className={`font-${inter.style.fontFamily}`}>
+      <body className={`${poppins.className}`}>
         <ReduxProvider preloadedState={preloadedState}>
           <NextIntlClientProvider>
             <UserProvider>
