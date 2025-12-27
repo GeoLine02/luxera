@@ -83,6 +83,7 @@ const SignUpForm = () => {
             name="fullName"
             type="text"
             value={userCreds.fullName}
+            error={errors?.fullName}
             placeholder="Enter your name"
             onChange={onchange}
           />
@@ -95,6 +96,7 @@ const SignUpForm = () => {
             value={userCreds.email}
             placeholder="Type your e-mail or phone number"
             onChange={onchange}
+            error={errors?.email}
           />
           <Input
             labelColor="darkGray"
@@ -105,6 +107,7 @@ const SignUpForm = () => {
             value={userCreds.password}
             placeholder="Type your password"
             onChange={onchange}
+            error={errors?.password}
           />
           <Input
             labelColor="darkGray"
@@ -115,6 +118,7 @@ const SignUpForm = () => {
             type="password"
             placeholder="Confirm your password"
             onChange={onchange}
+            error={errors?.password}
           />
         </div>
 
@@ -132,7 +136,9 @@ const SignUpForm = () => {
           type="submit"
           bgcolor="black"
           rounded="full"
-          title={`${loading ? "" : "Sign Up"}`}
+          title={`${
+            loading ? <ClipLoader size={25} color="white" /> : "Sign Up"
+          }`}
           titleColor="white"
           loader={loading && <ClipLoader size={25} color="white" />}
         />

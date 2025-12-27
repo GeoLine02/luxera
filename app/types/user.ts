@@ -14,6 +14,7 @@ export interface User {
   id: number;
   email: string;
   full_name: string;
+  role: "user" | "admin" | "seller";
 }
 
 export interface LoginResponse {
