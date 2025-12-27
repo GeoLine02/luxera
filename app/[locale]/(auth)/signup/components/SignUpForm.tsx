@@ -11,7 +11,6 @@ import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { UserRegisterCredsType } from "@/app/types/user";
 import { useUser } from "@/app/providers/UserProvider";
-import api from "@/utils/axios";
 
 const SignUpForm = () => {
   const [userCreds, setUserCreds] = useState<UserRegisterCredsType>({
@@ -20,6 +19,8 @@ const SignUpForm = () => {
     password: "",
     confirmPassword: "",
   });
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<UserRegisterCredsType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const { setUser } = useUser();
   const router = useRouter();
@@ -38,12 +39,26 @@ const SignUpForm = () => {
     try {
       const res = await registerService(userCreds);
       console.log(res);
+
+      if (res.errros) {
+        setErrors({
+          email: res.errors?.email[0],
+          fullName: res.errors?.fullName[0],
+          password: res.errors?.password[0],
+          confirmPassword: "",
+        });
+        return;
+      }
+
       if (res.data && res.success) {
         setUser(res.data.user);
         router.push("/");
       }
-    } catch (error) {
-      console.log(error);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.type === "server") {
+        setServerError(error.message);
+      }
       setUser(null);
     } finally {
       setLoading(false);
@@ -107,6 +122,10 @@ const SignUpForm = () => {
           <Input bgcolor="transparent" name="terms" required type="checkbox" />
           <TermsAndPolicies />
         </div>
+
+        {serverError && (
+          <p className="text-sm text-red-500 font-medium">{serverError}</p>
+        )}
 
         <Button
           className="py-4 flex items-center justify-center font-bold"

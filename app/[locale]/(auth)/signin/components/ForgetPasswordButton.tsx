@@ -6,7 +6,7 @@ const ForgetPasswordButton = () => {
   const router = useRouter();
 
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-end mt-2">
       <span
         onClick={() => router.push("/forget-password")}
         className="text-medium-gray cursor-pointer"

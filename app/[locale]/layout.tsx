@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 
 import "../globals.css";
-import { Inter, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Header from "../shared/header/Header";
 import Footer from "../shared/Footer/Footer";
 import ReduxProvider from "../providers/ReduxProvider";
@@ -19,17 +19,12 @@ import {
   setSubCategories,
 } from "../store/features/categoriesSlice";
 import { UserProvider } from "../providers/UserProvider";
-// import { getUser } from "@/utils/getUser";
 
 export const metadata: Metadata = {
   title: "Luxera Gift Shop",
   description:
     "Luxera gift shop is place where you can purchise any gift for your loved one with help of luxera AI. AI will help you shoose the best gift for someone",
 };
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const poppins = Poppins({
   subsets: ["latin"],

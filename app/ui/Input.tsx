@@ -44,7 +44,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputRef = register?.ref || ref;
 
     return (
-      <div className={className + " border-2 border-light-gray rounded-lg"}>
+      <div className={className}>
         {type === "checkbox" ? (
           <label className="flex items-center space-x-2 cursor-pointer">
             <input
@@ -62,13 +62,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 {label}
               </label>
             )}
-            <input
-              type={type}
-              id={name}
-              className={inputBorderStyles + "border-2 border-light-gray"}
-              ref={inputRef}
-              {...inputProps}
-            />
+            <div className="border-2 border-light-gray rounded-lg">
+              <input
+                type={type}
+                id={name}
+                className={inputBorderStyles + "border-2 border-light-gray"}
+                ref={inputRef}
+                {...inputProps}
+              />
+            </div>
           </>
         )}
         {errorMessage && (

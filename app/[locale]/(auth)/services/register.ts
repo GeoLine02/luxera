@@ -1,6 +1,7 @@
 import api from "@/utils/axios";
 import { registerValidationSchema } from "../validation/signUp";
 import { UserRegisterCredsType } from "@/app/types/user";
+import { AxiosError } from "axios";
 
 export async function registerService(
   userRegisterCreds: UserRegisterCredsType
@@ -20,6 +21,15 @@ export async function registerService(
     }
   } catch (error) {
     console.error(error);
-    return { error: "Something went wrong." };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const err = error as AxiosError<any>;
+
+    if (err.response) {
+      throw {
+        type: "server",
+        status: err.response.status,
+        message: err.response.data?.message || "Registration failed",
+      };
+    }
   }
 }
