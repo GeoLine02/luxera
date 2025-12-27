@@ -36,14 +36,14 @@ const AllProducts = ({ shopId, initialProducts }: AllProductsProps) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5 xl:gap-6 2xl:grid-cols-6">
-      <InfiniteScroll
-        dataLength={products.length}
-        hasMore={hasMore}
-        next={fetchMore}
-        loader={loading && <ClipLoader size={25} />}
-        scrollThreshold={0.8}
-      >
+    <InfiniteScroll
+      dataLength={products.length}
+      hasMore={hasMore}
+      next={fetchMore}
+      loader={loading && <ClipLoader size={25} />}
+      scrollThreshold={0.8}
+    >
+      <div className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5 xl:gap-6 2xl:grid-cols-6">
         {products.map((product) => (
           <ProductCard
             id={product.id}
@@ -53,8 +53,8 @@ const AllProducts = ({ shopId, initialProducts }: AllProductsProps) => {
             key={product.id}
           />
         ))}
-      </InfiniteScroll>
-    </div>
+      </div>
+    </InfiniteScroll>
   );
 };
 
