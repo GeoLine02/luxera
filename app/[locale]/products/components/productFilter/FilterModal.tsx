@@ -85,7 +85,7 @@ const FilterModal = ({
             </div>
           </Dropdown.Trigger>
 
-          <Dropdown.Menu expandMode="absolute">
+          <Dropdown.Menu className="!top-11" expandMode="absolute">
             {priceDirections.map((direction) => (
               <Dropdown.Item
                 key={direction.accessorKey}

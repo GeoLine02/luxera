@@ -19,6 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       type = "text",
       error,
       className = "",
+      bgcolor,
       labelColor,
       name,
       register,
@@ -28,6 +29,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const labelStyles = classNames("label", {
       "text-medium-gray": labelColor === "darkGray",
+    });
+
+    const inputBgStyles = classNames({
+      "bg-lightGray": bgcolor === "lightGray",
+      "bg-transparent": bgcolor === "transparent",
+      "bg-white": bgcolor === "white",
     });
 
     const inputBorderStyles = classNames(
@@ -62,7 +69,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 {label}
               </label>
             )}
-            <div className="border-2 border-light-gray rounded-lg">
+            <div
+              className={`border-2 border-light-gray rounded-lg ${inputBgStyles} `}
+            >
               <input
                 type={type}
                 id={name}

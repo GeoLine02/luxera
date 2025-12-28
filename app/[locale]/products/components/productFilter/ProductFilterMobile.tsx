@@ -3,7 +3,7 @@
 import { Dropdown } from "@/app/ui/DropDown";
 import { FaArrowDown } from "react-icons/fa6";
 import FilterModal from "./FilterModal";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ProductPriceDirectionType } from "@/app/types/product";
 
@@ -46,6 +46,8 @@ const ProductFilterMobile = () => {
   const [selectedDirection, setSelectedDirection] =
     useState<ProductPriceDirectionType>(initialDirection);
 
+  console.log(isFilterOpen);
+
   /* ================================
      Apply filters → update URL
   ================================ */
@@ -71,7 +73,10 @@ const ProductFilterMobile = () => {
     <div className="px-4 md:hidden">
       <Dropdown>
         <Dropdown.Trigger>
-          <div className="flex items-center justify-between w-full rounded-lg bg-light-pink px-4 py-2">
+          <div
+            onClick={() => setIsFilterOpen(!isFilterOpen)}
+            className="flex items-center justify-between w-full rounded-lg bg-light-pink px-4 py-2"
+          >
             <h1 className="text-xl">Filters</h1>
             <FaArrowDown className="p-1.5 rounded-full box-content border border-black" />
           </div>
