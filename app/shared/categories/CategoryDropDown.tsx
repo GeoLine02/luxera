@@ -2,6 +2,8 @@ import { CategoryType, SubCategoryType } from "@/app/types/categories";
 import { Dropdown } from "@/app/ui/DropDown";
 import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import CategoryImage from "@/public/giftbox.png";
+import SubcateogryImage from "@/public/FlowerImage.png";
 
 interface CategoryDropDownProps {
   category: CategoryType;
@@ -26,13 +28,8 @@ const CategoryDropDown = ({
           className="flex items-center justify-between p-3 border-b border-b-light-gray"
         >
           <div className="flex items-center gap-5">
-            {!category.category_image && (
-              <Image
-                width={40}
-                height={40}
-                src={category.category_image}
-                alt={label}
-              />
+            {category.category_image && (
+              <Image width={40} height={40} src={CategoryImage} alt={label} />
             )}
             <h1 className="text-xl font-medium">{label}</h1>
           </div>
@@ -55,7 +52,15 @@ const CategoryDropDown = ({
             onSelect={() => handleChooseSubCategory(subCategory)}
             key={subCategory.sub_category_name}
           >
-            {subCategory.sub_category_name}
+            <div className="flex gap-4 items-center">
+              <Image
+                width={40}
+                height={40}
+                src={SubcateogryImage}
+                alt="subcategory image"
+              />
+              <h1 className="font-medium">{subCategory.sub_category_name}</h1>
+            </div>
           </Dropdown.Item>
         ))}
       </Dropdown.Menu>
