@@ -26,7 +26,6 @@ interface FilterModalProps {
 }
 
 const FilterModal = ({
-  isModalOpen,
   setIsFilterOpen,
   priceFrom,
   priceTo,
@@ -37,20 +36,12 @@ const FilterModal = ({
   setSelectedDirection,
   handleFilterProducts,
 }: FilterModalProps) => {
-  const modalToggleStyles = classNames("dropdown-animation", {
-    "dropdown-open": isModalOpen,
-    "dropdown-closed": !isModalOpen,
-  });
-
   const filterRef = useOutsideClick<HTMLDivElement>(() =>
     setIsFilterOpen(false)
   );
 
   return (
-    <div
-      ref={filterRef}
-      className={`${modalToggleStyles} bg-light-pink p-5 space-y-5 rounded-md`}
-    >
+    <div ref={filterRef} className={`bg-light-pink p-5 space-y-5 rounded-md`}>
       {/* Price inputs */}
       <div className="flex gap-5 items-center">
         <div className="flex-1">

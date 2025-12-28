@@ -5,14 +5,22 @@ import Image from "next/image";
 
 const SubCategoryCard = ({ sub_category_name, id }: SubCategoryType) => {
   return (
-    <Link
-      href={`/products?subcategory=${sub_category_name}-${id}`}
-      className={`bg-light-pink rounded-md px-2 flex items-center justify-around w-full box-border lg:max-w-full h-[90px] cursor-pointer`}
-    >
-      <h1 className="font-medium">{sub_category_name}</h1>
+    <div>
+      <Link
+        href={`/products?subcategory=${sub_category_name}-${id}`}
+        className="bg-light-pink rounded-md px-4 flex items-center gap-4 h-[90px] cursor-pointer w-fit min-w-max whitespace-nowrap"
+      >
+        <h1 className="font-medium shrink-0">{sub_category_name}</h1>
 
-      <Image height={50} width={50} src={GiftBoxImage} alt={""} />
-    </Link>
+        <Image
+          height={50}
+          width={50}
+          src={GiftBoxImage}
+          alt=""
+          className="shrink-0"
+        />
+      </Link>
+    </div>
   );
 };
 

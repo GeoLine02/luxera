@@ -7,9 +7,6 @@ import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ProductPriceDirectionType } from "@/app/types/product";
 
-/* ================================
-   Price direction options
-================================ */
 const priceDirectionOptions: ProductPriceDirectionType[] = [
   { accessorKey: "asc", label: "From low to high" },
   { accessorKey: "desc", label: "From high to low" },
@@ -30,9 +27,6 @@ const ProductFilterMobile = () => {
     searchParams.get("priceTo") ?? ""
   );
 
-  /* ================================
-     Get direction from URL → object
-  ================================ */
   const initialDirection = useMemo<ProductPriceDirectionType>(() => {
     const directionFromUrl = searchParams.get("priceDirection");
 
@@ -73,10 +67,7 @@ const ProductFilterMobile = () => {
     <div className="px-4 md:hidden">
       <Dropdown>
         <Dropdown.Trigger>
-          <div
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="flex items-center justify-between w-full rounded-lg bg-light-pink px-4 py-2"
-          >
+          <div className="flex items-center justify-between w-full rounded-lg bg-light-pink px-4 py-2">
             <h1 className="text-xl">Filters</h1>
             <FaArrowDown className="p-1.5 rounded-full box-content border border-black" />
           </div>
