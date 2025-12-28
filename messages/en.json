@@ -1,6 +1,390 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+  "PrivacyAndPolicyPage": {
+    "title": "Privacy Policy",
+    "company": {
+      "name": "Luxera Gift LLC",
+      "website": "Website: luxeragift.com"
+    },
+
+    "sections": {
+      "companyInfo": {
+        "title": "1. Company Information",
+        "items": {
+          "legalName": "Legal Name: Luxera Gift LLC",
+          "id": "Identification Number: 435897790",
+          "address": "Registered Address: Georgia, Mestia town, Guladi Japaridze Street N 12, Apartment 1",
+          "email": "Email: support@luxeragift.com",
+          "definition": "Throughout this document, “Luxera Gift”, “we”, “our”, or “Website” refers to Luxera Gift LLC."
+        }
+      },
+
+      "purpose": {
+        "title": "2. Purpose of This Policy",
+        "description": "This Privacy Policy explains:",
+        "list": [
+          "What personal data we collect",
+          "Why and how we process it",
+          "How long we store it",
+          "Your rights regarding your personal data"
+        ],
+        "footer": "By using luxeragift.com, you agree to this Privacy Policy."
+      },
+
+      "legalBasis": {
+        "title": "3. Legal Basis",
+        "description": "Luxera Gift processes personal data in accordance with:",
+        "laws": [
+          "The Law of Georgia on Personal Data Protection",
+          "The General Data Protection Regulation (GDPR) where applicable"
+        ],
+        "basis": "Data is processed based on:",
+        "reasons": [
+          "User consent",
+          "Performance of a contract",
+          "Legal obligations",
+          "Legitimate business interests"
+        ]
+      },
+
+      "dataCollected": {
+        "title": "4. Personal Data We Collect",
+        "list": [
+          "First and last name",
+          "Email address",
+          "Phone number",
+          "Delivery address",
+          "Account login information",
+          "Order and purchase details",
+          "Communication with support",
+          "Technical data (IP address, device type, browser, cookies)"
+        ],
+        "note": "We do not store or access payment card details. Payments are processed via secure third-party payment providers."
+      },
+
+      "dataUsage": {
+        "title": "5. Purpose of Data Processing",
+        "list": [
+          "Provide and deliver products and services",
+          "Manage user accounts and orders",
+          "Communicate with users",
+          "Process payments and refunds",
+          "Improve website functionality and user experience",
+          "Comply with legal obligations",
+          "Prevent fraud and misuse",
+          "Send marketing communications (only with consent)"
+        ]
+      },
+
+      "cookies": {
+        "title": "6. Cookies & Analytics",
+        "description": "Luxera Gift uses cookies and log files to:",
+        "list": [
+          "Analyze website traffic",
+          "Improve usability and performance",
+          "Personalize user experience"
+        ],
+        "data": [
+          "IP address",
+          "Browser and device type",
+          "Visit duration and visited pages"
+        ],
+        "footer": "Users can manage cookie settings through their browser."
+      },
+
+      "sharing": {
+        "title": "7. Sharing of Personal Data",
+        "description": "Personal data may be shared only when necessary with:",
+        "list": [
+          "Courier services for delivery (name, address, phone number, order details)",
+          "Payment providers for transaction processing",
+          "State authorities if required by law"
+        ],
+        "note": "We do not sell personal data to third parties."
+      },
+
+      "marketing": {
+        "title": "8. Marketing Communications",
+        "list": [
+          "Users receive marketing messages only with explicit consent",
+          "Consent can be withdrawn at any time through account settings or by contacting support",
+          "Withdrawal of consent does not affect service-related notifications"
+        ]
+      },
+
+      "retention": {
+        "title": "9. Data Retention",
+        "list": [
+          "As long as the user has an active account",
+          "As required to fulfill legal and contractual obligations"
+        ],
+        "note": "Users may request deletion of their data unless retention is required by law."
+      },
+
+      "rights": {
+        "title": "10. User Rights",
+        "list": [
+          "Access their personal data",
+          "Request correction or update",
+          "Request deletion or restriction of processing",
+          "Withdraw consent at any time",
+          "Request data portability",
+          "File a complaint with the Personal Data Protection Service of Georgia or the court"
+        ],
+        "footer": "Requests can be submitted via support@luxeragift.com. We respond within legally required timeframes."
+      },
+      "security": {
+        "title": "11. Data Security",
+        "paragraphs": [
+          "Luxera Gift applies appropriate technical and organizational measures to protect personal data.",
+          "However, absolute security cannot be guaranteed against unlawful third-party access.",
+          "Users are responsible for keeping their login credentials confidential."
+        ]
+      },
+      "minors": {
+        "title": "12. Minors",
+        "paragraphs": [
+          "Luxera Gift services are intended for users 18 years and older.",
+          "If we discover data from a minor without legal consent, such data will be deleted."
+        ]
+      },
+      "thirdParty": {
+        "title": "13. Third-Party Links",
+        "paragraphs": [
+          "Our Website may contain links to third-party websites.",
+          "Luxera Gift is not responsible for their privacy practices or content."
+        ]
+      },
+      "changes": {
+        "title": "14. Changes to This Policy",
+        "paragraphs": [
+          "Luxera Gift LLC may update this Privacy Policy at any time.",
+          "Updates take effect upon publication on luxeragift.com. Continued use of the Website constitutes acceptance of the updated policy."
+        ]
+      },
+      "contact": {
+        "title": "15. Contact",
+        "paragraphs": [
+          "For privacy-related questions or requests, contact us at:",
+          "📧 support@luxeragift.com"
+        ]
+      }
+    }
+  },
+  "TermsAndConditionPage": {
+    "title": "Terms and Conditions",
+    "company": "Luxera Gift LLC",
+    "website": "luxeragift.com",
+    "sections": {
+      "1": {
+        "title": "Company Information",
+        "list": [
+          "Legal Name: Luxera Gift LLC",
+          "Identification Number: 435897790",
+          "Registered Address Georgia, Mestia town, Guladi Japaridze Street N 12, Apartment 1",
+          "Email: support@luxeragift.com"
+        ],
+        "paragraphs": [
+          "Throughout these Terms, “Luxera Gift”, “we”, “our”, or “Website” refers to Luxera Gift LLC."
+        ]
+      },
+      "2": {
+        "title": "Acceptance of Terms",
+        "paragraphs": [
+          "By accessing or using luxeragift.com, registering an account, or placing an order, the user confirms that they have read, understood, and agreed to these Terms and Conditions, as well as the Privacy Policy and Return Policy.",
+          "If the user does not agree with these terms, they must refrain from using the Website."
+        ]
+      },
+      "3": {
+        "title": "Eligibility",
+        "list": [
+          "Users must be at least 18 years old and legally capable of entering into contracts.",
+          "Users agree to provide accurate and complete information during registration and checkout.",
+          "Misuse of another person’s identity or account is strictly prohibited."
+        ]
+      },
+      "4": {
+        "title": "User Account",
+        "list": [
+          "Registration may be required to purchase products.",
+          "The user is responsible for maintaining the confidentiality of their account credentials.",
+          "Luxera Gift reserves the right to suspend or terminate accounts in case of false information, misuse, fraud, or violation of these Terms."
+        ],
+        "paragraphs": [
+          "Users may delete their account at any time through account settings."
+        ]
+      },
+      "5": {
+        "title": "Orders and Purchases",
+        "list": [
+          "Each order placed on the Website constitutes a separate purchase agreement between the user and Luxera Gift LLC.",
+          "Luxera Gift reserves the right to refuse or cancel an order in cases of suspected fraud, technical errors, or illegal activity.",
+          "Ownership of the product transfers to the user after successful payment."
+        ]
+      },
+      "6": {
+        "title": "Pricing and Payment",
+        "list": [
+          "All prices are shown in GEL, unless stated otherwise.",
+          "Payments are processed through secure third-party payment providers.",
+          "Luxera Gift does not store or have access to users’ card or payment details.",
+          "Order confirmation is sent to the email provided by the user."
+        ]
+      },
+      "7": {
+        "title": "Delivery",
+        "list": [
+          "Delivery is performed via third-party courier services.",
+          "Delivery times and fees depend on the region and are shown during checkout.",
+          "Risk of loss or damage transfers to the courier once the product is handed over for delivery.",
+          "Incorrect or incomplete delivery information is the responsibility of the user."
+        ]
+      },
+      "8": {
+        "title": "Returns and Refunds",
+        "paragraphs": [
+          "Return and refund conditions are governed by the Return Policy published on luxeragift.com and form an integral part of these Terms."
+        ]
+      },
+      "9": {
+        "title": "Use of the Website",
+        "list": [
+          "Use the Website for illegal purposes",
+          "Interfere with the Website’s functionality or security",
+          "Upload false, offensive, or misleading content",
+          "Infringe intellectual property rights of Luxera Gift or third parties"
+        ],
+        "paragraphs": [
+          "Luxera Gift may restrict access to the Website if misuse is detected."
+        ]
+      },
+      "10": {
+        "title": "Intellectual Property",
+        "list": [
+          "All content on luxeragift.com (texts, images, logos, designs) is the exclusive property of Luxera Gift LLC, unless stated otherwise.",
+          "Any unauthorized use, reproduction, or distribution is prohibited.",
+          "Purchasing a product does not transfer any intellectual property rights to the user."
+        ]
+      },
+      "11": {
+        "title": "Limitation of Liability",
+        "list": [
+          "Luxera Gift provides the Website and services “as is”, without guarantees of uninterrupted or error-free operation.",
+          "Luxera Gift is not liable for: Third-party service failures, Courier delays or damages, Internet or technical disruptions",
+          "Liability, if established by law, is limited to the value of the disputed product."
+        ]
+      },
+      "12": {
+        "title": "Third-Party Links",
+        "paragraphs": [
+          "The Website may contain links to third-party websites. Luxera Gift is not responsible for their content, policies, or services."
+        ]
+      },
+      "13": {
+        "title": "Marketing Communications",
+        "list": [
+          "Users may receive promotional messages only with their explicit consent.",
+          "Consent can be withdrawn at any time through account settings or by contacting support.",
+          "Withdrawal of consent does not affect transactional notifications."
+        ]
+      },
+      "14": {
+        "title": "Governing Law and Disputes",
+        "paragraphs": [
+          "These Terms are governed by the laws of Georgia.",
+          "In case of disputes: Parties will attempt to resolve the matter through negotiation. If unresolved, disputes shall be submitted to the courts of Georgia."
+        ]
+      },
+      "15": {
+        "title": "Changes to Terms",
+        "paragraphs": [
+          "Luxera Gift LLC reserves the right to update or modify these Terms at any time by publishing the updated version on luxeragift.com. Continued use of the Website constitutes acceptance of the updated Terms."
+        ]
+      }
+    }
+  },
+  "ReturnAndCancellationPolicyPage": {
+    "title": "Unconditional Return & Cancellation Policy",
+    "company": "Luxera Gift LLC",
+    "website": "luxeragift.com",
+    "sections": {
+      "1": {
+        "title": "1. Right of Withdrawal (Unconditional Return)",
+        "paragraphs": [
+          "The customer has the right to cancel a distance purchase agreement without providing any reason and to return the purchased goods within 14 (fourteen) calendar days from the date of receiving the product.",
+          "Once this 14-day period has expired, the customer loses the right to request an unconditional return of the item."
+        ]
+      },
+      "2": {
+        "title": "2. Return Shipping & Processing Time",
+        "list": [
+          "Tbilisi: Luxera Gift LLC covers the cost of return shipping within the city of Tbilisi. Collection of the item will be arranged within 2 working days.",
+          "Other Regions of Georgia: Returns will be completed within 5 working days after the return request is submitted.",
+          "Mountainous Regions: Return processing may take 7–10 working days due to logistical constraints."
+        ]
+      },
+      "3": {
+        "title": "3. How to Submit a Return Request",
+        "paragraphs": [
+          "To initiate a return, the customer must contact Luxera Gift LLC through one of the following channels:"
+        ],
+        "list": [
+          "Email: support@luxeragift.com",
+          "Customer Support: via the contact form on luxeragift.com"
+        ],
+        "paragraphs2": [
+          "After submitting the request:",
+          "A Luxera Gift LLC representative will contact the customer within 24-48 hours to provide detailed return instructions."
+        ]
+      },
+      "4": {
+        "title": "4. Return Conditions",
+        "paragraphs": [
+          "Returned products must meet all of the following conditions:"
+        ],
+        "list": [
+          "The product must be returned with all accessories, parts, and documents provided at the time of purchase, including (where applicable): Warranty card, Technical passport, Instruction manuals or inserts",
+          "The product must be in its original, undamaged packaging. (Opening the package alone does not constitute damage.)",
+          "The product must not show signs of use, damage, or alteration beyond what is necessary to inspect it."
+        ],
+        "paragraphs2": [
+          "If the product cannot be accepted due to missing items or documents:",
+          "The customer will be notified within 48 hours after Luxera Gift LLC receives the return request.",
+          "The product will be sent back to the customer."
+        ]
+      },
+      "5": {
+        "title": "5. Refund Policy",
+        "list": [
+          "If the product qualifies for unconditional return, the refund will be issued within 5 working days after Luxera Gift LLC receives the return notification.",
+          "Refunds will be processed using the same payment method originally used by the customer, unless an alternative method is mutually agreed upon."
+        ]
+      },
+      "6": {
+        "title": "6. Products Not Eligible for Unconditional Return",
+        "paragraphs": [
+          "Unconditional return is not available for products that fall under any of the following categories:"
+        ],
+        "list": [
+          "Perishable goods or products with a short shelf life",
+          "Hermetically sealed items where the seal has been broken (for hygiene or health reasons)",
+          "Products that were inseparably combined with other items after delivery",
+          "Sealed audio, video recordings, or software where the seal has been broken",
+          "Newspapers, magazines, or other periodicals (unless purchased via subscription)",
+          "Tickets for sports or cultural events, unless the contract explicitly allows returns",
+          "Products priced below 50 GEL",
+          "Products missing any components or documents included at the time of purchase",
+          "Packaging (box, bag, seal) damaged by the customer in a way that cannot be restored to its original condition (This does not include simply opening the package.)"
+        ]
+      },
+      "7": {
+        "title": "7. Non-Delivery Due to Customer Fault",
+        "list": [
+          "If delivery fails due to reasons attributable to the customer (incorrect address, unavailability, inability to contact):",
+          "Luxera Gift LLC will attempt to contact the customer again to arrange redelivery.",
+          "If repeated contact attempts or delivery attempts fail, Luxera Gift LLC reserves the right to cancel the order 10 (ten) days after order execution.",
+          "In such cases, the paid amount will be refunded no later than 5 (five) working days after cancellation."
+        ]
+      }
+    }
   }
 }
