@@ -4,8 +4,6 @@ import MobileProductPreview from "./components/MobileProductPreview";
 import Seller from "./components/seller/Seller";
 import { fetchProductById } from "./services/products";
 import { ProductDetailsType } from "@/app/types/product";
-import AddReview from "./components/productReviews/addReview/AddReview";
-import AllReviews from "./components/productReviews/allReviews/AllReviews";
 
 interface ProductDetailsProps {
   params: Promise<{
@@ -35,10 +33,6 @@ const ProductDetails = async ({ params }: ProductDetailsProps) => {
       </div>
       <div className="px-4 md:px-0 container">
         <Seller shop={productByIdData.shop} />
-      </div>
-      <div className="mt-8 container space-y-4 px-4 md:px-0">
-        <AddReview />
-        <AllReviews />
       </div>
       <div>{/* <SuggestedProducts suggestedProducts={productsData} /> */}</div>
     </div>
