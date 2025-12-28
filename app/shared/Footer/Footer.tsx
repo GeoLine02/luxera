@@ -13,6 +13,7 @@ import {
 import { PiHandHeartLight } from "react-icons/pi";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { FiPhone } from "react-icons/fi";
+import Link from "next/link";
 
 const Footer = () => {
   const router = useRouter();
@@ -54,10 +55,14 @@ const Footer = () => {
 
         <div className="space-y-4">
           <h1 className="text-lg font-medium">Important Links</h1>
-          <ul className="space-y-2 font-normal">
-            <li>წესები და პირობები</li>
-            <li>დაბრუნების პოლიტიკა</li>
-            <li>კონფიდენციალურობის პოლიტიკა</li>
+          <ul className="font-normal flex flex-col gap-2">
+            <Link href={"/terms-and-conditions"}>წესები და პირობები</Link>
+            <Link href={"/return-and-cancellation-policy"}>
+              დაბრუნების პოლიტიკა
+            </Link>
+            <Link href={"/privacy-and-policy"}>
+              კონფიდენციალურობის პოლიტიკა
+            </Link>
           </ul>
         </div>
 
