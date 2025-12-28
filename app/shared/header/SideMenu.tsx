@@ -9,6 +9,7 @@ import Button from "@/app/ui/Button";
 import { useLocale } from "next-intl";
 import Link from "next/link";
 import { Link as LangLink, usePathname } from "@/i18n/navigation";
+import { useUser } from "@/app/providers/UserProvider";
 
 const SideMenu = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,12 +28,28 @@ const SideMenu = () => {
     "left-[100%]": !isMenuOpen,
   });
 
+  const { user } = useUser();
+
   const locale = useLocale();
   const menuItems = [
     { label: "მთავარი", path: `/${locale}` },
     { label: "ჩვენ შესახებ", path: `/${locale}/about` },
     { label: "კონტაქტი", path: `/${locale}/contact` },
-    { label: "გახსენი მაღაზია", path: `/${locale}/shop/register` },
+
+    ...(user?.role !== "seller"
+      ? [{ label: "გახსენი მაღაზია", path: `/${locale}/shop/register` }]
+      : []),
+
+    ...(user?.role === "seller"
+      ? [{ label: "ჩემი მაღაზია", path: `/${locale}/shop` }]
+      : []),
+
+    ...(!user
+      ? [
+          { label: "ავტორიზაცია", path: `/${locale}/signin` },
+          { label: "რეგისტრაცია", path: `/${locale}/signup` },
+        ]
+      : []),
   ];
 
   return (

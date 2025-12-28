@@ -7,7 +7,7 @@ const SubCategoryCard = ({ sub_category_name, id }: SubCategoryType) => {
   return (
     <Link
       href={`/products?subcategory=${sub_category_name}-${id}`}
-      className={`bg-light-pink rounded-md card px-2 flex items-center justify-around w-full  box-border lg:max-w-full h-[90px] cursor-pointer`}
+      className={`bg-light-pink rounded-md px-2 flex items-center justify-around w-full box-border lg:max-w-full h-[90px] cursor-pointer`}
     >
       <h1 className="font-medium">{sub_category_name}</h1>
 
