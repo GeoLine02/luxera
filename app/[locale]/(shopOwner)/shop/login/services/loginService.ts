@@ -1,33 +1,35 @@
 import api from "@/utils/axios";
 import shopLoginSchema from "../validation/shopLoginSchema";
 import { redirect } from "next/navigation";
+import { AxiosError } from "axios";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const shopLoginService = async (_prevState: any, formData: FormData) => {
-  const formValues = {
-    email: formData.get("email")?.toString() as string,
-    password: formData.get("password")?.toString() as string,
-  };
+export const shopLoginService = async (password: string) => {
+  try {
+    const validation = shopLoginSchema.safeParse({ password });
 
-  const validation = shopLoginSchema.safeParse(formValues);
+    if (!validation.success)
+      return {
+        type: "validation",
+        errors: validation.error.flatten().fieldErrors,
+      };
 
-  if (!validation.success) {
-    return {
-      email: formValues.email,
-      errors: validation.error.flatten().fieldErrors,
+    const res = await api.post(`/shop/login?password=${password}`);
+    if (res.status === 203) redirect("/shop");
+  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const err = error as AxiosError<any>;
+
+    if (err.response) {
+      throw {
+        type: "server",
+        status: err.response.status,
+        message: err.response.data.message,
+      };
+    }
+
+    throw {
+      type: "network",
+      message: "Network error. Please try again.",
     };
   }
-
-  const { password } = validation.data;
-
-  const res = await api.post(`/shop/login?password=${password}`);
-
-  if (res.status === 203) redirect("/shop");
-
-  return {
-    error: {
-      status: res.status,
-      message: "Unexpected server response",
-    },
-  };
 };

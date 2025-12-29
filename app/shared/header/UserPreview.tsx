@@ -2,11 +2,13 @@
 
 import { useUser } from "@/app/providers/UserProvider";
 import { Dropdown } from "@/app/ui/DropDown";
+import { useLocale } from "next-intl";
 import Link from "next/link";
 import { FaUser } from "react-icons/fa";
 
 const UserPreview = () => {
   const { user } = useUser();
+  const locale = useLocale();
 
   return (
     <div className="hidden md:block">
@@ -20,9 +22,11 @@ const UserPreview = () => {
           </div>
         </Dropdown.Trigger>
         <Dropdown.Menu expandMode="absolute" className="!top-11">
-          <Dropdown.Item>
-            <Link href={"/shop"}>My Shop</Link>
-          </Dropdown.Item>
+          {user?.role === "seller" && (
+            <Dropdown.Item>
+              <Link href={`${locale}/shop`}>My Shop</Link>
+            </Dropdown.Item>
+          )}
           <Dropdown.Item>
             <Link href={"/settings"}>Settings</Link>
           </Dropdown.Item>
