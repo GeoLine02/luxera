@@ -376,5 +376,13 @@
         ]
       }
     }
+  },
+  "Footer": {
+    "importantLinks": {
+      "title": "მნიშვნელოვანი ლინკები",
+      "termsAndConditions": "წესები და პირობები",
+      "returnAndCancellationPolicy": "დაბრუნების პოლიტიკა",
+      "privacyAndPolicy": "კონფიდენციალურობის პოლიტიკა"
+    }
   }
 }

@@ -386,5 +386,14 @@
         ]
       }
     }
+  },
+
+  "Footer": {
+    "importantLinks": {
+      "title": "Important Links",
+      "termsAndConditions": "Terms and conditions",
+      "returnAndCancellationPolicy": "Item retun policies",
+      "privacyAndPolicy": "Privacy and policy"
+    }
   }
 }

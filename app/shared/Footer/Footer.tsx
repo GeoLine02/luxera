@@ -14,11 +14,13 @@ import { PiHandHeartLight } from "react-icons/pi";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { FiPhone } from "react-icons/fi";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
   const router = useRouter();
   const pathName = usePathname();
 
+  const t = useTranslations("Footer");
   // Hide footer on certain routes
   if (
     pathName.includes("/signin") ||
@@ -54,14 +56,16 @@ const Footer = () => {
         </div>
 
         <div className="space-y-4">
-          <h1 className="text-lg font-medium">Important Links</h1>
+          <h1 className="text-lg font-medium">{t("importantLinks.title")}</h1>
           <ul className="font-normal flex flex-col gap-2">
-            <Link href={"/terms-and-conditions"}>წესები და პირობები</Link>
+            <Link href={"/terms-and-conditions"}>
+              {t("importantLinks.termsAndConditions")}
+            </Link>
             <Link href={"/return-and-cancellation-policy"}>
-              დაბრუნების პოლიტიკა
+              {t("importantLinks.returnAndCancellationPolicy")}
             </Link>
             <Link href={"/privacy-and-policy"}>
-              კონფიდენციალურობის პოლიტიკა
+              {t("importantLinks.privacyAndPolicy")}
             </Link>
           </ul>
         </div>
