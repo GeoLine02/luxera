@@ -3,8 +3,8 @@ import api from "@/utils/axios";
 export const createNewProduct = async (data: FormData) => {
   try {
     const res = await api.post("/seller/products/create", data);
-
-    if (res.status === 201) {
+    console.log(res.status);
+    if (res.status === 200) {
       return res.data;
     }
   } catch (err) {

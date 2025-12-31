@@ -8,13 +8,6 @@ import { IoClose } from "react-icons/io5";
 const MAX_FILE_SIZE_MB = 5;
 const MAX_TOTAL_FILES = 5;
 
-const beforeUpload = (file: File): string | null => {
-  const sizeInMB = file.size / (1024 * 1024);
-  return sizeInMB > MAX_FILE_SIZE_MB
-    ? `File size exceeds ${MAX_FILE_SIZE_MB}MB`
-    : null;
-};
-
 interface UploadProps {
   value: (File | { id: number; image: string })[];
   onChange: (files: (File | { id: number; image: string })[]) => void;
@@ -27,6 +20,13 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
   const [previews, setPreviews] = useState<string[]>([]);
 
   const handleClick = () => fileInputRef.current?.click();
+
+  const ALLOWED_FILE_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/jpg",
+  ];
 
   // ✅ Sync previews directly from value
   useEffect(() => {
@@ -51,6 +51,20 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
   const handleRemoveImage = (index: number) => {
     const updatedImages = value.filter((_, i) => i !== index);
     onChange(updatedImages); // <-- updates RHF state
+  };
+
+  const beforeUpload = (file: File): string | null => {
+    const sizeInMB = file.size / (1024 * 1024);
+
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      return "Unsupported file type. Please upload JPG, PNG, or WEBP images.";
+    }
+
+    if (sizeInMB > MAX_FILE_SIZE_MB) {
+      return `File size exceeds ${MAX_FILE_SIZE_MB}MB`;
+    }
+
+    return null;
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

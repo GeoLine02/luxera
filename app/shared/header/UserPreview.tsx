@@ -24,7 +24,7 @@ const UserPreview = () => {
         <Dropdown.Menu expandMode="absolute" className="!top-11">
           {user?.role === "seller" && (
             <Dropdown.Item>
-              <Link href={`${locale}/shop`}>My Shop</Link>
+              <Link href={`/${locale}/shop`}>My Shop</Link>
             </Dropdown.Item>
           )}
           <Dropdown.Item>
