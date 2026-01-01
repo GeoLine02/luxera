@@ -5,42 +5,27 @@ import SubCategoryCard from "./SubCategoryCard";
 import { RootState } from "@/app/store/store";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+
 export default function SubCategories() {
   const { subCategories } = useSelector(
     (state: RootState) => state.categoriesReducer
   );
-  console.log("subs", subCategories);
+
   return (
-    <div className="px-4 lg:px-11 mt-4">
-      <Swiper
-        slidesPerView={"auto"}
-        pagination={{
-          clickable: true,
-        }}
-        spaceBetween={30}
-      >
+    <div className="px-4 lg:px-11 mt-4 overflow-x-hidden">
+      <Swiper slidesPerView="auto" spaceBetween={16}>
         {subCategories.map((subcategory) => (
-          <SwiperSlide className="!max-w-fit" key={subcategory.id}>
+          <SwiperSlide key={subcategory.id} className="!w-auto">
             <SubCategoryCard
               id={subcategory.id}
               category_id={subcategory.category_id}
               sub_category_image={subcategory.sub_category_image}
               sub_category_name={subcategory.sub_category_name}
+              sub_category_name_ka={subcategory.sub_category_name_ka}
             />
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
-    // <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4 px-4 card-container ">
-    //   {subCategories?.map((subcategory) => (
-    //     <SubCategoryCard
-    //       key={subcategory.id}
-    //       id={subcategory.id}
-    //       category_id={subcategory.category_id}
-    //       sub_category_image={subcategory.sub_category_image}
-    //       sub_category_name={subcategory.sub_category_name}
-    //     />
-    //   ))}
-    // </div>
   );
 }

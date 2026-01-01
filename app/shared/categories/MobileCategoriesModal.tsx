@@ -35,7 +35,8 @@ const MobileCategoriesModal = ({
             selectedCategory={selectedCategory}
             category={category}
             key={category.id}
-            label={category.category_name}
+            category_name={category.category_name}
+            category_name_ka={category.category_name_ka}
             handleChooseCatogery={handleChooseCatogery}
             handleChooseSubCategory={handleChooseSubCategory}
           />
