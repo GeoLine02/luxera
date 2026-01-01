@@ -14,7 +14,7 @@ const UserPreview = () => {
   return (
     <div className="hidden md:block">
       <Dropdown>
-        <Dropdown.Trigger>
+        <Dropdown.Trigger className="px-4">
           <div className="flex items-center gap-2">
             <div className="rounded-full p-2 bg-medium-gray cursor-pointer">
               <FaUser size={20} color="white" />
