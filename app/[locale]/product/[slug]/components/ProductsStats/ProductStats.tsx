@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "@/app/store/store";
 import { selectVariantId } from "@/app/store/features/productDetailsSlice";
 import { addToCartService } from "../../services/cart";
 import { useUser } from "@/app/providers/UserProvider";
+import { toast, ToastContainer } from "react-toastify";
 
 interface ProductStatsProps {
   productId: number;
@@ -45,7 +46,9 @@ const ProductStats = ({
         selectedVaraintId as number,
         productQuantity
       );
-      console.log(res);
+      if (res) {
+        toast.success("Item added in cart.");
+      }
     }
   };
 
@@ -164,6 +167,7 @@ const ProductStats = ({
         <h2 className="text-lg font-semibold mb-2">Description</h2>
         <p className="text-gray-700 leading-relaxed">{productDescription}</p>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
