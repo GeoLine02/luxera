@@ -42,6 +42,7 @@ export interface ProductFormType {
   product_category: {
     id: number;
     category_name: string;
+    category_name_ka: string;
     subCategories: Omit<SubCategoryType, "sub_category_image">[];
   } | null;
   product_sub_category: Omit<SubCategoryType, "sub_category_image"> | null;

@@ -4,6 +4,7 @@ import { z } from "zod";
 const subCategoryWithoutImageSchema = z.object({
   id: z.number(),
   sub_category_name: z.string().min(1, "Sub-category name is required"),
+  sub_category_name_ka: z.string().min(1, "Sub-category name is required"),
   category_id: z.number(),
 });
 
@@ -11,6 +12,7 @@ const subCategoryWithoutImageSchema = z.object({
 const categoryWithoutImageSchema = z.object({
   id: z.number(),
   category_name: z.string().min(1, "Category name is required"),
+  category_name_ka: z.string().min(1, "Category name is required"),
   subCategories: z.array(subCategoryWithoutImageSchema),
 });
 

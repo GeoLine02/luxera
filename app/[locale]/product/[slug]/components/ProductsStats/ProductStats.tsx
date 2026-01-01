@@ -47,7 +47,7 @@ const ProductStats = ({
         productQuantity
       );
       if (res) {
-        toast.success("Item added in cart.");
+        toast.success("Item added to cart.");
       }
     }
   };
