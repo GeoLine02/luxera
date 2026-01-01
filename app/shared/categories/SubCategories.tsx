@@ -12,7 +12,7 @@ export default function SubCategories() {
   );
 
   return (
-    <div className="px-4 lg:px-11 mt-4 overflow-x-hidden">
+    <div className="px-4 lg:px-11 mt-4">
       <Swiper slidesPerView="auto" spaceBetween={16}>
         {subCategories.map((subcategory) => (
           <SwiperSlide key={subcategory.id} className="!w-auto">

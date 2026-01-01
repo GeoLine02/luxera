@@ -72,7 +72,7 @@ const ProductFilterDesktop = () => {
   };
 
   return (
-    <div className="hidden md:block px-3 lg:px-4 max-w-[285px] lg:max-w-full">
+    <div className="hidden md:block px-3 lg:px-4 max-w-[285px] lg:max-w-[300px] border-2 border-light-gray rounded-xl mt-4 ml-11">
       {/* Header */}
       <div className="flex gap-2 items-center mb-6">
         <Link href="/" className="cursor-pointer">
