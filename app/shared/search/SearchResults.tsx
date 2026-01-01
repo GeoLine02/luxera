@@ -3,6 +3,7 @@ import classNames from "classnames";
 import SearchProductCard from "./SearchProductCard";
 import { ClipLoader } from "react-spinners";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface SearchResultsProps {
   isSearchOpen: boolean;
@@ -37,6 +38,8 @@ const SearchResults = ({
     router.push(`/products?search=${searchValue}`);
   };
 
+  const t = useTranslations("Header");
+
   return (
     <div
       className={`${searchResultsStyles} top-12 md:top-12 left-0 absolute z-50 w-[calc(100%-32px)] ml-4 md:w-full bg-ice-blue rounded-b-xl border border-t-0 border-medium-gray md:ml-0 overflow-y-hidden pb-4`}
@@ -63,7 +66,7 @@ const SearchResults = ({
           onClick={handleShowMore}
           className="text-lg font-medium px-6 p-2 border-t-3 rounded-full bg-black text-white hover:text-black hover-transition cursor-pointer"
         >
-          <span>ყველა პროდუქტი</span>
+          {t("search.searchResults.allProductsButtonLabel")}
         </button>
       </div>
     </div>

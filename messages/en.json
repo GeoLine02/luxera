@@ -388,6 +388,28 @@
     }
   },
 
+  "Header": {
+    "signInButtonLabel": "Sign in",
+    "userPreview": {
+      "myShop": "My shop",
+      "settings": "Settings",
+      "logOut": "Log out"
+    },
+    "allCategoriesButtonLabel": "All Categories",
+    "openShopButtonLabel": "Open Shop",
+    "routes": {
+      "home": "Home",
+      "aboutUs": "About Us",
+      "contacts": "Contacts"
+    },
+    "search": {
+      "placeholder": "search product",
+      "searchResults": {
+        "allProductsButtonLabel": "All products"
+      }
+    }
+  },
+
   "Footer": {
     "importantLinks": {
       "title": "Important Links",

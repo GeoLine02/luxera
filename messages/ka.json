@@ -377,6 +377,29 @@
       }
     }
   },
+
+  "Header": {
+    "signInButtonLabel": "ავტორიზაცია",
+    "userPreview": {
+      "myShop": "ჩემი მაღაზია",
+      "settings": "პარამეტრები",
+      "logOut": "გამოსვლა"
+    },
+    "allCategoriesButtonLabel": "ყველა კატეგორია",
+    "openShopButtonLabel": "გახსენი მაღაზია",
+    "routes": {
+      "home": "მთავარი",
+      "aboutUs": "ჩვენს შესახებ",
+      "contacts": "კონტაქტი"
+    },
+    "search": {
+      "placeholder": "მოძებნე პროდუქტი",
+      "searchResults": {
+        "allProductsButtonLabel": "ყველა პროდუქტი"
+      }
+    }
+  },
+
   "Footer": {
     "importantLinks": {
       "title": "მნიშვნელოვანი ლინკები",
