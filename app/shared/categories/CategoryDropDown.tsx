@@ -4,10 +4,12 @@ import Image from "next/image";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import CategoryImage from "@/public/giftbox.png";
 import SubcateogryImage from "@/public/FlowerImage.png";
+import { useLocale } from "next-intl";
 
 interface CategoryDropDownProps {
   category: CategoryType;
-  label: string;
+  category_name: string;
+  category_name_ka: string;
   handleChooseCatogery: (category: CategoryType) => void;
   handleChooseSubCategory: (category: SubCategoryType) => void;
   selectedCategory: null | CategoryType;
@@ -15,11 +17,14 @@ interface CategoryDropDownProps {
 
 const CategoryDropDown = ({
   category,
-  label,
+  category_name,
+  category_name_ka,
   handleChooseCatogery,
   handleChooseSubCategory,
   selectedCategory,
 }: CategoryDropDownProps) => {
+  const locale = useLocale();
+
   return (
     <Dropdown>
       <Dropdown.Trigger>
@@ -29,11 +34,19 @@ const CategoryDropDown = ({
         >
           <div className="flex items-center gap-5">
             {category.category_image && (
-              <Image width={40} height={40} src={CategoryImage} alt={label} />
+              <Image
+                width={40}
+                height={40}
+                src={CategoryImage}
+                alt={category_name}
+              />
             )}
-            <h1 className="text-xl font-medium">{label}</h1>
+            <h1 className="text-xl font-medium">
+              {locale === "en" ? category_name : category_name_ka}
+            </h1>
           </div>
-          {selectedCategory?.category_name === label ? (
+          {selectedCategory?.category_name === category_name ||
+          selectedCategory?.category_name_ka === category_name_ka ? (
             <IoIosArrowUp
               size={25}
               className="bg-light-gray rounded-full p-2 box-content stroke-medium-gray"
@@ -50,7 +63,7 @@ const CategoryDropDown = ({
         {selectedCategory?.subCategories.map((subCategory) => (
           <Dropdown.Item
             onSelect={() => handleChooseSubCategory(subCategory)}
-            key={subCategory.sub_category_name}
+            key={subCategory.id}
           >
             <div className="flex gap-4 items-center">
               <Image
@@ -59,7 +72,11 @@ const CategoryDropDown = ({
                 src={SubcateogryImage}
                 alt="subcategory image"
               />
-              <h1 className="font-medium">{subCategory.sub_category_name}</h1>
+              <h1 className="font-medium">
+                {locale === "en"
+                  ? subCategory.sub_category_name
+                  : subCategory.sub_category_name_ka}
+              </h1>
             </div>
           </Dropdown.Item>
         ))}
