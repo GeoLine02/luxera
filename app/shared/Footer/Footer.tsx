@@ -19,8 +19,8 @@ import { useTranslations } from "next-intl";
 const Footer = () => {
   const router = useRouter();
   const pathName = usePathname();
-
   const t = useTranslations("Footer");
+
   // Hide footer on certain routes
   if (
     pathName.includes("/signin") ||
@@ -37,123 +37,121 @@ const Footer = () => {
     <footer className="mt-11 mb-[80px] xs:mb-0">
       {/* Top Section */}
       <div className="flex flex-col lg:flex-row justify-between gap-12 px-11 pt-[52px] pb-[33px] bg-light-pink mt-4">
-        {/* Earn & Company */}
+        {/* Earn */}
         <div className="space-y-4">
-          <h1 className="text-lg font-medium">Earn</h1>
+          <h1 className="text-lg font-medium">{t("earn.title")}</h1>
           <ul className="space-y-2 font-normal">
-            <li className="cursor-pointer">Become Affiliate</li>
-            <li className="cursor-pointer">Open Shop</li>
+            <li className="cursor-pointer">{t("earn.becomeAffiliate")}</li>
+            <li className="cursor-pointer">{t("earn.openShop")}</li>
           </ul>
         </div>
 
+        {/* Company */}
         <div className="space-y-4">
-          <h1 className="text-lg font-medium">Company</h1>
+          <h1 className="text-lg font-medium">{t("company.title")}</h1>
           <ul className="space-y-2 font-normal">
-            <li className="cursor-pointer">About Us</li>
-            <li className="cursor-pointer">Promotions</li>
-            <li className="cursor-pointer">Contact</li>
+            <li className="cursor-pointer">{t("company.aboutUs")}</li>
+            <li className="cursor-pointer">{t("company.promotions")}</li>
+            <li className="cursor-pointer">{t("company.contact")}</li>
           </ul>
         </div>
 
+        {/* Important Links */}
         <div className="space-y-4">
           <h1 className="text-lg font-medium">{t("importantLinks.title")}</h1>
           <ul className="font-normal flex flex-col gap-2">
-            <Link href={"/terms-and-conditions"}>
+            <Link href="/terms-and-conditions">
               {t("importantLinks.termsAndConditions")}
             </Link>
-            <Link href={"/return-and-cancellation-policy"}>
+            <Link href="/return-and-cancellation-policy">
               {t("importantLinks.returnAndCancellationPolicy")}
             </Link>
-            <Link href={"/privacy-and-policy"}>
+            <Link href="/privacy-and-policy">
               {t("importantLinks.privacyAndPolicy")}
             </Link>
           </ul>
         </div>
 
+        {/* Why Luxera */}
         <div className="space-y-4 max-w-sm">
-          <h1 className="text-lg font-semibold">
-            Why <span className="font-bold">Luxera Gift?</span>
-          </h1>
+          <h1 className="text-lg font-semibold">{t("whyLuxera.title")}</h1>
           <ul className="space-y-3 text-sm">
             <li className="flex gap-2 items-start">
               <CiDeliveryTruck size={25} />
-              Free delivery everywhere, for a purchase of 50 GEL
+              {t("whyLuxera.freeDelivery")}
             </li>
             <li className="flex gap-2 items-start">
               <CiClock1 size={25} />
-              Choose the time you want
+              {t("whyLuxera.chooseTime")}
             </li>
             <li className="flex gap-2 items-start">
               <CiGift size={25} />
-              Free gift wrapping
+              {t("whyLuxera.freeWrapping")}
             </li>
             <li className="flex gap-2 items-start">
               <CiDiscount1 size={25} />
-              Discounted prices
+              {t("whyLuxera.discounts")}
             </li>
             <li className="flex gap-2 items-start">
               <PiHandHeartLight size={25} />
-              To support artisans and small businesses. Let’s help them reach a
-              wider audience!
+              {t("whyLuxera.support")}
             </li>
           </ul>
         </div>
 
-        {/* Newsletter & Social Icons */}
+        {/* Newsletter & Social */}
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-3">
-            {/* Replace with your own icons */}
             <div className="bg-white w-9 aspect-square rounded-md flex items-center justify-center">
               <FiPhone size={20} />
             </div>
-            <div className="bg-white p-2 w-9 rounded-md flex items-center justify-center">
+            <div className="bg-white w-9 rounded-md flex items-center justify-center">
               <CiFacebook size={20} />
             </div>
-            <div className="bg-white p-2 w-9 rounded-md flex items-center justify-center">
+            <div className="bg-white w-9 rounded-md flex items-center justify-center">
               <CiInstagram size={20} />
             </div>
           </div>
+
           <div className="flex items-center gap-4 bg-white rounded-md pr-3">
             <input
               type="email"
-              placeholder="Your Email"
+              placeholder={t("newsletter.placeholder")}
               className="rounded-full px-4 py-2 border border-gray-300 outline-none"
             />
-            <div className="border border-black rounded-full ">
+            <div className="border border-black rounded-full">
               <IoIosArrowRoundForward size={20} />
             </div>
           </div>
-          <p className="text-sm font-medium">
-            Be the first to know - subscribe now!
-          </p>
+
+          <p className="text-sm font-medium">{t("newsletter.cta")}</p>
         </div>
       </div>
-      {/* Why Luxera Gift */}
 
       {/* Bottom Section */}
       <div className="bg-black text-white py-4 flex flex-col lg:flex-row gap-6 items-center justify-between px-11 text-sm">
         <div className="flex gap-2 items-center">
           <CiGlobe />
-          <p>Georgia | English (US)</p>
+          <p>{t("bottom.language")}</p>
         </div>
-        <div className="text-center">
-          Copyright &copy; 2025 LUXERA GIFT, All Rights Reserved.
-        </div>
+
+        <div className="text-center">{t("bottom.copyright")}</div>
+
         <div className="flex flex-col md:flex-row gap-3">
           <span
             className="cursor-pointer"
             onClick={() => router.push("/terms")}
           >
-            Terms of Use
+            {t("bottom.terms")}
           </span>
           <span
             className="cursor-pointer"
             onClick={() => router.push("/privacy")}
           >
-            Privacy
+            {t("bottom.privacy")}
           </span>
           <span className="cursor-pointer" onClick={() => router.push("/")}>
-            Interest-based ads
+            {t("bottom.ads")}
           </span>
         </div>
       </div>

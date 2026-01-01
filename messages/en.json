@@ -394,6 +394,36 @@
       "termsAndConditions": "Terms and conditions",
       "returnAndCancellationPolicy": "Item retun policies",
       "privacyAndPolicy": "Privacy and policy"
+    },
+    "earn": {
+      "title": "Earn",
+      "becomeAffiliate": "Become Affiliate",
+      "openShop": "Open Shop"
+    },
+    "company": {
+      "title": "Company",
+      "aboutUs": "About Us",
+      "promotions": "Promotions",
+      "contact": "Contact"
+    },
+    "whyLuxera": {
+      "title": "Why Luxera Gift?",
+      "freeDelivery": "Free delivery everywhere, for a purchase of 50 GEL",
+      "chooseTime": "Choose the time you want",
+      "freeWrapping": "Free gift wrapping",
+      "discounts": "Discounted prices",
+      "support": "To support artisans and small businesses. Let’s help them reach a wider audience!"
+    },
+    "newsletter": {
+      "placeholder": "Your Email",
+      "cta": "Be the first to know - subscribe now!"
+    },
+    "bottom": {
+      "language": "Georgia | English (US)",
+      "copyright": "Copyright © 2025 LUXERA GIFT, All Rights Reserved.",
+      "terms": "Terms of Use",
+      "privacy": "Privacy",
+      "ads": "Interest-based ads"
     }
   }
 }
