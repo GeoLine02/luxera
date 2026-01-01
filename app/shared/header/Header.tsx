@@ -15,6 +15,7 @@ import Navigation from "./Navigation";
 import Link from "next/link";
 import { useUser } from "@/app/providers/UserProvider";
 import UserPreview from "./UserPreview";
+import { useTranslations } from "next-intl";
 
 const Header = () => {
   const pathName = usePathname();
@@ -22,6 +23,7 @@ const Header = () => {
   const { user } = useUser();
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  const t = useTranslations("Header");
 
   const handleOpenMenu = () => {
     dispatch(openMenu());
@@ -71,7 +73,7 @@ const Header = () => {
               <Button
                 bgcolor="lightPink"
                 rounded="lg"
-                title="Sign in"
+                title={t("signInButtonLabel")}
                 type="button"
                 className="hidden md:block !w-fit whitespace-nowrap py-2 px-6 font-medium transition-all duration-200 hover:bg-dark-pink"
                 titleColor="black"

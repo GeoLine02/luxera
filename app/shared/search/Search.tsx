@@ -10,6 +10,7 @@ import classNames from "classnames";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/store/store";
 import { setSearchValue } from "@/app/store/features/searchSlice";
+import { useTranslations } from "next-intl";
 
 interface SearchProps {
   searchValue: string;
@@ -27,7 +28,7 @@ const Search = ({
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchValue(e.target.value));
   };
-
+  const t = useTranslations("Header");
   const inputRef = useRef<null | HTMLInputElement>(null);
   useEffect(() => {
     if (isSearchOpen) {
@@ -52,7 +53,7 @@ const Search = ({
       <input
         value={searchValue}
         onChange={onChange}
-        placeholder="Type something..."
+        placeholder={t("search.placeholder")}
         className="flex-1 text-lg "
       />
       <IoIosSearch className="cursor-pointer" size={30} />

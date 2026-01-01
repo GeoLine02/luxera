@@ -14,7 +14,6 @@ const SearchContainer = () => {
     (state: RootState) => state.searchReducer
   );
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-
   const searchRef = useOutsideClick<HTMLDivElement>(() =>
     setIsSearchOpen(false)
   );
