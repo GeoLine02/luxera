@@ -1,6 +1,10 @@
 "use client";
 
-import { ProductFormType, ProductVariantType } from "@/app/types/product";
+import {
+  ProductFormType,
+  ProductVariantType,
+  UpdateProductFormType,
+} from "@/app/types/product";
 import Input from "@/app/ui/Input";
 import Upload from "@/app/ui/Upload";
 import Button from "@/app/ui/Button";
@@ -10,16 +14,20 @@ import {
   Controller,
   FieldErrors,
   UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
 } from "react-hook-form";
 
 interface ProductVariantsProps {
   variants: ProductVariantType[];
   onAddVariant: () => void;
-  onDeleteVariant: (variantId: number) => void;
+  onDeleteVariant: (index: number) => void;
   register: UseFormRegister<ProductFormType>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<ProductFormType, any, ProductFormType>;
   errors: FieldErrors<ProductFormType>;
+  setValue: UseFormSetValue<ProductFormType | UpdateProductFormType>;
+  watch: UseFormWatch<ProductFormType | UpdateProductFormType>;
 }
 
 const ProductVariants = ({
@@ -29,15 +37,17 @@ const ProductVariants = ({
   register,
   control,
   errors,
+  setValue,
+  watch,
 }: ProductVariantsProps) => {
   return (
     <div className="space-y-4">
       <label className="text-sm font-medium">Product Variants</label>
 
-      {/* Display general variants error */}
+      {/* General variants error */}
       {errors?.product_variants && !Array.isArray(errors.product_variants) && (
         <span className="text-red-500 text-sm block">
-          {errors?.product_variants.message}
+          {errors.product_variants.message}
         </span>
       )}
 
@@ -50,6 +60,7 @@ const ProductVariants = ({
               key={variant.id}
               className="border p-4 rounded-lg space-y-4 border-light-gray"
             >
+              {/* Delete variant */}
               <div className="flex justify-end">
                 <IoClose
                   className="cursor-pointer"
@@ -59,6 +70,7 @@ const ProductVariants = ({
                 />
               </div>
 
+              {/* Variant name */}
               <div>
                 <label className="text-sm font-medium block mb-1.5">
                   Variant Name
@@ -72,11 +84,12 @@ const ProductVariants = ({
                 />
                 {variantErrors?.variant_name && (
                   <span className="text-red-500 text-sm block mt-1">
-                    {variantErrors?.variant_name.message}
+                    {variantErrors.variant_name.message}
                   </span>
                 )}
               </div>
 
+              {/* Price / Quantity / Discount */}
               <div className="flex gap-3">
                 <div className="flex-1">
                   <label className="text-sm font-medium block mb-1.5">
@@ -93,10 +106,11 @@ const ProductVariants = ({
                   />
                   {variantErrors?.variant_price && (
                     <span className="text-red-500 text-sm block mt-1">
-                      {variantErrors?.variant_price.message}
+                      {variantErrors.variant_price.message}
                     </span>
                   )}
                 </div>
+
                 <div className="flex-1">
                   <label className="text-sm font-medium block mb-1.5">
                     Quantity
@@ -111,10 +125,11 @@ const ProductVariants = ({
                   />
                   {variantErrors?.variant_quantity && (
                     <span className="text-red-500 text-sm block mt-1">
-                      {variantErrors?.variant_quantity.message}
+                      {variantErrors.variant_quantity.message}
                     </span>
                   )}
                 </div>
+
                 <div className="flex-1">
                   <label className="text-sm font-medium block mb-1.5">
                     Discount %
@@ -129,36 +144,58 @@ const ProductVariants = ({
                   />
                   {variantErrors?.variant_discount && (
                     <span className="text-red-500 text-sm block mt-1">
-                      {variantErrors?.variant_discount.message}
+                      {variantErrors.variant_discount.message}
                     </span>
                   )}
                 </div>
               </div>
 
+              {/* Variant images */}
               <div>
                 <label className="text-sm font-medium block mb-1.5">
                   Variant Images
                 </label>
+
                 <Controller
                   name={`product_variants.${index}.images`}
                   control={control}
                   render={({ field }) => {
-                    const allValues: (File | { id: number; image: string })[] =
+                    const currentImages:
+                      | (File | { id: number; image: string })[] =
                       field.value || [];
 
+                    const handleImagesChange = (
+                      updatedImages: (File | { id: number; image: string })[]
+                    ) => {
+                      // Detect removed existing images
+                      const removedImages = currentImages.filter(
+                        (oldImg) =>
+                          !updatedImages.includes(oldImg) &&
+                          !(oldImg instanceof File) &&
+                          "id" in oldImg
+                      );
+
+                      if (removedImages.length) {
+                        setValue(
+                          "deletedImageIds",
+                          [
+                            ...(watch("deletedImageIds") ?? []),
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            ...removedImages.map((img: any) => img.id),
+                          ],
+                          { shouldDirty: true }
+                        );
+                      }
+
+                      field.onChange(updatedImages);
+                    };
+
                     return (
-                      <div>
-                        <Upload
-                          multiple
-                          value={allValues}
-                          onChange={(files) => field.onChange(files)}
-                        />
-                        {variantErrors?.images && (
-                          <span className="text-red-500 text-sm block mt-1">
-                            {variantErrors.images.message}
-                          </span>
-                        )}
-                      </div>
+                      <Upload
+                        multiple
+                        value={currentImages}
+                        onChange={handleImagesChange}
+                      />
                     );
                   }}
                 />
@@ -167,6 +204,7 @@ const ProductVariants = ({
           );
         })}
 
+        {/* Add variant */}
         <Button
           title="Add Variant"
           type="button"

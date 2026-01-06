@@ -85,6 +85,8 @@ const ProductForm = ({
               register={register}
               control={control}
               errors={errors}
+              setValue={setValue}
+              watch={watch}
             />
           </section>
 

@@ -31,7 +31,7 @@ export interface ProductDetailsType extends ProductType {
 export interface ProductImageType {
   id: number;
   image: string;
-  productId: number;
+  product_id: number;
   variant_id: number;
 }
 
@@ -46,6 +46,11 @@ export interface ProductFormType {
     subCategories: Omit<SubCategoryType, "sub_category_image">[];
   } | null;
   product_sub_category: Omit<SubCategoryType, "sub_category_image"> | null;
+}
+
+export interface UpdateProductFormType extends ProductFormType {
+  deletedVariantIds?: number[];
+  deletedImageIds?: number[];
 }
 
 export type ProductVariantType = {

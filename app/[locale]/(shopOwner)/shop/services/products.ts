@@ -34,7 +34,7 @@ export const fetchSellerProductById = async (id: number) => {
 
 export const updateSellerProductById = async (formData: FormData) => {
   try {
-    const res = await api.put("/seller/products/update", formData);
+    const res = await api.patch("/seller/products/update", formData);
     if (res.status === 201) {
       const data = res.data;
       console.log("updated product data: ", data);

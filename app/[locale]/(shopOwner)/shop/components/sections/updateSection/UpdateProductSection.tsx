@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { productFormSchema } from "../newProductSection/validation/productCreation.schema";
-import { ProductFormType } from "@/app/types/product";
+import { UpdateProductFormType } from "@/app/types/product";
 import ProductForm from "../../ProductForm";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +10,7 @@ import {
   getSellerProductById,
   updateProductThunk,
 } from "@/app/store/features/sellerSlice";
+import { productUpdateFormSchema } from "./validation/productUpdate.schema";
 
 const UpdateProductSection = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,17 +42,28 @@ const UpdateProductSection = () => {
     handleSubmit,
     reset,
     setValue,
+    getValues,
     formState: { errors, isLoading, disabled },
-  } = useForm({
-    resolver: zodResolver(productFormSchema),
+  } = useForm<UpdateProductFormType>({
+    resolver: zodResolver(productUpdateFormSchema),
     defaultValues: {
       product_category: null,
       product_description: "",
       product_sub_category: null,
       id: undefined,
       product_variants: [],
+      deletedImageIds: [],
+      deletedVariantIds: [],
     },
   });
+
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log("FORM VALUES:", value);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const { fields, append, remove } = useFieldArray({
     name: "product_variants",
@@ -70,11 +81,23 @@ const UpdateProductSection = () => {
     });
   };
 
-  const deleteVariantForm = (variantId: number) => {
-    remove(variantId);
+  const deleteVariantForm = (index: number) => {
+    const variants = getValues("product_variants");
+    const variant = variants[index];
+
+    if (variant?.id) {
+      const deletedVariantIds = getValues("deletedVariantIds") ?? [];
+
+      setValue("deletedVariantIds", [
+        ...deletedVariantIds,
+        variant.id as number,
+      ]);
+    }
+
+    remove(index);
   };
 
-  const onSubmit = async (data: ProductFormType) => {
+  const onSubmit = async (data: UpdateProductFormType) => {
     try {
       const formData = new FormData();
 
@@ -110,25 +133,31 @@ const UpdateProductSection = () => {
         });
       });
 
-      console.log("data", data.product_variants);
+      formData.append(
+        "deletedVariantIds",
+        data.deletedVariantIds?.toString() as string
+      );
+      formData.append(
+        "deletedImageIds",
+        data.deletedImageIds?.toString() as string
+      );
 
       // --- EXISTING IMAGES (URLS) ---
-      const existingImages = data.product_variants.map((variant, index) => ({
-        variantIndex: index,
-        imageUrls: variant.images
-          .filter((img) => {
-            if (!(img instanceof File)) {
-              console.log("checked", img);
-              return img;
-            }
-          })
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((img: any) => img.image),
-      }));
+      // const existingImages = data.product_variants.map((variant, index) => ({
+      //   variantIndex: index,
+      //   imageUrls: variant.images
+      //     .filter((img) => {
+      //       if (!(img instanceof File)) {
+      //         return img;
+      //       }
+      //     })
+      //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      //     .map((img: any) => img.image),
+      // }));
 
-      console.log("existingIMages", existingImages);
+      // console.log("existingIMages", existingImages);
 
-      formData.append("existingImages", JSON.stringify(existingImages));
+      // formData.append("existingImages", JSON.stringify(existingImages));
 
       // --- SEND MULTIPART DATA ---
       dispatch(updateProductThunk({ formData }));
@@ -147,6 +176,8 @@ const UpdateProductSection = () => {
       product_category: selectedCategory,
       product_description: sellerProduct?.product_description,
       product_sub_category: selectedSubCategory,
+      deletedImageIds: [],
+      deletedVariantIds: [],
       product_variants: sellerProduct?.variants.map((v) => ({
         id: v.id,
         product_id: v.product_id,

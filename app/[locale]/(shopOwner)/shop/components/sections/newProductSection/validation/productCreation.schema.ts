@@ -19,7 +19,7 @@ const categoryWithoutImageSchema = z.object({
 const productImageSchema = z.object({
   id: z.number(),
   image: z.string(),
-  productId: z.number(),
+  product_id: z.number(),
   variant_id: z.number(),
 });
 

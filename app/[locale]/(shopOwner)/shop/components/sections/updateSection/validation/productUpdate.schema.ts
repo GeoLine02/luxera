@@ -3,7 +3,7 @@ import { z } from "zod";
 export const productImageSchema = z.object({
   id: z.number(),
   image: z.string().url(),
-  productId: z.number(),
+  product_id: z.number(),
   variant_id: z.number(),
 });
 
@@ -23,11 +23,13 @@ export const productVariantSchema = z.object({
 export const categorySchema = z.object({
   id: z.number(),
   category_name: z.string(),
+  category_name_ka: z.string(),
   subCategories: z.array(
     z.object({
       id: z.number(),
       category_id: z.number(),
       sub_category_name: z.string(),
+      sub_category_name_ka: z.string(),
     })
   ),
 });
@@ -36,9 +38,10 @@ export const subCategorySchema = z.object({
   id: z.number(),
   category_id: z.number(),
   sub_category_name: z.string(),
+  sub_category_name_ka: z.string(),
 });
 
-export const productFormSchema = z.object({
+export const productUpdateFormSchema = z.object({
   id: z.number().optional(),
   product_description: z
     .string()
@@ -51,4 +54,6 @@ export const productFormSchema = z.object({
   product_variants: z
     .array(productVariantSchema)
     .min(1, "You must add at least one variant"),
+  deletedVariantIds: z.number().array().optional(),
+  deletedImageIds: z.number().array().optional(),
 });
