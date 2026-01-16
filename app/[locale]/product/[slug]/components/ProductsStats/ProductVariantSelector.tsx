@@ -22,7 +22,6 @@ const ProductVariantSelector = ({
       {mergedVariants.map((v) => {
         const productImage = v.image as ProductImageType;
         const isSelected = selectedId === v.id;
-        console.log(v.id);
 
         return (
           <label
@@ -52,7 +51,7 @@ const ProductVariantSelector = ({
                 className="w-[90px] md:w-[120px] aspect-square object-cover rounded-lg"
                 width={50}
                 height={50}
-                src={productImage.image}
+                src={productImage.imageUrl}
                 alt={v.variant_name}
               />
               <span className="text-sm font-medium max-w-[90px] md:max-w-[120px] truncate">

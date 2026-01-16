@@ -35,6 +35,8 @@ export default async function Products({
     priceDirection
   );
 
+  console.log(allProductsData);
+
   return (
     <div className="flex">
       <ProductFilterDesktop />

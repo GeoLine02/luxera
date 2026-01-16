@@ -17,6 +17,7 @@ export interface ProductType {
 
 export type ProductWithPrimaryVariant = Omit<ProductType, "variants"> & {
   primaryVariant: Omit<ProductVariantType, "images"> & {
+    imageUrl: string;
     image: string;
   };
 };
@@ -33,6 +34,7 @@ export interface ProductImageType {
   image: string;
   productId: number;
   variant_id: number;
+  imageUrl: string;
 }
 
 export interface ProductFormType {

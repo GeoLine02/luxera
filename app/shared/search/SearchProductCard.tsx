@@ -14,7 +14,7 @@ const SearchProductCard = ({
   setIsSearchOpen,
 }: SearchProductCardProps) => {
   const { id, primaryVariant } = product;
-
+  console.log(product);
   return (
     <Link
       onClick={() => setIsSearchOpen(false)}
@@ -24,7 +24,7 @@ const SearchProductCard = ({
       <Image
         width={70}
         height={70}
-        src={primaryVariant.image}
+        src={primaryVariant.imageUrl}
         className="max-w-[60px] aspect-square rounded-lg"
         alt={"image of " + primaryVariant.variant_name}
       />

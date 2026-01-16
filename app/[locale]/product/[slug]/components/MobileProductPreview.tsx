@@ -34,7 +34,7 @@ const MobileProductPreview = ({
               className="max-w-full max-h-[550px]"
               width={700}
               height={700}
-              src={image.image}
+              src={image.imageUrl}
               alt={`product-${image.id}`}
             />
           </SwiperSlide>

@@ -72,9 +72,9 @@ const AllProducts = ({
             <ProductCard
               key={product.id}
               id={product.id}
-              priamryImage={product.primaryVariant.image}
               price={product.primaryVariant.variant_price}
               title={product.primaryVariant.variant_name}
+              imageUrl={product.primaryVariant.imageUrl}
             />
           ))}
         </div>

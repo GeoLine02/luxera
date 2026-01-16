@@ -46,11 +46,11 @@ const AllProducts = ({ shopId, initialProducts }: AllProductsProps) => {
       <div className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-5 xl:grid-cols-5 xl:gap-6 2xl:grid-cols-6">
         {products.map((product) => (
           <ProductCard
+            key={product.id}
             id={product.id}
-            priamryImage={product.primaryVariant.image}
             price={product.primaryVariant.variant_price}
             title={product.primaryVariant.variant_name}
-            key={product.id}
+            imageUrl={product.primaryVariant.imageUrl}
           />
         ))}
       </div>
