@@ -12,7 +12,7 @@ import { changeSection } from "@/app/store/features/shopSlice";
 
 const MyProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { sellerProducts, error, loading, selectedProductId } = useSelector(
+  const { sellerProducts, error, loading } = useSelector(
     (state: RootState) => state.sellerReducer
   );
 

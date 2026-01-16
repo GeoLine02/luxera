@@ -27,6 +27,7 @@ const ProductPreview = ({ productVariants }: ProductPreviewProps) => {
 
   // Update selected image when variant changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedImage(selectedVariant?.images[0] as ProductImageType);
   }, [selectedVaraintId, selectedVariant?.images]);
 
@@ -53,13 +54,13 @@ const ProductPreview = ({ productVariants }: ProductPreviewProps) => {
         selectedImage={selectedImage}
       />
       <div className="flex">
-        {selectedImage?.image && (
+        {selectedImage?.imageUrl && (
           <div className="relative w-[421px] h-[500px]">
             <Image
               className="object-contain rounded-lg"
               fill
               sizes="(max-width: 768px) 100vw, 421px"
-              src={selectedImage.image}
+              src={selectedImage.imageUrl}
               alt={`Product image ${selectedImage.id || ""}`}
               priority
             />

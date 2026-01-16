@@ -11,6 +11,7 @@ import { productFormSchema } from "./validation/productCreation.schema";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProductForm from "../../ProductForm";
+import { v4 as uuidv4 } from "uuid";
 
 const NewProductSection = () => {
   const { user } = useUser();
@@ -34,7 +35,7 @@ const NewProductSection = () => {
       product_sub_category: null,
       product_variants: [
         {
-          id: 1,
+          id: uuidv4(),
           images: [],
           variant_discount: 0,
           variant_name: "",
@@ -54,7 +55,7 @@ const NewProductSection = () => {
 
   const addNewVariantForm = () => {
     append({
-      id: fields[fields.length - 1]?.id + 1,
+      id: uuidv4(),
       images: [],
       variant_name: "",
       variant_discount: 0,
@@ -68,6 +69,7 @@ const NewProductSection = () => {
   };
 
   const onSubmit = async (data: ProductFormType) => {
+    console.log("data", data);
     try {
       const form = new FormData();
 
@@ -81,8 +83,8 @@ const NewProductSection = () => {
       form.append("userId", String(user?.id));
 
       // 2. Build variants metadata JSON
-      const metadata = data.product_variants.map((v, index) => ({
-        index,
+      const metadata = data.product_variants.map((v) => ({
+        tempId: v.id,
         variantName: v.variant_name,
         variantPrice: v.variant_price,
         variantQuantity: v.variant_quantity,
@@ -92,10 +94,10 @@ const NewProductSection = () => {
       form.append("variantsMetadata", JSON.stringify(metadata));
 
       // 3. Attach images with keys like variantImages_0[]
-      data.product_variants.forEach((variant, i) => {
+      data.product_variants.forEach((variant) => {
         variant.images.forEach((img) => {
           if (img instanceof File) {
-            form.append(`variantImages_${i}`, img);
+            form.append(`variantImage_${variant.id}`, img);
           }
         });
       });
@@ -110,7 +112,7 @@ const NewProductSection = () => {
           product_sub_category: null,
           product_variants: [
             {
-              id: 1,
+              id: uuidv4(),
               images: [],
               variant_discount: 0,
               variant_name: "",

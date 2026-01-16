@@ -18,9 +18,9 @@ const VIPListing = ({ products }: VipListingProps) => {
         renderCard={(product: ProductWithPrimaryVariant) => (
           <ProductCard
             id={product.id}
-            priamryImage={product.primaryVariant.image}
             price={product.primaryVariant.variant_price}
             title={product.primaryVariant.variant_name}
+            imageUrl={product.primaryVariant.imageUrl}
           />
         )}
       />

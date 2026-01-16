@@ -13,6 +13,8 @@ export const fetchAllProducts = async (
       `/products?page=${page}&subcategory=${subcategory}&priceFrom=${priceFrom}&priceTo=${priceTo}&search=${search}&price=${priceDirection}`
     );
 
+    console.log("res", res);
+
     if (res.status === 200) {
       const data = await res.data;
       console.log("paginated products data", data);

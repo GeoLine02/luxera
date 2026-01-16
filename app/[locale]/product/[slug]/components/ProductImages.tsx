@@ -15,12 +15,12 @@ const ProductImages = ({
   return (
     <div className="flex flex-col gap-2 max-w-[120px] max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
       {images.map((image: ProductImageType, index: number) => {
-        const isSelected = selectedImage?.image === image.image;
+        const isSelected = selectedImage?.imageUrl === image.imageUrl;
 
         return (
           <button
             onClick={() => handleSelectImage(image)}
-            key={`${image.image}-${index}`}
+            key={`${image.imageUrl}-${index}`}
             className={`relative w-[100px] h-[120px] cursor-pointer transition-all rounded-md overflow-hidden
               ${
                 isSelected
@@ -33,7 +33,7 @@ const ProductImages = ({
               fill
               sizes="100px"
               className="object-cover"
-              src={image.image}
+              src={image.imageUrl}
               alt={`Product thumbnail ${index + 1}`}
             />
           </button>

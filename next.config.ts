@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
+        protocol: "https",
+        hostname: "luxera-storage.hel1.your-objectstorage.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "4000",
