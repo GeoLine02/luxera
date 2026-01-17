@@ -160,21 +160,23 @@ const ProductVariants = ({
                   name={`product_variants.${index}.images`}
                   control={control}
                   render={({ field }) => {
-                    const currentImages:
-                      | (File | { id: number; imageUrl: string })[] =
-                      field.value || [];
-
+                    const currentImages: (
+                      | File
+                      | { id: number; imageUrl: string }
+                    )[] = field.value || [];
                     console.log(currentImages);
-
                     const handleImagesChange = (
-                      updatedImages: (File | { id: number; imageUrl: string })[]
+                      updatedImages: (
+                        | File
+                        | { id: number; imageUrl: string }
+                      )[],
                     ) => {
                       // Detect removed existing images
                       const removedImages = currentImages.filter(
                         (oldImg) =>
                           !updatedImages.includes(oldImg) &&
                           !(oldImg instanceof File) &&
-                          "id" in oldImg
+                          "id" in oldImg,
                       );
 
                       if (removedImages.length) {
@@ -185,7 +187,7 @@ const ProductVariants = ({
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             ...removedImages.map((img: any) => img.id),
                           ],
-                          { shouldDirty: true }
+                          { shouldDirty: true },
                         );
                       }
 

@@ -56,16 +56,6 @@ const UpdateProductSection = () => {
     },
   });
 
-  // console.log("errors", errors);
-
-  // useEffect(() => {
-  //   const subscription = watch((value) => {
-
-  //   });
-
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
-
   const { fields, append, remove } = useFieldArray({
     name: "product_variants",
     control,
