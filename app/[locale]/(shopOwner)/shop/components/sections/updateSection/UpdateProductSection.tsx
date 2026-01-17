@@ -56,18 +56,15 @@ const UpdateProductSection = () => {
     },
   });
 
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL);
-
   // console.log("errors", errors);
 
-  useEffect(() => {
-    const subscription = watch((value) => {
-      console.log("FORM VALUES:", value);
-    });
+  // useEffect(() => {
+  //   const subscription = watch((value) => {
 
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  //   });
+
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
 
   const { fields, append, remove } = useFieldArray({
     name: "product_variants",
@@ -124,10 +121,7 @@ const UpdateProductSection = () => {
         });
       });
 
-      formData.append(
-        "deletedImageIds",
-        data.deletedImageIds?.toString() as string,
-      );
+      formData.append("deletedImageIds", JSON.stringify(data.deletedImageIds));
 
       dispatch(updateProductThunk({ formData }));
 
