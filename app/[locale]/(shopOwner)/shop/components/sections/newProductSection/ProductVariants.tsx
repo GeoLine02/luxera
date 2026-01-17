@@ -161,11 +161,13 @@ const ProductVariants = ({
                   control={control}
                   render={({ field }) => {
                     const currentImages:
-                      | (File | { id: number; image: string })[] =
+                      | (File | { id: number; imageUrl: string })[] =
                       field.value || [];
 
+                    console.log(currentImages);
+
                     const handleImagesChange = (
-                      updatedImages: (File | { id: number; image: string })[]
+                      updatedImages: (File | { id: number; imageUrl: string })[]
                     ) => {
                       // Detect removed existing images
                       const removedImages = currentImages.filter(

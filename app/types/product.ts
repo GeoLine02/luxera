@@ -16,8 +16,7 @@ export interface ProductType {
 }
 
 export type ProductWithPrimaryVariant = Omit<ProductType, "variants"> & {
-  primaryVariant: Omit<ProductVariantType, "images"> & {
-    imageUrl: string;
+  primaryVariant: ProductVariantType & {
     image: string;
   };
 };
@@ -31,9 +30,6 @@ export interface ProductDetailsType extends ProductType {
 
 export interface ProductImageType {
   id: number;
-  image: string;
-  product_id: number;
-  variant_id: number;
   imageUrl: string;
 }
 
@@ -51,7 +47,6 @@ export interface ProductFormType {
 }
 
 export interface UpdateProductFormType extends ProductFormType {
-  deletedVariantIds?: number[];
   deletedImageIds?: number[];
 }
 

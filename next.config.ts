@@ -42,9 +42,15 @@ const nextConfig: NextConfig = {
         : `${process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL}/:path*`;
 
     return [
+      // without locale
       {
-        source: "/:locale/api/:path*", // any call to /api/*
-        destination: destination, // proxies to your Express backend
+        source: "/api/:path*",
+        destination,
+      },
+      // with locale
+      {
+        source: "/:locale/api/:path*",
+        destination,
       },
     ];
   },

@@ -68,15 +68,20 @@ const AllProducts = ({
         scrollThreshold={0.8}
       >
         <div className="grid grid-cols-2 gap-2.5 xs:gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              price={product.primaryVariant.variant_price}
-              title={product.primaryVariant.variant_name}
-              imageUrl={product.primaryVariant.imageUrl}
-            />
-          ))}
+          {products.map(
+            (product) => (
+              console.log(product),
+              (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  price={product.primaryVariant.variant_price}
+                  title={product.primaryVariant.variant_name}
+                  imageUrl={product.primaryVariant.imageUrl}
+                />
+              )
+            )
+          )}
         </div>
       </InfiniteScroll>
     </div>

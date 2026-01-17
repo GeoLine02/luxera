@@ -11,24 +11,25 @@ import {
   updateProductThunk,
 } from "@/app/store/features/sellerSlice";
 import { productUpdateFormSchema } from "./validation/productUpdate.schema";
+import { v4 as uuidv4 } from "uuid";
 
 const UpdateProductSection = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { selectedProductId, sellerProduct, success } = useSelector(
-    (state: RootState) => state.sellerReducer
+    (state: RootState) => state.sellerReducer,
   );
 
   const { categories, subCategories } = useSelector(
-    (state: RootState) => state.categoriesReducer
+    (state: RootState) => state.categoriesReducer,
   );
 
   const selectedSubCategory = subCategories.find(
-    (subCategory) => subCategory.id === sellerProduct?.product_subcategory_id
+    (subCategory) => subCategory.id === sellerProduct?.product_subcategory_id,
   );
 
   const selectedCategory = categories.find(
-    (category) => category.id === selectedSubCategory?.category_id
+    (category) => category.id === selectedSubCategory?.category_id,
   );
 
   useEffect(() => {
@@ -42,7 +43,6 @@ const UpdateProductSection = () => {
     handleSubmit,
     reset,
     setValue,
-    getValues,
     formState: { errors, isLoading, disabled },
   } = useForm<UpdateProductFormType>({
     resolver: zodResolver(productUpdateFormSchema),
@@ -53,9 +53,13 @@ const UpdateProductSection = () => {
       id: undefined,
       product_variants: [],
       deletedImageIds: [],
-      deletedVariantIds: [],
     },
   });
+
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL);
+
+  // console.log("errors", errors);
 
   useEffect(() => {
     const subscription = watch((value) => {
@@ -72,7 +76,7 @@ const UpdateProductSection = () => {
 
   const addNewVariantForm = () => {
     append({
-      id: fields[fields.length - 1]?.id + 1,
+      id: uuidv4(),
       images: [],
       variant_name: "",
       variant_discount: 0,
@@ -82,18 +86,6 @@ const UpdateProductSection = () => {
   };
 
   const deleteVariantForm = (index: number) => {
-    const variants = getValues("product_variants");
-    const variant = variants[index];
-
-    if (variant?.id) {
-      const deletedVariantIds = getValues("deletedVariantIds") ?? [];
-
-      setValue("deletedVariantIds", [
-        ...deletedVariantIds,
-        variant.id as number,
-      ]);
-    }
-
     remove(index);
   };
 
@@ -101,20 +93,20 @@ const UpdateProductSection = () => {
     try {
       const formData = new FormData();
 
-      // --- BASIC PRODUCT INFO ---
       formData.append("productId", data.id!.toString());
       formData.append(
         "productCategoryId",
-        selectedCategory?.id.toString() || ""
+        selectedCategory?.id.toString() || "",
       );
       formData.append(
         "productSubCategoryId",
-        selectedSubCategory?.id.toString() || ""
+        selectedSubCategory?.id.toString() || "",
       );
       formData.append("productDescription", data.product_description);
-      // --- VARIANT METADATA (NO IMAGES) ---
+
       const variantsMetadata = data.product_variants.map((variant) => ({
         id: variant.id,
+        tempId: variant.id?.toString(),
         variantName: variant.variant_name,
         variantPrice: variant.variant_price,
         variantQuantity: variant.variant_quantity,
@@ -124,42 +116,19 @@ const UpdateProductSection = () => {
 
       formData.append("variantsMetadata", JSON.stringify(variantsMetadata));
 
-      // --- NEW FILES (variantImages_0, variantImages_1, ...) ---
-      data.product_variants.forEach((variant, index) => {
+      data.product_variants.forEach((variant) => {
         variant.images.forEach((img) => {
           if (img instanceof File) {
-            formData.append(`variantImages_${index}`, img);
+            formData.append(`variantImage_${variant.id}`, img);
           }
         });
       });
 
       formData.append(
-        "deletedVariantIds",
-        data.deletedVariantIds?.toString() as string
-      );
-      formData.append(
         "deletedImageIds",
-        data.deletedImageIds?.toString() as string
+        data.deletedImageIds?.toString() as string,
       );
 
-      // --- EXISTING IMAGES (URLS) ---
-      // const existingImages = data.product_variants.map((variant, index) => ({
-      //   variantIndex: index,
-      //   imageUrls: variant.images
-      //     .filter((img) => {
-      //       if (!(img instanceof File)) {
-      //         return img;
-      //       }
-      //     })
-      //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      //     .map((img: any) => img.image),
-      // }));
-
-      // console.log("existingIMages", existingImages);
-
-      // formData.append("existingImages", JSON.stringify(existingImages));
-
-      // --- SEND MULTIPART DATA ---
       dispatch(updateProductThunk({ formData }));
 
       if (!success) toast.error("Produt update failed");
@@ -177,7 +146,6 @@ const UpdateProductSection = () => {
       product_description: sellerProduct?.product_description,
       product_sub_category: selectedSubCategory,
       deletedImageIds: [],
-      deletedVariantIds: [],
       product_variants: sellerProduct?.variants.map((v) => ({
         id: v.id,
         product_id: v.product_id,

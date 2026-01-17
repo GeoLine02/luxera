@@ -22,12 +22,15 @@ const ProductsList = ({
         title={title}
         data={products}
         renderCard={(product: ProductWithPrimaryVariant) => (
-          <ProductCard
-            id={product.id}
-            price={product.primaryVariant.variant_price}
-            title={product.primaryVariant.variant_name}
-            imageUrl={product.primaryVariant.imageUrl}
-          />
+          console.log(product),
+          (
+            <ProductCard
+              id={product.id}
+              price={product.primaryVariant.variant_price}
+              title={product.primaryVariant.variant_name}
+              imageUrl={product.primaryVariant.images[0].imageUrl}
+            />
+          )
         )}
       />
     </div>

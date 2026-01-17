@@ -2,9 +2,7 @@ import { z } from "zod";
 
 export const productImageSchema = z.object({
   id: z.number(),
-  image: z.string().url(),
-  product_id: z.number(),
-  variant_id: z.number(),
+  imageUrl: z.string().url(),
 });
 
 // Accept either a File OR a ProductImageType (URL object)
@@ -30,7 +28,7 @@ export const categorySchema = z.object({
       category_id: z.number(),
       sub_category_name: z.string(),
       sub_category_name_ka: z.string(),
-    })
+    }),
   ),
 });
 
@@ -54,6 +52,5 @@ export const productUpdateFormSchema = z.object({
   product_variants: z
     .array(productVariantSchema)
     .min(1, "You must add at least one variant"),
-  deletedVariantIds: z.number().array().optional(),
   deletedImageIds: z.number().array().optional(),
 });
