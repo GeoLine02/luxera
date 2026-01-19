@@ -96,7 +96,7 @@ const UpdateProductSection = () => {
         tempId: variant.id?.toString(),
         variantName: variant.variant_name,
         variantPrice: variant.variant_price,
-        variantQuantity: variant.variant_quantity,
+        variantQuantity: Number(variant.variant_quantity),
         variantDiscount: variant.variant_discount,
         imageCount: variant.images.filter((x) => !(x instanceof File)).length,
       }));
