@@ -14,7 +14,6 @@ export interface ProductType {
   shop_id: number;
   variants: ProductVariantType[];
 }
-
 export type ProductWithPrimaryVariant = Omit<ProductType, "variants"> & {
   primaryVariant: ProductVariantType & {
     image: string;
