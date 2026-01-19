@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { productFormSchema } from "../newProductSection/validation/productCreation.schema";
-import { ProductFormType } from "@/app/types/product";
+import { UpdateProductFormType } from "@/app/types/product";
 import ProductForm from "../../ProductForm";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,24 +10,26 @@ import {
   getSellerProductById,
   updateProductThunk,
 } from "@/app/store/features/sellerSlice";
+import { productUpdateFormSchema } from "./validation/productUpdate.schema";
+import { v4 as uuidv4 } from "uuid";
 
 const UpdateProductSection = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { selectedProductId, sellerProduct, success } = useSelector(
-    (state: RootState) => state.sellerReducer
+    (state: RootState) => state.sellerReducer,
   );
 
   const { categories, subCategories } = useSelector(
-    (state: RootState) => state.categoriesReducer
+    (state: RootState) => state.categoriesReducer,
   );
 
   const selectedSubCategory = subCategories.find(
-    (subCategory) => subCategory.id === sellerProduct?.product_subcategory_id
+    (subCategory) => subCategory.id === sellerProduct?.product_subcategory_id,
   );
 
   const selectedCategory = categories.find(
-    (category) => category.id === selectedSubCategory?.category_id
+    (category) => category.id === selectedSubCategory?.category_id,
   );
 
   useEffect(() => {
@@ -43,14 +44,15 @@ const UpdateProductSection = () => {
     reset,
     setValue,
     formState: { errors, isLoading, disabled },
-  } = useForm({
-    resolver: zodResolver(productFormSchema),
+  } = useForm<UpdateProductFormType>({
+    resolver: zodResolver(productUpdateFormSchema),
     defaultValues: {
       product_category: null,
       product_description: "",
       product_sub_category: null,
       id: undefined,
       product_variants: [],
+      deletedImageIds: [],
     },
   });
 
@@ -61,7 +63,7 @@ const UpdateProductSection = () => {
 
   const addNewVariantForm = () => {
     append({
-      id: fields[fields.length - 1]?.id + 1,
+      id: uuidv4(),
       images: [],
       variant_name: "",
       variant_discount: 0,
@@ -70,67 +72,47 @@ const UpdateProductSection = () => {
     });
   };
 
-  const deleteVariantForm = (variantId: number) => {
-    remove(variantId);
+  const deleteVariantForm = (index: number) => {
+    remove(index);
   };
 
-  const onSubmit = async (data: ProductFormType) => {
+  const onSubmit = async (data: UpdateProductFormType) => {
     try {
       const formData = new FormData();
 
-      // --- BASIC PRODUCT INFO ---
       formData.append("productId", data.id!.toString());
       formData.append(
         "productCategoryId",
-        selectedCategory?.id.toString() || ""
+        selectedCategory?.id.toString() || "",
       );
       formData.append(
         "productSubCategoryId",
-        selectedSubCategory?.id.toString() || ""
+        selectedSubCategory?.id.toString() || "",
       );
       formData.append("productDescription", data.product_description);
-      // --- VARIANT METADATA (NO IMAGES) ---
+
       const variantsMetadata = data.product_variants.map((variant) => ({
         id: variant.id,
+        tempId: variant.id?.toString(),
         variantName: variant.variant_name,
         variantPrice: variant.variant_price,
-        variantQuantity: variant.variant_quantity,
+        variantQuantity: Number(variant.variant_quantity),
         variantDiscount: variant.variant_discount,
         imageCount: variant.images.filter((x) => !(x instanceof File)).length,
       }));
 
       formData.append("variantsMetadata", JSON.stringify(variantsMetadata));
 
-      // --- NEW FILES (variantImages_0, variantImages_1, ...) ---
-      data.product_variants.forEach((variant, index) => {
+      data.product_variants.forEach((variant) => {
         variant.images.forEach((img) => {
           if (img instanceof File) {
-            formData.append(`variantImages_${index}`, img);
+            formData.append(`variantImage_${variant.id}`, img);
           }
         });
       });
 
-      console.log("data", data.product_variants);
+      formData.append("deletedImageIds", JSON.stringify(data.deletedImageIds));
 
-      // --- EXISTING IMAGES (URLS) ---
-      const existingImages = data.product_variants.map((variant, index) => ({
-        variantIndex: index,
-        imageUrls: variant.images
-          .filter((img) => {
-            if (!(img instanceof File)) {
-              console.log("checked", img);
-              return img;
-            }
-          })
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((img: any) => img.image),
-      }));
-
-      console.log("existingIMages", existingImages);
-
-      formData.append("existingImages", JSON.stringify(existingImages));
-
-      // --- SEND MULTIPART DATA ---
       dispatch(updateProductThunk({ formData }));
 
       if (!success) toast.error("Produt update failed");
@@ -147,6 +129,7 @@ const UpdateProductSection = () => {
       product_category: selectedCategory,
       product_description: sellerProduct?.product_description,
       product_sub_category: selectedSubCategory,
+      deletedImageIds: [],
       product_variants: sellerProduct?.variants.map((v) => ({
         id: v.id,
         product_id: v.product_id,

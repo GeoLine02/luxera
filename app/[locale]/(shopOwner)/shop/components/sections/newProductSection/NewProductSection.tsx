@@ -64,8 +64,8 @@ const NewProductSection = () => {
     });
   };
 
-  const deleteVariantForm = (variantId: number) => {
-    remove(variantId);
+  const deleteVariantForm = (index: number) => {
+    remove(index);
   };
 
   const onSubmit = async (data: ProductFormType) => {
@@ -146,7 +146,7 @@ const NewProductSection = () => {
         onSubmit={onSubmit}
         handleSubmit={handleSubmit}
         watch={watch}
-        errors={errors}
+        errors={errors}  
         disabled={disabled}
         isLoading={isLoading}
       />

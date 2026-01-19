@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductImageType, SellerProductStatusType } from "@/app/types/product";
+import { SellerProductStatusType } from "@/app/types/product";
 import Button from "@/app/ui/Button";
 import { Dropdown } from "@/app/ui/DropDown";
 import classNames from "classnames";
@@ -14,7 +14,7 @@ interface MyProductCardProps {
   viewsPerMonth: number;
   salesPerDay: number;
   salesPerMonth: number;
-  productImage: ProductImageType;
+  productImage: string;
   status: "active" | "inactive" | "outOfStock";
   handleChangeStatus: (
     productId: string,
@@ -40,7 +40,6 @@ const MyProductCard = ({
     "text-medium-gray bg-light-gray": status === "inactive",
     "text-red-500 bg-red-200": status === "outOfStock",
   });
-
   return (
     <div className="flex flex-col gap-2 bg-white p-2 rounded-xl md:flex-row md:items-center">
       <div className="flex items-center gap-4 border-b border-medium-gray pb-4 md:pb-0 md:border-none">
@@ -48,7 +47,7 @@ const MyProductCard = ({
           className="max-w-[55px] aspect-square rounded-lg"
           width={500}
           height={500}
-          src={productImage.image}
+          src={productImage}
           alt={title}
         />
 

@@ -18,9 +18,7 @@ const categoryWithoutImageSchema = z.object({
 
 const productImageSchema = z.object({
   id: z.number(),
-  image: z.string(),
-  productId: z.number(),
-  variant_id: z.number(),
+  imageUrl: z.string(),
 });
 
 // Product variant schema with union type for images

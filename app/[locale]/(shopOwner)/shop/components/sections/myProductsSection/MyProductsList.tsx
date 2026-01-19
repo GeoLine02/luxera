@@ -7,13 +7,13 @@ import {
   selectProductId,
 } from "@/app/store/features/sellerSlice";
 import { ClipLoader } from "react-spinners";
-import { ProductImageType } from "@/app/types/product";
 import { changeSection } from "@/app/store/features/shopSlice";
+import { ProductImageType } from "@/app/types/product";
 
 const MyProductsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { sellerProducts, error, loading } = useSelector(
-    (state: RootState) => state.sellerReducer
+    (state: RootState) => state.sellerReducer,
   );
 
   const handleSelectProductId = (id: number) => {
@@ -43,21 +43,29 @@ const MyProductsList = () => {
 
   return (
     <div className="mt-6 space-y-2">
-      {sellerProducts.map((product) => (
-        <MyProductCard
-          key={product.id}
-          id={product.id}
-          title={product.primaryVariant.variant_name}
-          status={product.product_status}
-          salesPerDay={product.sales_per_day}
-          salesPerMonth={product.sales_per_month}
-          viewsPerDay={product.views_per_day}
-          viewsPerMonth={product.views_per_month}
-          productImage={product.primaryVariant.images[0] as ProductImageType}
-          handleChangeStatus={() => {}}
-          handleSelectProductId={handleSelectProductId}
-        />
-      ))}
+      {sellerProducts.map(
+        (product) => (
+          console.log(product.primaryVariant.images),
+          (
+            <MyProductCard
+              key={product.id}
+              id={product.id}
+              title={product.primaryVariant.variant_name}
+              status={product.product_status}
+              salesPerDay={product.sales_per_day}
+              salesPerMonth={product.sales_per_month}
+              viewsPerDay={product.views_per_day}
+              viewsPerMonth={product.views_per_month}
+              productImage={
+                (product.primaryVariant.images as ProductImageType[])[0]
+                  .imageUrl
+              }
+              handleChangeStatus={() => {}}
+              handleSelectProductId={handleSelectProductId}
+            />
+          )
+        ),
+      )}
     </div>
   );
 };

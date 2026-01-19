@@ -9,8 +9,8 @@ const MAX_FILE_SIZE_MB = 5;
 const MAX_TOTAL_FILES = 5;
 
 interface UploadProps {
-  value: (File | { id: number; image: string })[];
-  onChange: (files: (File | { id: number; image: string })[]) => void;
+  value: (File | { id: number; imageUrl: string })[];
+  onChange: (files: (File | { id: number; imageUrl: string })[]) => void;
   multiple?: boolean;
 }
 
@@ -33,7 +33,7 @@ const Upload = ({ value, onChange, multiple = false }: UploadProps) => {
     const urls = value.map((item) => {
       if (item instanceof File) return URL.createObjectURL(item);
       if (typeof item === "string") return item;
-      return item.image; // ← existing DB file object
+      return item.imageUrl; // ← existing DB file object
     });
 
     // eslint-disable-next-line react-hooks/set-state-in-effect

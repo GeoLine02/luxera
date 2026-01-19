@@ -16,8 +16,7 @@ export interface ProductType {
 }
 
 export type ProductWithPrimaryVariant = Omit<ProductType, "variants"> & {
-  primaryVariant: Omit<ProductVariantType, "images"> & {
-    imageUrl: string;
+  primaryVariant: ProductVariantType & {
     image: string;
   };
 };
@@ -31,9 +30,6 @@ export interface ProductDetailsType extends ProductType {
 
 export interface ProductImageType {
   id: number;
-  image: string;
-  productId: number;
-  variant_id: number;
   imageUrl: string;
 }
 
@@ -50,6 +46,10 @@ export interface ProductFormType {
   product_sub_category: Omit<SubCategoryType, "sub_category_image"> | null;
 }
 
+export interface UpdateProductFormType extends ProductFormType {
+  deletedImageIds?: number[];
+}
+
 export type ProductVariantType = {
   id?: number | string;
   variant_name: string;
@@ -62,7 +62,7 @@ export type ProductVariantType = {
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
 
-export interface SellerProductType {
+export interface SellerProductType extends ProductType {
   title: string;
   id: number;
   views_per_day: number;
@@ -70,6 +70,7 @@ export interface SellerProductType {
   sales_per_day: number;
   sales_per_month: number;
   product_status: SellerProductStatusType;
+  product_subcategory_id: number;
   primaryVariant: ProductVariantType;
 }
 

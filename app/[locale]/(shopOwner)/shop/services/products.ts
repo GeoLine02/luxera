@@ -35,7 +35,9 @@ export const fetchSellerProductById = async (id: number) => {
 export const updateSellerProductById = async (formData: FormData) => {
   try {
     const res = await api.put("/seller/products/update", formData);
-    if (res.status === 201) {
+    console.log(res.status);
+    console.log(res.data);
+    if (res.status === 200) {
       const data = res.data;
       console.log("updated product data: ", data);
       return data;
@@ -43,6 +45,7 @@ export const updateSellerProductById = async (formData: FormData) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     console.log(err);
+    console.log(err.config);
     throw err.response?.data?.message || "Failed to upadte product";
   }
 };
