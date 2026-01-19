@@ -9,7 +9,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 interface InitialStateType {
   sellerProducts: SellerProductType[];
   selectedProductId: number | null;
-  sellerProduct: ProductType | null;
+  sellerProduct: SellerProductType | null;
   loading: boolean;
   error: string | null;
   success: boolean;
@@ -33,10 +33,10 @@ export const getSellerProducts = createAsyncThunk(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || "Failed to fetch seller products"
+        err.response?.data?.message || "Failed to fetch seller products",
       );
     }
-  }
+  },
 );
 
 export const getSellerProductById = createAsyncThunk(
@@ -49,10 +49,10 @@ export const getSellerProductById = createAsyncThunk(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       return rejectWithValue(
-        err.response?.data?.message || "Failed to fetch seller product"
+        err.response?.data?.message || "Failed to fetch seller product",
       );
     }
-  }
+  },
 );
 
 interface UpdateProductResponse {
@@ -112,7 +112,7 @@ const sellerSlice = createSlice({
       })
       .addCase(getSellerProductById.fulfilled, (state, action) => {
         state.loading = false;
-        state.sellerProduct = action.payload as ProductType;
+        state.sellerProduct = action.payload;
       })
       .addCase(getSellerProductById.rejected, (state, action) => {
         state.error = action.payload as string;

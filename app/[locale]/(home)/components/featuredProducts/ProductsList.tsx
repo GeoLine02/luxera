@@ -3,7 +3,10 @@
 import "swiper/css";
 import "swiper/css/navigation";
 import SwiperSlider from "@/app/shared/SwiperSlider";
-import { ProductWithPrimaryVariant } from "@/app/types/product";
+import {
+  ProductImageType,
+  ProductWithPrimaryVariant,
+} from "@/app/types/product";
 import ProductCard from "@/app/shared/ProductCard";
 
 interface ProcutsListProps {
@@ -28,7 +31,10 @@ const ProductsList = ({
               id={product.id}
               price={product.primaryVariant.variant_price}
               title={product.primaryVariant.variant_name}
-              imageUrl={product.primaryVariant.images[0].imageUrl}
+              imageUrl={
+                (product.primaryVariant.images as ProductImageType[])[0]
+                  .imageUrl
+              }
             />
           )
         )}

@@ -1,6 +1,9 @@
 "use client";
 
-import { ProductWithPrimaryVariant } from "@/app/types/product";
+import {
+  ProductImageType,
+  ProductWithPrimaryVariant,
+} from "@/app/types/product";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -24,7 +27,7 @@ const SearchProductCard = ({
       <Image
         width={70}
         height={70}
-        src={primaryVariant.imageUrl}
+        src={(primaryVariant.images as ProductImageType[])[0].imageUrl}
         className="max-w-[60px] aspect-square rounded-lg"
         alt={"image of " + primaryVariant.variant_name}
       />

@@ -62,7 +62,7 @@ export type ProductVariantType = {
 
 export type SellerProductStatusType = "active" | "inactive" | "outOfStock";
 
-export interface SellerProductType {
+export interface SellerProductType extends ProductType {
   title: string;
   id: number;
   views_per_day: number;
@@ -70,6 +70,7 @@ export interface SellerProductType {
   sales_per_day: number;
   sales_per_month: number;
   product_status: SellerProductStatusType;
+  product_subcategory_id: number;
   primaryVariant: ProductVariantType;
 }
 

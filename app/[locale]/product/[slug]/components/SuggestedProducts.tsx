@@ -2,7 +2,10 @@
 
 import ProductCard from "@/app/shared/ProductCard";
 import SwiperSlider from "@/app/shared/SwiperSlider";
-import { ProductWithPrimaryVariant } from "@/app/types/product";
+import {
+  ProductImageType,
+  ProductWithPrimaryVariant,
+} from "@/app/types/product";
 
 interface SuggestedProductsProps {
   suggestedProducts: ProductWithPrimaryVariant[];
@@ -20,7 +23,9 @@ const SuggestedProducts = ({ suggestedProducts }: SuggestedProductsProps) => {
             id={product.id}
             price={product.product_price}
             title={product.primaryVariant.variant_name}
-            imageUrl={product.primaryVariant.imageUrl}
+            imageUrl={
+              (product.primaryVariant.images as ProductImageType[])[0].imageUrl
+            }
           />
         )}
       />
