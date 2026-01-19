@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 const NewProductSection = () => {
   const { user } = useUser();
   const { categories } = useSelector(
-    (state: RootState) => state.categoriesReducer
+    (state: RootState) => state.categoriesReducer,
   );
 
   const {
@@ -78,7 +78,7 @@ const NewProductSection = () => {
       form.append("productCategoryId", String(data.product_category?.id));
       form.append(
         "productSubCategoryId",
-        String(data.product_sub_category?.id)
+        String(data.product_sub_category?.id),
       );
       form.append("userId", String(user?.id));
 
