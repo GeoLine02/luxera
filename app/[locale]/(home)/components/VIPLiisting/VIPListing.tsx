@@ -20,7 +20,7 @@ const VIPListing = ({ products }: VipListingProps) => {
             id={product.id}
             price={product.primaryVariant.variant_price}
             title={product.primaryVariant.variant_name}
-            imageUrl={product.primaryVariant.imageUrl}
+            imageUrl={product.primaryVariant.images[0].imageUrl}
           />
         )}
       />

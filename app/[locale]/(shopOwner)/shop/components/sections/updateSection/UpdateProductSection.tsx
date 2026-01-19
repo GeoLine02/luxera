@@ -100,7 +100,6 @@ const UpdateProductSection = () => {
         variantDiscount: variant.variant_discount,
         imageCount: variant.images.filter((x) => !(x instanceof File)).length,
       }));
-
       formData.append("variantsMetadata", JSON.stringify(variantsMetadata));
 
       data.product_variants.forEach((variant) => {
