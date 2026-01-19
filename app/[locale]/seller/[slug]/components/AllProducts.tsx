@@ -1,7 +1,10 @@
 "use client";
 
 import ProductCard from "@/app/shared/ProductCard";
-import { ProductWithPrimaryVariant } from "@/app/types/product";
+import {
+  ProductImageType,
+  ProductWithPrimaryVariant,
+} from "@/app/types/product";
 import { useState } from "react";
 import { ferchSellerProducts } from "../services/seller";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -50,7 +53,9 @@ const AllProducts = ({ shopId, initialProducts }: AllProductsProps) => {
             id={product.id}
             price={product.primaryVariant.variant_price}
             title={product.primaryVariant.variant_name}
-            imageUrl={product.primaryVariant.imageUrl}
+            imageUrl={
+              (product.primaryVariant.images as ProductImageType[])[0].imageUrl
+            }
           />
         ))}
       </div>

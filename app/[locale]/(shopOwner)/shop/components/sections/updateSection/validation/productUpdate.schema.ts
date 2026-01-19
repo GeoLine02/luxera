@@ -11,10 +11,10 @@ const imageUnionSchema = z.union([z.instanceof(File), productImageSchema]);
 export const productVariantSchema = z.object({
   id: z.union([z.number(), z.string()]).optional(),
   variant_name: z.string().min(1, "Variant name is required"),
-  variant_price: z.number().min(0, "Price must be 0 or more"),
-  variant_quantity: z.number().min(0, "Quantity must be 0 or more"),
-  variant_discount: z.number().min(0).max(100, "Discount must be 0–100"),
-  product_id: z.number().optional(),
+  variant_price: z.coerce.number().min(0, "Price must be 0 or more"),
+  variant_quantity: z.coerce.number().min(0, "Quantity must be 0 or more"),
+  variant_discount: z.coerce.number().min(0).max(100, "Discount must be 0–100"),
+  product_id: z.coerce.number().optional(),
   images: z.array(imageUnionSchema).min(1, "At least one image is required"),
 });
 

@@ -1,7 +1,10 @@
 "use client";
 
 import ProductCard from "@/app/shared/ProductCard";
-import { ProductWithPrimaryVariant } from "@/app/types/product";
+import {
+  ProductImageType,
+  ProductWithPrimaryVariant,
+} from "@/app/types/product";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchAllProducts } from "../services/allProducts";
 import { useState } from "react";
@@ -42,7 +45,7 @@ const AllProducts = ({
       priceFromParam,
       priceToParam,
       searchParam,
-      priceDirectionParam
+      priceDirectionParam,
     );
 
     if (!res.data.length) {
@@ -77,10 +80,13 @@ const AllProducts = ({
                   id={product.id}
                   price={product.primaryVariant.variant_price}
                   title={product.primaryVariant.variant_name}
-                  imageUrl={product.primaryVariant.imageUrl}
+                  imageUrl={
+                    (product.primaryVariant.images as ProductImageType[])[0]
+                      .imageUrl
+                  }
                 />
               )
-            )
+            ),
           )}
         </div>
       </InfiniteScroll>
