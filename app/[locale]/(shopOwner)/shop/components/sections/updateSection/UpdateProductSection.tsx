@@ -91,15 +91,20 @@ const UpdateProductSection = () => {
       );
       formData.append("productDescription", data.product_description);
 
-      const variantsMetadata = data.product_variants.map((variant) => ({
-        id: variant.id,
-        tempId: variant.id?.toString(),
-        variantName: variant.variant_name,
-        variantPrice: variant.variant_price,
-        variantQuantity: Number(variant.variant_quantity),
-        variantDiscount: variant.variant_discount,
-        imageCount: variant.images.filter((x) => !(x instanceof File)).length,
-      }));
+      const variantsMetadata = data.product_variants.map((variant) => {
+        const isNew = typeof variant.id === "string"; // UUID = new, number = existing
+        return {
+          id: variant.id, // still send the id (for both cases)
+          isNew, // ← explicit flag
+          variantName: variant.variant_name,
+          variantPrice: variant.variant_price,
+          variantQuantity: Number(variant.variant_quantity),
+          variantDiscount: variant.variant_discount,
+          imageCount: variant.images.filter((x) => !(x instanceof File)).length,
+        };
+      });
+
+      console.log("variantsMetaData", variantsMetadata);
       formData.append("variantsMetadata", JSON.stringify(variantsMetadata));
 
       data.product_variants.forEach((variant) => {
