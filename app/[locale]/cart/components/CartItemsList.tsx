@@ -12,6 +12,7 @@ import {
   saveCartItems,
 } from "@/app/store/features/cartSlice";
 import { useEffect } from "react";
+import { ProductImageType } from "@/app/types/product";
 
 const CartItemsList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -56,6 +57,7 @@ const CartItemsList = () => {
             price={cartItem.variant.variant_price}
             quantity={cartItem.product_quantity}
             title={cartItem.variant.variant_name}
+            image={(cartItem.variant.images as ProductImageType[])[0].imageUrl}
             onQuantityChange={onQuantityChange}
             onItemDelete={onItemDelete}
           />

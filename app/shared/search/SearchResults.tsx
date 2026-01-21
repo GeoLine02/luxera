@@ -64,7 +64,7 @@ const SearchResults = ({
       <div className="flex items-center justify-center">
         <button
           onClick={handleShowMore}
-          className="text-lg font-medium px-6 p-2 border-t-3 rounded-full bg-black text-white hover:text-black hover-transition cursor-pointer"
+          className="text-lg font-medium px-6 p-2 border-t-3 rounded-full bg-black text-white cursor-pointer"
         >
           {t("search.searchResults.allProductsButtonLabel")}
         </button>

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import CartItemImage from "@/public/CartItemImage.png";
 import { FaTrash } from "react-icons/fa";
 import { Dropdown } from "@/app/ui/DropDown";
 
@@ -11,6 +10,7 @@ interface CartItemProps {
   price: number;
   description: string;
   quantity: number;
+  image: string;
   onQuantityChange: (cartItemId: number, quantity: number) => void;
   onItemDelete: (cartItemId: number) => void;
 }
@@ -23,6 +23,7 @@ const CartItem = ({
   price,
   quantity,
   title,
+  image,
   onQuantityChange,
   onItemDelete,
 }: CartItemProps) => {
@@ -31,7 +32,7 @@ const CartItem = ({
       {/* LEFT SECTION */}
       <div className="flex items-start gap-4 w-full sm:w-auto">
         <Image
-          src={CartItemImage}
+          src={image}
           alt={title}
           width={100}
           height={100}
