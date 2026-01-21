@@ -10,7 +10,6 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ price, title, id, imageUrl }: ProductCardProps) => {
-  console.log("123123", imageUrl);
   return (
     <Link
       href={`/product/${title}-${id}`}

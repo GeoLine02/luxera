@@ -3,7 +3,7 @@
 import Input from "@/app/ui/Input";
 import Button from "@/app/ui/Button";
 import ForgetPasswordButton from "./ForgetPasswordButton";
-import OtherAccounts from "../../shared/OtherAccounts";
+import OtherAccounts from "../../shared/GoogleLoginButton";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ClipLoader } from "react-spinners";
