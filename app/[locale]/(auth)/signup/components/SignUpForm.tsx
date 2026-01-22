@@ -2,7 +2,7 @@
 
 import Input from "@/app/ui/Input";
 import Button from "@/app/ui/Button";
-import OtherAccounts from "../../shared/OtherAccounts";
+import OtherAccounts from "../../shared/GoogleLoginButton";
 import AlreadyHaveAnAccount from "./AlreadyHaveAnAccount";
 import TermsAndPolicies from "./TermsAndPolicies";
 import { ChangeEvent, FormEvent, useState } from "react";
