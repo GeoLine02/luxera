@@ -10,6 +10,7 @@ import { selectVariantId } from "@/app/store/features/productDetailsSlice";
 import { addToCartService } from "../../services/cart";
 import { useUser } from "@/app/providers/UserProvider";
 import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface ProductStatsProps {
   productId: number;
@@ -31,12 +32,14 @@ const ProductStats = ({
   }, [dispatch, productVariants]);
 
   const { selectedVaraintId } = useSelector(
-    (state: RootState) => state.productDetailsReducer
+    (state: RootState) => state.productDetailsReducer,
   );
 
   const onVariantChange = (variantId: number) => {
     dispatch(selectVariantId(variantId));
   };
+
+  const router = useRouter();
 
   const handleAddToCart = async () => {
     if (user?.id) {
@@ -44,12 +47,27 @@ const ProductStats = ({
         user?.id,
         productId,
         selectedVaraintId as number,
-        productQuantity
+        productQuantity,
       );
       if (res) {
         toast.success("Item added to cart.");
       }
     }
+  };
+
+  const handleOrderNow = async () => {
+    if (!user?.id) return;
+
+    const res = await addToCartService(
+      user.id,
+      productId,
+      selectedVaraintId as number,
+      productQuantity,
+    );
+
+    if (!res) return;
+
+    router.push("/cart");
   };
 
   const onQuantityChange = (action: "increment" | "decrement") => {
@@ -63,7 +81,7 @@ const ProductStats = ({
   };
 
   const selectedVariant = productVariants.find(
-    (variant) => variant.id === selectedVaraintId
+    (variant) => variant.id === selectedVaraintId,
   );
 
   const selectedVariantTitle = selectedVariant?.variant_name;
@@ -148,7 +166,10 @@ const ProductStats = ({
 
       {/* Action Buttons */}
       <div className="flex gap-4 mb-6">
-        <button className="bg-dirty-pink text-white font-semibold py-1 px-9 rounded-lg hover:opacity-90 transition-opacity">
+        <button
+          onClick={handleOrderNow}
+          className="bg-dirty-pink text-white font-semibold py-1 px-9 rounded-lg hover:opacity-90 transition-opacity"
+        >
           Order Now
         </button>
         <button
