@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckoutFormValues } from "@/app/types/checkout";
 import Input from "@/app/ui/Input";
 import { useEffect } from "react";
 import {
@@ -10,14 +11,6 @@ import {
 } from "react-hook-form";
 
 const PHONE_PREFIX = "+955";
-
-interface CheckoutFormValues {
-  fullName: string;
-  city: string;
-  phone: string;
-  address: string;
-  description?: string;
-}
 
 interface OrderDetailsProps {
   register: UseFormRegister<CheckoutFormValues>;
@@ -105,6 +98,12 @@ const OrderDetails = ({
         placeholder="Additional delivery notes"
         {...register("description")}
         error={errors.description?.message}
+      />
+      <Input
+        label="Postal Code"
+        placeholder="Additional delivery notes"
+        {...register("postCode")}
+        error={errors.postCode?.message}
       />
     </div>
   );
