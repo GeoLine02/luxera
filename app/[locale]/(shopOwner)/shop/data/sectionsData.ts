@@ -2,6 +2,7 @@ import { FaBoxOpen, FaWallet } from "react-icons/fa";
 import {
   IoIosAddCircle,
   IoIosSpeedometer,
+  IoMdHome,
   IoMdMegaphone,
   IoMdSettings,
 } from "react-icons/io";
@@ -42,5 +43,10 @@ export const sectionsData = [
     accessorKey: "settings",
     label: "Settings",
     Icon: IoMdSettings,
+  },
+  {
+    accessorKey: "backToMain",
+    label: "Back to Main",
+    Icon: IoMdHome,
   },
 ];
