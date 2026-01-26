@@ -46,7 +46,7 @@ export const sectionsData = [
   },
   {
     accessorKey: "backToMain",
-    label: "Back to Main",
+    label: "Home",
     Icon: IoMdHome,
   },
 ];
