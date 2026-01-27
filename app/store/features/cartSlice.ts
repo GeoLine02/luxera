@@ -104,6 +104,11 @@ const cartSlice = createSlice({
           ? { ...cartItem, product_quantity: updatedItem.product_quantity }
           : cartItem,
       );
+      state.selectedCartItems = state.selectedCartItems.map((selectedItem) =>
+        selectedItem.id === updatedItem.id
+          ? { ...selectedItem, product_quantity: updatedItem.product_quantity }
+          : selectedItem,
+      );
     });
 
     builder.addCase(deleteCartItem.fulfilled, (state, action) => {

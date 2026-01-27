@@ -38,9 +38,10 @@ const CheckoutSection = () => {
     const basket: BasketItem[] = selectedCartItems.map((cartItem) => ({
       variantId: cartItem.variant.id as number,
       price: cartItem.variant.variant_price,
-      productId: cartItem.id,
+      productId: cartItem.product.id,
       productQuantity: cartItem.product_quantity,
       shopId: cartItem.product.shop_id,
+      productDiscount: cartItem.variant.variant_discount,
     }));
 
     try {

@@ -24,4 +24,5 @@ export interface BasketItem {
   price: number;
   shopId: number;
   variantId: number;
+  productDiscount: number;
 }
