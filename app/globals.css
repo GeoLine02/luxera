@@ -67,10 +67,6 @@ input {
   @apply mx-auto max-w-[1440px];
 }
 
-button {
-  outline: 2px solid red;
-}
-
 .hover-transition {
   @apply transition-all duration-200;
 }

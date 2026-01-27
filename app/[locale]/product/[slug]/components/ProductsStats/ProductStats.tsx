@@ -173,22 +173,14 @@ const ProductStats = ({
         >
           Order Now
         </button>
-        <Button
-          rounded="md"
-          title="Add To cart"
-          type="button"
-          bgcolor="dirtyPink"
-          onClick={handleAddToCart}
-          icon={<FaShoppingCart size={20} color="gray" />}
-        />
-        {/*          
+
         <button
           onClick={handleAddToCart}
           className="border cursor-pointer border-gray-300 hover:border-gray-400 hover:bg-gray-50 py-2 px-4 rounded-lg flex items-center gap-2 transition-all"
         >
           <FaShoppingCart size={20} color="gray" />
           Add to Cart
-        </button> */}
+        </button>
       </div>
 
       {/* Personalise Button */}
