@@ -15,14 +15,6 @@ const OrderSummary = () => {
 
   return (
     <div className="w-full bg-white z-30 fixed bottom-0 left-0 rounded-t-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)] px-4 py-4 md:rounded-xl md:shadow-md md:sticky md:top-24 mb-14 md:mb-0">
-      {/* Desktop Title */}
-      <h1 className="hidden md:block text-xl font-semibold mb-4">
-        Order Summary
-      </h1>
-
-      {/* Mobile Title */}
-      <h1 className="md:hidden text-lg font-medium mb-2">Order Summary</h1>
-
       {/* Order Totals */}
       <div className="flex justify-between items-center py-3 border-b border-light-gray">
         <span className="text-gray-700">Item Total</span>

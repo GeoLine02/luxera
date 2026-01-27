@@ -22,9 +22,6 @@ const CartItemsList = () => {
   const { cart, selectedCartItems } = useSelector(
     (state: RootState) => state.cartReducer,
   );
-
-  console.log(selectedCartItems);
-
   const onQuantityChange = async (cartItemId: number, quantity: number) => {
     dispatch(changeCartItemQuantity({ cartItemId, quantity }));
   };
@@ -61,6 +58,7 @@ const CartItemsList = () => {
         <Input
           type="checkbox"
           name="selectAll"
+          id="selectAll"
           checked={allSelected}
           onChange={(e) => onSelectAll(e.target.checked)}
         />
@@ -76,7 +74,6 @@ const CartItemsList = () => {
             key={cartItem.id}
             discount={cartItem.variant.variant_discount}
             id={cartItem.id}
-            description={cartItem.product.product_description}
             price={cartItem.variant.variant_price}
             quantity={cartItem.product_quantity}
             title={cartItem.variant.variant_name}

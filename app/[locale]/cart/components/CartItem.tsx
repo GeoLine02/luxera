@@ -8,7 +8,6 @@ interface CartItemProps {
   id: number;
   title: string;
   price: number;
-  description: string;
   quantity: number;
   image: string;
   discount: number; // added
@@ -22,7 +21,6 @@ const quantityOptions = Array.from({ length: 99 }, (_, i) => i + 1);
 
 const CartItem = ({
   id,
-  description,
   price,
   quantity,
   title,
@@ -58,12 +56,10 @@ const CartItem = ({
           className="rounded-lg w-24 h-24 object-cover sm:w-28 sm:h-28"
         />
 
-        <div className="space-y-1 flex-1">
-          <h1 className="text-lg sm:text-xl font-semibold">{title}</h1>
-
-          <p className="text-gray-600 text-sm max-w-[200px] truncate sm:max-w-full">
-            {description}
-          </p>
+        <div className="space-y-1 flex-1 w-full">
+          <h1 className="text-lg sm:text-xl font-semibold truncate w-full max-w-[200px] md:max-w-[400px]">
+            {title}
+          </h1>
 
           {/* Price with discount */}
           <div className="flex items-center gap-3 flex-wrap mt-1">

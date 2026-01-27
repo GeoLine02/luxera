@@ -3,7 +3,7 @@ import CheckoutSection from "./components/CheckoutSection";
 
 const Cart = async () => {
   return (
-    <div className="container min-h-[calc(100vh-80px)] px-2 pb-40 md:pb-0">
+    <div className=" min-h-[calc(100vh-80px)] px-6 md:px-11 pb-40 md:pb-0">
       <h1 className="text-4xl font-bold mt-4 mb-6">Cart</h1>
 
       <div className="flex flex-col md:flex-row gap-8 items-start">
