@@ -15,6 +15,7 @@ export interface User {
   email: string;
   full_name: string;
   role: "user" | "admin" | "seller";
+  email_verified: boolean;
 }
 
 export interface LoginResponse {

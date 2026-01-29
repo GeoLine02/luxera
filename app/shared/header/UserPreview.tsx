@@ -29,7 +29,7 @@ const UserPreview = () => {
             </Dropdown.Item>
           )}
           <Dropdown.Item>
-            <Link href={"/settings"}>{t("userPreview.settings")}</Link>
+            <Link href={"/profile"}>{t("userPreview.settings")}</Link>
           </Dropdown.Item>
           <Dropdown.Item>
             <Link href={"/login"}>{t("userPreview.logOut")}</Link>
