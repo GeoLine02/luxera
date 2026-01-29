@@ -9,11 +9,10 @@ const CheckoutButton = ({ itemsCount }: CheckoutButtonProps) => {
     <div>
       <Button
         rounded="full"
-        type="button"
+        type="submit"
         bgcolor="lightPink"
         className="py-2 flex items-center justify-center font-medium"
         titleColor="black"
-        onClick={() => console.log("checked out")}
         title={`Checkout (${itemsCount})`}
       />
     </div>
