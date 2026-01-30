@@ -4,7 +4,7 @@ export const addToCartService = async (
   userId: number,
   productId: number,
   productVariantId: number,
-  productQuantity: number
+  productQuantity: number,
 ) => {
   try {
     const res = await api.post("/cart", {
@@ -14,7 +14,7 @@ export const addToCartService = async (
       quantity: productQuantity,
     });
     if (res.status !== 201) {
-      return res.data.message;
+      return res.data;
     }
 
     const data = res.data.data;

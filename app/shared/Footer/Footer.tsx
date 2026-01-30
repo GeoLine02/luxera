@@ -129,31 +129,8 @@ const Footer = () => {
       </div>
 
       {/* Bottom Section */}
-      <div className="bg-black text-white py-4 flex flex-col lg:flex-row gap-6 items-center justify-between px-11 text-sm">
-        <div className="flex gap-2 items-center">
-          <CiGlobe />
-          <p>{t("bottom.language")}</p>
-        </div>
-
+      <div className="bg-black text-white py-4 flex flex-col lg:flex-row gap-6 items-center justify-center px-11 text-sm">
         <div className="text-center">{t("bottom.copyright")}</div>
-
-        <div className="flex flex-col md:flex-row gap-3">
-          <span
-            className="cursor-pointer"
-            onClick={() => router.push("/terms")}
-          >
-            {t("bottom.terms")}
-          </span>
-          <span
-            className="cursor-pointer"
-            onClick={() => router.push("/privacy")}
-          >
-            {t("bottom.privacy")}
-          </span>
-          <span className="cursor-pointer" onClick={() => router.push("/")}>
-            {t("bottom.ads")}
-          </span>
-        </div>
       </div>
     </footer>
   );

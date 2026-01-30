@@ -19,7 +19,6 @@ const ProductDetails = async ({ params }: ProductDetailsProps) => {
   const id = Number(productId);
 
   const productByIdData: ProductDetailsType = await fetchProductById(id);
-  console.log("productByIdData", productByIdData);
   return (
     <div className="mt-6">
       <div className="flex flex-col md:flex-row justify-between container">
