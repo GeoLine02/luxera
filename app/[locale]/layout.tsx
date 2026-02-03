@@ -19,6 +19,7 @@ import {
   setSubCategories,
 } from "../store/features/categoriesSlice";
 import { UserProvider } from "../providers/UserProvider";
+import { SocketProvider } from "../providers/SocketProvider";
 
 export const metadata: Metadata = {
   title: "Luxera Gift Shop",
@@ -58,20 +59,22 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${poppins.className}`}>
-        <ReduxProvider preloadedState={preloadedState}>
-          <NextIntlClientProvider>
-            <UserProvider>
-              <div className="relative">
-                <Header />
-                <SideMenu />
-              </div>
-              <main>{children}</main>
-              <MobileTabs />
-              <Footer />
-              <CategoriesModal />
-            </UserProvider>
-          </NextIntlClientProvider>
-        </ReduxProvider>
+        <SocketProvider>
+          <ReduxProvider preloadedState={preloadedState}>
+            <NextIntlClientProvider>
+              <UserProvider>
+                <div className="relative">
+                  <Header />
+                  <SideMenu />
+                </div>
+                <main>{children}</main>
+                <MobileTabs />
+                <Footer />
+                <CategoriesModal />
+              </UserProvider>
+            </NextIntlClientProvider>
+          </ReduxProvider>
+        </SocketProvider>
       </body>
     </html>
   );

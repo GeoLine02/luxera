@@ -9,12 +9,13 @@ import classNames from "classnames";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosArrowDown } from "react-icons/io";
+import Link from "next/link";
 
 const ProfileSectionSelector = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [sections] = useState<ProfileSectionType[]>(profileSectionsData);
   const { activeSection } = useSelector(
-    (state: RootState) => state.profileReducer
+    (state: RootState) => state.profileReducer,
   );
 
   const handleSelectSection = (sectionAccessorKey: string) => {
@@ -24,19 +25,21 @@ const ProfileSectionSelector = () => {
   return (
     <>
       {/* Mobile */}
-      <div className="md:hidden">
+      <div className="md:hidden sticky px-4">
         <Dropdown>
           <Dropdown.Trigger className="flex items-center rounded-lg border-2 border-dirty-pink justify-between w-full bg-white py-2 px-4">
             <span>{activeSection}</span>
             <IoIosArrowDown size={25} />
           </Dropdown.Trigger>
-          <Dropdown.Menu expandMode="absolute">
+          <Dropdown.Menu className="!top-11" expandMode="absolute">
             {sections.map((section) => (
               <div
                 onClick={() => handleSelectSection(section.accessorKey)}
                 key={section.accessorKey}
               >
-                <Dropdown.Item>{section.label}</Dropdown.Item>
+                <Dropdown.Item>
+                  <Link href={section.accessorKey}>{section.label}</Link>
+                </Dropdown.Item>
               </div>
             ))}
           </Dropdown.Menu>
@@ -44,7 +47,7 @@ const ProfileSectionSelector = () => {
       </div>
 
       {/* Desktop */}
-      <div className="hidden flex-col gap-10 p-[48px] bg-white rounded-xl w-full h-fit max-w-[256px] md:flex">
+      <div className="hidden flex-col gap-10 p-[48px] bg-light-pink rounded-xl w-full h-fit max-w-[256px] md:flex">
         {sections.map((section) => {
           const { accessorKey, label } = section;
 
@@ -53,7 +56,7 @@ const ProfileSectionSelector = () => {
             {
               "text-black": accessorKey === activeSection,
               "text-medium-gray": accessorKey !== activeSection,
-            }
+            },
           );
 
           return (
@@ -63,7 +66,7 @@ const ProfileSectionSelector = () => {
               key={accessorKey}
             >
               {/* <Icon /> */}
-              <span>{label}</span>
+              <Link href={accessorKey}>{label}</Link>
             </div>
           );
         })}

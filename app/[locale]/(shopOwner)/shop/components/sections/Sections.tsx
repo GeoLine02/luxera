@@ -10,6 +10,7 @@ import AdvertismentSection from "./advertisment/AdvertismentSection";
 import SettingsSection from "./settingsSection/SettingsSection";
 import ReferalSection from "./referalSection/ReferalSection";
 import UpdateProductSection from "./updateSection/UpdateProductSection";
+import NotificationsSection from "./notificationsSection/NotificationsSection";
 
 const Sections = () => {
   const { activeSection } = useSelector((state: RootState) => state.shopSLice);
@@ -23,6 +24,7 @@ const Sections = () => {
       {activeSection === "settings" && <SettingsSection />}
       {activeSection === "referal" && <ReferalSection />}
       {activeSection === "updateProduct" && <UpdateProductSection />}
+      {activeSection === "notifications" && <NotificationsSection />}
     </div>
   );
 };

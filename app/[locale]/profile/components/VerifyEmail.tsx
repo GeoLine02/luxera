@@ -3,7 +3,7 @@
 import { useUser } from "@/app/providers/UserProvider";
 import Button from "@/app/ui/Button";
 import Input from "@/app/ui/Input";
-import { sendCodeService, verifyEmail } from "../../../services/email";
+import { sendCodeService, verifyEmail } from "../services/email";
 import { useState } from "react";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 

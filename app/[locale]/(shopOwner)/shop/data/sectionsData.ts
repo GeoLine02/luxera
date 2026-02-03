@@ -4,7 +4,9 @@ import {
   IoIosSpeedometer,
   IoMdMegaphone,
   IoMdSettings,
+  IoIosNotifications,
 } from "react-icons/io";
+
 import { GiReceiveMoney } from "react-icons/gi";
 
 export const sectionsData = [
@@ -37,6 +39,11 @@ export const sectionsData = [
     accessorKey: "advertisment",
     label: "Advertisment",
     Icon: IoMdMegaphone,
+  },
+  {
+    accessorKey: "notifications",
+    label: "Notifications",
+    Icon: IoIosNotifications,
   },
   {
     accessorKey: "settings",
