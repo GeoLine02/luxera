@@ -1,15 +1,29 @@
 "use client";
 
 import { useUser } from "@/app/providers/UserProvider";
+import { logOut } from "@/app/services/logout";
 import { Dropdown } from "@/app/ui/DropDown";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 
 const UserPreview = () => {
   const { user } = useUser();
   const locale = useLocale();
   const t = useTranslations("Header");
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      const res = await logOut();
+      if (res?.status === 200) {
+        router.push("/signin");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="hidden md:block">
@@ -31,8 +45,8 @@ const UserPreview = () => {
           <Dropdown.Item>
             <Link href={"/profile"}>{t("userPreview.settings")}</Link>
           </Dropdown.Item>
-          <Dropdown.Item>
-            <Link href={"/login"}>{t("userPreview.logOut")}</Link>
+          <Dropdown.Item onSelect={handleLogout}>
+            <Link href={"/signin"}>{t("userPreview.logOut")}</Link>
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
