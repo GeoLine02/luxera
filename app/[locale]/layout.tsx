@@ -59,22 +59,20 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${poppins.className}`}>
-        <SocketProvider>
-          <ReduxProvider preloadedState={preloadedState}>
-            <NextIntlClientProvider>
-              <UserProvider>
-                <div className="relative">
-                  <Header />
-                  <SideMenu />
-                </div>
-                <main>{children}</main>
-                <MobileTabs />
-                <Footer />
-                <CategoriesModal />
-              </UserProvider>
-            </NextIntlClientProvider>
-          </ReduxProvider>
-        </SocketProvider>
+        <ReduxProvider preloadedState={preloadedState}>
+          <NextIntlClientProvider>
+            <UserProvider>
+              <div className="relative">
+                <Header />
+                <SideMenu />
+              </div>
+              <main>{children}</main>
+              <MobileTabs />
+              <Footer />
+              <CategoriesModal />
+            </UserProvider>
+          </NextIntlClientProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
