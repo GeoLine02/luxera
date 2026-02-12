@@ -35,7 +35,7 @@ const MobileTabs = () => {
         <LuLayoutGrid size={25} />
         <h1 className="text-xs">Category</h1>
       </div>
-      <Link href={"/luxera-ai"} className="flex flex-col items-center">
+      <Link href={"/luxera-ai/new-chat"} className="flex flex-col items-center">
         <RiApps2AiLine size={25} />
         <h1 className="text-xs">Luxera AI</h1>
       </Link>
