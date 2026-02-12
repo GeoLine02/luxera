@@ -59,7 +59,7 @@ const Header = () => {
             bgcolor="black"
             className="py-2 px-4 font-medium min-w-[120px] w-full hidden md:block"
             titleColor="white"
-            onClick={() => router.push("/luxera-ai")}
+            onClick={() => router.push("/luxera-ai/new-chat")}
           />
           <div className="hidden lg:block cursor-pointer">
             <IoCartOutline onClick={() => router.push("/cart")} size={30} />
