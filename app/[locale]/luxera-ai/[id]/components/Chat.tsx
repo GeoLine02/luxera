@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import ChatInput from "./ChatInput";
 import { v4 as uuidV4 } from "uuid";
 import MessageCard from "./MessageCard";
+
 interface ChatProps {
   messagesData: MessageType[];
   chatId: string;
@@ -17,9 +18,9 @@ interface ChatProps {
 
 const Chat = ({ messagesData, chatId }: ChatProps) => {
   const [messages, setMessages] = useState<MessageType[]>(messagesData);
-  console.log(messages);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
@@ -27,14 +28,22 @@ const Chat = ({ messagesData, chatId }: ChatProps) => {
     try {
       const res = await createNewChat(input);
       if (res?.status === 200) {
-        setMessages([...messages, res.data.data as MessageType]);
+        const newMessage: MessageType = {
+          id: res.data.data.conversation_id,
+          content: res.data.data.message,
+          role: "assistant",
+          product_cards: res.data.data.product_cards,
+        };
+        router.push(`/luxera-ai/${res.data.data.conversation_id}`);
+        setMessages([...messages, newMessage]);
+        setTypingMessageId(newMessage.id); // Mark this message for typewriter effect
+
         dispatch(
           addNewChat({
             id: res.data.data.conversation_id,
             title: res.data.data.title,
           }),
         );
-        router.push(`/luxera-ai/${res.data.data.conversation_id}`);
       }
     } catch (error) {
       console.log(error);
@@ -44,17 +53,18 @@ const Chat = ({ messagesData, chatId }: ChatProps) => {
   const handleSendNextMessage = async () => {
     try {
       const res = await SendNextMessage(input, chatId);
-
+      console.log("res content", res?.data.data.content);
       if (res?.status === 200) {
-        setMessages([
-          ...messages,
-          {
-            id: res.data.data.conversation_id,
-            content: res.data.data.content,
-            role: "assistant",
-            product_cards: res.data.data.product_cards,
-          },
-        ]);
+        const newMessage: MessageType = {
+          id: res.data.data.conversation_id,
+          content: res.data.data.message,
+          role: "assistant",
+          product_cards: res.data.data.product_cards,
+        };
+
+        setMessages([...messages, newMessage]);
+        setTypingMessageId(newMessage.id); // Mark this message for typewriter effect
+
         return res;
       }
     } catch (error) {
@@ -66,26 +76,26 @@ const Chat = ({ messagesData, chatId }: ChatProps) => {
     if (!input.trim()) return;
     setLoading(true);
 
-    setMessages([
-      ...messages,
-      {
-        role: "user",
-        content: input,
-        id: uuidV4(),
-      },
-    ]);
+    const userMessage: MessageType = {
+      role: "user",
+      content: input,
+      id: uuidV4(),
+    };
+
+    setMessages([...messages, userMessage]);
+
+    setInput("");
 
     try {
       if (!messages.length) {
-        handleCreateNewChat();
+        await handleCreateNewChat();
       } else {
-        handleSendNextMessage();
+        await handleSendNextMessage();
       }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      setInput("");
     }
   };
 
@@ -102,6 +112,9 @@ const Chat = ({ messagesData, chatId }: ChatProps) => {
             <MessageCard
               content={message.content}
               products={message?.product_cards}
+              isTyping={
+                message.role === "assistant" && message.id === typingMessageId
+              }
             />
           </div>
         ))}
